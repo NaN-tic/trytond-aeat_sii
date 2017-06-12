@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+
 import unicodedata
 from logging import getLogger
 from decimal import Decimal
@@ -25,7 +26,6 @@ _ZERO = Decimal('0.0')
 COMMUNICATION_TYPE = [   # L0
     ('A0', 'New Invoices'),
     ('A1', 'Modify Invoices'),
-    # ('A4', 'Modify (Travelers)'), Not suported
     ('C0', 'Query Invoices'),  # Not in L0
     ('D0', 'Delete Invoices'),  # Not In L0
 ]
@@ -246,20 +246,24 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
             }, depends=['state'])
+
     period = fields.Many2One('account.period', 'Period', required=True,
         domain=[('fiscalyear', '=', Eval('fiscalyear'))],
         states={
             'readonly': Eval('state') != 'draft',
             }, depends=['state', 'fiscalyear'])
+
     operation_type = fields.Selection(COMMUNICATION_TYPE, 'Operation Type',
         required=True,
         states={
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
             }, depends=['state'])
+
     book = fields.Selection(BOOK_KEY, 'Book', required=True,
         states={
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
             }, depends=['state'])
+
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -275,10 +279,12 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             ('0.7', '0.7'),
             ], 'Version', required=True, states={
                 }, depends=['state'])
+
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
-            'readonly':  Eval('state') != 'draft',
+            'readonly': ~Eval('state').in_(['draft']),
             }, depends=['state'])
+
 
     @classmethod
     def __setup__(cls):
@@ -306,6 +312,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                          Eval('operation_type').in_(['A0', 'A1'])),
                     }
                 })
+
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancelled'),
@@ -315,8 +322,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('cancelled', 'draft'),
                 ))
 
+
     @staticmethod
     def default_company():
+
         return Transaction().context.get('company')
 
     @fields.depends('company')
@@ -341,7 +350,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     @fields.depends('company')
     def on_change_with_company_vat(self):
         if self.company:
-            return self.company.party.sii_vat_code
+            return self.company.party.vat_number
 
     @classmethod
     def copy(cls, records, default=None):
@@ -430,7 +439,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company_vat,
+            vat=self.company.party.vat_number,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
@@ -457,7 +466,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_issued_invoices(self):
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company_vat,
+            vat=self.company.party.vat_number,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
@@ -487,7 +496,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company_vat,
+            vat=self.company.party.vat_number,
             comm_kind=self.operation_type)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
@@ -534,7 +543,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company_vat,
+            vat=self.company.party.vat_number,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
@@ -561,7 +570,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_recieved_invoices(self):
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company_vat,
+            vat=self.company.party.vat_number,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
@@ -591,7 +600,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company_vat,
+            vat=self.company.party.vat_number,
             comm_kind=self.operation_type)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
@@ -644,15 +653,15 @@ class BaseTrytonInvoiceMapper(Model):
 
     year = attrgetter('move.period.fiscalyear.name')
     period = attrgetter('move.period.start_date.month')
-    nif = attrgetter('company.party.sii_vat_code')
+    nif = attrgetter('company.party.vat_number')
     issue_date = attrgetter('invoice_date')
     invoice_kind = attrgetter('sii_operation_key')
     rectified_invoice_kind = callback_utils.fixed_value('I')
     not_exempt_kind = attrgetter('sii_subjected_key')
     counterpart_name = attrgetter('party.name')
-    counterpart_nif = attrgetter('party.sii_vat_code')
+    counterpart_nif = attrgetter('party.vat_number')
     counterpart_id_type = attrgetter('party.identifier_type')
-    counterpart_country = attrgetter('party.sii_vat_country')
+    counterpart_country = attrgetter('party.vat_country')
     counterpart_id = counterpart_nif
     taxes = attrgetter('taxes')
     tax_rate = attrgetter('tax.rate')
@@ -680,9 +689,45 @@ class BaseTrytonInvoiceMapper(Model):
                 if isinstance(line.origin, SaleLine)
             ])
 
+    def taxes(self, invoice):
+        return [
+            invoice_tax for invoice_tax in invoice.taxes
+            if (
+                invoice_tax.tax.sii_subjected_key == 'S1' and
+                not invoice_tax.tax.recargo_equivalencia
+            )
+        ]
 
-class IssuedTrytonInvoiceMapper(mapping.IssuedInvoiceMapper,
-        BaseTrytonInvoiceMapper):
+    def _tax_equivalence_surcharge(self, invoice_tax):
+        parent_tax = invoice_tax.tax.parent
+        if parent_tax:
+            surcharge_taxes = [
+                sibling
+                for sibling in invoice_tax.invoice.taxes
+                if (
+                    sibling.tax.recargo_equivalencia and
+                    sibling.tax.parent.id == parent_tax.id
+                )
+            ]
+            if surcharge_taxes:
+                (surcharge_tax,) = surcharge_taxes
+                return surcharge_tax
+        return None
+
+    def tax_equivalence_surcharge_rate(self, invoice_tax):
+        surcharge_tax = self._tax_equivalence_surcharge(invoice_tax)
+        if surcharge_tax:
+            return self.tax_rate(surcharge_tax)
+
+    def tax_equivalence_surcharge_amount(self, invoice_tax):
+        surcharge_tax = self._tax_equivalence_surcharge(invoice_tax)
+        if surcharge_tax:
+            return self.tax_amount(surcharge_tax)
+
+
+class IssuedTrytonInvoiceMapper(
+    mapping.IssuedInvoiceMapper, BaseTrytonInvoiceMapper
+):
     """
     Tryton Issued Invoice to AEAT mapper
     """
@@ -691,8 +736,9 @@ class IssuedTrytonInvoiceMapper(mapping.IssuedInvoiceMapper,
     specialkey_or_trascendence = attrgetter('sii_issued_key')
 
 
-class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
-        BaseTrytonInvoiceMapper):
+class RecievedTrytonInvoiceMapper(
+    mapping.RecievedInvoiceMapper, BaseTrytonInvoiceMapper
+):
     """
     Tryton Recieved Invoice to AEAT mapper
     """
