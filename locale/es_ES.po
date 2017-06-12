@@ -36,7 +36,7 @@ msgstr "Clave operación"
 
 msgctxt "field:account.invoice,sii_received_key:"
 msgid "SII Recived Key"
-msgstr "SII Clave recividas"
+msgstr "SII Clave recibidas"
 
 msgctxt "field:account.invoice,sii_records:"
 msgid "Sii Report Lines"
@@ -216,7 +216,7 @@ msgstr "Cargar PKCS12"
 
 msgctxt "model:aeat.sii.recieved.invoice.mapper,name:"
 msgid "Tryton Recieved Invoice to AEAT mapper"
-msgstr "Correspondencia tryton - AEAT facturas recividas"
+msgstr "Correspondencia tryton - AEAT facturas recibidas"
 
 msgctxt "model:aeat.sii.report,name:"
 msgid "SII Report"
@@ -244,7 +244,7 @@ msgstr "Cargar PKCS12"
 
 msgctxt "model:ir.action,name:act_aeat_sii_received_report"
 msgid "SII Report Received"
-msgstr "Informe Recividas"
+msgstr "Informe Recibidas"
 
 msgctxt "model:ir.action,name:act_aeat_sii_report"
 msgid "SII Report"
