@@ -701,6 +701,8 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
     specialkey_or_trascendence = attrgetter('sii_received_key')
     move_date = attrgetter('move.date')
     deductible_amount = attrgetter('tax_amount')  # most of the times
+    tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
+    tax_reagyp_amount = BaseTrytonInvoiceMapper.tax_amount
 
 
 class SIIReportLine(ModelSQL, ModelView):
