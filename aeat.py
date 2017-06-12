@@ -19,7 +19,6 @@ from pyAEATsii import mapping
 from pyAEATsii import callback_utils
 
 from trytond.model import ModelSQL, ModelView, Model, fields, Workflow
-from trytond.model import Model
 from trytond.pyson import Eval
 from trytond.pool import Pool
 from trytond.transaction import Transaction
@@ -367,6 +366,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         else:
             default = default.copy()
         default['communication_state'] = None
+        default['csv'] = None
         return super(SIIReport, cls).copy(records, default=default)
 
     @classmethod
