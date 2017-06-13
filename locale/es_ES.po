@@ -18,7 +18,7 @@ msgctxt "field:account.invoice,sii_book_key:"
 msgid "SII Book Key"
 msgstr "Clave de Libro"
 
-msgctxt "field:account.invoice,sii_excemption_cause:"
+msgctxt "field:account.invoice,sii_excemption_key:"
 msgid "Excemption Cause"
 msgstr "Exención"
 
@@ -36,7 +36,7 @@ msgstr "Clave operación"
 
 msgctxt "field:account.invoice,sii_received_key:"
 msgid "SII Recived Key"
-msgstr "SII Clave recividas"
+msgstr "SII Clave recibidas"
 
 msgctxt "field:account.invoice,sii_records:"
 msgid "Sii Report Lines"
@@ -46,7 +46,7 @@ msgctxt "field:account.invoice,sii_state:"
 msgid "SII State"
 msgstr "Estado SII"
 
-msgctxt "field:account.invoice,sii_subjected:"
+msgctxt "field:account.invoice,sii_subjected_key:"
 msgid "Subjected"
 msgstr "Sujeta"
 
@@ -216,7 +216,7 @@ msgstr "Cargar PKCS12"
 
 msgctxt "model:aeat.sii.recieved.invoice.mapper,name:"
 msgid "Tryton Recieved Invoice to AEAT mapper"
-msgstr "Correspondencia tryton - AEAT facturas recividas"
+msgstr "Correspondencia tryton - AEAT facturas recibidas"
 
 msgctxt "model:aeat.sii.report,name:"
 msgid "SII Report"
@@ -244,7 +244,7 @@ msgstr "Cargar PKCS12"
 
 msgctxt "model:ir.action,name:act_aeat_sii_received_report"
 msgid "SII Report Received"
-msgstr "Informe Recividas"
+msgstr "Informe Recibidas"
 
 msgctxt "model:ir.action,name:act_aeat_sii_report"
 msgid "SII Report"
@@ -318,31 +318,31 @@ msgctxt "selection:account.invoice,sii_book_key:"
 msgid "Received Invoices"
 msgstr "Facturas recibidas"
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid ""
 msgstr " "
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Excempt. Article 20"
 msgstr "Exenta por el artículo 20"
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Excempt. Article 21"
 msgstr "Exenta por el artículo 21"
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Excempt. Article 22"
 msgstr "Exenta por el artículo 22"
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Excempt. Article 24"
 msgstr "Exenta por el artículo 24"
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Excempt. Article 25"
 msgstr "Exenta por el artículo 25"
 
-msgctxt "selection:account.invoice,sii_excemption_cause:"
+msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Excempt. Other"
 msgstr "Exenta, otros"
 
@@ -616,15 +616,15 @@ msgctxt "selection:account.invoice,sii_state:"
 msgid "Rejected"
 msgstr "Rechazado"
 
-msgctxt "selection:account.invoice,sii_subjected:"
+msgctxt "selection:account.invoice,sii_subjected_key:"
 msgid ""
 msgstr " "
 
-msgctxt "selection:account.invoice,sii_subjected:"
+msgctxt "selection:account.invoice,sii_subjected_key:"
 msgid "Subjected - Not Excempt"
 msgstr "Sujeto - No exento."
 
-msgctxt "selection:account.invoice,sii_subjected:"
+msgctxt "selection:account.invoice,sii_subjected_key:"
 msgid "Subjected - Not Excempt ,  Inv. Suj. Pass"
 msgstr "No exenta - Con Inversion sujeto pasivo"
 
@@ -694,7 +694,7 @@ msgstr "Cancelado"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Confirmed"
-msgstr "Confirmados"
+msgstr "Confirmado"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Done"
