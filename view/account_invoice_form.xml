@@ -19,6 +19,8 @@ contains the full copyright notices and license terms. -->
           <label name="sii_excemption_key"/>
           <field name="sii_excemption_key" colspan="3"/>
           <field name="sii_records" colspan="4"/>
+          <label name="sii_communication_type"/>
+          <field name="sii_communication_type"/>
           <label name="sii_state"/>
           <field name="sii_state"/>
         </page>

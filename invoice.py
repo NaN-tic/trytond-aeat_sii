@@ -10,7 +10,7 @@ from sql.aggregate import Max
 from .aeat import (
     OPERATION_KEY, BOOK_KEY, SEND_SPECIAL_REGIME_KEY,
     RECEIVE_SPECIAL_REGIME_KEY, AEAT_INVOICE_STATE, IVA_SUBJECTED,
-    EXCEMPTION_CAUSE, INTRACOMUNITARY_TYPE)
+    EXCEMPTION_CAUSE, INTRACOMUNITARY_TYPE, COMMUNICATION_TYPE)
 
 
 __all__ = ['Invoice']
@@ -45,6 +45,9 @@ class Invoice:
         "Sii Report Lines")
     sii_state = fields.Function(fields.Selection(AEAT_INVOICE_STATE,
             'SII State'), 'get_sii_state', searcher='search_sii_state')
+    sii_communication_type = fields.Function(fields.Selection(
+        COMMUNICATION_TYPE, 'SII Communication Yype'),
+        'get_sii_state')
 
     @classmethod
     def __setup__(cls):
@@ -90,12 +93,18 @@ class Invoice:
     def get_sii_state(cls, invoices, names):
         pool = Pool()
         SIILines = pool.get('aeat.sii.report.lines')
+        SIIReport = pool.get('aeat.sii.report')
+
         result = {}
         for name in names:
             result[name] = dict((i.id, None) for i in invoices)
 
         table = SIILines.__table__()
+        report = SIIReport.__table__()
         cursor = Transaction().cursor
+
+        join = table.join(report, condition=table.report == report.id)
+
         cursor.execute(*table.select(Max(table.id), table.invoice,
             where=(table.invoice.in_([x.id for x in invoices]) &
                 (table.state != None)),
@@ -104,11 +113,15 @@ class Invoice:
         lines = [a[0] for a in cursor.fetchall()]
 
         if lines:
-            cursor.execute(*table.select(table.state, table.invoice,
-                where=(table.id.in_(lines)) & (table.state != None)))
+            cursor.execute(*join.select(table.state, report.operation_type,
+                table.invoice,
+                where=(table.id.in_(lines)) & (table.state != None))
+            )
 
-            for state, inv in cursor.fetchall():
+            for state, op, inv in cursor.fetchall():
                 result['sii_state'][inv] = state
+                result['sii_communication_type'][inv] = op
+
         return result
 
     def _credit(self):
