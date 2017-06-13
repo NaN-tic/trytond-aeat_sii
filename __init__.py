@@ -21,6 +21,7 @@ def register():
         load_pkcs12.LoadPKCS12Start,
         aeat.SIIReport,
         aeat.SIIReportLine,
+        aeat.SIIReportLineTax,
         aeat_mapping.IssuedTrytonInvoiceMapper,
         aeat_mapping.RecievedTrytonInvoiceMapper,
         module='aeat_sii', type_='model')

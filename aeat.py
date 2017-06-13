@@ -5,6 +5,7 @@
 __all__ = [
     'SIIReport',
     'SIIReportLine',
+    'SIIReportLineTax',
 ]
 
 import unicodedata
@@ -22,6 +23,10 @@ from trytond.transaction import Transaction
 
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
+
+
+def _decimal(x):
+    return Decimal(x) if x is not None else None
 
 
 COMMUNICATION_TYPE = [   # L0
@@ -543,6 +548,17 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                    reg.DatosFacturaEmitida.
                    ClaveRegimenEspecialOTrascendencia),
                 total_amount=reg.DatosFacturaEmitida.ImporteTotal,
+                taxes=tuple(
+                    SIIReportLineTax(
+                        base=_decimal(detail.BaseImponible),
+                        rate=_decimal(detail.TipoImpositivo),
+                        amount=_decimal(detail.CuotaRepercutida),
+                        surcharge_rate=_decimal(detail.TipoRecargoEquivalencia),
+                        surcharge_amount=_decimal(detail.CuotaRecargoEquivalencia),
+                    )
+                    for detail in reg.DatosFacturaEmitida.TipoDesglose.
+                    DesgloseFactura.Sujeta.NoExenta.DesgloseIVA.DetalleIVA
+                ),
                 counterpart_name=(
                    reg.DatosFacturaEmitida.Contraparte.NombreRazon),
                 counterpart_id=(
@@ -617,6 +633,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         SIIReportLine = pool.get('aeat.sii.report.lines')
+        SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company.party.vat_number,
@@ -662,6 +679,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosFacturaRecibida.
                     ClaveRegimenEspecialOTrascendencia),
                 total_amount=reg.DatosFacturaRecibida.ImporteTotal,
+                taxes=tuple(
+                    SIIReportLineTax(
+                        base=_decimal(detail.BaseImponible),
+                        rate=_decimal(detail.TipoImpositivo),
+                        amount=_decimal(detail.CuotaSoportada),
+                        surcharge_rate=_decimal(detail.TipoRecargoEquivalencia),
+                        surcharge_amount=_decimal(detail.CuotaRecargoEquivalencia),
+                        reagyp_rate=_decimal(detail.PorcentCompensacionREAGYP),
+                        reagyp_amount=_decimal(detail.ImporteCompensacionREAGYP),
+                    )
+                    for detail in reg.DatosFacturaRecibida.
+                    DesgloseFactura.DesgloseIVA.DetalleIVA
+                ),
                 counterpart_name=(
                     reg.DatosFacturaRecibida.Contraparte.NombreRazon),
                 counterpart_id=(
@@ -702,7 +732,8 @@ class SIIReportLine(ModelSQL, ModelView):
     total_amount = fields.Numeric('Total Amount', readonly=True)
     counterpart_name = fields.Char('Counterpart Name', readonly=True)
     counterpart_id = fields.Char('Counterpart ID', readonly=True)
-    # TODO: tax lines
+    taxes = fields.One2Many(
+        'aeat.sii.report.line.tax', 'line', 'Tax Lines', readonly=True)
     presenter = fields.Char('Presenter', readonly=True)
     presentation_date = fields.Char('Presentation Date', readonly=True)
     csv = fields.Char('CSV', readonly=True)
@@ -742,6 +773,7 @@ class SIIReportLine(ModelSQL, ModelView):
         default['invoice_kind'] = None
         default['special_key'] = None
         default['total_amount'] = None
+        default['taxes'] = None
         default['counterpart_name'] = None
         default['counterpart_id'] = None
         default['presenter'] = None
@@ -749,3 +781,21 @@ class SIIReportLine(ModelSQL, ModelView):
         default['csv'] = None
         default['balance_state'] = None
         return super(SIIReportLine, cls).copy(records, default=default)
+
+
+class SIIReportLineTax(ModelSQL, ModelView):
+    '''
+    SII Report Line Tax
+    '''
+    __name__ = 'aeat.sii.report.line.tax'
+
+    line = fields.Many2One(
+        'aeat.sii.report.lines', 'Report Line', ondelete='CASCADE')
+
+    base = fields.Numeric('Base', readonly=True)
+    rate = fields.Numeric('Rate', readonly=True)
+    amount = fields.Numeric('Amount', readonly=True)
+    surcharge_rate = fields.Numeric('Surcharge Rate', readonly=True)
+    surcharge_amount = fields.Numeric('Surcharge Amount', readonly=True)
+    reagyp_rate = fields.Numeric('REAGYP Rate', readonly=True)
+    reagyp_amount = fields.Numeric('REAGYP Amount', readonly=True)
