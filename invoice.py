@@ -54,13 +54,6 @@ class Invoice:
             'sii_excemption_key', 'sii_intracomunity_key']
 
     @staticmethod
-    def default_sii_book_key():
-        type_ = Transaction().context.get('type', 'out_invoice')
-        if type_.startswith('in_'):
-            return 'R'
-        return 'E'
-
-    @staticmethod
     def default_sii_operation_key():
         type_ = Transaction().context.get('type', 'out_invoice')
         if type_ in ('in_credit_note', 'out_credit_note'):
