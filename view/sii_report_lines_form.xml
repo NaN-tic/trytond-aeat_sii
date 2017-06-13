@@ -2,11 +2,11 @@
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <form string="AEAT SII Issued">
-  <label name="report"/>
-  <field name="report"/>
-  <label name="invoice"/>
-  <field name="invoice"/>
-  <label name="state"/>
-  <field name="state"/>
-  <field name="communication_msg"  colspan="4"/>
+    <label name="report"/>
+    <field name="report"/>
+    <label name="invoice"/>
+    <field name="invoice"/>
+    <label name="state"/>
+    <field name="state"/>
+    <field name="communication_msg" colspan="4"/>
 </form>

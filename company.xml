@@ -3,64 +3,62 @@
      copyright notices and license terms. -->
 <tryton>
     <data>
+      <record model="ir.ui.view" id="company_view_form">
+          <field name="model">company.company</field>
+          <field name="inherit" ref="company.company_view_form"/>
+          <field name="name">company_form</field>
+      </record>
 
-        <record model="ir.ui.view" id="company_view_form">
-            <field name="model">company.company</field>
-            <field name="inherit" ref="company.company_view_form"/>
-            <field name="name">company_form</field>
-        </record>
-
-    <record model="ir.model.field.access" id="access_company_privatekey">
-        <field name="field"
-            search="[('name', '=', 'private_key'),('model.model', '=', 'company.company')]"/>
-        <field name="perm_read" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_delete" eval="False"/>
-    </record>
-    <record model="ir.model.field.access" id="access_company_encryptedprivatekey">
-        <field name="field"
-            search="[('name', '=', 'encrypted_private_key'),('model.model', '=', 'company.company')]"/>
-        <field name="perm_read" eval="False"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_delete" eval="False"/>
-    </record>
-    <record model="ir.model.field.access" id="access_company_certificate">
-        <field name="field"
-            search="[('name', '=', 'pem_certificate'),('model.model', '=', 'company.company')]"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_delete" eval="False"/>
-    </record>
-    <record model="ir.model.field.access" id="access_company_privatekey_admin">
-        <field name="field"
-            search="[('name', '=', 'private_key'),('model.model', '=', 'company.company')]"/>
-        <field name="group" ref="group_aeat_sii_admin"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_delete" eval="True"/>
-    </record>
-    <record model="ir.model.field.access" id="access_company_encryptedprivatekey_admin">
-        <field name="field"
-            search="[('name', '=', 'encrypted_private_key'),('model.model', '=', 'company.company')]"/>
-        <field name="group" ref="group_aeat_sii_admin"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_delete" eval="True"/>
-    </record>
-    <record model="ir.model.field.access" id="access_company_certificate_admin">
-        <field name="field"
-            search="[('name', '=', 'pem_certificate'),('model.model', '=', 'company.company')]"/>
-        <field name="group" ref="group_aeat_sii_admin"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_delete" eval="True"/>
-    </record>
-
+      <record model="ir.model.field.access" id="access_company_privatekey">
+          <field name="field"
+              search="[('name', '=', 'private_key'),('model.model', '=', 'company.company')]"/>
+          <field name="perm_read" eval="False"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_delete" eval="False"/>
+      </record>
+      <record model="ir.model.field.access" id="access_company_encryptedprivatekey">
+          <field name="field"
+              search="[('name', '=', 'encrypted_private_key'),('model.model', '=', 'company.company')]"/>
+          <field name="perm_read" eval="False"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_delete" eval="False"/>
+      </record>
+      <record model="ir.model.field.access" id="access_company_certificate">
+          <field name="field"
+              search="[('name', '=', 'pem_certificate'),('model.model', '=', 'company.company')]"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_delete" eval="False"/>
+      </record>
+      <record model="ir.model.field.access" id="access_company_privatekey_admin">
+          <field name="field"
+              search="[('name', '=', 'private_key'),('model.model', '=', 'company.company')]"/>
+          <field name="group" ref="group_aeat_sii_admin"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_delete" eval="True"/>
+      </record>
+      <record model="ir.model.field.access" id="access_company_encryptedprivatekey_admin">
+          <field name="field"
+              search="[('name', '=', 'encrypted_private_key'),('model.model', '=', 'company.company')]"/>
+          <field name="group" ref="group_aeat_sii_admin"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_delete" eval="True"/>
+      </record>
+      <record model="ir.model.field.access" id="access_company_certificate_admin">
+          <field name="field"
+              search="[('name', '=', 'pem_certificate'),('model.model', '=', 'company.company')]"/>
+          <field name="group" ref="group_aeat_sii_admin"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="True"/>
+          <field name="perm_create" eval="True"/>
+          <field name="perm_delete" eval="True"/>
+      </record>
 </data>
 </tryton>

@@ -1,6 +1,5 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-
 from logging import getLogger
 from contextlib import contextmanager
 from tempfile import NamedTemporaryFile
@@ -20,6 +19,11 @@ class Company:
     __name__ = 'company.company'
     __metaclass__ = PoolMeta
 
+    pem_certificate = fields.Binary('PEM Certificate')
+    encrypted_private_key = fields.Binary('Encrypted Private Key')
+    private_key = fields.Function(fields.Binary('Private Key'),
+        'get_private_key', 'set_private_key')
+
     @classmethod
     def __setup__(cls):
         super(Company, cls).__setup__()
@@ -28,22 +32,6 @@ class Company:
             'missing_fernet_key': "Missing Fernet key configuration",
             'missing_pem_cert': "Missing PEM certificate"
         })
-
-    pem_certificate = fields.Binary(
-        'PEM Certificate'
-    )
-
-    encrypted_private_key = fields.Binary(
-        'Encrypted Private Key'
-    )
-
-    private_key = fields.Function(
-        fields.Binary(
-            'Private Key'
-        ),
-        'get_private_key',
-        'set_private_key',
-    )
 
     @classmethod
     def get_private_key(cls, companies, name=None):

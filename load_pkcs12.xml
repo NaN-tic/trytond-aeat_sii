@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <tryton>
     <data>
-
         <record model="ir.ui.view" id="load_pkcs12_start_view">
             <field name="model">aeat.sii.load_pkcs12.start</field>
             <field name="type">form</field>
@@ -18,6 +17,5 @@
             <field name="keyword">form_action</field>
             <field name="model">company.company,-1</field>
         </record>
-
     </data>
 </tryton>

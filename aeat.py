@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-
-__all__ = [
-    'SIIReport',
-    'SIIReportLine',
-    'IssuedTrytonInvoiceMapper',
-    'RecievedTrytonInvoiceMapper',
-]
-
 import unicodedata
 from logging import getLogger
 from decimal import Decimal
@@ -23,6 +15,8 @@ from trytond.pyson import Eval
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 
+__all__ = ['SIIReport', 'SIIReportLine',
+    'IssuedTrytonInvoiceMapper', 'RecievedTrytonInvoiceMapper']
 
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
@@ -252,24 +246,20 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
             }, depends=['state'])
-
     period = fields.Many2One('account.period', 'Period', required=True,
         domain=[('fiscalyear', '=', Eval('fiscalyear'))],
         states={
             'readonly': Eval('state') != 'draft',
             }, depends=['state', 'fiscalyear'])
-
     operation_type = fields.Selection(COMMUNICATION_TYPE, 'Operation Type',
         required=True,
         states={
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
             }, depends=['state'])
-
     book = fields.Selection(BOOK_KEY, 'Book', required=True,
         states={
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
             }, depends=['state'])
-
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -280,19 +270,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     communication_state = fields.Selection(AEAT_COMMUNICATION_STATE,
         'Communication State', readonly=True)
-
-    csv = fields.Char(
-        'CSV', readonly=True
-    )
-
+    csv = fields.Char('CSV', readonly=True)
     version = fields.Selection([
             ('0.7', '0.7'),
             ], 'Version', required=True, states={
                 }, depends=['state'])
-
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
-            'readonly': ~Eval('state').in_(['draft']),
+            'readonly':  Eval('state') != 'draft',
             }, depends=['state'])
 
     @classmethod
@@ -321,7 +306,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                          Eval('operation_type').in_(['A0', 'A1'])),
                     }
                 })
-
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancelled'),
@@ -697,9 +681,8 @@ class BaseTrytonInvoiceMapper(Model):
             ])
 
 
-class IssuedTrytonInvoiceMapper(
-    mapping.IssuedInvoiceMapper, BaseTrytonInvoiceMapper
-):
+class IssuedTrytonInvoiceMapper(mapping.IssuedInvoiceMapper,
+        BaseTrytonInvoiceMapper):
     """
     Tryton Issued Invoice to AEAT mapper
     """
@@ -708,9 +691,8 @@ class IssuedTrytonInvoiceMapper(
     specialkey_or_trascendence = attrgetter('sii_issued_key')
 
 
-class RecievedTrytonInvoiceMapper(
-    mapping.RecievedInvoiceMapper, BaseTrytonInvoiceMapper
-):
+class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
+        BaseTrytonInvoiceMapper):
     """
     Tryton Recieved Invoice to AEAT mapper
     """

@@ -1,6 +1,5 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-
 from io import BytesIO
 from logging import getLogger
 
@@ -9,7 +8,6 @@ from OpenSSL.crypto import dump_certificate
 from OpenSSL.crypto import dump_privatekey
 from OpenSSL.crypto import FILETYPE_PEM
 from OpenSSL.crypto import Error as CryptoError
-
 
 from trytond.transaction import Transaction
 from trytond.pool import Pool

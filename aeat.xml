@@ -1,201 +1,197 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <tryton>
     <data>
+        <record model="res.group" id="group_aeat_sii_admin">
+            <field name="name">AEAT SII Administration</field>
+        </record>
+        <record model="res.user-res.group" id="user_admin_group_aeat_sii_admin">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_aeat_sii_admin"/>
+        </record>
+        <record model="res.user-res.group" id="user_trigger_group_aeat_sii_admin">
+            <field name="user" ref="res.user_trigger"/>
+            <field name="group" ref="group_aeat_sii_admin"/>
+        </record>
 
-      <record model="res.group" id="group_aeat_sii_admin">
-          <field name="name">AEAT SII Administration</field>
-      </record>
-      <record model="res.user-res.group" id="user_admin_group_aeat_sii_admin">
-          <field name="user" ref="res.user_admin"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-      </record>
-      <record model="res.user-res.group" id="user_trigger_group_aeat_sii_admin">
-          <field name="user" ref="res.user_trigger"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-      </record>
+        <record model="ir.ui.view" id="aeat_sii_report_form_view">
+            <field name="model">aeat.sii.report</field>
+            <field name="type">form</field>
+            <field name="name">sii_report_form</field>
+        </record>
+        <record model="ir.ui.view" id="aeat_sii_report_tree_view">
+            <field name="model">aeat.sii.report</field>
+            <field name="type">tree</field>
+            <field name="name">sii_report_list</field>
+        </record>
+        <record model="ir.action.act_window" id="act_aeat_sii_report">
+            <field name="name">SII Report</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="search_value"></field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_aeat_sii_report_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="aeat_sii_report_tree_view"/>
+            <field name="act_window" ref="act_aeat_sii_report"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_aeat_sii_report_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="aeat_sii_report_form_view"/>
+            <field name="act_window" ref="act_aeat_sii_report"/>
+        </record>
+        <record model="ir.model.access" id="access_aeat_sii_report">
+            <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_aeat_sii_report_admin">
+            <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+            <field name="group" ref="group_aeat_sii_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
 
-      <record model="ir.ui.view" id="aeat_sii_report_form_view">
-          <field name="model">aeat.sii.report</field>
-          <field name="type">form</field>
-          <field name="name">sii_report_form</field>
-      </record>
-      <record model="ir.ui.view" id="aeat_sii_report_tree_view">
-          <field name="model">aeat.sii.report</field>
-          <field name="type">tree</field>
-          <field name="name">sii_report_list</field>
-      </record>
-      <record model="ir.action.act_window" id="act_aeat_sii_report">
-          <field name="name">SII Report</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="search_value"></field>
-      </record>
-      <record model="ir.action.act_window.view" id="act_aeat_sii_report_view1">
-          <field name="sequence" eval="10"/>
-          <field name="view" ref="aeat_sii_report_tree_view"/>
-          <field name="act_window" ref="act_aeat_sii_report"/>
-      </record>
-      <record model="ir.action.act_window.view" id="act_aeat_sii_report_view2">
-          <field name="sequence" eval="20"/>
-          <field name="view" ref="aeat_sii_report_form_view"/>
-          <field name="act_window" ref="act_aeat_sii_report"/>
-      </record>
-      <record model="ir.model.access" id="access_aeat_sii_report">
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
-          <field name="perm_read" eval="True"/>
-          <field name="perm_write" eval="False"/>
-          <field name="perm_create" eval="False"/>
-          <field name="perm_delete" eval="False"/>
-      </record>
-      <record model="ir.model.access" id="access_aeat_sii_report_admin">
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-          <field name="perm_read" eval="True"/>
-          <field name="perm_write" eval="True"/>
-          <field name="perm_create" eval="True"/>
-          <field name="perm_delete" eval="True"/>
-      </record>
+        <!-- aeat.sii.report.issued -->
+        <record model="ir.ui.view" id="aeat_sii_report_line_form_view">
+            <field name="model">aeat.sii.report.lines</field>
+            <field name="type">form</field>
+            <field name="name">sii_report_lines_form</field>
+        </record>
 
+        <record model="ir.ui.view" id="aeat_sii_report_line_tree_view">
+            <field name="model">aeat.sii.report.lines</field>
+            <field name="type">tree</field>
+            <field name="name">sii_report_lines_list</field>
+        </record>
 
-      <!-- aeat.sii.report.issued -->
-      <record model="ir.ui.view" id="aeat_sii_report_line_form_view">
-          <field name="model">aeat.sii.report.lines</field>
-          <field name="type">form</field>
-          <field name="name">sii_report_lines_form</field>
-      </record>
+        <record model="ir.action.act_window" id="act_aeat_sii_report_line">
+            <field name="name">AEAT SII Report Lines</field>
+            <field name="res_model">aeat.sii.report.lines</field>
+            <field name="search_value"></field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_aeat_sii_report_line_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="aeat_sii_report_line_tree_view"/>
+            <field name="act_window" ref="act_aeat_sii_report_line"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_aeat_sii_report_line_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="aeat_sii_report_line_form_view"/>
+            <field name="act_window" ref="act_aeat_sii_report_line"/>
+        </record>
 
-      <record model="ir.ui.view" id="aeat_sii_report_line_tree_view">
-          <field name="model">aeat.sii.report.lines</field>
-          <field name="type">tree</field>
-          <field name="name">sii_report_lines_list</field>
-      </record>
+        <record model="ir.model.access" id="access_aeat_sii_report_line">
+            <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+        <record model="ir.model.access" id="access_aeat_sii_report_line_admin">
+            <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
+            <field name="group" ref="group_aeat_sii_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_report_line">
-          <field name="name">AEAT SII Report Lines</field>
-          <field name="res_model">aeat.sii.report.lines</field>
-          <field name="search_value"></field>
-      </record>
-      <record model="ir.action.act_window.view" id="act_aeat_sii_report_line_view1">
-          <field name="sequence" eval="10"/>
-          <field name="view" ref="aeat_sii_report_line_tree_view"/>
-          <field name="act_window" ref="act_aeat_sii_report_line"/>
-      </record>
-      <record model="ir.action.act_window.view" id="act_aeat_sii_report_line_view2">
-          <field name="sequence" eval="20"/>
-          <field name="view" ref="aeat_sii_report_line_form_view"/>
-          <field name="act_window" ref="act_aeat_sii_report_line"/>
-      </record>
+        <record model="ir.rule.group" id="rule_group_sii_report">
+            <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_sii_report1">
+            <field name="domain" eval="[('company', '=', Eval('user' ,{}).get('company', None))]" pyson="1" />
+            <field name="rule_group" ref="rule_group_sii_report"/>
+        </record>
 
-
-      <record model="ir.model.access" id="access_aeat_sii_report_line">
-          <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
-          <field name="perm_read" eval="True"/>
-          <field name="perm_write" eval="False"/>
-          <field name="perm_create" eval="False"/>
-          <field name="perm_delete" eval="False"/>
-      </record>
-      <record model="ir.model.access" id="access_aeat_sii_report_line_admin">
-          <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-          <field name="perm_read" eval="True"/>
-          <field name="perm_write" eval="True"/>
-          <field name="perm_create" eval="True"/>
-          <field name="perm_delete" eval="True"/>
-      </record>
-
-      <record model="ir.rule.group" id="rule_group_sii_report">
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
-          <field name="global_p" eval="True"/>
-      </record>
-      <record model="ir.rule" id="rule_sii_report1">
-          <field name="domain" eval="[('company', '=', Eval('user' ,{}).get('company', None))]" pyson="1" />
-          <field name="rule_group" ref="rule_group_sii_report"/>
-      </record>
-
-      <record model="ir.rule.group" id="rule_group_sii_report_line">
-          <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
-          <field name="global_p" eval="True"/>
-      </record>
-      <record model="ir.rule" id="rule_sii_report_line1">
-          <field name="domain" eval="[('company', '=',Eval('user', {}).get('company', None))]" pyson="1"/>
-          <field name="rule_group" ref="rule_group_sii_report_line"/>
-      </record>
+        <record model="ir.rule.group" id="rule_group_sii_report_line">
+            <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
+            <field name="global_p" eval="True"/>
+        </record>
+        <record model="ir.rule" id="rule_sii_report_line1">
+            <field name="domain" eval="[('company', '=',Eval('user', {}).get('company', None))]" pyson="1"/>
+            <field name="rule_group" ref="rule_group_sii_report_line"/>
+        </record>
 
 
-      <record model="ir.model.button" id="load_invoices_button">
-          <field name="name">load_invoices</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
-      </record>
+        <record model="ir.model.button" id="load_invoices_button">
+            <field name="name">load_invoices</field>
+            <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+        </record>
 
-      <record model="ir.model.button-res.group"
-          id="load_invoices_admin">
-          <field name="button" ref="load_invoices_button"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-      </record>
+        <record model="ir.model.button-res.group"
+            id="load_invoices_admin">
+            <field name="button" ref="load_invoices_button"/>
+            <field name="group" ref="group_aeat_sii_admin"/>
+        </record>
 
 
-      <menuitem id="menu_aeat_sii_report_menu"
-          sequence="999" parent="account.menu_reporting"
-          name="AEAT SII"/>
+        <menuitem id="menu_aeat_sii_report_menu"
+            sequence="999" parent="account.menu_reporting"
+            name="AEAT SII"/>
 
-      <menuitem action="act_aeat_sii_report" id="menu_aeat_sii_report"
-          parent="menu_aeat_sii_report_menu" sequence="999"
-          name="AEAT SII Report"/>
+        <menuitem action="act_aeat_sii_report" id="menu_aeat_sii_report"
+            parent="menu_aeat_sii_report_menu" sequence="999"
+            name="AEAT SII Report"/>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_issued_report">
-          <field name="name">SII Report Issued</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="domain" eval="[('book', '=', 'E')]" pyson="1"/>
-          <field name="search_value"></field>
-      </record>
-      <menuitem action="act_aeat_sii_issued_report"
-          id="menu_aeat_sii_report_issued"
-          parent="menu_aeat_sii_report_menu" sequence="10"
-          name="AEAT SII Report Issued"/>
+        <record model="ir.action.act_window" id="act_aeat_sii_issued_report">
+            <field name="name">SII Report Issued</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="domain" eval="[('book', '=', 'E')]" pyson="1"/>
+            <field name="search_value"></field>
+        </record>
+        <menuitem action="act_aeat_sii_issued_report"
+            id="menu_aeat_sii_report_issued"
+            parent="menu_aeat_sii_report_menu" sequence="10"
+            name="AEAT SII Report Issued"/>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_invest_report">
-          <field name="name">SII Report Invest</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="domain" eval="[('book', '=', 'I')]" pyson="1"/>
-          <field name="search_value"></field>
-      </record>
-      <menuitem action="act_aeat_sii_invest_report"
-          id="menu_aeat_sii_report_invest"
-          parent="menu_aeat_sii_report_menu" sequence="10"
-          name="AEAT SII Report Invest"/>
+        <record model="ir.action.act_window" id="act_aeat_sii_invest_report">
+            <field name="name">SII Report Invest</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="domain" eval="[('book', '=', 'I')]" pyson="1"/>
+            <field name="search_value"></field>
+        </record>
+        <menuitem action="act_aeat_sii_invest_report"
+            id="menu_aeat_sii_report_invest"
+            parent="menu_aeat_sii_report_menu" sequence="10"
+            name="AEAT SII Report Invest"/>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_received_report">
-          <field name="name">SII Report Received</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="domain" eval="[('book', '=', 'R')]" pyson="1"/>
+        <record model="ir.action.act_window" id="act_aeat_sii_received_report">
+            <field name="name">SII Report Received</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="domain" eval="[('book', '=', 'R')]" pyson="1"/>
 
-          <field name="search_value"></field>
-      </record>
-      <menuitem action="act_aeat_sii_received_report"
-          id="menu_aeat_sii_report_received"
-          parent="menu_aeat_sii_report_menu" sequence="10"
-          name="AEAT SII Report Received"/>
+            <field name="search_value"></field>
+        </record>
+        <menuitem action="act_aeat_sii_received_report"
+            id="menu_aeat_sii_report_received"
+            parent="menu_aeat_sii_report_menu" sequence="10"
+            name="AEAT SII Report Received"/>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_intra_report">
-          <field name="name">SII Report Intracommunity</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="domain" eval="[('book', '=', 'U')]" pyson="1"/>
-          <field name="search_value"></field>
-      </record>
-      <menuitem action="act_aeat_sii_intra_report"
-          id="menu_aeat_sii_report_intra"
-          parent="menu_aeat_sii_report_menu" sequence="10"
-          name="AEAT SII Report Intracommunity"/>
+        <record model="ir.action.act_window" id="act_aeat_sii_intra_report">
+            <field name="name">SII Report Intracommunity</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="domain" eval="[('book', '=', 'U')]" pyson="1"/>
+            <field name="search_value"></field>
+        </record>
+        <menuitem action="act_aeat_sii_intra_report"
+            id="menu_aeat_sii_report_intra"
+            parent="menu_aeat_sii_report_menu" sequence="10"
+            name="AEAT SII Report Intracommunity"/>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_report_lines">
-          <field name="name">SII Report Lines</field>
-          <field name="res_model">aeat.sii.report.lines</field>
-      </record>
-      <menuitem action="act_aeat_sii_report_lines"
-          id="menu_aeat_sii_report"
-          parent="menu_aeat_sii_report_menu" sequence="10"
-          name="AEAT SII Report Lines"/>
-
-</data>
+        <record model="ir.action.act_window" id="act_aeat_sii_report_lines">
+            <field name="name">SII Report Lines</field>
+            <field name="res_model">aeat.sii.report.lines</field>
+        </record>
+        <menuitem action="act_aeat_sii_report_lines"
+            id="menu_aeat_sii_report"
+            parent="menu_aeat_sii_report_menu" sequence="10"
+            name="AEAT SII Report Lines"/>
+    </data>
 </tryton>

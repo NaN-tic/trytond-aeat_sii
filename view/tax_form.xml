@@ -12,7 +12,6 @@ contains the full copyright notices and license terms. -->
             <field name="sii_received_key"/>
             <label name="sii_intracomunity_key"/>
             <field name="sii_intracomunity_key"/>
-
             <label name="sii_subjected_key"/>
             <field name="sii_subjected_key"/>
             <label name="sii_excemption_key"/>
