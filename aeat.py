@@ -2,22 +2,23 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 
+__all__ = [
+    'SIIReport',
+    'SIIReportLine',
+]
+
 import unicodedata
 from logging import getLogger
 from decimal import Decimal
-from operator import attrgetter
 
 from pyAEATsii import service
 from pyAEATsii import mapping
-from pyAEATsii import callback_utils
 
-from trytond.model import ModelSQL, ModelView, Model, fields, Workflow
+from trytond.model import ModelSQL, ModelView, fields, Workflow
 from trytond.pyson import Eval
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 
-__all__ = ['SIIReport', 'SIIReportLine',
-    'IssuedTrytonInvoiceMapper', 'RecievedTrytonInvoiceMapper']
 
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
@@ -274,7 +275,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     communication_state = fields.Selection(AEAT_COMMUNICATION_STATE,
         'Communication State', readonly=True)
-    csv = fields.Char('CSV', readonly=True)
+
+    csv = fields.Char(
+        'CSV', readonly=True
+    )
+
     version = fields.Selection([
             ('0.7', '0.7'),
             ], 'Version', required=True, states={
@@ -359,7 +364,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         else:
             default = default.copy()
         default['communication_state'] = None
-        default['csv'] = None
         return super(SIIReport, cls).copy(records, default=default)
 
     @classmethod
@@ -643,112 +647,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         self.write([self], {
             'lines': [('create', lines_to_create)]
         })
-
-
-class BaseTrytonInvoiceMapper(Model):
-
-    def __init__(self, *args, **kwargs):
-        super(BaseTrytonInvoiceMapper, self).__init__(*args, **kwargs)
-        self.pool = Pool()
-
-    year = attrgetter('move.period.fiscalyear.name')
-    period = attrgetter('move.period.start_date.month')
-    nif = attrgetter('company.party.vat_number')
-    issue_date = attrgetter('invoice_date')
-    invoice_kind = attrgetter('sii_operation_key')
-    rectified_invoice_kind = callback_utils.fixed_value('I')
-    not_exempt_kind = attrgetter('sii_subjected_key')
-    counterpart_name = attrgetter('party.name')
-    counterpart_nif = attrgetter('party.vat_number')
-    counterpart_id_type = attrgetter('party.identifier_type')
-    counterpart_country = attrgetter('party.vat_country')
-    counterpart_id = counterpart_nif
-    taxes = attrgetter('taxes')
-    tax_rate = attrgetter('tax.rate')
-    tax_base = attrgetter('base')
-    tax_amount = attrgetter('amount')
-    tax_equivalence_surcharge_rate = callback_utils.fixed_value(None)
-    tax_equivalence_surcharge_amount = callback_utils.fixed_value(None)
-
-    def description(self, invoice):
-        return (
-            invoice.description or
-            invoice.lines[0].description or
-            self.serial_number(invoice)
-        )
-
-    def final_serial_number(self, invoice):
-        try:
-            SaleLine = self.pool.get('sale.line')
-        except KeyError:
-            SaleLine = None
-        if SaleLine is not None:
-            return max([
-                line.origin.number
-                for line in invoice.lines
-                if isinstance(line.origin, SaleLine)
-            ])
-
-    def taxes(self, invoice):
-        return [
-            invoice_tax for invoice_tax in invoice.taxes
-            if (
-                invoice_tax.tax.sii_subjected_key == 'S1' and
-                not invoice_tax.tax.recargo_equivalencia
-            )
-        ]
-
-    def _tax_equivalence_surcharge(self, invoice_tax):
-        parent_tax = invoice_tax.tax.parent
-        if parent_tax:
-            surcharge_taxes = [
-                sibling
-                for sibling in invoice_tax.invoice.taxes
-                if (
-                    sibling.tax.recargo_equivalencia and
-                    sibling.tax.parent.id == parent_tax.id
-                )
-            ]
-            if surcharge_taxes:
-                (surcharge_tax,) = surcharge_taxes
-                return surcharge_tax
-        return None
-
-    def tax_equivalence_surcharge_rate(self, invoice_tax):
-        surcharge_tax = self._tax_equivalence_surcharge(invoice_tax)
-        if surcharge_tax:
-            return self.tax_rate(surcharge_tax)
-
-    def tax_equivalence_surcharge_amount(self, invoice_tax):
-        surcharge_tax = self._tax_equivalence_surcharge(invoice_tax)
-        if surcharge_tax:
-            return self.tax_amount(surcharge_tax)
-
-
-class IssuedTrytonInvoiceMapper(
-    mapping.IssuedInvoiceMapper, BaseTrytonInvoiceMapper
-):
-    """
-    Tryton Issued Invoice to AEAT mapper
-    """
-    __name__ = 'aeat.sii.issued.invoice.mapper'
-    serial_number = attrgetter('number')
-    specialkey_or_trascendence = attrgetter('sii_issued_key')
-
-
-class RecievedTrytonInvoiceMapper(
-    mapping.RecievedInvoiceMapper, BaseTrytonInvoiceMapper
-):
-    """
-    Tryton Recieved Invoice to AEAT mapper
-    """
-    __name__ = 'aeat.sii.recieved.invoice.mapper'
-    serial_number = attrgetter('reference')
-    specialkey_or_trascendence = attrgetter('sii_received_key')
-    move_date = attrgetter('move.date')
-    deductible_amount = attrgetter('tax_amount')  # most of the times
-    tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
-    tax_reagyp_amount = BaseTrytonInvoiceMapper.tax_amount
 
 
 class SIIReportLine(ModelSQL, ModelView):

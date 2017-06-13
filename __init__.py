@@ -8,6 +8,7 @@ from . import party
 from . import company
 from . import load_pkcs12
 from . import account
+from . import aeat_mapping
 
 
 def register():
@@ -20,8 +21,8 @@ def register():
         load_pkcs12.LoadPKCS12Start,
         aeat.SIIReport,
         aeat.SIIReportLine,
-        aeat.IssuedTrytonInvoiceMapper,
-        aeat.RecievedTrytonInvoiceMapper,
+        aeat_mapping.IssuedTrytonInvoiceMapper,
+        aeat_mapping.RecievedTrytonInvoiceMapper,
         module='aeat_sii', type_='model')
     Pool.register(
         load_pkcs12.LoadPKCS12,
