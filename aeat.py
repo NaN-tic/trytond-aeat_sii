@@ -752,6 +752,19 @@ class SIIReportLine(ModelSQL, ModelView):
     company = fields.Many2One(
         'company.company', 'Company', required=True, select=True)
 
+    vat_code = fields.Function(fields.Char('VAT Code'), 'get_vat_code')
+    identifier_type = fields.Function(
+        fields.Selection(PARTY_IDENTIFIER_TYPE,
+        'Identifier Type'), 'get_identifier_type')
+
+    def get_vat_code(self, name):
+        return self.invoice.party.vat_code
+
+    def get_identifier_type(self, name):
+        return self.invoice.party.identifier_type
+
+
+
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
