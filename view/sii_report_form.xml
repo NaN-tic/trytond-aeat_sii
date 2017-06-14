@@ -8,18 +8,24 @@
     <field name="company_vat"/>
     <label name="currency"/>
     <field name="currency"/>
+
     <label name="book"/>
     <field name="book"/>
     <label name="operation_type"/>
     <field name="operation_type"/>
     <label name="version"/>
     <field name="version"/>
+
     <label name="fiscalyear"/>
     <field name="fiscalyear"/>
     <label name="period"/>
     <field name="period"/>
     <button string="Load Invoices" name="load_invoices"  colspan="2"/>
-    <field name="lines" colspan="6"/>
+
+    <field name="lines" colspan="6"
+        mode="tree"
+        view_ids="aeat_sii.aeat_sii_report_line_tree_seq_view"/>
+
     <label name="state"/>
     <field name="state"/>
     <label name="communication_state"/>

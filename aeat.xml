@@ -58,7 +58,7 @@
       </record>
 
 
-      <!-- aeat.sii.report.issued -->
+      <!-- aeat.sii.report.lines -->
       <record model="ir.ui.view" id="aeat_sii_report_line_form_view">
           <field name="model">aeat.sii.report.lines</field>
           <field name="type">form</field>
@@ -70,7 +70,11 @@
           <field name="type">tree</field>
           <field name="name">sii_report_lines_list</field>
       </record>
-
+      <record model="ir.ui.view" id="aeat_sii_report_line_tree_seq_view">
+          <field name="model">aeat.sii.report.lines</field>
+          <field name="type">tree</field>
+          <field name="name">sii_report_lines_list_seq</field>
+      </record>
       <record model="ir.action.act_window" id="act_aeat_sii_report_line">
           <field name="name">AEAT SII Report Lines</field>
           <field name="res_model">aeat.sii.report.lines</field>
@@ -85,6 +89,16 @@
           <field name="sequence" eval="20"/>
           <field name="view" ref="aeat_sii_report_line_form_view"/>
           <field name="act_window" ref="act_aeat_sii_report_line"/>
+      </record>
+      <record model="ir.action.act_window" id="act_aeat_sii_report_line_related">
+          <field name="name">AEAT SII Report Lines</field>
+          <field name="res_model">aeat.sii.report.lines</field>
+          <field name="domain">[('report', 'in', Eval('active_ids'))]</field>
+      </record>
+      <record model="ir.action.keyword" id="act_aeat_sii_report_keyword1">
+          <field name="keyword">form_relate</field>
+          <field name="model">aeat.sii.report,-1</field>
+          <field name="action" ref="act_aeat_sii_report_line_related"/>
       </record>
 
 
