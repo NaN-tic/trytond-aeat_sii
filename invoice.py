@@ -25,12 +25,12 @@ class Invoice:
     sii_issued_key = fields.Selection(SEND_SPECIAL_REGIME_KEY,
         'SII Issued Key',
         states={
-            'invisible': ~Eval('type').in_(['out_invoice', 'out_credit_note']),
+            'invisible': ~Eval('sii_book_key').in_(['E']),
         })
     sii_received_key = fields.Selection(RECEIVE_SPECIAL_REGIME_KEY,
         'SII Recived Key',
         states={
-            'invisible': Eval('type').in_(['out_invoice', 'out_credit_note']),
+            'invisible':  ~Eval('sii_book_key').in_(['R']),
         })
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected')
     sii_excemption_key = fields.Selection(EXCEMPTION_CAUSE,
