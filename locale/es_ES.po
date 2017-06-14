@@ -122,6 +122,10 @@ msgctxt "field:aeat.sii.report,period:"
 msgid "Period"
 msgstr "Período"
 
+msgctxt "field:aeat.sii.report,send_date:"
+msgid "Send date"
+msgstr "Fecha de envío"
+
 msgctxt "field:aeat.sii.report,rec_name:"
 msgid "Name"
 msgstr "Nombre"
