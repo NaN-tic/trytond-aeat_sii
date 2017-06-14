@@ -5,6 +5,7 @@ import unicodedata
 from logging import getLogger
 from decimal import Decimal
 from operator import attrgetter
+from datetime import datetime
 
 from pyAEATsii import service
 from pyAEATsii import mapping
@@ -279,7 +280,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         'Lines', states={
             'readonly':  Eval('state') != 'draft',
             }, depends=['state'])
-    send_date = fields.Date('Send date', readonly=True,
+    send_date = fields.DateTime('Send date', readonly=True,
         states={'invisible': Eval('state') != 'sent'},
         depends=['state'])
 
@@ -396,7 +397,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 raise NotImplementedError
 
         cls.write(reports, {
-            'send_date': Pool().get('ir.date').today()})
+            'send_date': datetime.now()})
         _logger.debug('Done sending reports to AEAT SII')
 
     @classmethod
