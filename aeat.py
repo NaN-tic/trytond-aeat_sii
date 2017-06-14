@@ -279,6 +279,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         'Lines', states={
             'readonly':  Eval('state') != 'draft',
             }, depends=['state'])
+    send_date = fields.Date('Send date', readonly=True,
+        states={'invisible': Eval('state') != 'sent'},
+        depends=['state'])
 
     @classmethod
     def __setup__(cls):
@@ -351,6 +354,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             default = default.copy()
         default['communication_state'] = None
         default['csv'] = None
+        default['send_date'] = None
         return super(SIIReport, cls).copy(records, default=default)
 
     @classmethod
@@ -390,6 +394,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     raise NotImplementedError
             else:
                 raise NotImplementedError
+
+        cls.write(reports, {
+            'send_date': Pool().get('ir.date').today()})
         _logger.debug('Done sending reports to AEAT SII')
 
     @classmethod
