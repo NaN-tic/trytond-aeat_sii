@@ -5,6 +5,7 @@ import unicodedata
 from logging import getLogger
 from decimal import Decimal
 from operator import attrgetter
+from datetime import datetime
 
 from pyAEATsii import service
 from pyAEATsii import mapping
@@ -279,6 +280,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         'Lines', states={
             'readonly':  Eval('state') != 'draft',
             }, depends=['state'])
+    send_date = fields.DateTime('Send date', readonly=True,
+        states={'invisible': Eval('state') != 'sent'},
+        depends=['state'])
 
     @classmethod
     def __setup__(cls):
@@ -351,6 +355,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             default = default.copy()
         default['communication_state'] = None
         default['csv'] = None
+        default['send_date'] = None
         return super(SIIReport, cls).copy(records, default=default)
 
     @classmethod
@@ -390,6 +395,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     raise NotImplementedError
             else:
                 raise NotImplementedError
+
+        cls.write(reports, {
+            'send_date': datetime.now()})
         _logger.debug('Done sending reports to AEAT SII')
 
     @classmethod
@@ -751,6 +759,19 @@ class SIIReportLine(ModelSQL, ModelView):
         'Communication Message', readonly=True)
     company = fields.Many2One(
         'company.company', 'Company', required=True, select=True)
+
+    vat_code = fields.Function(fields.Char('VAT Code'), 'get_vat_code')
+    identifier_type = fields.Function(
+        fields.Selection(PARTY_IDENTIFIER_TYPE,
+        'Identifier Type'), 'get_identifier_type')
+
+    def get_vat_code(self, name):
+        return self.invoice.party.vat_code
+
+    def get_identifier_type(self, name):
+        return self.invoice.party.identifier_type
+
+
 
     @staticmethod
     def default_company():

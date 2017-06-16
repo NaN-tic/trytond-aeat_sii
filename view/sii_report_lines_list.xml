@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<tree string="AEAT SII Issued Lines">
+<tree string="AEAT SII Issued Lines" editable="bottom">
     <field name="report"/>
     <field name="invoice"/>
+    <field name="vat_code"/>
+    <field name="identifier_type"/>
     <field name="state"/>
     <field name="communication_code"/>
     <field name="communication_msg"/>
