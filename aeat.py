@@ -475,18 +475,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
 
-        # TODO: assert response order matches report order
-        for (report_line, response_line) in zip(
-                self.lines, res.RespuestaLinea):
-            report_line.write([report_line], {
-                'state': response_line.EstadoRegistro,
-                'communication_code': response_line.CodigoErrorRegistro,
-                'communication_msg': response_line.DescripcionErrorRegistro,
-            })
-        self.write([self], {
-            'communication_state': res.EstadoEnvio,
-            'csv': res.CSV,
-        })
+        self._save_response(res)
 
     def delete_issued_invoices(self):
         pool = Pool()
@@ -505,18 +494,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
 
-        # TODO: assert response order matches report order
-        for (report_line, response_line) in zip(
-                self.lines, res.RespuestaLinea):
-            report_line.write([report_line], {
-                'state': response_line.EstadoRegistro,
-                'communication_code': response_line.CodigoErrorRegistro,
-                'communication_msg': response_line.DescripcionErrorRegistro,
-            })
-        self.write([self], {
-            'communication_state': res.EstadoEnvio,
-            'csv': res.CSV,
-        })
+        self._save_response(res)
 
     def query_issued_invoices(self):
         pool = Pool()
@@ -612,18 +590,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
 
-        # TODO: assert response order matches report order
-        for (report_line, response_line) in zip(
-                self.lines, res.RespuestaLinea):
-            report_line.write([report_line], {
-                'state': response_line.EstadoRegistro,
-                'communication_code': response_line.CodigoErrorRegistro,
-                'communication_msg': response_line.DescripcionErrorRegistro,
-            })
-        self.write([self], {
-            'communication_state': res.EstadoEnvio,
-            'csv': res.CSV,
-        })
+        self._save_response(res)
 
     def delete_recieved_invoices(self):
         pool = Pool()
@@ -642,18 +609,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
 
-        # TODO: assert response order matches report order
+        self._save_response(res)
+
+    def _save_response(self, response):
         for (report_line, response_line) in zip(
-                self.lines, res.RespuestaLinea):
-            report_line.write([report_line], {
-                'state': response_line.EstadoRegistro,
-                'communication_code': response_line.CodigoErrorRegistro,
-                'communication_msg': response_line.DescripcionErrorRegistro,
-            })
-        self.write([self], {
-            'communication_state': res.EstadoEnvio,
-            'csv': res.CSV,
-        })
+                self.lines, response.RespuestaLinea):
+            report_line.state = response_line.EstadoRegistro
+            report_line.communication_code = response_line.CodigoErrorRegistro
+            report_line.communication_msg = (
+                response_line.DescripcionErrorRegistro)
+            report_line.save()
+        self.communication_state = response.EstadoEnvio
+        self.csv = response.CSV
+        self.save()
 
     def query_recieved_invoices(self):
         pool = Pool()
