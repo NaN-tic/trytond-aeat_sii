@@ -287,7 +287,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
-            'readonly': ~Eval('state').in_(['draft']),
+            'readonly': Eval('state') != 'draft',
             }, depends=['state'])
 
 
@@ -524,24 +524,38 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             invoice.number: invoice.id
             for invoice in invoices_list
         }
-        lines_to_create = [
-            {
-                'invoice':
-                    invoices_ids.get(
-                        reg.IDFactura.NumSerieFacturaEmisor),
-                'state':
-                    reg.EstadoFactura.EstadoRegistro,
-                'communication_code':
-                    reg.EstadoFactura.CodigoErrorRegistro,
-                'communication_msg':
-                    reg.EstadoFactura.DescripcionErrorRegistro,
-                # FIXME: store any other info from the response
-            }
-            for reg in registers
-        ]
-        self.write([self], {
-            'lines': [('create', lines_to_create)]
-        })
+
+        self.lines = tuple(
+            SIIReportLine(
+                invoice=invoices_ids.get(reg.IDFactura.NumSerieFacturaEmisor),
+                state=reg.EstadoFactura.EstadoRegistro,
+                communication_code=reg.EstadoFactura.CodigoErrorRegistro,
+                communication_msg=reg.EstadoFactura.DescripcionErrorRegistro,
+                issuer_vat_number=(
+                   reg.IDFactura.IDEmisorFactura.NIF or
+                   reg.IDFactura.IDEmisorFactura.IDOtro.ID),
+                serial_number=reg.IDFactura.NumSerieFacturaEmisor,
+                final_serial_number=(
+                   reg.IDFactura.NumSerieFacturaEmisorResumenFin),
+                issue_date=reg.IDFactura.FechaExpedicionFacturaEmisor,
+                invoice_kind=reg.DatosFacturaEmitida.TipoFactura,
+                special_key=(
+                   reg.DatosFacturaEmitida.
+                   ClaveRegimenEspecialOTrascendencia),
+                total_amount=reg.DatosFacturaEmitida.ImporteTotal,
+                counterpart_name=(
+                   reg.DatosFacturaEmitida.Contraparte.NombreRazon),
+                counterpart_id=(
+                   reg.DatosFacturaEmitida.Contraparte.NIF or
+                   reg.DatosFacturaEmitida.Contraparte.IDOtro.ID),
+                presenter=reg.DatosPresentacion.NIFPresentador,
+                presentation_date=reg.DatosPresentacion.TimestampPresentacion,
+                csv=reg.DatosPresentacion.CSV,
+                balance_state=reg.DatosPresentacion.CSV,
+            )
+            for reg in registers)
+
+        self.save()
 
     def submit_recieved_invoices(self):
         _logger.info('Sending report %s to AEAT SII', self.id)
@@ -602,6 +616,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         res = None
         pool = Pool()
         Invoice = pool.get('account.invoice')
+        SIIReportLine = pool.get('aeat.sii.report.lines')
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company.party.vat_number,
@@ -616,8 +631,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 period=self.period.start_date.month)
 
         _logger.debug(res)
-        registers = \
-            res.RegistroRespuestaConsultaLRFacturasRecibidas
+        registers = res.RegistroRespuestaConsultaLRFacturasRecibidas
         # FIXME: the reference is not forced to be unique
         invoices_list = Invoice.search([
             ('reference', 'in', [
@@ -629,24 +643,38 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             invoice.reference: invoice.id
             for invoice in invoices_list
         }
-        lines_to_create = [
-            {
-                'invoice':
-                    invoices_ids.get(
-                        reg.IDFactura.NumSerieFacturaEmisor),
-                'state':
-                    reg.EstadoFactura.EstadoRegistro,
-                'communication_code':
-                    reg.EstadoFactura.CodigoErrorRegistro,
-                'communication_msg':
-                    reg.EstadoFactura.DescripcionErrorRegistro,
-                # FIXME: store any other info from the response
-            }
+
+        self.lines = tuple(
+            SIIReportLine(
+                invoice=invoices_ids.get(reg.IDFactura.NumSerieFacturaEmisor),
+                state=reg.EstadoFactura.EstadoRegistro,
+                communication_code=reg.EstadoFactura.CodigoErrorRegistro,
+                communication_msg=reg.EstadoFactura.DescripcionErrorRegistro,
+                issuer_vat_number=(
+                    reg.IDFactura.IDEmisorFactura.NIF or
+                    reg.IDFactura.IDEmisorFactura.IDOtro.ID),
+                serial_number=reg.IDFactura.NumSerieFacturaEmisor,
+                final_serial_number=(
+                    reg.IDFactura.NumSerieFacturaEmisorResumenFin),
+                issue_date=reg.IDFactura.FechaExpedicionFacturaEmisor,
+                invoice_kind=reg.DatosFacturaRecibida.TipoFactura,
+                special_key=(
+                    reg.DatosFacturaRecibida.
+                    ClaveRegimenEspecialOTrascendencia),
+                total_amount=reg.DatosFacturaRecibida.ImporteTotal,
+                counterpart_name=(
+                    reg.DatosFacturaRecibida.Contraparte.NombreRazon),
+                counterpart_id=(
+                    reg.DatosFacturaRecibida.Contraparte.NIF or
+                    reg.DatosFacturaRecibida.Contraparte.IDOtro.ID),
+                presenter=reg.DatosPresentacion.NIFPresentador,
+                resentation_date=reg.DatosPresentacion.TimestampPresentacion,
+                csv=reg.DatosPresentacion.CSV,
+                balance_state=reg.DatosPresentacion.CSV,
+            )
             for reg in registers
-        ]
-        self.write([self], {
-            'lines': [('create', lines_to_create)]
-        })
+        )
+        self.save()
 
 
 class SIIReportLine(ModelSQL, ModelView):
@@ -665,6 +693,21 @@ class SIIReportLine(ModelSQL, ModelView):
         'Communication Message', readonly=True)
     company = fields.Many2One(
         'company.company', 'Company', required=True, select=True)
+    issuer_vat_number = fields.Char('Issuer VAT Number', readonly=True)
+    serial_number = fields.Char('Serial Number', readonly=True)
+    final_serial_number = fields.Char('Final Serial Number', readonly=True)
+    issue_date = fields.Char('Issue Date', readonly=True)
+    invoice_kind = fields.Char('Invoice Kind', readonly=True)
+    special_key = fields.Char('Special Key', readonly=True)
+    total_amount = fields.Numeric('Total Amount', readonly=True)
+    counterpart_name = fields.Char('Counterpart Name', readonly=True)
+    counterpart_id = fields.Char('Counterpart ID', readonly=True)
+    # TODO: tax lines
+    presenter = fields.Char('Presenter', readonly=True)
+    presentation_date = fields.Char('Presentation Date', readonly=True)
+    csv = fields.Char('CSV', readonly=True)
+    balance_state = fields.Char('Balance State', readonly=True)
+    # TODO counterpart balance data
 
     vat_code = fields.Function(fields.Char('VAT Code'), 'get_vat_code')
     identifier_type = fields.Function(
@@ -692,4 +735,17 @@ class SIIReportLine(ModelSQL, ModelView):
         default['state'] = None
         default['communication_code'] = None
         default['communication_msg'] = None
+        default['issuer_vat_number'] = None
+        default['serial_number'] = None
+        default['final_serial_number'] = None
+        default['issue_date'] = None
+        default['invoice_kind'] = None
+        default['special_key'] = None
+        default['total_amount'] = None
+        default['counterpart_name'] = None
+        default['counterpart_id'] = None
+        default['presenter'] = None
+        default['presentation_date'] = None
+        default['csv'] = None
+        default['balance_state'] = None
         return super(SIIReportLine, cls).copy(records, default=default)
