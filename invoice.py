@@ -114,12 +114,13 @@ class Invoice:
         if lines:
             cursor.execute(*join.select(table.state, report.operation_type,
                 table.invoice,
-                where=(table.id.in_(lines)) & (table.state != None))
-                           )
+                where=(table.id.in_(lines)) & (table.state != None)))
 
             for state, op, inv in cursor.fetchall():
-                result['sii_state'][inv] = state
-                result['sii_communication_type'][inv] = op
+                if 'sii_state' in names:
+                    result['sii_state'][inv] = state
+                if 'sii_communication_type' in names:
+                    result['sii_communication_type'][inv] = op
 
         return result
 
