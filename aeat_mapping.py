@@ -28,13 +28,13 @@ class BaseTrytonInvoiceMapper(Model):
 
     year = attrgetter('move.period.fiscalyear.name')
     period = attrgetter('move.period.start_date.month')
-    nif = attrgetter('company.party.vat_number')
+    nif = attrgetter('company.party.sii_vat_code')
     issue_date = attrgetter('invoice_date')
     invoice_kind = attrgetter('sii_operation_key')
     rectified_invoice_kind = callback_utils.fixed_value('I')
     not_exempt_kind = attrgetter('sii_subjected_key')
     counterpart_name = attrgetter('party.name')
-    counterpart_nif = attrgetter('party.vat_number')
+    counterpart_nif = attrgetter('party.sii_vat_code')
     counterpart_id_type = attrgetter('party.identifier_type')
     counterpart_country = attrgetter('party.vat_country')
     counterpart_id = counterpart_nif

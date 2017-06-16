@@ -93,7 +93,8 @@
       <record model="ir.action.act_window" id="act_aeat_sii_report_line_related">
           <field name="name">AEAT SII Report Lines</field>
           <field name="res_model">aeat.sii.report.lines</field>
-          <field name="domain">[('report', 'in', Eval('active_ids'))]</field>
+          <field name="domain"
+              eval="[('report', 'in', Eval('active_ids'))]" pyson="1"/>
       </record>
       <record model="ir.action.keyword" id="act_aeat_sii_report_keyword1">
           <field name="keyword">form_relate</field>
@@ -130,7 +131,7 @@
           <field name="global_p" eval="True"/>
       </record>
       <record model="ir.rule" id="rule_sii_report1">
-          <field name="domain">[('company', '=', user.company.id if user.company else None)]</field>
+          <field name="domain" eval="[('company', '=', Eval('user' ,{}).get('company', None))]" pyson="1" />
           <field name="rule_group" ref="rule_group_sii_report"/>
       </record>
 
@@ -139,8 +140,7 @@
           <field name="global_p" eval="True"/>
       </record>
       <record model="ir.rule" id="rule_sii_report_line1">
-          <field name="domain">[('company', '=', user.company.id if user.company else None)]</field>
-          <field name="rule_group" ref="rule_group_sii_report_line"/>
+   <field name="domain" eval="[('company', '=', Eval('user' ,{}).get('company', None))]" pyson="1" />          <field name="rule_group" ref="rule_group_sii_report_line"/>
       </record>
 
 
@@ -167,7 +167,7 @@
       <record model="ir.action.act_window" id="act_aeat_sii_issued_report">
           <field name="name">SII Report Issued</field>
           <field name="res_model">aeat.sii.report</field>
-          <field name="domain">[('book', '=', 'E')]</field>
+          <field name="domain" eval="[('book', '=', 'E')]" pyson="1"/>
           <field name="search_value"></field>
       </record>
       <menuitem action="act_aeat_sii_issued_report"
@@ -178,7 +178,8 @@
       <record model="ir.action.act_window" id="act_aeat_sii_invest_report">
           <field name="name">SII Report Invest</field>
           <field name="res_model">aeat.sii.report</field>
-          <field name="domain">[('book', '=', 'I')]</field>
+          <field name="domain" eval="[('book', '=', 'I')]"
+              pyson="1"/>
           <field name="search_value"></field>
       </record>
       <menuitem action="act_aeat_sii_invest_report"
@@ -189,9 +190,11 @@
       <record model="ir.action.act_window" id="act_aeat_sii_received_report">
           <field name="name">SII Report Received</field>
           <field name="res_model">aeat.sii.report</field>
-          <field name="domain">[('book', '=', 'R')]</field>
+          <field name="domain" eval="[('book', '=', 'R')]"
+              pyson="1"/>
           <field name="search_value"></field>
       </record>
+
       <menuitem action="act_aeat_sii_received_report"
           id="menu_aeat_sii_report_received"
           parent="menu_aeat_sii_report_menu" sequence="10"
@@ -200,7 +203,7 @@
       <record model="ir.action.act_window" id="act_aeat_sii_intra_report">
           <field name="name">SII Report Intracommunity</field>
           <field name="res_model">aeat.sii.report</field>
-          <field name="domain">[('book', '=', 'U')]</field>
+          <field name="domain" eval="[('book', '=', 'U')]" pyson="1"/>
           <field name="search_value"></field>
       </record>
       <menuitem action="act_aeat_sii_intra_report"

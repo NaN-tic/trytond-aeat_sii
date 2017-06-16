@@ -349,7 +349,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         return Transaction().context.get('company')
 
     @fields.depends('company')
-    def on_change_with_currency(self, name):
+    def on_change_with_currency(self, name=None):
         if self.company:
             return self.company.currency.id
 
@@ -370,7 +370,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     @fields.depends('company')
     def on_change_with_company_vat(self):
         if self.company:
-            return self.company.party.vat_number
+            return self.company.party.sii_vat_code
 
     @classmethod
     def copy(cls, records, default=None):
@@ -458,7 +458,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.vat_number,
+            vat=self.company.party.sii_vat_code,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
@@ -485,7 +485,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_issued_invoices(self):
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.vat_number,
+            vat=self.company.party.sii_vat_code,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
@@ -515,7 +515,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.vat_number,
+            vat=self.company.party.sii_vat_code,
             comm_kind=self.operation_type)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
@@ -588,7 +588,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.vat_number,
+            vat=self.company.party.sii_vat_code,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
@@ -615,7 +615,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_recieved_invoices(self):
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.vat_number,
+            vat=self.company.party.sii_vat_code,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
@@ -647,7 +647,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.vat_number,
+            vat=self.company.party.sii_vat_code,
             comm_kind=self.operation_type)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
