@@ -21,7 +21,7 @@ from trytond.wizard import Button
 __all__ = [
     'LoadPKCS12',
     'LoadPKCS12Start',
-]
+	]
 _logger = getLogger(__name__)
 
 

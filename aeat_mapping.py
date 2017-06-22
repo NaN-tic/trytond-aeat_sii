@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-
-__all__ = [
-    'IssuedTrytonInvoiceMapper',
-    'RecievedTrytonInvoiceMapper',
-]
-
 from logging import getLogger
 from operator import attrgetter
 
@@ -16,6 +10,10 @@ from pyAEATsii import callback_utils
 from trytond.model import Model
 from trytond.pool import Pool
 
+__all__ = [
+    'IssuedTrytonInvoiceMapper',
+    'RecievedTrytonInvoiceMapper',
+	]
 
 _logger = getLogger(__name__)
 

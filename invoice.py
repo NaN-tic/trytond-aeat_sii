@@ -127,7 +127,7 @@ class Invoice:
     def _credit(self):
         res = super(Invoice, self)._credit()
         for field in ('sii_book_key', 'sii_issued_key', 'sii_received_key',
-                'sii_subjected', 'sii_excemption_key',
+                'sii_subjected_key', 'sii_excemption_key',
                 'sii_intracomunity_key'):
             res[field] = getattr(self, field)
 

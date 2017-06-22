@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-
-__all__ = [
-    'SIIReport',
-    'SIIReportLine',
-    'SIIReportLineTax',
-]
-
 import unicodedata
 from logging import getLogger
 from decimal import Decimal
@@ -15,15 +8,17 @@ from datetime import datetime
 
 from pyAEATsii import service
 from pyAEATsii import mapping
-from pyAEATsii import callback_utils
 
-from trytond.model import ModelSQL, ModelView, Model, fields, Workflow
+from trytond.model import ModelSQL, ModelView, fields, Workflow
 from trytond.pyson import Eval
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 
-__all__ = ['SIIReport', 'SIIReportLine',
-    'IssuedTrytonInvoiceMapper', 'RecievedTrytonInvoiceMapper']
+__all__ = [
+    'SIIReport',
+    'SIIReportLine',
+    'SIIReportLineTax',
+	]
 
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
@@ -44,7 +39,7 @@ def _datetime(x):
 COMMUNICATION_TYPE = [   # L0
     ('A0', 'New Invoices'),
     ('A1', 'Modify Invoices'),
-    # ('A4', 'Modify (Travelers)'), Not suported
+    # ('A4', 'Modify (Travelers)'), # Not suported
     ('C0', 'Query Invoices'),  # Not in L0
     ('D0', 'Delete Invoices'),  # Not In L0
 ]
@@ -456,7 +451,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.sii_vat_code,
+            vat=self.company_vat,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
@@ -483,7 +478,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_issued_invoices(self):
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.sii_vat_code,
+            vat=self.company_vat,
             comm_kind=self.operation_type)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
@@ -513,7 +508,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.sii_vat_code,
+            vat=self.company_vat,
             comm_kind=self.operation_type)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
@@ -645,7 +640,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
         headers = mapping.get_headers(
             name=self.company.party.name,
-            vat=self.company.party.sii_vat_code,
+            vat=self.company_vat,
             comm_kind=self.operation_type)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
@@ -762,8 +757,6 @@ class SIIReportLine(ModelSQL, ModelView):
 
     def get_identifier_type(self, name):
         return self.invoice.party.identifier_type
-
-
 
     @staticmethod
     def default_company():

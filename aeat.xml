@@ -3,7 +3,6 @@
      copyright notices and license terms. -->
 <tryton>
     <data>
-
       <record model="res.group" id="group_aeat_sii_admin">
           <field name="name">AEAT SII Administration</field>
       </record>
@@ -219,6 +218,5 @@
           id="menu_aeat_sii_report"
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Lines"/>
-
 </data>
 </tryton>
