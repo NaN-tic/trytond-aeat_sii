@@ -15,6 +15,10 @@ from .aeat import (
 
 __all__ = ['Invoice']
 
+_SII_INVOICE_KEYS = ['sii_book_key', 'sii_issued_key', 'sii_received_key',
+        'sii_subjected_key', 'sii_excemption_key',
+        'sii_intracomunity_key']
+
 
 class Invoice:
     __metaclass__ = PoolMeta
@@ -126,28 +130,21 @@ class Invoice:
 
     def _credit(self):
         res = super(Invoice, self)._credit()
-        for field in ('sii_book_key', 'sii_issued_key', 'sii_received_key',
-                'sii_subjected_key', 'sii_excemption_key',
-                'sii_intracomunity_key'):
+        for field in _SII_INVOICE_KEYS:
             res[field] = getattr(self, field)
 
         res['sii_operation_key'] = 'R4'
         return res
 
-    @fields.depends('sii_book_key', 'sii_issued_key', 'sii_received_key',
-            'sii_subjected_key', 'sii_excemption_key', 'sii_intracomunity_key')
+    @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
         super(Invoice, self)._on_change_lines_taxes()
-        for field in ('sii_book_key', 'sii_issued_key', 'sii_received_key',
-                'sii_subjected_key', 'sii_excemption_key',
-                'sii_intracomunity_key'):
+        for field in _SII_INVOICE_KEYS:
             if getattr(self, field):
                 return
 
         tax = self.taxes and self.taxes[0]
         if not tax:
             return
-        for field in ('sii_book_key', 'sii_issued_key', 'sii_received_key',
-                'sii_subjected_key', 'sii_excemption_key',
-                'sii_intracomunity_key'):
+        for field in _SII_INVOICE_KEYS:
             setattr(self, field, getattr(tax.tax, field))
