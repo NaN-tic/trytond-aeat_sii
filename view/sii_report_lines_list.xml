@@ -19,7 +19,7 @@
     <field name="counterpart_name"/>
     <field name="counterpart_id"/>
     <field name="presenter"/>
-    <field name="presentation_date"/>
+    <field name="presentation_date" widget="date"/>
     <field name="csv"/>
     <field name="balance_state"/>
 </tree>

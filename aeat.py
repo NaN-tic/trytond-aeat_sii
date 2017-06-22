@@ -10,7 +10,7 @@ from pyAEATsii import service
 from pyAEATsii import mapping
 
 from trytond.model import ModelSQL, ModelView, fields, Workflow
-from trytond.pyson import Eval
+from trytond.pyson import Eval, Bool
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 
@@ -61,9 +61,9 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('R3', 'Credit Note (Art 80.4)'),
     ('R4', 'Credit Note'),
     ('R5', 'Credit Note on simplified Invoices'),
-    ('F3', 'Invoice issued as a substitute\n'
-        'for simplified invoices\n'
-        'Billed and declared\n'),
+    ('F3', 'Invoice issued as a substitute '
+        'for simplified invoices '
+        'Billed and declared '),
     ('F4', 'Invoice Summary Account Move'),
     ('F5', 'Import (DUA)'),
     ('F6', 'Other accounting documents'),
@@ -74,7 +74,7 @@ PARTY_IDENTIFIER_TYPE = [
     (None, ''),
     ('02', 'NIF'),
     ('03', 'Passport'),
-    ('04', 'Official Document Emmited by\n'
+    ('04', 'Official Document Emmited by '
             'the Country of Residence'),
     ('05', 'Certificate of fiscal resident'),
     ('06', 'Other proving document'),
@@ -86,29 +86,29 @@ SEND_SPECIAL_REGIME_KEY = [  # L3.1
     (None, ''),
     ('01', 'Common System Operation'),
     ('02', 'Export'),
-    ('03', 'Operations to which the special arrangements for\n'
-        'second-hand goods, art objects, antiques and collectors\n'
+    ('03', 'Operations to which the special arrangements for '
+        'second-hand goods, art objects, antiques and collectors '
         'articles apply (135-139 LIVA)'),
     ('04', 'Special investment gold regime'),
     ('05', 'Special travel agencies'),
     ('06', 'Special group of entities in VAT (Advanced Level)'),
     ('07', 'Special scheme for cash'),
     ('08', 'Operations subject to IPSI / IGIC'),
-    ('09', 'Invoicing of travel agency services acting\n'
-            'as mediators in the name and for the account\n'
+    ('09', 'Invoicing of travel agency services acting '
+            'as mediators in the name and for the account '
             'of others (D.A.4a RD1619 2012)'),
-    ('10', 'Collection on behalf of third parties of\n'
-            'professional fees or rights derived from\n'
+    ('10', 'Collection on behalf of third parties of '
+            'professional fees or rights derived from '
             'industrial property, author or others...'),
     ('11', 'Business premises lease transactions'
             'subject to withholding'),
     ('12', 'Non-retention business lease operations'),
-    ('13', 'Lease transactions of business premises\n'
+    ('13', 'Lease transactions of business premises '
             'subject to and not subject to withholding'),
-    ('14', 'Invoice with tax pending of accrual\n'
-            '(certifications of works whose addresses\n'
+    ('14', 'Invoice with tax pending of accrual '
+            '(certifications of works whose addresses '
             'is a Public Administration)'),
-    ('15', 'Invoice with VAT pending accrual -\n'
+    ('15', 'Invoice with VAT pending accrual - '
             'operations of successive tract'),
     ]
 
@@ -117,8 +117,8 @@ RECEIVE_SPECIAL_REGIME_KEY = [
     ('01', 'Common system operation'),
     ('02', 'Operations by which employers '
            'satisfy REAGYP compensation'),
-    ('03', 'Operations to which the special arrangements\n'
-            'for second-hand goods, art objects, antiques\n'
+    ('03', 'Operations to which the special arrangements '
+            'for second-hand goods, art objects, antiques '
             'and collectors articles apply (135-139 LIVA)'),
     ('04', 'Special investment gold regime'),
     ('05', 'Special travel agencies'),
@@ -127,7 +127,7 @@ RECEIVE_SPECIAL_REGIME_KEY = [
     ('08', 'Operations subject to IPSI / IGIC'),
     ('09', 'Intra-Community acquisitions of goods and services'),
     ('12', 'Business premises lease operations'),
-    ('13', 'Invoice corresponding to an import\n'
+    ('13', 'Invoice corresponding to an import '
         '(reported without associating with a DUA)')
 ]
 
@@ -245,35 +245,34 @@ _DEPENDS = ['state']
 class SIIReport(Workflow, ModelSQL, ModelView):
     ''' SII Report '''
     __name__ = 'aeat.sii.report'
-
     company = fields.Many2One('company.company', 'Company', required=True,
         states={
             'readonly': Eval('state') != 'draft',
-            }, depends=['state'])
+        }, depends=['state'])
     currency = fields.Function(fields.Many2One('currency.currency',
         'Currency'), 'on_change_with_currency')
     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
         required=True, states={
             'readonly': Eval('state') != 'draft',
-            }, depends=['state'])
+        }, depends=['state'])
     company_vat = fields.Char('VAT', size=9, states={
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
-            }, depends=['state'])
+        }, depends=['state'])
     period = fields.Many2One('account.period', 'Period', required=True,
         domain=[('fiscalyear', '=', Eval('fiscalyear'))],
         states={
             'readonly': Eval('state') != 'draft',
-            }, depends=['state', 'fiscalyear'])
+        }, depends=['state', 'fiscalyear'])
     operation_type = fields.Selection(COMMUNICATION_TYPE, 'Operation Type',
         required=True,
         states={
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
-            }, depends=['state'])
+        }, depends=['state'])
     book = fields.Selection(BOOK_KEY, 'Book', required=True,
         states={
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
-            }, depends=['state'])
+        }, depends=['state'])
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -281,20 +280,21 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             ('cancelled', 'Cancelled'),
             ('sent', 'Sent'),
         ], 'State', readonly=True)
-
     communication_state = fields.Selection(AEAT_COMMUNICATION_STATE,
         'Communication State', readonly=True)
     csv = fields.Char('CSV', readonly=True)
     version = fields.Selection([
             ('0.7', '0.7'),
-            ], 'Version', required=True, states={
-                }, depends=['state'])
+        ], 'Version', required=True)
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
             'readonly':  Eval('state') != 'draft',
-            }, depends=['state'])
-    send_date = fields.DateTime('Send date', readonly=True,
-        states={'invisible': Eval('state') != 'sent'},
+        }, depends=['state'])
+    send_date = fields.DateTime('Send date',
+        states={
+            'invisible': Eval('state') != 'sent',
+            'readonly': Bool(Eval('state') == 'sent'),
+        },
         depends=['state'])
 
     @classmethod
