@@ -30,12 +30,12 @@ class Invoice:
         'SII Issued Key',
         states={
             'invisible': ~Eval('sii_book_key').in_(['E']),
-        })
+        }, depends=['sii_book_key'])
     sii_received_key = fields.Selection(RECEIVE_SPECIAL_REGIME_KEY,
         'SII Recived Key',
         states={
             'invisible':  ~Eval('sii_book_key').in_(['R']),
-        })
+        }, depends=['sii_book_key'])
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected')
     sii_excemption_key = fields.Selection(EXCEMPTION_CAUSE,
         'Excemption Cause')
@@ -43,10 +43,9 @@ class Invoice:
         'SII Intracommunity Key',
         states={
             'invisible': ~Eval('sii_book_key').in_(['U']),
-        }
-    )
+        }, depends=['sii_book_key'])
     sii_records = fields.One2Many('aeat.sii.report.lines', 'invoice',
-        "Sii Report Lines")
+        "SII Report Lines")
     sii_state = fields.Function(fields.Selection(AEAT_INVOICE_STATE,
             'SII State'), 'get_sii_state', searcher='search_sii_state')
     sii_communication_type = fields.Function(fields.Selection(

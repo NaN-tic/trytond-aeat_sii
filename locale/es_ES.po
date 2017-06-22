@@ -39,8 +39,8 @@ msgid "SII Recived Key"
 msgstr "SII Clave recibidas"
 
 msgctxt "field:account.invoice,sii_records:"
-msgid "Sii Report Lines"
-msgstr "Sii Linias"
+msgid "SII Report Lines"
+msgstr "SII Linias"
 
 msgctxt "field:account.invoice,sii_state:"
 msgid "SII State"
