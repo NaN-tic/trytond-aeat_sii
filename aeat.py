@@ -740,7 +740,6 @@ class SIIReportLine(ModelSQL, ModelView):
         'Communication Message', readonly=True)
     company = fields.Many2One(
         'company.company', 'Company', required=True, select=True)
-
     issuer_vat_number = fields.Char('Issuer VAT Number', readonly=True)
     serial_number = fields.Char('Serial Number', readonly=True)
     final_serial_number = fields.Char('Final Serial Number', readonly=True)
@@ -757,7 +756,6 @@ class SIIReportLine(ModelSQL, ModelView):
     csv = fields.Char('CSV', readonly=True)
     balance_state = fields.Char('Balance State', readonly=True)
     # TODO counterpart balance data
-
     vat_code = fields.Function(fields.Char('VAT Code'), 'get_vat_code')
     identifier_type = fields.Function(
         fields.Selection(PARTY_IDENTIFIER_TYPE,

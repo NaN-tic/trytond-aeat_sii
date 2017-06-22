@@ -44,6 +44,11 @@
           <field name="view" ref="aeat_sii_report_form_view"/>
           <field name="act_window" ref="act_aeat_sii_report"/>
       </record>
+
+      <menuitem action="act_aeat_sii_report" id="menu_aeat_sii_report"
+          parent="menu_aeat_sii_report_menu" sequence="999"
+          name="AEAT SII Report"/>
+
       <record model="ir.model.access" id="access_aeat_sii_report">
           <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
           <field name="perm_read" eval="True"/>
@@ -77,6 +82,7 @@
           <field name="type">tree</field>
           <field name="name">sii_report_lines_list_seq</field>
       </record>
+
       <record model="ir.action.act_window" id="act_aeat_sii_report_line">
           <field name="name">AEAT SII Report Lines</field>
           <field name="res_model">aeat.sii.report.lines</field>
@@ -92,6 +98,7 @@
           <field name="view" ref="aeat_sii_report_line_form_view"/>
           <field name="act_window" ref="act_aeat_sii_report_line"/>
       </record>
+
       <record model="ir.action.act_window" id="act_aeat_sii_report_line_related">
           <field name="name">AEAT SII Report Lines</field>
           <field name="res_model">aeat.sii.report.lines</field>
@@ -104,6 +111,14 @@
           <field name="action" ref="act_aeat_sii_report_line_related"/>
       </record>
 
+      <record model="ir.action.act_window" id="act_aeat_sii_report_lines">
+          <field name="name">SII Report Lines</field>
+          <field name="res_model">aeat.sii.report.lines</field>
+      </record>
+      <menuitem action="act_aeat_sii_report_lines"
+          id="menu_aeat_sii_lines_report"
+          parent="menu_aeat_sii_report_menu" sequence="10"
+          name="AEAT SII Report Lines"/>
 
       <record model="ir.model.access" id="access_aeat_sii_report_line">
           <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
@@ -126,7 +141,6 @@
           <field name="type">tree</field>
           <field name="name">sii_report_line_tax_list</field>
       </record>
-
 
       <record model="ir.rule.group" id="rule_group_sii_report">
           <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
@@ -156,10 +170,6 @@
           <field name="button" ref="load_invoices_button"/>
           <field name="group" ref="group_aeat_sii_admin"/>
       </record>
-
-      <menuitem action="act_aeat_sii_report" id="menu_aeat_sii_report"
-          parent="menu_aeat_sii_report_menu" sequence="999"
-          name="AEAT SII Report"/>
 
       <record model="ir.action.act_window" id="act_aeat_sii_issued_report">
           <field name="name">SII Report Issued</field>
@@ -207,14 +217,5 @@
           id="menu_aeat_sii_report_intra"
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Intracommunity"/>
-
-      <record model="ir.action.act_window" id="act_aeat_sii_report_lines">
-          <field name="name">SII Report Lines</field>
-          <field name="res_model">aeat.sii.report.lines</field>
-      </record>
-      <menuitem action="act_aeat_sii_report_lines"
-          id="menu_aeat_sii_lines_report"
-          parent="menu_aeat_sii_report_menu" sequence="10"
-          name="AEAT SII Report Lines"/>
 </data>
 </tryton>
