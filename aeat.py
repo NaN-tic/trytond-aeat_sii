@@ -285,7 +285,12 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     csv = fields.Char('CSV', readonly=True)
     version = fields.Selection([
             ('0.7', '0.7'),
-        ], 'Version', required=True)
+             ('1.0', '1.0'),
+        ], 'Version', required=True,
+        states={
+            'readonly': Eval('state') != 'draft',
+        },
+        depends=['state'])
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
             'readonly':  Eval('state') != 'draft',
@@ -353,7 +358,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_version():
-        return '0.7'
+        return '1.0'
 
     @fields.depends('company')
     def on_change_with_company_vat(self):
@@ -452,7 +457,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
-            comm_kind=self.operation_type)
+            comm_kind=self.operation_type,
+            version=self.version)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
         res = None
@@ -479,7 +485,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
-            comm_kind=self.operation_type)
+            comm_kind=self.operation_type,
+            version=self.version)
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
         res = None
@@ -509,7 +516,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
-            comm_kind=self.operation_type)
+            comm_kind=self.operation_type,
+            version=self.version)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_issued_invoices_service(
@@ -582,7 +590,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
-            comm_kind=self.operation_type)
+            comm_kind=self.operation_type,
+            version=self.version)
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
         res = None
@@ -609,7 +618,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
-            comm_kind=self.operation_type)
+            comm_kind=self.operation_type,
+            version=self.version)
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
         res = None
@@ -641,7 +651,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
-            comm_kind=self.operation_type)
+            comm_kind=self.operation_type,
+            version=self.version)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_recieved_invoices_service(

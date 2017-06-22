@@ -716,6 +716,10 @@ msgctxt "selection:aeat.sii.report,version:"
 msgid "0.7"
 msgstr "0.7"
 
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.0"
+msgstr "1.0"
+
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid ""
 msgstr " "
