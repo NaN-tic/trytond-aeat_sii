@@ -207,8 +207,8 @@ msgid "Private Key"
 msgstr "Clave privada"
 
 msgctxt "field:party.party,sii_identifier_type:"
-msgid "Identifier Type"
-msgstr "Tipos de Identificador"
+msgid "SII Identifier Type"
+msgstr "SII Identificador"
 
 msgctxt "model:aeat.sii.issued.invoice.mapper,name:"
 msgid "Tryton Issued Invoice to AEAT mapper"
@@ -744,30 +744,30 @@ msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Rejected"
 msgstr "Rechazado"
 
-msgctxt "selection:party.party,identifier_type:"
+msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Certificate of fiscal resident"
 msgstr "Certificado de residencia"
 
-msgctxt "selection:party.party,identifier_type:"
+msgctxt "selection:party.party,sii_identifier_type:"
 msgid "NIF"
 msgstr "Nif"
 
-msgctxt "selection:party.party,identifier_type:"
+msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Not on the Census"
 msgstr "No censado"
 
-msgctxt "selection:party.party,identifier_type:"
+msgctxt "selection:party.party,sii_identifier_type:"
 msgid ""
 "Official Document Emmited by\n"
 "the Country of Residence"
 msgstr ""
 "Documento oficial de identificación expedido per el país de residencia."
 
-msgctxt "selection:party.party,identifier_type:"
+msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Other proving document"
 msgstr "Otro documento provatorio"
 
-msgctxt "selection:party.party,identifier_type:"
+msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Passport"
 msgstr "Pasaporte"
 
