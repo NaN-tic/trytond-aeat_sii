@@ -206,7 +206,7 @@ msgctxt "field:company.company,private_key:"
 msgid "Private Key"
 msgstr "Clave privada"
 
-msgctxt "field:party.party,identifier_type:"
+msgctxt "field:party.party,sii_identifier_type:"
 msgid "Identifier Type"
 msgstr "Tipos de Identificador"
 
