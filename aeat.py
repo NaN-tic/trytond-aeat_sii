@@ -298,6 +298,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         'Lines', states={
             'readonly':  Eval('state') != 'draft',
         }, depends=['state'])
+    # TODO crash GTK client 4.x with widget date in XML view and attribute
+    # readonly = True. At the moment, use PYSON to readonly field in XML views.
     send_date = fields.DateTime('Send date',
         states={
             'invisible': Eval('state') != 'sent',
