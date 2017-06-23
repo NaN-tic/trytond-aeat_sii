@@ -13,6 +13,7 @@ from trytond.model import ModelSQL, ModelView, fields, Workflow
 from trytond.pyson import Eval, Bool
 from trytond.pool import Pool
 from trytond.transaction import Transaction
+from trytond.config import config
 
 __all__ = [
     'SIIReport',
@@ -23,6 +24,8 @@ __all__ = [
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
 
+# AEAT SII test
+SII_TEST = config.getboolean('aeat', 'sii_test', default=True)
 
 def _decimal(x):
     return Decimal(x) if x is not None else None
@@ -453,17 +456,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             report.save()
 
     def submit_issued_invoices(self):
+        pool = Pool()
+        mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
+
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
-        pool = Pool()
-        mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
-        res = None
+
         with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_issued_invoices_service(crt, key, test=True)
+            srv = service.bind_issued_invoices_service(
+                crt, key, test=SII_TEST)
             res = srv.submit(
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
@@ -482,16 +487,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         })
 
     def delete_issued_invoices(self):
+        pool = Pool()
+        mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
+
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
-        pool = Pool()
-        mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
-        res = None
+
         with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_issued_invoices_service(crt, key, test=True)
+            srv = service.bind_issued_invoices_service(
+                crt, key, test=SII_TEST)
             res = srv.cancel(
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
@@ -510,9 +517,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         })
 
     def query_issued_invoices(self):
-        res = None
         pool = Pool()
         Invoice = pool.get('account.invoice')
+
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
@@ -521,7 +528,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         with self.company.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_issued_invoices_service(
-                crt, key, test=True)
+                crt, key, test=SII_TEST)
             res = srv.query(
                 headers,
                 year=self.fiscalyear.name,
@@ -586,17 +593,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         self.save()
 
     def submit_recieved_invoices(self):
+        pool = Pool()
+        mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
+
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
-        pool = Pool()
-        mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
-        res = None
+
         with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_recieved_invoices_service(crt, key, test=True)
+            srv = service.bind_recieved_invoices_service(
+                crt, key, test=SII_TEST)
             res = srv.submit(
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
@@ -615,16 +624,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         })
 
     def delete_recieved_invoices(self):
+        pool = Pool()
+        mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
+
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
-        pool = Pool()
-        mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
-        res = None
+
         with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_recieved_invoices_service(crt, key, test=True)
+            srv = service.bind_recieved_invoices_service(
+                crt, key, test=SII_TEST)
             res = srv.cancel(
                 headers, (line.invoice for line in self.lines),
                 mapper=mapper)
@@ -643,11 +654,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         })
 
     def query_recieved_invoices(self):
-        res = None
         pool = Pool()
         Invoice = pool.get('account.invoice')
         SIIReportLine = pool.get('aeat.sii.report.lines')
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
+
         headers = mapping.get_headers(
             name=self.company.party.name,
             vat=self.company_vat,
@@ -656,7 +667,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         with self.company.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_recieved_invoices_service(
-                crt, key, test=True)
+                crt, key, test=SII_TEST)
             res = srv.query(
                 headers,
                 year=self.fiscalyear.name,
