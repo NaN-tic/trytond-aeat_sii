@@ -147,3 +147,11 @@ class Invoice:
             return
         for field in _SII_INVOICE_KEYS:
             setattr(self, field, getattr(tax.tax, field))
+
+    @classmethod
+    def copy(cls, records, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['sii_records'] = None
+        return super(Invoice, cls).copy(records, default=default)
