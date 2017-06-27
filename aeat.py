@@ -545,7 +545,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 special_key=(
                     reg.DatosFacturaEmitida.
                     ClaveRegimenEspecialOTrascendencia),
-                total_amount=reg.DatosFacturaEmitida.ImporteTotal,
+                total_amount=_decimal(reg.DatosFacturaEmitida.ImporteTotal),
                 taxes=tuple(
                     SIIReportLineTax(
                         base=_decimal(detail.BaseImponible),
@@ -675,7 +675,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 special_key=(
                     reg.DatosFacturaRecibida.
                     ClaveRegimenEspecialOTrascendencia),
-                total_amount=reg.DatosFacturaRecibida.ImporteTotal,
+                total_amount=_decimal(reg.DatosFacturaRecibida.ImporteTotal),
                 taxes=tuple(
                     SIIReportLineTax(
                         base=_decimal(detail.BaseImponible),
