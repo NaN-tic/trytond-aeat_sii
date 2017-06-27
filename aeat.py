@@ -558,10 +558,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     DesgloseFactura.Sujeta.NoExenta.DesgloseIVA.DetalleIVA
                 ),
                 counterpart_name=(
-                    reg.DatosFacturaEmitida.Contraparte.NombreRazon),
+                    reg.DatosFacturaEmitida.Contraparte.NombreRazon
+                    if reg.DatosFacturaEmitida.Contraparte else None),
                 counterpart_id=(
-                    reg.DatosFacturaEmitida.Contraparte.NIF or
-                    reg.DatosFacturaEmitida.Contraparte.IDOtro.ID),
+                    (
+                        reg.DatosFacturaEmitida.Contraparte.NIF or
+                        reg.DatosFacturaEmitida.Contraparte.IDOtro.ID)
+                    if reg.DatosFacturaEmitida.Contraparte else None),
                 presenter=reg.DatosPresentacion.NIFPresentador,
                 presentation_date=_datetime(
                     reg.DatosPresentacion.TimestampPresentacion),
