@@ -775,10 +775,14 @@ class SIIReportLine(ModelSQL, ModelView):
         'Identifier Type'), 'get_identifier_type')
 
     def get_vat_code(self, name):
-        return self.invoice.party.vat_code
+        return (
+            self.invoice.party.vat_code
+            if self.invoice and self.invoice.party else None)
 
     def get_identifier_type(self, name):
-        return self.invoice.party.sii_identifier_type
+        return (
+            self.invoice.party.sii_identifier_type
+            if self.invoice and self.invoice.party else None)
 
     @staticmethod
     def default_company():
