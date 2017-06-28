@@ -13,7 +13,7 @@ from trytond.pool import Pool
 __all__ = [
     'IssuedTrytonInvoiceMapper',
     'RecievedTrytonInvoiceMapper',
-	]
+    ]
 
 _logger = getLogger(__name__)
 
@@ -33,10 +33,17 @@ class BaseTrytonInvoiceMapper(Model):
     not_exempt_kind = attrgetter('sii_subjected_key')
     exempt_kind = attrgetter('sii_excemption_key')
     counterpart_name = attrgetter('party.name')
-    counterpart_nif = attrgetter('party.sii_vat_code')
+
+    def counterpart_nif(self, invoice):
+        nif = invoice.party.identifiers[0].code
+        if nif.startswith('ES'):
+            nif = nif[2:]
+        return nif
+
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_country = attrgetter('party.sii_vat_country')
     counterpart_id = counterpart_nif
+
     untaxed_amount = attrgetter('untaxed_amount')
     total_amount = attrgetter('total_amount')
     tax_rate = attrgetter('tax.rate')
