@@ -438,9 +438,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         ReportLine = pool.get('aeat.sii.report.lines')
 
+        to_create = []
         for report in reports:
-            if report.lines:
-                continue
             domain = [
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
@@ -455,12 +454,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     'AceptadoConErrores', 'AceptadaConErrores']))
 
             _logger.debug('Searching invoices for SII report: %s', domain)
-            invoices = Invoice.search(domain)
-            report.lines = [
-                ReportLine(invoice=invoice, report=report)
-                for invoice in invoices
-            ]
-            report.save()
+
+            for invoice in Invoice.search(domain):
+                to_create.append({
+                    'report': report,
+                    'invoice': invoice,
+                })
+
+        if to_create:
+            ReportLine.create(to_create)
 
     def submit_issued_invoices(self):
         pool = Pool()
