@@ -437,6 +437,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         ReportLine = pool.get('aeat.sii.report.lines')
 
         for report in reports:
+            if report.lines:
+                continue
             domain = [
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
@@ -444,10 +446,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             ]
 
             if report.operation_type == 'A0':
-                domain.append(('sii_state', '=', None))
+                domain.append(('sii_state', 'in', [None, 'Incorrecto']))
+
             elif report.operation_type in ('A1', 'A4'):
                 domain.append(('sii_state', 'in', [
-                    'ACEPTADOCONERRORES', 'INCORRECTO']))
+                    'AceptadoConErrores', 'AceptadaConErrores']))
 
             _logger.debug('Searching invoices for SII report: %s', domain)
             invoices = Invoice.search(domain)

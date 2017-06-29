@@ -83,14 +83,26 @@ class Invoice:
             invoices.append(invoice)
             lines.append(id_)
 
-        if clause[-1] == None:
-            return [('id', 'not in', invoices)]
+        is_none = False
+        c = clause[-1]
+        if isinstance(clause[-1], list):
+            if None in clause[-1]:
+                is_none = True
+                c.remove(None)
+
+        c0 = []
+        if clause[-1] == None or is_none:
+            c0 = [('id', 'not in', invoices)]
 
         clause2 = [tuple(('state',)) + tuple(clause[1:])] + \
-            [('id', 'in', lines)]
+                [('id', 'in', lines)]
 
         res_lines = SIILines.search(clause2)
-        return [('id', 'in', [x.invoice.id for x in res_lines])]
+
+        if is_none:
+            return ['OR', c0, [('id', 'in', [x.invoice.id for x in res_lines])]]
+        else:
+            return [('id', 'in', [x.invoice.id for x in res_lines])]
 
     @classmethod
     def get_sii_state(cls, invoices, names):
