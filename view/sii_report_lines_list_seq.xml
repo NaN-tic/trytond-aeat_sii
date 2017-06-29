@@ -4,6 +4,7 @@
 <tree string="AEAT SII Issued Lines" editable="bottom">
     <field name="report"/>
     <field name="invoice"/>
+    <field name="invoice_operation_key"/>
     <field name="vat_code"/>
     <field name="identifier_type"/>
     <field name="state"/>
