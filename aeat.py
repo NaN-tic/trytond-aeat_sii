@@ -716,7 +716,7 @@ class SIIReportLine(ModelSQL, ModelView):
 
     report = fields.Many2One(
         'aeat.sii.report', 'Issued Report', ondelete='CASCADE')
-    invoice = fields.Many2One('account.invoice', 'Invoice')
+    invoice = fields.Many2One('account.invoice', 'Invoice', required=True)
     state = fields.Selection(AEAT_INVOICE_STATE, 'State')
     communication_code = fields.Integer(
         'Communication Code', readonly=True)
@@ -746,14 +746,10 @@ class SIIReportLine(ModelSQL, ModelView):
         'Identifier Type'), 'get_identifier_type')
 
     def get_vat_code(self, name):
-        return (
-            self.invoice.party.vat_code
-            if self.invoice and self.invoice.party else None)
+        return self.invoice.party.vat_code
 
     def get_identifier_type(self, name):
-        return (
-            self.invoice.party.sii_identifier_type
-            if self.invoice and self.invoice.party else None)
+        return self.invoice.party.sii_identifier_type
 
     @staticmethod
     def default_company():
