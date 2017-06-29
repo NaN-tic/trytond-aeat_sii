@@ -17,6 +17,8 @@ def register():
         party.Party,
         company.Company,
         invoice.Invoice,
+        invoice.Sale,
+        invoice.Purchase,
         load_pkcs12.LoadPKCS12Start,
         aeat.SIIReport,
         aeat.SIIReportLine,

@@ -13,7 +13,7 @@ from .aeat import (
     EXCEMPTION_CAUSE, INTRACOMUNITARY_TYPE, COMMUNICATION_TYPE)
 
 
-__all__ = ['Invoice']
+__all__ = ['Invoice', 'Sale', 'Purchase']
 
 _SII_INVOICE_KEYS = ['sii_book_key', 'sii_issued_key', 'sii_received_key',
         'sii_subjected_key', 'sii_excemption_key',
@@ -155,3 +155,43 @@ class Invoice:
         default = default.copy()
         default['sii_records'] = None
         return super(Invoice, cls).copy(records, default=default)
+
+
+class Sale:
+    __metaclass__ = PoolMeta
+    __name__ = 'sale.sale'
+
+    def create_invoice(self):
+        invoice = super(Sale, self).create_invoice()
+        if not invoice:
+            return
+
+        tax = invoice.taxes and invoice.taxes[0]
+        if not tax:
+            return invoice
+
+        for field in _SII_INVOICE_KEYS:
+            setattr(invoice, field, getattr(tax.tax, field))
+        invoice.save()
+
+        return invoice
+
+
+class Purchase:
+    __metaclass__ = PoolMeta
+    __name__ = 'purchase.purchase'
+
+    def create_invoice(self):
+        invoice = super(Purchase, self).create_invoice()
+        if not invoice:
+            return
+
+        tax = invoice.taxes and invoice.taxes[0]
+        if not tax:
+            return invoice
+
+        for field in _SII_INVOICE_KEYS:
+            setattr(invoice, field, getattr(tax.tax, field))
+        invoice.save()
+
+        return invoice
