@@ -250,29 +250,33 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         states={
             'readonly': Eval('state') != 'draft',
         }, depends=['state'])
-    currency = fields.Function(fields.Many2One('currency.currency',
-        'Currency'), 'on_change_with_currency')
-    fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
-        required=True, states={
-            'readonly': Eval('state') != 'draft',
-        }, depends=['state'])
     company_vat = fields.Char('VAT', size=9, states={
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
         }, depends=['state'])
+    currency = fields.Function(fields.Many2One('currency.currency',
+        'Currency'), 'on_change_with_currency')
+    fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
+        required=True, states={
+            'readonly': ((Eval('state') != 'draft')
+                | (Eval('lines', [0]) & Eval('fiscalyear'))),
+        }, depends=['state'])
     period = fields.Many2One('account.period', 'Period', required=True,
         domain=[('fiscalyear', '=', Eval('fiscalyear'))],
         states={
-            'readonly': Eval('state') != 'draft',
+            'readonly': ((Eval('state') != 'draft')
+                | (Eval('lines', [0]) & Eval('period'))),
         }, depends=['state', 'fiscalyear'])
     operation_type = fields.Selection(COMMUNICATION_TYPE, 'Operation Type',
         required=True,
         states={
-            'readonly': ~Eval('state').in_(['draft', 'confirmed']),
+            'readonly': ((~Eval('state').in_(['draft', 'confirmed']))
+                | (Eval('lines', [0]) & Eval('operation_type'))),
         }, depends=['state'])
     book = fields.Selection(BOOK_KEY, 'Book', required=True,
         states={
-            'readonly': ~Eval('state').in_(['draft', 'confirmed']),
+            'readonly': ((~Eval('state').in_(['draft', 'confirmed']))
+                | (Eval('lines', [0]) & Eval('book'))),
         }, depends=['state'])
     state = fields.Selection([
             ('draft', 'Draft'),
@@ -729,7 +733,11 @@ class SIIReportLine(ModelSQL, ModelView):
 
     report = fields.Many2One(
         'aeat.sii.report', 'Issued Report', ondelete='CASCADE')
-    invoice = fields.Many2One('account.invoice', 'Invoice', required=True)
+    invoice = fields.Many2One('account.invoice', 'Invoice',
+        states={
+            'required': Eval('_parent_report', {}).get(
+                'operation_type') != 'C0',
+        })
     state = fields.Selection(AEAT_INVOICE_STATE, 'State')
     communication_code = fields.Integer(
         'Communication Code', readonly=True)
@@ -765,10 +773,10 @@ class SIIReportLine(ModelSQL, ModelView):
         return self.invoice.sii_operation_key
 
     def get_vat_code(self, name):
-        return self.invoice.party.vat_code
+        return self.invoice.party.vat_code if self.invoice else None
 
     def get_identifier_type(self, name):
-        return self.invoice.party.sii_identifier_type
+        return self.invoice.party.sii_identifier_type if self.invoice else None
 
     @staticmethod
     def default_company():
