@@ -64,9 +64,8 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('R3', 'Credit Note (Art 80.4)'),
     ('R4', 'Credit Note'),
     ('R5', 'Credit Note on simplified Invoices'),
-    ('F3', 'Invoice issued as a substitute '
-        'for simplified invoices '
-        'Billed and declared '),
+    ('F3', 'Invoice issued as a substitute for simplified invoices '
+        'billed and declared'),
     ('F4', 'Invoice Summary Account Move'),
     ('F5', 'Import (DUA)'),
     ('F6', 'Other accounting documents'),
@@ -155,19 +154,19 @@ AEAT_INVOICE_STATE = [
 PROPERTY_STATE = [  # L6
     ('0', ''),
     ('1',
-        '1. Property with cadastral reference\n'
-        'located at any point in the\n'
-        'Spanish territory, except the Basque\n'
+        '1. Property with cadastral reference '
+        'located at any point in the '
+        'Spanish territory, except the Basque '
         'Country and Navarra.'),
     ('2',
-        '2. Property located in the Autonomous\n'
-        'Community of the Basque Country or\n'
+        '2. Property located in the Autonomous '
+        'Community of the Basque Country or '
         'in the Comunidad Foral de Navarra.'),
     ('3',
-        '3. Property in any of the above\n'
-        'situations but without cadastral\n'
+        '3. Property in any of the above '
+        'situations but without cadastral '
         'reference.'),
-    ('4', '4. Property located in the foreign\n'
+    ('4', '4. Property located in the foreign '
         'country.'),
     ]
 
@@ -178,7 +177,6 @@ IVA_SUBJECTED = [
     ('S1', 'Subjected - Not Excempt'),
     ('S2', 'Subjected - Not Excempt ,  Inv. Suj. Pass'),
     ('S3', 'Subjected - Not Excempt ,  With and Withot Inv. Suj. Pass')
-
 ]
 
 # L9 - Excemption cause
@@ -203,15 +201,15 @@ PAYMENT_TYPE = [
 # L12
 INTRACOMUNITARY_TYPE = [
     (None, ''),
-    ('A', 'The sending or receiving of goods for\n'
-           'the execution of the partial\n'
-           'reports or works Mentioned in \n'
-           'article 70, paragraph one, number 7,\n'
+    ('A', 'The sending or receiving of goods for '
+           'the execution of the partial '
+           'reports or works Mentioned in '
+           'article 70, paragraph one, number 7, '
            'of the Tax Law (Law 37/1992).'),
-    ('B', 'Transfers of goods and intra-Community\n'
-           'acquisitions of goods covered by In \n'
-           'articles 9, paragraph 3, and 16, \n'
-           'section 2, of the \n'
+    ('B', 'Transfers of goods and intra-Community '
+           'acquisitions of goods covered by In '
+           'articles 9, paragraph 3, and 16, '
+           'section 2, of the '
            'Tax Law (Law 37/1992).'),
 ]
 

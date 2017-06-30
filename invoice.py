@@ -49,7 +49,7 @@ class Invoice:
     sii_state = fields.Function(fields.Selection(AEAT_INVOICE_STATE,
             'SII State'), 'get_sii_state', searcher='search_sii_state')
     sii_communication_type = fields.Function(fields.Selection(
-        COMMUNICATION_TYPE, 'SII Communication Yype'),
+        COMMUNICATION_TYPE, 'SII Communication Type'),
         'get_sii_state')
 
     @classmethod
