@@ -1,6 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from trytond.model import fields
+from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
@@ -58,6 +58,11 @@ class Invoice:
         cls._check_modify_exclude += ['sii_book_key', 'sii_operation_key',
             'sii_received_key', 'sii_issued_key', 'sii_subjected_key',
             'sii_excemption_key', 'sii_intracomunity_key']
+        cls._buttons.update({
+            'reset_sii_keys': {
+                'invisible': Eval('sii_state', None) != None,
+                'icon': 'tryton-executable'}
+        })
 
     @staticmethod
     def default_sii_operation_key():
@@ -147,18 +152,20 @@ class Invoice:
         res['sii_operation_key'] = 'R4'
         return res
 
+    def _set_sii_keys(self):
+        tax = self.taxes and self.taxes[0]
+        if not tax:
+            return
+        for field in _SII_INVOICE_KEYS:
+            setattr(self, field, getattr(tax.tax, field))
+
     @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
         super(Invoice, self)._on_change_lines_taxes()
         for field in _SII_INVOICE_KEYS:
             if getattr(self, field):
                 return
-
-        tax = self.taxes and self.taxes[0]
-        if not tax:
-            return
-        for field in _SII_INVOICE_KEYS:
-            setattr(self, field, getattr(tax.tax, field))
+        self._set_sii_keys()
 
     @classmethod
     def copy(cls, records, default=None):
@@ -167,6 +174,17 @@ class Invoice:
         default = default.copy()
         default['sii_records'] = None
         return super(Invoice, cls).copy(records, default=default)
+
+    @classmethod
+    @ModelView.button
+    def reset_sii_keys(cls, records):
+        to_write = []
+        for record in records:
+            record._set_sii_keys()
+            to_write.extend(([record], record._save_values))
+
+        if to_write:
+            cls.write(*to_write)
 
 
 class Sale:

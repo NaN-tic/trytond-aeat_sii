@@ -458,6 +458,10 @@ msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
 msgid "SII Report Lines"
 msgstr "Líneas informe SII"
 
+msgctxt "model:ir.ui.menu,name:None"
+msgid "AEAT SII Report"
+msgstr "Informe AEAT SII"
+
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_lines_report"
 msgid "AEAT SII Report Lines"
 msgstr "Líneas informe AEAT SII"
@@ -1567,8 +1571,12 @@ msgid "Residence certificate"
 msgstr "Certificado de residencia"
 
 msgctxt "view:account.invoice:"
-msgid "Aeat SII"
+msgid "AEAT SII"
 msgstr "AEAT SII"
+
+msgctxt "view:account.invoice:"
+msgid "Reset SII Keys"
+msgstr "Reiniciar claves SII"
 
 msgctxt "view:account.tax.template:"
 msgid "AEAT SII"
