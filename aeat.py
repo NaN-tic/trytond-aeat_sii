@@ -40,9 +40,9 @@ def _datetime(x):
 
 
 COMMUNICATION_TYPE = [   # L0
-    ('A0', 'New Invoices'),
-    ('A1', 'Modify Invoices'),
-    # ('A4', 'Modify (Travelers)'), # Not suported
+    ('A0', 'Registration of invoices/records'),
+    ('A1', 'Amendment of invoices/records (registration errors)'),
+    # ('A4', 'Amendment of Invoice for Travellers'), # Not suported
     ('C0', 'Query Invoices'),  # Not in L0
     ('D0', 'Delete Invoices'),  # Not In L0
 ]
@@ -58,15 +58,14 @@ BOOK_KEY = [
 OPERATION_KEY = [    # L2_EMI - L2_RECI
     (None, ''),
     ('F1', 'Invoice'),
-    ('F2', 'Simplified Invoice'),
-    ('R1', 'Credit Note (Art 80.1 y 80.2)'),
-    ('R2', 'Credit Note (Art 80.3)'),
+    ('F2', 'Simplified Invoice (ticket)'),
+    ('R1', 'Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)'),
+    ('R2', 'Corrected Invoice (Art. 80.3)'),
     ('R3', 'Credit Note (Art 80.4)'),
-    ('R4', 'Credit Note'),
-    ('R5', 'Credit Note on simplified Invoices'),
-    ('F3', 'Invoice issued as a substitute for simplified invoices '
-        'billed and declared'),
-    ('F4', 'Invoice Summary Account Move'),
+    ('R4', 'Corrected Invoice (Other)'),
+    ('R5', 'Corrected Invoice in simplified invoices'),
+    ('F3', 'Invoice issued to replace simplified invoices issued and filed'),
+    ('F4', 'Invoice summary entry'),
     ('F5', 'Import (DUA)'),
     ('F6', 'Other accounting documents'),
 
@@ -74,63 +73,65 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
 
 PARTY_IDENTIFIER_TYPE = [
     (None, ''),
-    ('02', 'NIF'),
+    ('02', 'NIF-VAT'),
     ('03', 'Passport'),
-    ('04', 'Official Document Emmited by '
-            'the Country of Residence'),
-    ('05', 'Certificate of fiscal resident'),
-    ('06', 'Other proving document'),
-    ('07', 'Not on the Census'),
+    ('04', 'Official identification document issued by the country '
+            'or region of residence'),
+    ('05', 'Residence certificate'),
+    ('06', 'Other supporting document'),
+    ('07', 'Not registered'),
 ]
 
 
 SEND_SPECIAL_REGIME_KEY = [  # L3.1
     (None, ''),
-    ('01', 'Common System Operation'),
+    ('01', 'General tax regime activity'),
     ('02', 'Export'),
-    ('03', 'Operations to which the special arrangements for '
-        'second-hand goods, art objects, antiques and collectors '
-        'articles apply (135-139 LIVA)'),
-    ('04', 'Special investment gold regime'),
-    ('05', 'Special travel agencies'),
-    ('06', 'Special group of entities in VAT (Advanced Level)'),
-    ('07', 'Special scheme for cash'),
-    ('08', 'Operations subject to IPSI / IGIC'),
-    ('09', 'Invoicing of travel agency services acting '
-            'as mediators in the name and for the account '
-            'of others (D.A.4a RD1619 2012)'),
-    ('10', 'Collection on behalf of third parties of '
-            'professional fees or rights derived from '
-            'industrial property, author or others...'),
-    ('11', 'Business premises lease transactions'
-            'subject to withholding'),
-    ('12', 'Non-retention business lease operations'),
-    ('13', 'Lease transactions of business premises '
-            'subject to and not subject to withholding'),
-    ('14', 'Invoice with tax pending of accrual '
-            '(certifications of works whose addresses '
-            'is a Public Administration)'),
+    ('03', 'Activities to which the special scheme of used goods, '
+            'works of art, antiquities and collectables (135-139 of the VAT Law)'),
+    ('04', 'Special scheme for investment gold'),
+    ('05', 'Special scheme for travel agencies'),
+    ('06', 'Special scheme applicable to groups of entities, VAT (Advanced)'),
+    ('07', 'Special cash basis scheme'),
+    ('08', 'Activities subject to Canary Islands General Indirect Tax/Tax on '
+            'Production, Services and Imports'),
+    ('09', 'Invoicing of the provision of travel agency services acting as '
+            'intermediaries in the name of and on behalf of other persons '
+            '(Additional Provision 4, Royal Decree 1619/2012)'),
+    ('10', 'Collections on behalf of third parties of professional fees or '
+            'industrial property, copyright or other such rights by partners, '
+            'associates or members undertaken by companies, associations, '
+            'professional organisations or other entities that, amongst their '
+            'functions, undertake collections'),
+    ('11', 'Business premises lease activities subject to withholding'),
+    ('12', 'Business premises lease activities not subject to withholding'),
+    ('13', 'Business premises lease activities subject and not subject '
+            'to withholding'),
+    ('14', 'Invoice with VAT pending accrual (work certifications with Public '
+            'Administration recipients)'),
     ('15', 'Invoice with VAT pending accrual - '
             'operations of successive tract'),
-    ]
+    ('16', 'First semester 2017'),
+]
 
 RECEIVE_SPECIAL_REGIME_KEY = [
     (None, ''),
-    ('01', 'Common system operation'),
-    ('02', 'Operations by which employers '
-           'satisfy REAGYP compensation'),
-    ('03', 'Operations to which the special arrangements '
-            'for second-hand goods, art objects, antiques '
-            'and collectors articles apply (135-139 LIVA)'),
-    ('04', 'Special investment gold regime'),
-    ('05', 'Special travel agencies'),
-    ('06', 'Special group of entities in VAT (Advanced Level)'),
-    ('07', 'Special scheme for cash'),
-    ('08', 'Operations subject to IPSI / IGIC'),
-    ('09', 'Intra-Community acquisitions of goods and services'),
-    ('12', 'Business premises lease operations'),
+    ('01', 'General tax regime activity'),
+    ('02', 'Activities through which businesses pay compensation for special '
+            'VAT arrangements for agriculture and fisheries'),
+    ('03', 'Activities to which the special scheme of used goods, works of art, '
+            'antiquities and collectables (135-139 of the VAT Law)'),
+    ('04', 'Special scheme for investment gold'),
+    ('05', 'Special scheme for travel agencies'),
+    ('06', 'Special scheme applicable to groups of entities, VAT (Advanced)'),
+    ('07', 'Special cash basis scheme'),
+    ('08', 'Activities subject to Canary Islands General Indirect Tax/Tax '
+            'on Production, Services and Imports'),
+    ('09', 'Intra-Community acquisition of assets and provisions of services'),
+    ('12', 'Business premises lease activities'),
     ('13', 'Invoice corresponding to an import '
-        '(reported without associating with a DUA)')
+            '(reported without been associated with a DUA)'),
+    ('14', 'First semester 2017'),
 ]
 
 AEAT_COMMUNICATION_STATE = [
@@ -153,64 +154,53 @@ AEAT_INVOICE_STATE = [
 
 PROPERTY_STATE = [  # L6
     ('0', ''),
-    ('1',
-        '1. Property with cadastral reference '
-        'located at any point in the '
-        'Spanish territory, except the Basque '
-        'Country and Navarra.'),
-    ('2',
-        '2. Property located in the Autonomous '
-        'Community of the Basque Country or '
-        'in the Comunidad Foral de Navarra.'),
-    ('3',
-        '3. Property in any of the above '
-        'situations but without cadastral '
-        'reference.'),
-    ('4', '4. Property located in the foreign '
-        'country.'),
-    ]
+    ('1', '1. Property with a land register reference located in any part '
+            'of Spain, with the exception of the Basque Country and Navarre'),
+    ('2', '2. Property located in the Autonomous Community of the Basque '
+            'Country or the Chartered Community of Navarre.'),
+    ('3', '3. Property in any of the foregoing locations with no land register '
+            'reference'),
+    ('4', '4. Property located abroad'),
+]
 
 
 # L7 - Iva Subjected
 IVA_SUBJECTED = [
     (None, ''),
-    ('S1', 'Subjected - Not Excempt'),
-    ('S2', 'Subjected - Not Excempt ,  Inv. Suj. Pass'),
-    ('S3', 'Subjected - Not Excempt ,  With and Withot Inv. Suj. Pass')
+    ('S1', 'Subject - Not exempt. Non VAT reverse charge'),
+    ('S2', 'Subject - Not exempt. VAT reverse charge'),
+    ('S3', 'Subject - Not exempt. Both non VAT reverse charge '
+            'and VAT reverse charge')
 ]
 
 # L9 - Excemption cause
 EXCEMPTION_CAUSE = [
     (None, ''),
-    ('E1', 'Excempt. Article 20'),
-    ('E2', 'Excempt. Article 21'),
-    ('E3', 'Excempt. Article 22'),
-    ('E4', 'Excempt. Article 24'),
-    ('E5', 'Excempt. Article 25'),
-    ('E6', 'Excempt. Other'),
+    ('E1', 'Exempt on account of Article 20'),
+    ('E2', 'Exempt on account of Article 21'),
+    ('E3', 'Exempt on account of Article 22'),
+    ('E4', 'Exempt on account of Article 23 and Article 24'),
+    ('E5', 'Exempt on account of Article 25'),
+    ('E6', 'Exempt on other grounds'),
 ]
 
 # L11 Payment Type
 PAYMENT_TYPE = [
-    ('01', 'Transference'),
-    ('02', 'Check'),
-    ('03', 'Not Paid (ERE)'),
-    ('04', 'Other')
+    ('01', 'Transfer'),
+    ('02', 'Cheque'),
+    ('03', 'Not to be collected/paid (deadline for accrual/forced accrual '
+            'as part of insolvency proceedings)'),
+    ('04', 'Other methods of collection/payment')
 ]
 
 # L12
 INTRACOMUNITARY_TYPE = [
     (None, ''),
-    ('A', 'The sending or receiving of goods for '
-           'the execution of the partial '
-           'reports or works Mentioned in '
-           'article 70, paragraph one, number 7, '
-           'of the Tax Law (Law 37/1992).'),
-    ('B', 'Transfers of goods and intra-Community '
-           'acquisitions of goods covered by In '
-           'articles 9, paragraph 3, and 16, '
-           'section 2, of the '
-           'Tax Law (Law 37/1992).'),
+    ('A', 'The transmission or receipt of goods to undertake partial reports '
+            'or works stipulated in Article 70, section one, Number 7 '
+            'of the Tax Law (Law 37/1992)'),
+    ('B', 'Transfers of goods or intra-Community acquisitions of goods listed '
+            'in Article 9.3 and Article 16.2 of the Tax Law (Law 37/1992)'),
 ]
 
 
@@ -762,7 +752,7 @@ class SIIReportLine(ModelSQL, ModelView):
     issuer_vat_number = fields.Char('Issuer VAT Number', readonly=True)
     serial_number = fields.Char('Serial Number', readonly=True)
     final_serial_number = fields.Char('Final Serial Number', readonly=True)
-    issue_date = fields.Date('Issue Date', readonly=True)
+    issue_date = fields.Date('Issued Date', readonly=True)
     invoice_kind = fields.Char('Invoice Kind', readonly=True)
     special_key = fields.Char('Special Key', readonly=True)
     total_amount = fields.Numeric('Total Amount', readonly=True)
