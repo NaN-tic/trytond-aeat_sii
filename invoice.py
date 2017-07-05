@@ -55,14 +55,18 @@ class Invoice:
     @classmethod
     def __setup__(cls):
         super(Invoice, cls).__setup__()
-        cls._check_modify_exclude += ['sii_book_key', 'sii_operation_key',
+        sii_fields = ['sii_book_key', 'sii_operation_key',
             'sii_received_key', 'sii_issued_key', 'sii_subjected_key',
             'sii_excemption_key', 'sii_intracomunity_key']
+        cls._check_modify_exclude += sii_fields
         cls._buttons.update({
             'reset_sii_keys': {
                 'invisible': Eval('sii_state', None) != None,
                 'icon': 'tryton-executable'}
         })
+        if hasattr(cls, '_intercompany_excluded_fields'):
+            cls._intercompany_excluded_fields += sii_fields
+            cls._intercompany_excluded_fields += ['sii_records']
 
     @staticmethod
     def default_sii_operation_key():
