@@ -19,7 +19,7 @@ __all__ = [
     'SIIReport',
     'SIIReportLine',
     'SIIReportLineTax',
-	]
+]
 
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
