@@ -3,7 +3,7 @@
 contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/form/notebook/page[@id=&quot;code&quot;]" position="after">
-        <page string="AEAT sii" id="aeatsii">
+        <page string="AEAT SII" id="aeatsii">
           <label name="sii_book_key"/>
           <field name="sii_book_key"/>
           <label name="sii_issued_key"/>

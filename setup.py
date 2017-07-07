@@ -7,7 +7,7 @@ import os
 import ConfigParser
 
 MODULE = 'aeat_sii'
-PREFIX = 'nantic'
+PREFIX = 'trytonspain'
 MODULE2PREFIX = {
     'account_es': 'trytonspain'
     }
@@ -41,8 +41,7 @@ minor_version = int(minor_version)
 requires = [
     'cryptography',
     'pyOpenSSL',
-    'pyAEATsii>=0.2',
-    'vatnumber'
+    'pyAEATsii>=0.2.4'
 ]
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res|webdav)(\W|$)', dep):
@@ -58,10 +57,10 @@ setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
     description='',
     long_description=read('README'),
-    author='NaN·tic',
-    author_email='info@nan-tic.com',
-    url='http://www.nan-tic.com/',
-    download_url="https://bitbucket.org/nantic/trytond-%s" % MODULE,
+    author='TrytonSpain',
+    author_email='',
+    url='https://bitbucket.org/trytonspain/',
+    download_url="https://bitbucket.org/trytonspain/trytond-%s" % MODULE,
     package_dir={'trytond.modules.%s' % MODULE: '.'},
     packages=[
         'trytond.modules.%s' % MODULE,

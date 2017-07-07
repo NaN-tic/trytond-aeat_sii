@@ -28,7 +28,6 @@ _logger = getLogger(__name__)
 class LoadPKCS12Start(ModelView):
     "Load PKCS12 Start"
     __name__ = "aeat.sii.load_pkcs12.start"
-
     pfx = fields.Binary('PFX File', required=True)
     password = fields.Char('Password', required=True)
 

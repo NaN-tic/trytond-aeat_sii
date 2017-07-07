@@ -2,8 +2,8 @@
 <!--The COPYRIGHT file at the top level of this repository
 contains the full copyright notices and license terms. -->
 <data>
-    <xpath expr="/form/notebook"  position="inside">
-      <page id="sii" string="Aeat SII">
+    <xpath expr="/form/notebook" position="inside">
+      <page id="sii" string="AEAT SII" col="4">
           <label name="sii_book_key"/>
           <field name="sii_book_key" colspan="3"/>
           <label name="sii_operation_key"/>
@@ -23,6 +23,7 @@ contains the full copyright notices and license terms. -->
           <field name="sii_communication_type"/>
           <label name="sii_state"/>
           <field name="sii_state"/>
+          <button name="reset_sii_keys" string="Reset SII Keys" colspan="4"/>
         </page>
     </xpath>
 </data>
