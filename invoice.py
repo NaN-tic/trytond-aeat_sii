@@ -1,5 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
@@ -187,6 +188,8 @@ class Invoice:
         to_write = []
         for record in records:
             record._set_sii_keys()
+            record.sii_operation_key = ('R1'
+                if record.untaxed_amount < Decimal('0.0') else 'F1')
             to_write.extend(([record], record._save_values))
 
         if to_write:
