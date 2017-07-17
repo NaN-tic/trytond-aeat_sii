@@ -21,7 +21,7 @@ Create database::
     >>> config = config.set_trytond()
     >>> config.pool.test = True
 
-Install account_invoice::
+Install account_sii::
 
     >>> Module = Model.get('ir.module')
     >>> account_invoice_module, = Module.find(
@@ -141,6 +141,50 @@ Create invoice::
 
     >>> invoice.sii_book_key == 'E'
     True
+    >>> invoice.sii_operation_key == 'F1'
+    True
+    >>> invoice.click('post')
+    >>> invoice.state
+    u'posted'
+
+Create Credit invoice::
+
+    >>> invoice = Invoice()
+    >>> invoice.type = 'out_credit_note'
+    >>> invoice.party = party
+    >>> invoice.payment_term = payment_term
+    >>> line = InvoiceLine()
+    >>> invoice.lines.append(line)
+    >>> line.product = product
+    >>> line.quantity = 5
+    >>> line.unit_price = Decimal('40')
+    >>> line = InvoiceLine()
+    >>> invoice.lines.append(line)
+    >>> line.account = revenue
+    >>> line.description = 'Test'
+    >>> line.quantity = 1
+    >>> line.unit_price = Decimal(20)
+    >>> invoice.sii_operation_key = 'R1'
+    >>> invoice.save()
+    >>> invoice.sii_book_key
+    u'E'
+    >>> invoice.sii_operation_key
+    u'R1'
+    >>> invoice.sii_issued_key
+    u'01'
+
+    >>> invoice.sii_book_key = 'I'
+    >>> invoice.sii_operation_key = 'F2'
+    >>> invoice.sii_issued_key = '02'
+    >>> invoice.save()
+    >>> invoice.reload()
+    >>> invoice.click('reset_sii_keys')
+    >>> invoice.reload()
+
+    >>> invoice.sii_book_key == 'E'
+    True
+    >>> invoice.sii_operation_key == 'R1'
+    True
     >>> invoice.click('post')
     >>> invoice.state
     u'posted'
@@ -158,4 +202,4 @@ Create AEAT Report::
     u'draft'
     >>> report.click('load_invoices')
     >>> len(report.lines)
-    1
+    2

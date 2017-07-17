@@ -187,6 +187,8 @@ class Invoice:
         to_write = []
         for record in records:
             record._set_sii_keys()
+            record.sii_operation_key = ('R1' if record.type in [
+                'in_credit_note', 'out_credit_note'] else 'F1')
             to_write.extend(([record], record._save_values))
 
         if to_write:
