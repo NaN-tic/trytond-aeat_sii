@@ -9,6 +9,7 @@ from pyAEATsii import callback_utils
 
 from trytond.model import Model
 from trytond.pool import Pool
+from . import tools
 
 __all__ = [
     'IssuedTrytonInvoiceMapper',
@@ -32,7 +33,6 @@ class BaseTrytonInvoiceMapper(Model):
     rectified_invoice_kind = callback_utils.fixed_value('I')
     not_exempt_kind = attrgetter('sii_subjected_key')
     exempt_kind = attrgetter('sii_excemption_key')
-    counterpart_name = attrgetter('party.name')
 
     def counterpart_nif(self, invoice):
         nif = invoice.party.identifiers[0].code
@@ -41,7 +41,6 @@ class BaseTrytonInvoiceMapper(Model):
         return nif
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
-    counterpart_country = attrgetter('party.sii_vat_country')
     counterpart_id = counterpart_nif
 
     untaxed_amount = attrgetter('untaxed_amount')
@@ -50,12 +49,21 @@ class BaseTrytonInvoiceMapper(Model):
     tax_base = attrgetter('base')
     tax_amount = attrgetter('amount')
 
+    def counterpart_name(self, invoice):
+        return tools.unaccent(invoice.party.name)
+
     def description(self, invoice):
-        return (
-            invoice.description or
-            invoice.lines[0].description or
-            self.serial_number(invoice)
-        )
+        if invoice.description:
+            return tools.unaccent(invoice.description)
+        if invoice.lines and invoice.lines[0].description:
+            return tools.unaccent(invoice.lines[0].description)
+        return self.serial_number(invoice)
+
+    def counterpart_country(self, invoice):
+        if invoice.party.sii_vat_country:
+            return invoice.party.sii_vat_country
+        return (invoice.invoice_address.country.code
+            if invoice.invoice_address.country else '')
 
     def final_serial_number(self, invoice):
         try:
@@ -105,9 +113,8 @@ class BaseTrytonInvoiceMapper(Model):
             return self.tax_amount(surcharge_tax)
 
 
-class IssuedTrytonInvoiceMapper(
-    mapping.IssuedInvoiceMapper, BaseTrytonInvoiceMapper
-):
+class IssuedTrytonInvoiceMapper(mapping.IssuedInvoiceMapper,
+        BaseTrytonInvoiceMapper):
     """
     Tryton Issued Invoice to AEAT mapper
     """
@@ -116,9 +123,8 @@ class IssuedTrytonInvoiceMapper(
     specialkey_or_trascendence = attrgetter('sii_issued_key')
 
 
-class RecievedTrytonInvoiceMapper(
-    mapping.RecievedInvoiceMapper, BaseTrytonInvoiceMapper
-):
+class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
+        BaseTrytonInvoiceMapper):
     """
     Tryton Recieved Invoice to AEAT mapper
     """

@@ -14,6 +14,7 @@ from trytond.pyson import Eval, Bool
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 from trytond.config import config
+from . import tools
 
 __all__ = [
     'SIIReport',
@@ -472,7 +473,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
-            name=self.company.party.name,
+            name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
@@ -494,7 +495,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
 
         headers = mapping.get_headers(
-            name=self.company.party.name,
+            name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
@@ -516,7 +517,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
 
         headers = mapping.get_headers(
-            name=self.company.party.name,
+            name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
@@ -596,7 +597,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         _logger.info('Sending report %s to AEAT SII', self.id)
         headers = mapping.get_headers(
-            name=self.company.party.name,
+            name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
@@ -618,7 +619,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
 
         headers = mapping.get_headers(
-            name=self.company.party.name,
+            name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
@@ -654,7 +655,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
 
         headers = mapping.get_headers(
-            name=self.company.party.name,
+            name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
