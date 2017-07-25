@@ -21,6 +21,8 @@ class Party:
     def get_sii_vat_data(self, name=None):
         if self.vat_code:
             if name == 'sii_vat_code':
-                return self.vat_code[-9:]
+                return (self.vat_code[-9:]
+                    if self.type == 'eu_vat' else self.vat_code)
             elif name == 'sii_vat_country':
-                return self.vat_code[:2]
+                return (self.vat_code[:2]
+                    if self.type == 'eu_vat' else None)
