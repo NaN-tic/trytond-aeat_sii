@@ -486,7 +486,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.invoice for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(str(e))
+                self.raise_user_error(tools.unaccent(str(e)))
 
         self._save_response(res)
 
@@ -508,7 +508,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.invoice for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(str(e))
+                self.raise_user_error(tools.unaccent(str(e)))
 
         self._save_response(res)
 
@@ -610,7 +610,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.invoice for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(str(e))
+                self.raise_user_error(tools.unaccent(str(e)))
 
         self._save_response(res)
 
@@ -632,7 +632,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.invoice for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(str(e))
+                self.raise_user_error(tools.unaccent(str(e)))
 
         self._save_response(res)
 
