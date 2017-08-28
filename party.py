@@ -19,10 +19,14 @@ class Party:
         'get_sii_vat_data')
 
     def get_sii_vat_data(self, name=None):
-        if self.vat_code:
+        vat_code = self.vat_code
+        if vat_code:
+            type = None
+            for identifier in self.identifiers:
+                if identifier.code == vat_code:
+                    type = identifier.type
+                    break
             if name == 'sii_vat_code':
-                return (self.vat_code[-9:]
-                    if self.type == 'eu_vat' else self.vat_code)
+                return vat_code[2:] if type == 'eu_vat' else vat_code
             elif name == 'sii_vat_country':
-                return (self.vat_code[:2]
-                    if self.type == 'eu_vat' else None)
+                return vat_code[:2] if type == 'eu_vat' else None
