@@ -714,7 +714,7 @@ msgstr "Factura"
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Invoice issued to replace simplified invoices issued and filed"
 msgstr ""
-"Factura emitida en sustitución de facturas simplificadasfacturadas y "
+"Factura emitida en sustitución de facturas simplificadas facturadas y "
 "declaradas"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
