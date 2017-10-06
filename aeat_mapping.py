@@ -19,6 +19,20 @@ __all__ = [
 _logger = getLogger(__name__)
 
 
+def _amount_getter(field_name):
+    # In tryton 3.4 credit note amounts are positive
+    # They must be negative before being informed to SII
+    # This code should not be merged into higher tryton series
+
+    def is_credit_note(invoice):
+        return (invoice.type in {'in_credit_note', 'out_credit_note'})
+
+    def amount_getter(self, invoice):
+        val = attrgetter(field_name)(invoice)
+        return val if val is None or not is_credit_note(invoice) else -val
+    return amount_getter
+
+
 class BaseTrytonInvoiceMapper(Model):
 
     def __init__(self, *args, **kwargs):
@@ -45,11 +59,11 @@ class BaseTrytonInvoiceMapper(Model):
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
 
-    untaxed_amount = attrgetter('untaxed_amount')
-    total_amount = attrgetter('total_amount')
+    untaxed_amount = _amount_getter('untaxed_amount')
+    total_amount = _amount_getter('total_amount')
     tax_rate = attrgetter('tax.rate')
-    tax_base = attrgetter('base')
-    tax_amount = attrgetter('amount')
+    tax_base = _amount_getter('base')
+    tax_amount = _amount_getter('amount')
 
     def counterpart_name(self, invoice):
         return tools.unaccent(invoice.party.name)
@@ -134,6 +148,6 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
     serial_number = attrgetter('reference')
     specialkey_or_trascendence = attrgetter('sii_received_key')
     move_date = attrgetter('move.date')
-    deductible_amount = attrgetter('tax_amount')  # most of the times
+    deductible_amount = _amount_getter('tax_amount')  # most of the times
     tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
     tax_reagyp_amount = BaseTrytonInvoiceMapper.tax_amount
