@@ -14,7 +14,7 @@ from . import tools
 __all__ = [
     'IssuedTrytonInvoiceMapper',
     'RecievedTrytonInvoiceMapper',
-    ]
+	]
 
 _logger = getLogger(__name__)
 
@@ -27,8 +27,14 @@ def _amount_getter(field_name):
     def is_credit_note(invoice):
         return (invoice.type in {'in_credit_note', 'out_credit_note'})
 
-    def amount_getter(self, invoice):
-        val = attrgetter(field_name)(invoice)
+    def amount_getter(self, field):
+        pool = Pool()
+        InvoiceTax = pool.get('account.invoice.tax')
+        if isinstance(field, InvoiceTax):
+            invoice = field.invoice
+        else:
+            invoice = field
+        val = attrgetter(field_name)(field)
         return val if val is None or not is_credit_note(invoice) else -val
     return amount_getter
 
@@ -41,24 +47,15 @@ class BaseTrytonInvoiceMapper(Model):
 
     year = attrgetter('move.period.fiscalyear.name')
     period = attrgetter('move.period.start_date.month')
-    nif = attrgetter('company.party.sii_vat_code')
+    nif = attrgetter('company.party.vat_number')
     issue_date = attrgetter('invoice_date')
     invoice_kind = attrgetter('sii_operation_key')
     rectified_invoice_kind = callback_utils.fixed_value('I')
     not_exempt_kind = attrgetter('sii_subjected_key')
     exempt_kind = attrgetter('sii_excemption_key')
-
-    def counterpart_nif(self, invoice):
-        if invoice.party.identifiers:
-            nif = invoice.party.identifiers[0].code
-            if nif.startswith('ES'):
-                return nif[2:]
-            return nif
-        return ''
-
+    counterpart_nif = attrgetter('party.vat_number')
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
-
     untaxed_amount = _amount_getter('untaxed_amount')
     total_amount = _amount_getter('total_amount')
     tax_rate = attrgetter('tax.rate')
@@ -76,8 +73,8 @@ class BaseTrytonInvoiceMapper(Model):
         return self.serial_number(invoice)
 
     def counterpart_country(self, invoice):
-        if invoice.party.sii_vat_country:
-            return invoice.party.sii_vat_country
+        if invoice.party.vat_country:
+            return invoice.party.vat_country
         return (invoice.invoice_address.country.code
             if invoice.invoice_address.country else '')
 
