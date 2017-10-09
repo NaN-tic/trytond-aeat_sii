@@ -14,7 +14,7 @@ from . import tools
 __all__ = [
     'IssuedTrytonInvoiceMapper',
     'RecievedTrytonInvoiceMapper',
-	]
+    ]
 
 _logger = getLogger(__name__)
 
@@ -47,13 +47,21 @@ class BaseTrytonInvoiceMapper(Model):
 
     year = attrgetter('move.period.fiscalyear.name')
     period = attrgetter('move.period.start_date.month')
-    nif = attrgetter('company.party.vat_number')
+    nif = attrgetter('company.party.sii_vat_code')
     issue_date = attrgetter('invoice_date')
     invoice_kind = attrgetter('sii_operation_key')
     rectified_invoice_kind = callback_utils.fixed_value('I')
     not_exempt_kind = attrgetter('sii_subjected_key')
     exempt_kind = attrgetter('sii_excemption_key')
-    counterpart_nif = attrgetter('party.vat_number')
+
+    def counterpart_nif(self, invoice):
+        if invoice.party.identifiers:
+            nif = invoice.party.identifiers[0].code
+            if nif.startswith('ES'):
+                return nif[2:]
+            return nif
+        return ''
+
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
     untaxed_amount = _amount_getter('untaxed_amount')
@@ -73,8 +81,8 @@ class BaseTrytonInvoiceMapper(Model):
         return self.serial_number(invoice)
 
     def counterpart_country(self, invoice):
-        if invoice.party.vat_country:
-            return invoice.party.vat_country
+        if invoice.party.sii_vat_code:
+            return invoice.party.sii_vat_code
         return (invoice.invoice_address.country.code
             if invoice.invoice_address.country else '')
 
