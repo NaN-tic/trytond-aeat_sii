@@ -81,8 +81,8 @@ class BaseTrytonInvoiceMapper(Model):
         return self.serial_number(invoice)
 
     def counterpart_country(self, invoice):
-        if invoice.party.sii_vat_code:
-            return invoice.party.sii_vat_code
+        if invoice.party.sii_vat_country:
+            return invoice.party.sii_vat_country
         return (invoice.invoice_address.country.code
             if invoice.invoice_address.country else '')
 
