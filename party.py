@@ -19,10 +19,13 @@ class Party:
         'get_sii_vat_data')
 
     def get_sii_vat_data(self, name=None):
-        if self.vat_code:
+        # TODO upgrade 4.2 has tax_identifier and is m2o
+        identifier = self.vat_code
+        if identifier:
             if name == 'sii_vat_code':
-                return (self.vat_code[-9:]
-                    if self.type == 'eu_vat' else self.vat_code)
+                return identifier[-9:]
             elif name == 'sii_vat_country':
-                return (self.vat_code[:2]
-                    if self.type == 'eu_vat' else None)
+                return identifier[:2]
+        else:
+            if name == 'sii_vat_code':
+                return self.identifiers and self.identifiers[0].code or None
