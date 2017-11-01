@@ -778,7 +778,7 @@ class SIIReportLine(ModelSQL, ModelView):
         return self.invoice.sii_operation_key
 
     def get_vat_code(self, name):
-        return self.invoice.party.vat_code if self.invoice else None
+        return self.invoice.party.sii_vat_code if self.invoice else None
 
     def get_identifier_type(self, name):
         return self.invoice.party.sii_identifier_type if self.invoice else None

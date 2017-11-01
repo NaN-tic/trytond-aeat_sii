@@ -44,6 +44,7 @@ class BaseTrytonInvoiceMapper(Model):
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
+
     untaxed_amount = attrgetter('untaxed_amount')
     total_amount = attrgetter('total_amount')
     tax_rate = attrgetter('tax.rate')

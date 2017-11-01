@@ -8,6 +8,7 @@ Imports::
     >>> from decimal import Decimal
     >>> from operator import attrgetter
     >>> from proteus import config, Model, Wizard
+    >>> from trytond.tests.tools import activate_modules
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
@@ -23,11 +24,7 @@ Create database::
 
 Install account_sii::
 
-    >>> Module = Model.get('ir.module')
-    >>> account_sii_module, = Module.find(
-    ...     [('name', '=', 'aeat_sii')])
-    >>> account_sii_module.click('install')
-    >>> Wizard('ir.module.install_upgrade').execute('upgrade')
+    >>> config = activate_modules('aeat_sii')
 
 Create company::
 
