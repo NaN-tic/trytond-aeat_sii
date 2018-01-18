@@ -3,9 +3,10 @@
 from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
+from trytond.pyson import Eval, Bool
 from trytond.transaction import Transaction
 
+from sql import Null
 from sql.aggregate import Max
 
 from .aeat import (
@@ -35,7 +36,7 @@ class Invoice:
     sii_received_key = fields.Selection(RECEIVE_SPECIAL_REGIME_KEY,
         'SII Recived Key',
         states={
-            'invisible':  ~Eval('sii_book_key').in_(['R']),
+            'invisible': ~Eval('sii_book_key').in_(['R']),
         }, depends=['sii_book_key'])
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected')
     sii_excemption_key = fields.Selection(EXCEMPTION_CAUSE,
@@ -62,7 +63,7 @@ class Invoice:
         cls._check_modify_exclude += sii_fields
         cls._buttons.update({
             'reset_sii_keys': {
-                'invisible': Eval('sii_state', None) != None,
+                'invisible': Bool(Eval('sii_state', None)),
                 'icon': 'tryton-executable'}
         })
         if hasattr(cls, '_intercompany_excluded_fields'):
@@ -101,16 +102,17 @@ class Invoice:
                 c.remove(None)
 
         c0 = []
-        if clause[-1] == None or is_none:
+        if clause[-1] is None or is_none:
             c0 = [('id', 'not in', invoices)]
 
-        clause2 = [tuple(('state',)) + tuple(clause[1:])] + \
-                [('id', 'in', lines)]
+        clause2 = [tuple(('state',)) + tuple(clause[1:]),
+            ('id', 'in', lines)]
 
         res_lines = SIILines.search(clause2)
 
         if is_none:
-            return ['OR', c0, [('id', 'in', [x.invoice.id for x in res_lines])]]
+            return ['OR', c0, [
+                    ('id', 'in', [x.invoice.id for x in res_lines])]]
         else:
             return [('id', 'in', [x.invoice.id for x in res_lines])]
 
@@ -132,7 +134,7 @@ class Invoice:
 
         cursor.execute(*table.select(Max(table.id), table.invoice,
             where=(table.invoice.in_([x.id for x in invoices]) &
-                (table.state != None)),
+                (table.state != Null)),
             group_by=table.invoice))
 
         lines = [a[0] for a in cursor.fetchall()]
@@ -140,7 +142,7 @@ class Invoice:
         if lines:
             cursor.execute(*join.select(table.state, report.operation_type,
                     table.invoice,
-                    where=((table.id.in_(lines)) & (table.state != None) &
+                    where=((table.id.in_(lines)) & (table.state != Null) &
                         (table.company == report.company))))
 
             for state, op, inv in cursor.fetchall():

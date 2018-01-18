@@ -3,18 +3,18 @@
 # copyright notices and license terms.
 import unicodedata
 
-src_chars = """"/*+?Â¿!$[]{}@#`^:;<>=~%\\"""
-src_chars = unicode(src_chars, 'iso-8859-1')
-dst_chars = """________________________"""
-dst_chars = unicode(dst_chars, 'iso-8859-1')
+src_chars = u"/*+?Â¿!$[]{}@#`^:;<>=~%\\"
+dst_chars = u"________________________"
+
 
 def normalize(text):
     if isinstance(text, unicode):
         text = text.encode('utf-8')
     return text
 
+
 def unaccent(text):
-    if isinstance(text, str):
+    if isinstance(text, bytes):
         text = unicode(text, 'utf-8')
     output = text
     for c in xrange(len(src_chars)):

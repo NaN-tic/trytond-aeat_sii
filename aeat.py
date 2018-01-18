@@ -28,6 +28,7 @@ _ZERO = Decimal('0.0')
 # AEAT SII test
 SII_TEST = config.getboolean('aeat', 'sii_test', default=True)
 
+
 def _decimal(x):
     return Decimal(x) if x is not None else None
 
@@ -46,7 +47,7 @@ COMMUNICATION_TYPE = [   # L0
     # ('A4', 'Amendment of Invoice for Travellers'), # Not suported
     ('C0', 'Query Invoices'),  # Not in L0
     ('D0', 'Delete Invoices'),  # Not In L0
-]
+    ]
 
 BOOK_KEY = [
     (None, ''),
@@ -54,13 +55,14 @@ BOOK_KEY = [
     ('I', 'Investment Goods'),
     ('R', 'Received Invoices'),
     ('U', 'Particular Intracommunity Operations'),
-]
+    ]
 
 OPERATION_KEY = [    # L2_EMI - L2_RECI
     (None, ''),
     ('F1', 'Invoice'),
     ('F2', 'Simplified Invoice (ticket)'),
-    ('R1', 'Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)'),
+    ('R1', 'Corrected Invoice '
+        '(Art 80.1, 80.2 and 80.6 and error grounded in law)'),
     ('R2', 'Corrected Invoice (Art. 80.3)'),
     ('R3', 'Credit Note (Art 80.4)'),
     ('R4', 'Corrected Invoice (Other)'),
@@ -69,19 +71,18 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('F4', 'Invoice summary entry'),
     ('F5', 'Import (DUA)'),
     ('F6', 'Other accounting documents'),
-
-]
+    ]
 
 PARTY_IDENTIFIER_TYPE = [
     (None, ''),
     ('02', 'NIF-VAT'),
     ('03', 'Passport'),
     ('04', 'Official identification document issued by the country '
-            'or region of residence'),
+        'or region of residence'),
     ('05', 'Residence certificate'),
     ('06', 'Other supporting document'),
     ('07', 'Not registered'),
-]
+    ]
 
 
 SEND_SPECIAL_REGIME_KEY = [  # L3.1
@@ -89,58 +90,58 @@ SEND_SPECIAL_REGIME_KEY = [  # L3.1
     ('01', 'General tax regime activity'),
     ('02', 'Export'),
     ('03', 'Activities to which the special scheme of used goods, '
-            'works of art, antiquities and collectables (135-139 of the VAT Law)'),
+        'works of art, antiquities and collectables (135-139 of the VAT Law)'),
     ('04', 'Special scheme for investment gold'),
     ('05', 'Special scheme for travel agencies'),
     ('06', 'Special scheme applicable to groups of entities, VAT (Advanced)'),
     ('07', 'Special cash basis scheme'),
     ('08', 'Activities subject to Canary Islands General Indirect Tax/Tax on '
-            'Production, Services and Imports'),
+        'Production, Services and Imports'),
     ('09', 'Invoicing of the provision of travel agency services acting as '
-            'intermediaries in the name of and on behalf of other persons '
-            '(Additional Provision 4, Royal Decree 1619/2012)'),
+        'intermediaries in the name of and on behalf of other persons '
+        '(Additional Provision 4, Royal Decree 1619/2012)'),
     ('10', 'Collections on behalf of third parties of professional fees or '
-            'industrial property, copyright or other such rights by partners, '
-            'associates or members undertaken by companies, associations, '
-            'professional organisations or other entities that, amongst their '
-            'functions, undertake collections'),
+        'industrial property, copyright or other such rights by partners, '
+        'associates or members undertaken by companies, associations, '
+        'professional organisations or other entities that, amongst their '
+        'functions, undertake collections'),
     ('11', 'Business premises lease activities subject to withholding'),
     ('12', 'Business premises lease activities not subject to withholding'),
     ('13', 'Business premises lease activities subject and not subject '
-            'to withholding'),
+        'to withholding'),
     ('14', 'Invoice with VAT pending accrual (work certifications with Public '
-            'Administration recipients)'),
+        'Administration recipients)'),
     ('15', 'Invoice with VAT pending accrual - '
-            'operations of successive tract'),
+        'operations of successive tract'),
     ('16', 'First semester 2017'),
-]
+    ]
 
 RECEIVE_SPECIAL_REGIME_KEY = [
     (None, ''),
     ('01', 'General tax regime activity'),
     ('02', 'Activities through which businesses pay compensation for special '
-            'VAT arrangements for agriculture and fisheries'),
-    ('03', 'Activities to which the special scheme of used goods, works of art, '
-            'antiquities and collectables (135-139 of the VAT Law)'),
+        'VAT arrangements for agriculture and fisheries'),
+    ('03', 'Activities to which the special scheme of used goods, '
+        'works of art, antiquities and collectables (135-139 of the VAT Law)'),
     ('04', 'Special scheme for investment gold'),
     ('05', 'Special scheme for travel agencies'),
     ('06', 'Special scheme applicable to groups of entities, VAT (Advanced)'),
     ('07', 'Special cash basis scheme'),
     ('08', 'Activities subject to Canary Islands General Indirect Tax/Tax '
-            'on Production, Services and Imports'),
+        'on Production, Services and Imports'),
     ('09', 'Intra-Community acquisition of assets and provisions of services'),
     ('12', 'Business premises lease activities'),
     ('13', 'Invoice corresponding to an import '
-            '(reported without been associated with a DUA)'),
+        '(reported without been associated with a DUA)'),
     ('14', 'First semester 2017'),
-]
+    ]
 
 AEAT_COMMUNICATION_STATE = [
     (None, ''),
     ('Correcto', 'Accepted'),
     ('ParcialmenteCorrecto', 'Partially Accepted'),
     ('Incorrecto', 'Rejected')
-]
+    ]
 
 AEAT_INVOICE_STATE = [
     (None, ''),
@@ -156,13 +157,13 @@ AEAT_INVOICE_STATE = [
 PROPERTY_STATE = [  # L6
     ('0', ''),
     ('1', '1. Property with a land register reference located in any part '
-            'of Spain, with the exception of the Basque Country and Navarre'),
+        'of Spain, with the exception of the Basque Country and Navarre'),
     ('2', '2. Property located in the Autonomous Community of the Basque '
-            'Country or the Chartered Community of Navarre.'),
-    ('3', '3. Property in any of the foregoing locations with no land register '
-            'reference'),
+        'Country or the Chartered Community of Navarre.'),
+    ('3', '3. Property in any of the foregoing locations '
+        'with no land register reference'),
     ('4', '4. Property located abroad'),
-]
+    ]
 
 
 # L7 - Iva Subjected
@@ -171,8 +172,8 @@ IVA_SUBJECTED = [
     ('S1', 'Subject - Not exempt. Non VAT reverse charge'),
     ('S2', 'Subject - Not exempt. VAT reverse charge'),
     ('S3', 'Subject - Not exempt. Both non VAT reverse charge '
-            'and VAT reverse charge')
-]
+        'and VAT reverse charge')
+    ]
 
 # L9 - Excemption cause
 EXCEMPTION_CAUSE = [
@@ -183,26 +184,26 @@ EXCEMPTION_CAUSE = [
     ('E4', 'Exempt on account of Article 23 and Article 24'),
     ('E5', 'Exempt on account of Article 25'),
     ('E6', 'Exempt on other grounds'),
-]
+    ]
 
 # L11 Payment Type
 PAYMENT_TYPE = [
     ('01', 'Transfer'),
     ('02', 'Cheque'),
     ('03', 'Not to be collected/paid (deadline for accrual/forced accrual '
-            'as part of insolvency proceedings)'),
+        'as part of insolvency proceedings)'),
     ('04', 'Other methods of collection/payment')
-]
+    ]
 
 # L12
 INTRACOMUNITARY_TYPE = [
     (None, ''),
     ('A', 'The transmission or receipt of goods to undertake partial reports '
-            'or works stipulated in Article 70, section one, Number 7 '
-            'of the Tax Law (Law 37/1992)'),
+        'or works stipulated in Article 70, section one, Number 7 '
+        'of the Tax Law (Law 37/1992)'),
     ('B', 'Transfers of goods or intra-Community acquisitions of goods listed '
-            'in Article 9.3 and Article 16.2 of the Tax Law (Law 37/1992)'),
-]
+        'in Article 9.3 and Article 16.2 of the Tax Law (Law 37/1992)'),
+    ]
 
 
 def remove_accents(unicode_string):
@@ -241,10 +242,12 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         states={
             'readonly': Eval('state') != 'draft',
         }, depends=['state'])
-    company_vat = fields.Char('VAT', size=9, states={
+    company_vat = fields.Char('VAT', size=9,
+        states={
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
-        }, depends=['state'])
+            },
+        depends=['state'])
     currency = fields.Function(fields.Many2One('currency.currency',
         'Currency'), 'on_change_with_currency')
     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
@@ -275,21 +278,21 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             ('done', 'Done'),
             ('cancelled', 'Cancelled'),
             ('sent', 'Sent'),
-        ], 'State', readonly=True)
+            ], 'State', readonly=True)
     communication_state = fields.Selection(AEAT_COMMUNICATION_STATE,
         'Communication State', readonly=True)
     csv = fields.Char('CSV', readonly=True)
     version = fields.Selection([
             ('0.7', '0.7'),
-             ('1.0', '1.0'),
-        ], 'Version', required=True,
+            ('1.0', '1.0'),
+            ], 'Version', required=True,
         states={
             'readonly': Eval('state') != 'draft',
-        },
+            },
         depends=['state'])
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
-            'readonly':  Eval('state') != 'draft',
+            'readonly': Eval('state') != 'draft',
         }, depends=['state'])
     # TODO crash GTK client 4.x with widget date in XML view and attribute
     # readonly = True. At the moment, use PYSON to readonly field in XML views.
@@ -567,8 +570,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         base=_decimal(detail.BaseImponible),
                         rate=_decimal(detail.TipoImpositivo),
                         amount=_decimal(detail.CuotaRepercutida),
-                        surcharge_rate=_decimal(detail.TipoRecargoEquivalencia),
-                        surcharge_amount=_decimal(detail.CuotaRecargoEquivalencia),
+                        surcharge_rate=_decimal(
+                            detail.TipoRecargoEquivalencia),
+                        surcharge_amount=_decimal(
+                            detail.CuotaRecargoEquivalencia),
                     )
                     for detail in reg.DatosFacturaEmitida.TipoDesglose.
                     DesgloseFactura.Sujeta.NoExenta.DesgloseIVA.DetalleIVA
@@ -706,10 +711,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         base=_decimal(detail.BaseImponible),
                         rate=_decimal(detail.TipoImpositivo),
                         amount=_decimal(detail.CuotaSoportada),
-                        surcharge_rate=_decimal(detail.TipoRecargoEquivalencia),
-                        surcharge_amount=_decimal(detail.CuotaRecargoEquivalencia),
+                        surcharge_rate=_decimal(
+                            detail.TipoRecargoEquivalencia),
+                        surcharge_amount=_decimal(
+                            detail.CuotaRecargoEquivalencia),
                         reagyp_rate=_decimal(detail.PorcentCompensacionREAGYP),
-                        reagyp_amount=_decimal(detail.ImporteCompensacionREAGYP),
+                        reagyp_amount=_decimal(
+                            detail.ImporteCompensacionREAGYP),
                     )
                     for detail in reg.DatosFacturaRecibida.
                     DesgloseFactura.DesgloseIVA.DetalleIVA

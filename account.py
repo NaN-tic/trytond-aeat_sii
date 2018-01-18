@@ -1,13 +1,10 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from trytond.model import ModelSQL, ModelView, fields
-from trytond.wizard import Wizard, StateView, StateTransition, Button
-from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval, And, Bool
-from trytond.transaction import Transaction
-from .aeat import (OPERATION_KEY, BOOK_KEY, SEND_SPECIAL_REGIME_KEY,
-        RECEIVE_SPECIAL_REGIME_KEY, AEAT_INVOICE_STATE, IVA_SUBJECTED,
-        EXCEMPTION_CAUSE, INTRACOMUNITARY_TYPE)
+from trytond.model import fields
+from trytond.pool import PoolMeta
+from .aeat import (BOOK_KEY, SEND_SPECIAL_REGIME_KEY,
+    RECEIVE_SPECIAL_REGIME_KEY, IVA_SUBJECTED, EXCEMPTION_CAUSE,
+    INTRACOMUNITARY_TYPE)
 
 
 __all__ = ['TemplateTax', 'Tax']
