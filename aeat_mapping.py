@@ -55,12 +55,14 @@ class BaseTrytonInvoiceMapper(Model):
     exempt_kind = attrgetter('sii_excemption_key')
 
     def counterpart_nif(self, invoice):
-        if invoice.party.identifiers:
+        nif = ''
+        if invoice.party.vat_code:
+            nif = invoice.party.vat_code
+        elif invoice.party.identifiers:
             nif = invoice.party.identifiers[0].code
-            if nif.startswith('ES'):
-                return nif[2:]
-            return nif
-        return ''
+        if nif.startswith('ES'):
+            nif = nif[2:]
+        return nif
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
