@@ -500,38 +500,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_subjected_key">S1</field>
         </record>
     </data>
-    <data depends="account_es" grouped="1">
-        <record model="account.tax.template" id="account_es.irpf_1"/>
-        <record model="account.tax.template" id="account_es.irpf_2"/>
-        <record model="account.tax.template" id="account_es.irpf_7"/>
-        <record model="account.tax.template" id="account_es.irpf_9"/>
-        <record model="account.tax.template" id="account_es.irpf_15"/>
-        <record model="account.tax.template" id="account_es.irpf_18"/>
-        <record model="account.tax.template" id="account_es.irpf_19"/>
-        <record model="account.tax.template" id="account_es.irpf_195"/>
-        <record model="account.tax.template" id="account_es.irpf_20"/>
-        <record model="account.tax.template" id="account_es.irpf_21"/>
-        <record model="account.tax.template" id="account_es.irpf_35"/>
-        <record model="account.tax.template" id="account_es.irpf_37"/>
-        <record model="account.tax.template" id="account_es.irpf_19a"/>
-        <record model="account.tax.template" id="account_es.irpf_195a"/>
-        <record model="account.tax.template" id="account_es.irpf_20a"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_1"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_2"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_7"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_9"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_15"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_18"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_19"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_195"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_20"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_21"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_35"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_37"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_19a"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_195a"/>
-        <record model="account.tax.template" id="account_es.irpf_sale_20a"/>
-    </data>
     <data depends="account_es_pyme" grouped="1">
         <record model="account.tax.template" id="account_es_pyme.iva_pymes_X0_compras_bc">
             <field name="sii_book_key">R</field>
@@ -1011,38 +979,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
         </record>
-    </data>
-    <data depends="account_es_pyme" grouped="1">
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_1"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_2"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_7"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_9"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_15"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_18"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_19"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_195"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_20"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_21"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_35"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_37"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_19a"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_195a"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_20a"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_1"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_2"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_7"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_9"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_15"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_18"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_19"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_195"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_20"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_21"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_35"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_37"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_19a"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_195a"/>
-        <record model="account.tax.template" id="account_es_pyme.irpf_pymes_sale_20a"/>
     </data>
     <data depends="account_es" grouped="1">
         <record model="account.tax.template" id="account_es.iva_rep_4+re_05">
