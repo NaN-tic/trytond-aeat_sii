@@ -36,8 +36,8 @@ class BaseTrytonInvoiceMapper(Model):
 
     def counterpart_nif(self, invoice):
         nif = ''
-        if invoice.party.vat_code:
-            nif = invoice.party.vat_code
+        if invoice.party.tax_identifier:
+            nif = invoice.party.tax_identifier
         elif invoice.party.identifiers:
             nif = invoice.party.identifiers[0].code
         if nif.startswith('ES'):
