@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from decimal import Decimal
 from logging import getLogger
 from operator import attrgetter
 
@@ -155,6 +156,16 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
     serial_number = attrgetter('reference')
     specialkey_or_trascendence = attrgetter('sii_received_key')
     move_date = attrgetter('move.date')
-    deductible_amount = _amount_getter('tax_amount')  # most of the times
+
+    def deductible_amount(self, invoice):
+        # Only for 3.4 and 3.8 version
+        credit_note = invoice.type in {'in_credit_note', 'out_credit_note'}
+
+        val = Decimal(0)
+        for tax in self.taxes(invoice):
+            val += tax.amount
+        # On 4.X change the return for: return val
+        return val if val is None or not credit_note else -val
+
     tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
     tax_reagyp_amount = BaseTrytonInvoiceMapper.tax_amount
