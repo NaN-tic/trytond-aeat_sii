@@ -135,6 +135,12 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
     serial_number = attrgetter('reference')
     specialkey_or_trascendence = attrgetter('sii_received_key')
     move_date = attrgetter('move.date')
-    deductible_amount = attrgetter('tax_amount')  # most of the times
+
+    def deductible_amount(self, invoice):
+        val = Decimal(0)
+        for tax in self.taxes(invoice):
+            val += tax.amount
+        return val
+
     tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
     tax_reagyp_amount = BaseTrytonInvoiceMapper.tax_amount
