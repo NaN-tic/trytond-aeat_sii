@@ -3,6 +3,7 @@
 # copyright notices and license terms.
 from logging import getLogger
 from operator import attrgetter
+from decimal import Decimal
 
 from pyAEATsii import mapping
 from pyAEATsii import callback_utils
