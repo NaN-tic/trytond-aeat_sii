@@ -362,6 +362,17 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_received_key"></field>
             <field name="sii_subjected_key"></field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_ISP_compras_bi"/>
+        <record model="account.tax.template" id="account_es.iva_ISP_compras_bi_1">
+            <field name="sii_book_key">R</field>
+            <field name="sii_received_key">01</field>
+            <field name="sii_subjected_key">S2</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_ISP_compras_bi_2">
+            <field name="sii_book_key"></field>
+            <field name="sii_received_key"></field>
+            <field name="sii_subjected_key"></field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_rep_no_sujeto">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
@@ -838,6 +849,17 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_subjected_key">S2</field>
         </record>
         <record model="account.tax.template" id="account_es_pyme.iva_pymes_ISP_compras_2">
+            <field name="sii_book_key"></field>
+            <field name="sii_received_key"></field>
+            <field name="sii_subjected_key"></field>
+        </record>
+        <record model="account.tax.template" id="account_es_pyme.iva_pymes_ISP_compras_bi"/>
+        <record model="account.tax.template" id="account_es_pyme.iva_pymes_ISP_compras_bi_1">
+            <field name="sii_book_key">R</field>
+            <field name="sii_received_key">01</field>
+            <field name="sii_subjected_key">S2</field>
+        </record>
+        <record model="account.tax.template" id="account_es_pyme.iva_pymes_ISP_compras_bi_2">
             <field name="sii_book_key"></field>
             <field name="sii_received_key"></field>
             <field name="sii_subjected_key"></field>
