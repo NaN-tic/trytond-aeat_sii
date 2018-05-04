@@ -35,7 +35,7 @@ class Company:
 
     @classmethod
     def get_private_key(cls, companies, name=None):
-        converter = buffer
+        converter = bytes
         default = None
         format_ = Transaction().context.pop(
             '%s.%s' % (cls.__name__, name), '')
