@@ -677,65 +677,94 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         registers = res.RegistroRespuestaConsultaLRFacturasRecibidas
 
         # FIXME: the reference is not forced to be unique
-        invoices_list = Invoice.search([
-            ('reference', 'in', [
-                reg.IDFactura.NumSerieFacturaEmisor
-                for reg in registers
-            ])
-        ])
-        invoices_ids = {
-            invoice.reference: invoice.id
-            for invoice in invoices_list
-        }
-        self.lines = tuple(
-            SIIReportLine(
-                invoice=invoices_ids.get(reg.IDFactura.NumSerieFacturaEmisor),
-                state=reg.EstadoFactura.EstadoRegistro,
-                communication_code=reg.EstadoFactura.CodigoErrorRegistro,
-                communication_msg=reg.EstadoFactura.DescripcionErrorRegistro,
-                issuer_vat_number=(
+        lines_to_create = []
+        for reg in registers:
+            invoice_date = _date(reg.IDFactura.FechaExpedicionFacturaEmisor)
+
+            taxes_to_create = []
+            for detail in reg.DatosFacturaRecibida.DesgloseFactura.DesgloseIVA.\
+                    DetalleIVA:
+                taxes_to_create.append({
+                        'base': _decimal(detail.BaseImponible),
+                        'rate': _decimal(detail.TipoImpositivo),
+                        'amount': _decimal(detail.CuotaSoportada),
+                        'surcharge_rate': _decimal(
+                            detail.TipoRecargoEquivalencia),
+                        'surcharge_amount': _decimal(
+                            detail.CuotaRecargoEquivalencia),
+                        'reagyp_rate': _decimal(
+                            detail.PorcentCompensacionREAGYP),
+                        'reagyp_amount': _decimal(
+                            detail.ImporteCompensacionREAGYP),
+                        })
+            taxes = SIIReportLineTax.create(taxes_to_create)
+
+            sii_report_line = {
+                'report': self.id,
+                'state': reg.EstadoFactura.EstadoRegistro,
+                'communication_code': (
+                    reg.EstadoFactura.CodigoErrorRegistro),
+                'communication_msg': (
+                    reg.EstadoFactura.DescripcionErrorRegistro),
+                'issuer_vat_number': (
                     reg.IDFactura.IDEmisorFactura.NIF or
                     reg.IDFactura.IDEmisorFactura.IDOtro.ID),
-                serial_number=reg.IDFactura.NumSerieFacturaEmisor,
-                final_serial_number=(
+                'serial_number': reg.IDFactura.NumSerieFacturaEmisor,
+                'final_serial_number': (
                     reg.IDFactura.NumSerieFacturaEmisorResumenFin),
-                issue_date=_date(
-                    reg.IDFactura.FechaExpedicionFacturaEmisor),
-                invoice_kind=reg.DatosFacturaRecibida.TipoFactura,
-                special_key=(
-                    reg.DatosFacturaRecibida.
+                'issue_date': invoice_date,
+                'invoice_kind': reg.DatosFacturaRecibida.TipoFactura,
+                'special_key': (reg.DatosFacturaRecibida.
                     ClaveRegimenEspecialOTrascendencia),
-                total_amount=_decimal(reg.DatosFacturaRecibida.ImporteTotal),
-                taxes=tuple(
-                    SIIReportLineTax(
-                        base=_decimal(detail.BaseImponible),
-                        rate=_decimal(detail.TipoImpositivo),
-                        amount=_decimal(detail.CuotaSoportada),
-                        surcharge_rate=_decimal(
-                            detail.TipoRecargoEquivalencia),
-                        surcharge_amount=_decimal(
-                            detail.CuotaRecargoEquivalencia),
-                        reagyp_rate=_decimal(detail.PorcentCompensacionREAGYP),
-                        reagyp_amount=_decimal(
-                            detail.ImporteCompensacionREAGYP),
-                    )
-                    for detail in reg.DatosFacturaRecibida.
-                    DesgloseFactura.DesgloseIVA.DetalleIVA
-                ),
-                counterpart_name=(
+                'total_amount': _decimal(
+                    reg.DatosFacturaRecibida.ImporteTotal),
+                'taxes': [('add', [t.id for t in taxes])],
+                'counterpart_name': (
                     reg.DatosFacturaRecibida.Contraparte.NombreRazon),
-                counterpart_id=(
+                'counterpart_id': (
                     reg.DatosFacturaRecibida.Contraparte.NIF or
                     reg.DatosFacturaRecibida.Contraparte.IDOtro.ID),
-                presenter=reg.DatosPresentacion.NIFPresentador,
-                presentation_date=_datetime(
+                'presenter': reg.DatosPresentacion.NIFPresentador,
+                'presentation_date': _datetime(
                     reg.DatosPresentacion.TimestampPresentacion),
-                csv=reg.DatosPresentacion.CSV,
-                balance_state=reg.DatosPresentacion.CSV,
-            )
-            for reg in registers
-        )
-        self.save()
+                'csv': reg.DatosPresentacion.CSV,
+                'balance_state': reg.DatosPresentacion.CSV,
+                }
+
+            domain = [
+                ('reference', '=', reg.IDFactura.NumSerieFacturaEmisor),
+                ('invoice_date', '=', invoice_date),
+                ]
+            vat = True
+            if reg.IDFactura.IDEmisorFactura.NIF:
+                vat = reg.IDFactura.IDEmisorFactura.NIF
+                if not vat.startswith('ES'):
+                    vat = 'ES' + vat
+                domain.append(
+                    ('party.vat_code', '=', vat)
+                    )
+            elif reg.IDFactura.IDEmisorFactura.IDOtro.IDType == '02':
+                domain.append(
+                    ('party.vat_code', '=',
+                        reg.IDFactura.IDEmisorFactura.IDOtro.ID)
+                    )
+            else:
+                vat = False
+            invoices = Invoice.search(domain)
+            if not vat and len(invoices) > 1:
+                invoice_ok = []
+                for invoice in invoices:
+                    for register in registers:
+                        if register == reg.IDFactura.IDEmisorFactura.IDOtro.ID:
+                            invoice_ok.append(invoice)
+                            break
+                    invoices = invoice_ok
+                    if invoice_ok:
+                        break
+            if invoices:
+                sii_report_line['invoice'] = invoices[0].id
+            lines_to_create.append(sii_report_line)
+        SIIReportLine.create(lines_to_create)
 
 
 class SIIReportLine(ModelSQL, ModelView):
@@ -783,7 +812,7 @@ class SIIReportLine(ModelSQL, ModelView):
         'get_invoice_operation_key')
 
     def get_invoice_operation_key(self, name):
-        return self.invoice.sii_operation_key
+        return self.invoice.sii_operation_key if self.invoice else None
 
     def get_vat_code(self, name):
         return self.invoice.party.sii_vat_code if self.invoice else None
