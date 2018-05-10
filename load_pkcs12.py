@@ -58,7 +58,7 @@ class LoadPKCS12(Wizard):
         (company,) = Company.browse([company_id])
         with BytesIO(self.start.pfx) as pfx:
             try:
-                pkcs12 = load_pkcs12(pfx.read(), bytes(self.start.password))
+                pkcs12 = load_pkcs12(pfx.read(), self.start.password)
                 crt = dump_certificate(FILETYPE_PEM, pkcs12.get_certificate())
                 key = dump_privatekey(FILETYPE_PEM, pkcs12.get_privatekey())
                 Company.write([company], {
