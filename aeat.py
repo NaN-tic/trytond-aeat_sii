@@ -9,6 +9,7 @@ from datetime import datetime
 from pyAEATsii import service
 from pyAEATsii import mapping
 
+from trytond import backend
 from trytond.model import ModelSQL, ModelView, fields, Workflow
 from trytond.pyson import Eval, Bool
 from trytond.pool import Pool
@@ -245,8 +246,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
         }, depends=['state'])
-    currency = fields.Function(fields.Many2One('currency.currency',
-        'Currency'), 'on_change_with_currency')
+    currency = fields.Many2One('currency.currency', 'Currency', required=True)
     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
         required=True, states={
             'readonly': ((Eval('state') != 'draft')
@@ -339,14 +339,37 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('cancelled', 'draft'),
                 ))
 
+    @classmethod
+    def __register__(cls, module_name):
+        pool = Pool()
+        cursor = Transaction().cursor
+        sql_table = cls.__table__()
+        TableHandler = backend.get('TableHandler')
+        table = TableHandler(cursor, cls, module_name)
+        Company = pool.get('company.company')
+        company = Company.__table__()
+
+        created_currency = not table.column_exist('currency')
+
+        super(SIIReport, cls).__register__(module_name)
+
+        # Migration currency field from functional to store
+        if created_currency:
+            cursor.execute(*company.select(company.id, company.currency))
+            for company_id, currency_id in cursor.fetchall():
+                cursor.execute(*sql_table.update([sql_table.currency],
+                        [currency_id], where=sql_table.company == company_id))
+
     @staticmethod
     def default_company():
         return Transaction().context.get('company')
 
-    @fields.depends('company')
-    def on_change_with_currency(self, name=None):
-        if self.company:
-            return self.company.currency.id
+    @staticmethod
+    def default_currency():
+        pool = Pool()
+        Company = pool.get('company.company')
+        company = Company(Transaction().context.get('company'))
+        return company.currency.id if company else None
 
     @staticmethod
     def default_fiscalyear():
@@ -447,6 +470,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
                 ('state', 'in', ['posted', 'paid']),
+                ('currency', '=', report.currency),
             ]
 
             if report.operation_type == 'A0':
