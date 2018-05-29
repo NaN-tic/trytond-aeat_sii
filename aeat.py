@@ -342,7 +342,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     @classmethod
     def __register__(cls, module_name):
         pool = Pool()
-        cursor = Transaction().connection.cursor()
+        cursor = Transaction().cursor
         sql_table = cls.__table__()
         TableHandler = backend.get('TableHandler')
         table = TableHandler(cursor, cls, module_name)
