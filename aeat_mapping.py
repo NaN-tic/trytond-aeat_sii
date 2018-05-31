@@ -4,7 +4,6 @@
 from decimal import Decimal
 from logging import getLogger
 from operator import attrgetter
-from decimal import Decimal
 
 from pyAEATsii import mapping
 from pyAEATsii import callback_utils
@@ -22,13 +21,6 @@ _logger = getLogger(__name__)
 
 
 def _amount_getter(field_name):
-    # In tryton 3.4 credit note amounts are positive
-    # They must be negative before being informed to SII
-    # This code should not be merged into higher tryton series
-
-    def is_credit_note(invoice):
-        return (invoice.type in {'in_credit_note', 'out_credit_note'})
-
     def amount_getter(self, field):
         pool = Pool()
         InvoiceTax = pool.get('account.invoice.tax')
@@ -37,7 +29,10 @@ def _amount_getter(field_name):
         else:
             invoice = field
         val = attrgetter(field_name)(field)
-        return val if val is None or not is_credit_note(invoice) else -val
+        # Only for 3.4 and 3.8 version
+        credit_note = invoice.type in ('in_credit_note', 'out_credit_note')
+        # On 4.X change the return for: return val
+        return val if val is None or not credit_note else -val
     return amount_getter
 
 
@@ -68,11 +63,11 @@ class BaseTrytonInvoiceMapper(Model):
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
-    untaxed_amount = _amount_getter('untaxed_amount')
-    total_amount = _amount_getter('total_amount')
+    untaxed_amount = _amount_getter('company_untaxed_amount')
+    total_amount = _amount_getter('company_total_amount')
     tax_rate = attrgetter('tax.rate')
-    tax_base = _amount_getter('base')
-    tax_amount = _amount_getter('amount')
+    tax_base = _amount_getter('company_base')
+    tax_amount = _amount_getter('company_amount')
 
     def counterpart_name(self, invoice):
         return tools.unaccent(invoice.party.name)
@@ -160,11 +155,11 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
 
     def deductible_amount(self, invoice):
         # Only for 3.4 and 3.8 version
-        credit_note = invoice.type in {'in_credit_note', 'out_credit_note'}
+        credit_note = invoice.type in ('in_credit_note', 'out_credit_note')
 
         val = Decimal(0)
         for tax in self.taxes(invoice):
-            val += tax.amount
+            val += tax.company_amount
         # On 4.X change the return for: return val
         return val if val is None or not credit_note else -val
 
