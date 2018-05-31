@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from decimal import Decimal
 from logging import getLogger
 from operator import attrgetter
-from decimal import Decimal
 
 from pyAEATsii import mapping
 from pyAEATsii import callback_utils
@@ -48,11 +48,11 @@ class BaseTrytonInvoiceMapper(Model):
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
 
-    untaxed_amount = attrgetter('untaxed_amount')
-    total_amount = attrgetter('total_amount')
+    untaxed_amount = attrgetter('company_untaxed_amount')
+    total_amount = attrgetter('company_total_amount')
     tax_rate = attrgetter('tax.rate')
-    tax_base = attrgetter('base')
-    tax_amount = attrgetter('amount')
+    tax_base = attrgetter('company_base')
+    tax_amount = attrgetter('company_amount')
 
     def counterpart_name(self, invoice):
         return tools.unaccent(invoice.party.name)
@@ -141,7 +141,7 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
     def deductible_amount(self, invoice):
         val = Decimal(0)
         for tax in self.taxes(invoice):
-            val += tax.amount
+            val += tax.company_amount
         return val
 
     tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
