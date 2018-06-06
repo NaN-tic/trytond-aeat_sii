@@ -44,7 +44,9 @@ def _datetime(x):
 COMMUNICATION_TYPE = [   # L0
     ('A0', 'Registration of invoices/records'),
     ('A1', 'Amendment of invoices/records (registration errors)'),
-    # ('A4', 'Amendment of Invoice for Travellers'), # Not suported
+    # ('A4', 'Amendment of Invoice for Travellers'), # Not supported
+    # ('A5', 'Travellers registration'), # Not supported
+    # ('A6', 'Amendment of travellers tax devolutions'), # Not supported
     ('C0', 'Query Invoices'),  # Not in L0
     ('D0', 'Delete Invoices'),  # Not In L0
     ]
@@ -59,8 +61,9 @@ BOOK_KEY = [
 
 OPERATION_KEY = [    # L2_EMI - L2_RECI
     (None, ''),
-    ('F1', 'Invoice'),
-    ('F2', 'Simplified Invoice (ticket)'),
+    ('F1', 'Invoice (Art 6.7.3 y 7.3 of RD1619/2012)'),
+    ('F2', 'Simplified Invoice (ticket) and Invoices without destination '
+        'identidication (Art 6.1.d of RD1619/2012)'),
     ('R1', 'Corrected Invoice '
         '(Art 80.1, 80.2 and 80.6 and error grounded in law)'),
     ('R2', 'Corrected Invoice (Art. 80.3)'),
@@ -71,6 +74,7 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('F4', 'Invoice summary entry'),
     ('F5', 'Import (DUA)'),
     ('F6', 'Other accounting documents'),
+    ('LC', 'Duty - Complementary clearing'), # Not supported
     ]
 
 PARTY_IDENTIFIER_TYPE = [
@@ -113,7 +117,7 @@ SEND_SPECIAL_REGIME_KEY = [  # L3.1
         'Administration recipients)'),
     ('15', 'Invoice with VAT pending accrual - '
         'operations of successive tract'),
-    ('16', 'First semester 2017'),
+    ('16', 'First semester 2017 and other invoices before the SII'),
     ]
 
 RECEIVE_SPECIAL_REGIME_KEY = [
@@ -133,7 +137,7 @@ RECEIVE_SPECIAL_REGIME_KEY = [
     ('12', 'Business premises lease activities'),
     ('13', 'Invoice corresponding to an import '
         '(reported without been associated with a DUA)'),
-    ('14', 'First semester 2017'),
+    ('14', 'First semester 2017 and other invoices before the SII'),
     ]
 
 AEAT_COMMUNICATION_STATE = [
@@ -192,7 +196,8 @@ PAYMENT_TYPE = [
     ('02', 'Cheque'),
     ('03', 'Not to be collected/paid (deadline for accrual/forced accrual '
         'as part of insolvency proceedings)'),
-    ('04', 'Other methods of collection/payment')
+    ('04', 'Other methods of collection/payment'),
+    ('05', 'Bank debit order'),
     ]
 
 # L12
@@ -285,11 +290,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     version = fields.Selection([
             ('0.7', '0.7'),
             ('1.0', '1.0'),
-            ], 'Version', required=True,
-        states={
-            'readonly': Eval('state') != 'draft',
-            },
-        depends=['state'])
+            ('1.1', '1.1'),
+            ], 'Version', required=True, readonly=True)
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
             'readonly': Eval('state') != 'draft',
@@ -363,7 +365,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_version():
-        return '1.0'
+        return '1.1'
 
     @fields.depends('company')
     def on_change_with_company_vat(self):

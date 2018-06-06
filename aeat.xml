@@ -182,6 +182,7 @@
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Issued"/>
 
+      <!--
       <record model="ir.action.act_window" id="act_aeat_sii_invest_report">
           <field name="name">SII Report Invest</field>
           <field name="res_model">aeat.sii.report</field>
@@ -193,6 +194,7 @@
           id="menu_aeat_sii_report_invest"
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Invest"/>
+      -->
 
       <record model="ir.action.act_window" id="act_aeat_sii_received_report">
           <field name="name">SII Report Received</field>
@@ -207,6 +209,7 @@
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Received"/>
 
+      <!--
       <record model="ir.action.act_window" id="act_aeat_sii_intra_report">
           <field name="name">SII Report Intracommunity</field>
           <field name="res_model">aeat.sii.report</field>
@@ -217,5 +220,6 @@
           id="menu_aeat_sii_report_intra"
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Intracommunity"/>
+      -->
 </data>
 </tryton>
