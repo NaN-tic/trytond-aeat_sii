@@ -458,7 +458,7 @@ msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
 msgid "SII Report Lines"
 msgstr "Líneas informe SII"
 
-msgctxt "model:ir.ui.menu,name:None"
+msgctxt "model:ir.ui.menu,name:"
 msgid "AEAT SII Report"
 msgstr "Informe AEAT SII"
 
@@ -495,10 +495,6 @@ msgid "AEAT SII Administration"
 msgstr "Administración AEAT SII"
 
 msgctxt "selection:account.invoice,sii_book_key:"
-msgid ""
-msgstr ""
-
-msgctxt "selection:account.invoice,sii_book_key:"
 msgid "Investment Goods"
 msgstr "Bienes de inversión"
 
@@ -531,10 +527,6 @@ msgid "Registration of invoices/records"
 msgstr "Nuevas facturas"
 
 msgctxt "selection:account.invoice,sii_excemption_key:"
-msgid ""
-msgstr ""
-
-msgctxt "selection:account.invoice,sii_excemption_key:"
 msgid "Exempt on account of Article 20"
 msgstr "Exenta por el artículo 20"
 
@@ -560,10 +552,6 @@ msgstr "Exenta, otros"
 
 msgctxt "selection:account.invoice,sii_intracomunity_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.invoice,sii_intracomunity_key:"
-msgid ""
 "The transmission or receipt of goods to undertake partial reports or works "
 "stipulated in Article 70, section one, Number 7 of the Tax Law (Law 37/1992)"
 msgstr ""
@@ -579,10 +567,6 @@ msgstr ""
 "Las transferencias de bienes y las adquisiciones intracomunitarias de bienes"
 " comprendidas en los artículos 9, apartado 3º, y 16, apartado  2º, de la Ley"
 " del Impuesto (Ley 37/1992)"
-
-msgctxt "selection:account.invoice,sii_issued_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.invoice,sii_issued_key:"
 msgid ""
@@ -634,8 +618,9 @@ msgid "Export"
 msgstr "Exportación"
 
 msgctxt "selection:account.invoice,sii_issued_key:"
-msgid "First semester 2017"
-msgstr "Primer semestre 2017"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr ""
+"Primer semestre de 2017 y otras facturas anteriores a la inclusión en el SII"
 
 msgctxt "selection:account.invoice,sii_issued_key:"
 msgid "General tax regime activity"
@@ -680,10 +665,6 @@ msgid "Special scheme for travel agencies"
 msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
-msgid ""
-msgstr ""
-
-msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
 msgstr "Factura rectificativa (Art 80.1 y 80.2)"
 
@@ -704,12 +685,16 @@ msgid "Credit Note (Art 80.4)"
 msgstr "Facura rectificativa (Art. 80.4)"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "Aduanas - Liquidación complementaria"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Import (DUA)"
 msgstr "Importaciones (DUA)"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
-msgid "Invoice"
-msgstr "Factura"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "Factura (Art. 6, 7.2 y 7.3 del RD 1619/2012)"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Invoice issued to replace simplified invoices issued and filed"
@@ -726,12 +711,12 @@ msgid "Other accounting documents"
 msgstr "Justificantes contables"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
-msgid "Simplified Invoice (ticket)"
-msgstr "Factura simplificada (tique)"
-
-msgctxt "selection:account.invoice,sii_received_key:"
 msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
 msgstr ""
+"Factura Simplificada y y Facturas sin identificación del destinatario (Art. "
+"6.1.d RD 1619/2012)"
 
 msgctxt "selection:account.invoice,sii_received_key:"
 msgid ""
@@ -763,8 +748,9 @@ msgid "Business premises lease activities"
 msgstr "Operaciones de arrendamiento de local de negocio"
 
 msgctxt "selection:account.invoice,sii_received_key:"
-msgid "First semester 2017"
-msgstr "Primer semestre 2017"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr ""
+"Primer semestre de 2017 y otras facturas anteriores a la inclusión en el SII"
 
 msgctxt "selection:account.invoice,sii_received_key:"
 msgid "General tax regime activity"
@@ -798,10 +784,6 @@ msgid "Special scheme for travel agencies"
 msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.invoice,sii_state:"
-msgid ""
-msgstr ""
-
-msgctxt "selection:account.invoice,sii_state:"
 msgid "Accepted"
 msgstr "Correcta"
 
@@ -827,10 +809,6 @@ msgstr "Rechazado"
 
 msgctxt "selection:account.invoice,sii_subjected_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.invoice,sii_subjected_key:"
-msgid ""
 "Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
 msgstr "No exenta - Con o sin Inversion sujeto pasivo"
 
@@ -841,10 +819,6 @@ msgstr "Sujeto - No exento"
 msgctxt "selection:account.invoice,sii_subjected_key:"
 msgid "Subject - Not exempt. VAT reverse charge"
 msgstr "No exenta - Con Inversion sujeto pasivo"
-
-msgctxt "selection:account.tax,sii_book_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.tax,sii_book_key:"
 msgid "Investment Goods"
@@ -861,10 +835,6 @@ msgstr "Determinadas operaciones Intracomunitarias"
 msgctxt "selection:account.tax,sii_book_key:"
 msgid "Received Invoices"
 msgstr "Facturas recibidas"
-
-msgctxt "selection:account.tax,sii_excemption_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.tax,sii_excemption_key:"
 msgid "Exempt on account of Article 20"
@@ -892,10 +862,6 @@ msgstr "Exenta, otros"
 
 msgctxt "selection:account.tax,sii_intracomunity_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.tax,sii_intracomunity_key:"
-msgid ""
 "The transmission or receipt of goods to undertake partial reports or works "
 "stipulated in Article 70, section one, Number 7 of the Tax Law (Law 37/1992)"
 msgstr ""
@@ -911,10 +877,6 @@ msgstr ""
 "Las transferencias de bienes y las adquisiciones intracomunitarias de bienes"
 " comprendidas en los artículos 9, apartado 3º, y 16, apartado  2º, de la Ley"
 " del Impuesto (Ley 37/1992)"
-
-msgctxt "selection:account.tax,sii_issued_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.tax,sii_issued_key:"
 msgid ""
@@ -966,8 +928,9 @@ msgid "Export"
 msgstr "Exportación"
 
 msgctxt "selection:account.tax,sii_issued_key:"
-msgid "First semester 2017"
-msgstr "Primer semestre 2017"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr ""
+"Primer semestre de 2017 y otras facturas anteriores a la inclusión en el SII"
 
 msgctxt "selection:account.tax,sii_issued_key:"
 msgid "General tax regime activity"
@@ -1013,10 +976,6 @@ msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.tax,sii_received_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.tax,sii_received_key:"
-msgid ""
 "Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
 " Services and Imports"
 msgstr ""
@@ -1045,8 +1004,9 @@ msgid "Business premises lease activities"
 msgstr "Operaciones de arrendamiento de local de negocio"
 
 msgctxt "selection:account.tax,sii_received_key:"
-msgid "First semester 2017"
-msgstr "Primer semestre 2017"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr ""
+"Primer semestre de 2017 y otras facturas anteriores a la inclusión en el SII"
 
 msgctxt "selection:account.tax,sii_received_key:"
 msgid "General tax regime activity"
@@ -1081,10 +1041,6 @@ msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.tax,sii_subjected_key:"
-msgid ""
 "Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
 msgstr "No exenta - Con o sin Inversion sujeto pasivo"
 
@@ -1095,10 +1051,6 @@ msgstr "Sujeto - No exento"
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid "Subject - Not exempt. VAT reverse charge"
 msgstr "No exenta - Con Inversion sujeto pasivo"
-
-msgctxt "selection:account.tax.template,sii_book_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Investment Goods"
@@ -1115,10 +1067,6 @@ msgstr "Determinadas operaciones Intracomunitarias"
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Received Invoices"
 msgstr "Facturas recibidas"
-
-msgctxt "selection:account.tax.template,sii_excemption_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.tax.template,sii_excemption_key:"
 msgid "Exempt on account of Article 20"
@@ -1146,10 +1094,6 @@ msgstr "Exenta, otros"
 
 msgctxt "selection:account.tax.template,sii_intracomunity_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.tax.template,sii_intracomunity_key:"
-msgid ""
 "The transmission or receipt of goods to undertake partial reports or works "
 "stipulated in Article 70, section one, Number 7 of the Tax Law (Law 37/1992)"
 msgstr ""
@@ -1165,10 +1109,6 @@ msgstr ""
 "Las transferencias de bienes y las adquisiciones intracomunitarias de bienes"
 " comprendidas en los artículos 9, apartado 3º, y 16, apartado  2º, de la Ley"
 " del Impuesto (Ley 37/1992)"
-
-msgctxt "selection:account.tax.template,sii_issued_key:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
 msgid ""
@@ -1220,8 +1160,9 @@ msgid "Export"
 msgstr "Exportación"
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
-msgid "First semester 2017"
-msgstr "Primer semestre 2017"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr ""
+"Primer semestre de 2017 y otras facturas anteriores a la inclusión en el SII"
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
 msgid "General tax regime activity"
@@ -1267,10 +1208,6 @@ msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.tax.template,sii_received_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.tax.template,sii_received_key:"
-msgid ""
 "Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
 " Services and Imports"
 msgstr ""
@@ -1299,8 +1236,9 @@ msgid "Business premises lease activities"
 msgstr "Operaciones de arrendamiento de local de negocio"
 
 msgctxt "selection:account.tax.template,sii_received_key:"
-msgid "First semester 2017"
-msgstr "Primer semestre 2017"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr ""
+"Primer semestre de 2017 y otras facturas anteriores a la inclusión en el SII"
 
 msgctxt "selection:account.tax.template,sii_received_key:"
 msgid "General tax regime activity"
@@ -1335,10 +1273,6 @@ msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.tax.template,sii_subjected_key:"
 msgid ""
-msgstr ""
-
-msgctxt "selection:account.tax.template,sii_subjected_key:"
-msgid ""
 "Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
 msgstr "No exenta - Con o sin Inversion sujeto pasivo"
 
@@ -1349,10 +1283,6 @@ msgstr "Sujeto - No exento"
 msgctxt "selection:account.tax.template,sii_subjected_key:"
 msgid "Subject - Not exempt. VAT reverse charge"
 msgstr "No exenta - Con Inversion sujeto pasivo"
-
-msgctxt "selection:aeat.sii.report,book:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:aeat.sii.report,book:"
 msgid "Investment Goods"
@@ -1369,10 +1299,6 @@ msgstr "Determinadas operaciones Intracomunitarias"
 msgctxt "selection:aeat.sii.report,book:"
 msgid "Received Invoices"
 msgstr "Facturas recibidas"
-
-msgctxt "selection:aeat.sii.report,communication_state:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:aeat.sii.report,communication_state:"
 msgid "Accepted"
@@ -1430,9 +1356,9 @@ msgctxt "selection:aeat.sii.report,version:"
 msgid "1.0"
 msgstr "1.0"
 
-msgctxt "selection:aeat.sii.report.lines,identifier_type:"
-msgid ""
-msgstr ""
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.1"
+msgstr "1.1"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "NIF-VAT"
@@ -1462,10 +1388,6 @@ msgid "Residence certificate"
 msgstr "Certificado de residencia"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
-msgid ""
-msgstr ""
-
-msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
 msgstr "Factura rectificativa (Art 80.1, 80.2 y 80.6)"
 
@@ -1486,12 +1408,16 @@ msgid "Credit Note (Art 80.4)"
 msgstr "Facura rectificativa (Art. 80.4)"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "Aduanas - Liquidación complementaria"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Import (DUA)"
 msgstr "Importaciones (DUA)"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
-msgid "Invoice"
-msgstr "Factura"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "Factura (Art. 6, 7.2 y 7.3 del RD 1619/2012)"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Invoice issued to replace simplified invoices issued and filed"
@@ -1508,12 +1434,12 @@ msgid "Other accounting documents"
 msgstr "Justificantes contables"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
-msgid "Simplified Invoice (ticket)"
-msgstr "Factura simplificada (tique)"
-
-msgctxt "selection:aeat.sii.report.lines,state:"
 msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
 msgstr ""
+"Factura Simplificada y y Facturas sin identificación del destinatario (Art. "
+"6.1.d RD 1619/2012)"
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Accepted"
@@ -1538,10 +1464,6 @@ msgstr "Borrada"
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Rejected"
 msgstr "Rechazado"
-
-msgctxt "selection:party.party,sii_identifier_type:"
-msgid ""
-msgstr ""
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "NIF-VAT"
