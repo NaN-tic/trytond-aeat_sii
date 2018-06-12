@@ -20,6 +20,7 @@ __all__ = [
 _logger = getLogger(__name__)
 
 
+# Only for 3.4 and 3.8 version
 def _amount_getter(field_name):
     def amount_getter(self, field):
         pool = Pool()
@@ -29,9 +30,7 @@ def _amount_getter(field_name):
         else:
             invoice = field
         val = attrgetter(field_name)(field)
-        # Only for 3.4 and 3.8 version
         credit_note = invoice.type in ('in_credit_note', 'out_credit_note')
-        # On 4.X change the return for: return val
         return val if val is None or not credit_note else -val
     return amount_getter
 
@@ -61,10 +60,26 @@ class BaseTrytonInvoiceMapper(Model):
             nif = nif[2:]
         return nif
 
+    def get_untaxed_amount(self, invoice):
+        taxes = self.taxes(invoice)
+        untaxed = 0
+        for tax in taxes:
+            untaxed += _amount_getter('company_base')
+        return untaxed
+
+    def get_total_amount(self, invoice):
+        taxes = self.taxes(invoice)
+        total = 0
+        for tax in taxes:
+            tax_base = _amount_getter('company_base')
+            tax_amount = _amount_getter('company_amount')
+            total += tax_base + tax_amount)
+        return total
+
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
-    untaxed_amount = _amount_getter('company_untaxed_amount')
-    total_amount = _amount_getter('company_total_amount')
+    untaxed_amount = get_untaxed_amount
+    total_amount = get_total_amount
     tax_rate = attrgetter('tax.rate')
     tax_base = _amount_getter('company_base')
     tax_amount = _amount_getter('company_amount')
@@ -98,13 +113,9 @@ class BaseTrytonInvoiceMapper(Model):
             ])
 
     def taxes(self, invoice):
-        return [
-            invoice_tax for invoice_tax in invoice.taxes
-            if (
+        return [invoice_tax for invoice_tax in invoice.taxes if (
                 invoice_tax.tax.sii_subjected_key == 'S1' and
-                not invoice_tax.tax.recargo_equivalencia
-            )
-        ]
+                not invoice_tax.tax.recargo_equivalencia)]
 
     def _tax_equivalence_surcharge(self, invoice_tax):
         parent_tax = invoice_tax.tax.parent
