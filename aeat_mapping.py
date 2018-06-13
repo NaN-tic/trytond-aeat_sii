@@ -73,7 +73,7 @@ class BaseTrytonInvoiceMapper(Model):
         for tax in taxes:
             tax_base = _amount_getter('company_base')
             tax_amount = _amount_getter('company_amount')
-            total += tax_base + tax_amount)
+            total += (tax_base + tax_amount)
         return total
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
