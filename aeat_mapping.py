@@ -67,7 +67,6 @@ class BaseTrytonInvoiceMapper(Model):
         taxes = self.total_invoice_taxes(invoice)
         taxes_base = 0
         taxes_amount = 0
-        val = attrgetter('company_total_amount')(invoice)
         for tax in taxes:
             taxes_base += self.get_tax_base(tax)
             taxes_amount += self.get_tax_amount(tax)
