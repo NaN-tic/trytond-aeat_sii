@@ -20,23 +20,7 @@ __all__ = [
 _logger = getLogger(__name__)
 
 
-# Only for 3.4 and 3.8 version
-def _amount_getter(field_name):
-    def amount_getter(self, field):
-        pool = Pool()
-        InvoiceTax = pool.get('account.invoice.tax')
-        if isinstance(field, InvoiceTax):
-            invoice = field.invoice
-        else:
-            invoice = field
-        val = attrgetter(field_name)(field)
-        credit_note = invoice.type in ('in_credit_note', 'out_credit_note')
-        return val if val is None or not credit_note else -val
-    return amount_getter
-
-
 class BaseTrytonInvoiceMapper(Model):
-
     def __init__(self, *args, **kwargs):
         super(BaseTrytonInvoiceMapper, self).__init__(*args, **kwargs)
         self.pool = Pool()
@@ -60,29 +44,42 @@ class BaseTrytonInvoiceMapper(Model):
             nif = nif[2:]
         return nif
 
-    def get_untaxed_amount(self, invoice):
-        taxes = self.taxes(invoice)
-        untaxed = 0
-        for tax in taxes:
-            untaxed += _amount_getter('company_base')
-        return untaxed
+    def get_tax_amount(self, tax):
+        invoice = tax.invoice
+        val = attrgetter('company_amount')(tax)
+        credit_note = invoice.type in ('in_credit_note', 'out_credit_note')
+        return val if val is None or not credit_note else -val
 
-    def get_total_amount(self, invoice):
+    def get_tax_base(self, tax):
+        invoice = tax.invoice
+        val = attrgetter('company_base')(tax)
+        credit_note = invoice.type in ('in_credit_note', 'out_credit_note')
+        return val if val is None or not credit_note else -val
+
+    def get_invoice_untaxed(self, invoice):
         taxes = self.taxes(invoice)
-        total = 0
+        taxes_base = 0
         for tax in taxes:
-            tax_base = _amount_getter('company_base')
-            tax_amount = _amount_getter('company_amount')
-            total += (tax_base + tax_amount)
-        return total
+            taxes_base += self.get_tax_base(tax)
+        return taxes_base
+
+    def get_invoice_total(self, invoice):
+        taxes = self.total_invoice_taxes(invoice)
+        taxes_base = 0
+        taxes_amount = 0
+        val = attrgetter('company_total_amount')(invoice)
+        for tax in taxes:
+            taxes_base += self.get_tax_base(tax)
+            taxes_amount += self.get_tax_amount(tax)
+        return (taxes_amount + taxes_base)
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
-    untaxed_amount = get_untaxed_amount
-    total_amount = get_total_amount
+    untaxed_amount = get_invoice_untaxed
+    total_amount = get_invoice_total
     tax_rate = attrgetter('tax.rate')
-    tax_base = _amount_getter('company_base')
-    tax_amount = _amount_getter('company_amount')
+    tax_base = get_tax_base
+    tax_amount = get_tax_amount
 
     def counterpart_name(self, invoice):
         return tools.unaccent(invoice.party.name)
@@ -114,7 +111,12 @@ class BaseTrytonInvoiceMapper(Model):
 
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
-                invoice_tax.tax.sii_subjected_key == 'S1' and
+                invoice_tax.tax.tax_used and
+                not invoice_tax.tax.recargo_equivalencia)]
+
+    def total_invoice_taxes(self, invoice):
+        return [invoice_tax for invoice_tax in invoice.taxes if (
+                invoice_tax.tax.invoice_used and
                 not invoice_tax.tax.recargo_equivalencia)]
 
     def _tax_equivalence_surcharge(self, invoice_tax):

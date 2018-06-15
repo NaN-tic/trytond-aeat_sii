@@ -25,6 +25,8 @@ class TemplateTax:
         'Intracommunity Key')
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected Key')
     sii_excemption_key = fields.Selection(EXCEMPTION_CAUSE, 'Excemption Key')
+    tax_used = fields.Boolean('Used in Tax')
+    invoice_used = fields.Boolean('Used in invoice Total')
 
     def _get_tax_value(self, tax=None):
         res = super(TemplateTax, self)._get_tax_value(tax)
@@ -50,3 +52,5 @@ class Tax:
         'Intracommunity Key')
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected Key')
     sii_excemption_key = fields.Selection(EXCEMPTION_CAUSE, 'Excemption Key')
+    tax_used = fields.Boolean('Used in Tax')
+    invoice_used = fields.Boolean('Used in invoice Total')
