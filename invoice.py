@@ -59,6 +59,12 @@ class Invoice:
             'sii_received_key', 'sii_issued_key', 'sii_subjected_key',
             'sii_excemption_key', 'sii_intracomunity_key']
         cls._check_modify_exclude += sii_fields
+        cls._error_messages.update({
+            'invoices_sii': 'The next invoices are related with SII books:\n'
+                '%s.\n\nIf yuo edit them take care if you need to update '
+                'again to SII',
+            })
+
         cls._buttons.update({
             'reset_sii_keys': {
                 'invisible': Eval('sii_state', None) != None,
@@ -193,6 +199,17 @@ class Invoice:
 
         if to_write:
             cls.write(*to_write)
+
+    @classmethod
+    def draft(cls, invoices):
+        super(Invoice, cls).draft(invoices)
+        invoices_sii = ''
+        for invoice in invoices:
+            if invoice.sii_state:
+                invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
+        if invoices_sii:
+            warning_name = 'invoices_sii_report'
+            cls.raise_user_warning(warning_name, 'invoices_sii', invoices_sii)
 
 
 class Sale:
