@@ -54,8 +54,14 @@ class BaseTrytonInvoiceMapper(Model):
     def get_invoice_total(self, invoice):
         taxes = self.total_invoice_taxes(invoice)
         total = 0
+        taxes_used = {}
         for tax in taxes:
-            total += (tax.company_base + tax.company_amount)
+            base = tax.company_base
+            parent = tax.tax.parent if tax.tax.parent else tax.tax
+            if parent.id in taxes_used.keys() and base == taxes_used[parent.id]:
+                continue
+            total += (base + tax.company_amount)
+            taxes_used[parent.id] = base
         return total
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
@@ -99,7 +105,7 @@ class BaseTrytonInvoiceMapper(Model):
                 invoice_tax.tax.tax_used and
                 not invoice_tax.tax.recargo_equivalencia)]
 
-    def taxes(self, invoice):
+    def total_invoice_taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
                 invoice_tax.tax.invoice_used and
                 not invoice_tax.tax.recargo_equivalencia)]
