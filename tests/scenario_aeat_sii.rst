@@ -194,3 +194,16 @@ Create AEAT Report::
     >>> report.click('load_invoices')
     >>> len(report.lines)
     2
+
+
+Credit invoice with refund::
+
+    >>> credit = Wizard('account.invoice.credit', [invoice])
+    >>> credit.form.with_refund = True
+    >>> credit.execute('credit')
+    >>> invoice.reload()
+    >>> invoice.state
+    'paid'
+    >>> credit, = Invoice.find([('total_amount', '<', 0)])
+    >>> credit.sii_operation_key
+    'R1'
