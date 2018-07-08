@@ -165,7 +165,6 @@ class Invoice:
         return res
 
     def _set_sii_keys(self):
-        sii_keys = {}
         tax = None
         for t in self.taxes:
             if t.tax_used:
