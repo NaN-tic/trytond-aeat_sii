@@ -167,13 +167,13 @@ class Invoice:
     def _set_sii_keys(self):
         tax = None
         for t in self.taxes:
-            if t.tax_used:
-                tax = t
+            if t.tax.tax_used:
+                tax = t.tax
                 break
         if not tax:
             return
         for field in _SII_INVOICE_KEYS:
-            setattr(self, field, getattr(tax.tax, field))
+            setattr(self, field, getattr(tax, field))
 
     @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
