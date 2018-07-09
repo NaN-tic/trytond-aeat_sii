@@ -150,7 +150,8 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
     def deductible_amount(self, invoice):
         val = Decimal(0)
         for tax in self.taxes(invoice):
-            val += tax.company_amount
+            if tax.tax.deducible:
+                val += tax.company_amount
         return val
 
     tax_reagyp_rate = BaseTrytonInvoiceMapper.tax_rate
