@@ -177,7 +177,8 @@ class RecievedTrytonInvoiceMapper(mapping.RecievedInvoiceMapper,
 
         val = Decimal(0)
         for tax in self.taxes(invoice):
-            val += tax.company_amount
+            if tax.tax.deducible:
+                val += tax.company_amount
         # On 4.X change the return for: return val
         return val if val is None or not credit_note else -val
 
