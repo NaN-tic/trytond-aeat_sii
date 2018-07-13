@@ -160,19 +160,23 @@ class Invoice:
         return result
 
     def _credit(self):
-        res = super(Invoice, self)._credit()
+        credit = super(Invoice, self)._credit()
         for field in _SII_INVOICE_KEYS:
-            res[field] = getattr(self, field)
+            setattr(credit, field, getattr(self, field))
 
-        res['sii_operation_key'] = 'R4'
-        return res
+        credit.sii_operation_key = 'R4'
+        return credit
 
     def _set_sii_keys(self):
-        tax = self.taxes and self.taxes[0]
+        tax = None
+        for t in self.taxes:
+            if t.txa.tax_used:
+                tax = t.tax
+                break
         if not tax:
             return
         for field in _SII_INVOICE_KEYS:
-            setattr(self, field, getattr(tax.tax, field))
+            setattr(self, field, getattr(tax, field))
 
     @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
