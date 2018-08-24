@@ -17,14 +17,20 @@ def register():
         party.Party,
         company.Company,
         invoice.Invoice,
-        invoice.Sale,
-        invoice.Purchase,
         load_pkcs12.LoadPKCS12Start,
         aeat.SIIReport,
         aeat.SIIReportLine,
         aeat.SIIReportLineTax,
         aeat_mapping.IssuedTrytonInvoiceMapper,
         aeat_mapping.RecievedTrytonInvoiceMapper,
+        module='aeat_sii', type_='model')
+    Pool.register(
+        invoice.Sale,
+        depends=['sale'],
+        module='aeat_sii', type_='model')
+    Pool.register(
+        invoice.Purchase,
+        depends=['purchase'],
         module='aeat_sii', type_='model')
     Pool.register(
         load_pkcs12.LoadPKCS12,
