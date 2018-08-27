@@ -18,6 +18,8 @@
     <field name="fiscalyear"/>
     <label name="period"/>
     <field name="period"/>
+    <label name="load_date"/>
+    <field name="load_date"/>
     <label name="send_date"/>
     <field name="send_date"/>
     <button name="load_invoices" colspan="2"/>
