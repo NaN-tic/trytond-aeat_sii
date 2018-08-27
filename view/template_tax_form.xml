@@ -2,7 +2,7 @@
 <!--The COPYRIGHT file at the top level of this repository
 contains the full copyright notices and license terms. -->
 <data>
-    <xpath expr="/form/notebook/page[@id=&quot;code&quot;]" position="after">
+    <xpath expr="/form/notebook/page[@name='legal_notice']" position="after">
         <page string="AEAT SII" id="aeatsii">
           <label name="sii_book_key"/>
           <field name="sii_book_key"/>

@@ -12,7 +12,7 @@ Imports::
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
-    ...     create_chart, get_accounts, create_tax, set_tax_code
+    ...     create_chart, get_accounts, create_tax, create_tax_code
     >>> from trytond.modules.account_invoice.tests.tools import \
     ...     set_fiscalyear_invoice_sequences
     >>> today = datetime.date.today()
@@ -48,15 +48,21 @@ Create chart of accounts::
 
 Create tax::
 
-    >>> tax = set_tax_code(create_tax(Decimal('.10')))
+    >>> TaxCode = Model.get('account.tax.code')
+    >>> tax = create_tax(Decimal('.10'))
     >>> tax.sii_book_key = 'E'
     >>> tax.sii_issued_key = '01'
     >>> tax.sii_subjected_key = 'S1'
+    >>> tax.tax_used = True
     >>> tax.save()
-    >>> invoice_base_code = tax.invoice_base_code
-    >>> invoice_tax_code = tax.invoice_tax_code
-    >>> credit_note_base_code = tax.credit_note_base_code
-    >>> credit_note_tax_code = tax.credit_note_tax_code
+    >>> invoice_base_code = create_tax_code(tax, 'base', 'invoice')
+    >>> invoice_base_code.save()
+    >>> invoice_tax_code = create_tax_code(tax, 'tax', 'invoice')
+    >>> invoice_tax_code.save()
+    >>> credit_note_base_code = create_tax_code(tax, 'base', 'credit')
+    >>> credit_note_base_code.save()
+    >>> credit_note_tax_code = create_tax_code(tax, 'tax', 'credit')
+    >>> credit_note_tax_code.save()
 
 Create party::
 
@@ -195,7 +201,6 @@ Create AEAT Report::
     >>> len(report.lines)
     2
 
-
 Credit invoice with refund::
 
     >>> credit = Wizard('account.invoice.credit', [invoice])
@@ -203,7 +208,7 @@ Credit invoice with refund::
     >>> credit.execute('credit')
     >>> invoice.reload()
     >>> invoice.state
-    'paid'
+    u'paid'
     >>> credit, = Invoice.find([('total_amount', '<', 0)])
     >>> credit.sii_operation_key
-    'R1'
+    u'R1'
