@@ -170,6 +170,18 @@ msgctxt "field:aeat.sii.report,lines:"
 msgid "Lines"
 msgstr "Líneas"
 
+msgctxt "field:aeat.sii.report,load_date:"
+msgid "Load Date"
+msgstr "Data límit"
+
+msgctxt "field:aeat.sii.report,load_date_end:"
+msgid "Load Date End"
+msgstr "Fins data límit"
+
+msgctxt "field:aeat.sii.report,load_date_start:"
+msgid "Load Date Start"
+msgstr "Desde data límit"
+
 msgctxt "field:aeat.sii.report,operation_type:"
 msgid "Operation Type"
 msgstr "Tipo de operación"
@@ -397,6 +409,10 @@ msgstr "Número NIF SII"
 msgctxt "field:party.party,sii_vat_country:"
 msgid "SII VAT Country"
 msgstr "País NIF SII"
+
+msgctxt "help:aeat.sii.report,load_date:"
+msgid "Filter invoices to the date whitin the period."
+msgstr "Filtra les factures fins la data dins del període."
 
 msgctxt "model:aeat.sii.issued.invoice.mapper,name:"
 msgid "Tryton Issued Invoice to AEAT mapper"
