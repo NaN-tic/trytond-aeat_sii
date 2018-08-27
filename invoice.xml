@@ -14,5 +14,12 @@
           <field name="inherit" ref="account_invoice.invoice_view_tree"/>
           <field name="name">account_invoice_list</field>
       </record>
+
+      <!-- Buttons -->
+      <record model="ir.model.button" id="aeat_sii_invoice_reset_sii_keys_button">
+          <field name="name">reset_sii_keys</field>
+          <field name="string">Reset SII Keys</field>
+          <field name="model" search="[('model', '=', 'account.invoice')]"/>
+      </record>
     </data>
 </tryton>

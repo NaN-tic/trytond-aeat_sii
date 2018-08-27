@@ -160,13 +160,34 @@
          <field name="rule_group" ref="rule_group_sii_report_line"/>
       </record>
 
+      <!-- Buttons -->
       <record model="ir.model.button" id="load_invoices_button">
           <field name="name">load_invoices</field>
+          <field name="string">Load Invoices</field>
+          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+      </record>
+      <record model="ir.model.button" id="draft_button">
+          <field name="name">draft</field>
+          <field name="string">Draft</field>
+          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+      </record>
+      <record model="ir.model.button" id="confirm_button">
+          <field name="name">confirm</field>
+          <field name="string">Confirm</field>
+          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+      </record>
+      <record model="ir.model.button" id="send_button">
+          <field name="name">send</field>
+          <field name="string">Send</field>
+          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+      </record>
+      <record model="ir.model.button" id="cancel_button">
+          <field name="name">cancel</field>
+          <field name="string">Cancel</field>
           <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
       </record>
 
-      <record model="ir.model.button-res.group"
-          id="load_invoices_admin">
+      <record model="ir.model.button-res.group" id="load_invoices_admin">
           <field name="button" ref="load_invoices_button"/>
           <field name="group" ref="group_aeat_sii_admin"/>
       </record>

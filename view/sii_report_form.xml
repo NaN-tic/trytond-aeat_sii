@@ -20,7 +20,7 @@
     <field name="period"/>
     <label name="send_date"/>
     <field name="send_date"/>
-    <button string="Load Invoices" name="load_invoices"  colspan="2"/>
+    <button name="load_invoices" colspan="2"/>
     <field name="lines" colspan="6"
         mode="tree"
         view_ids="aeat_sii.aeat_sii_report_line_tree_seq_view"/>
@@ -31,9 +31,9 @@
     <label name="csv"/>
     <field name="csv"/>
     <group id="buttons" colspan="2">
-        <button name="draft" string="Draft"/>
-        <button name="confirm" string="Confirm"/>
-        <button name="send" string="Send"/>
-        <button name="cancel" string="Cancel"/>
+        <button name="draft"/>
+        <button name="confirm"/>
+        <button name="send"/>
+        <button name="cancel"/>
     </group>
 </form>
