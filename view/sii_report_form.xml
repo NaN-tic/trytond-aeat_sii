@@ -18,9 +18,11 @@
     <field name="fiscalyear"/>
     <label name="period"/>
     <field name="period"/>
+    <label name="load_date"/>
+    <field name="load_date"/>
     <label name="send_date"/>
     <field name="send_date"/>
-    <button string="Load Invoices" name="load_invoices"  colspan="2"/>
+    <button string="Load Invoices" name="load_invoices" colspan="2"/>
     <field name="lines" colspan="6"
         mode="tree"
         view_ids="aeat_sii.aeat_sii_report_line_tree_seq_view"/>

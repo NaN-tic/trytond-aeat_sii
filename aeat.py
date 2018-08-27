@@ -262,6 +262,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'readonly': ((Eval('state') != 'draft')
                 | (Eval('lines', [0]) & Eval('period'))),
         }, depends=['state', 'fiscalyear'])
+    load_date = fields.Date('Load Date',
+        domain=['OR', [
+                    ('load_date', '=', None),
+                ], [
+                    ('load_date', '>=', Eval('load_date_start')),
+                    ('load_date', '<=', Eval('load_date_end')),
+                ]
+        ], depends=['load_date_start', 'load_date_end'],
+        help='Filter invoices to the date whitin the period.')
+    load_date_start = fields.Function(fields.Date('Load Date Start'),
+        'on_change_with_load_date_start')
+    load_date_end = fields.Function(fields.Date('Load Date End'),
+        'on_change_with_load_date_end')
     operation_type = fields.Selection(COMMUNICATION_TYPE, 'Operation Type',
         required=True,
         states={
@@ -344,11 +357,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def default_company():
         return Transaction().context.get('company')
 
-    @fields.depends('company')
-    def on_change_with_currency(self, name=None):
-        if self.company:
-            return self.company.currency.id
-
     @staticmethod
     def default_fiscalyear():
         FiscalYear = Pool().get('account.fiscalyear')
@@ -363,10 +371,28 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def default_version():
         return '1.1'
 
+    @fields.depends('period')
+    def on_change_period(self):
+        if not self.period:
+            self.load_date = None
+
     @fields.depends('company')
     def on_change_with_company_vat(self):
         if self.company:
             return self.company.party.sii_vat_code
+
+    @fields.depends('company')
+    def on_change_with_currency(self, name=None):
+        if self.company:
+            return self.company.currency.id
+
+    @fields.depends('period')
+    def on_change_with_load_date_start(self, name=None):
+        return self.period.start_date if self.period else None
+
+    @fields.depends('period')
+    def on_change_with_load_date_end(self, name=None):
+        return self.period.end_date if self.period else None
 
     @classmethod
     def copy(cls, records, default=None):
@@ -448,14 +474,21 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
                 ('state', 'in', ['posted', 'paid']),
-            ]
+                ]
 
             if report.operation_type == 'A0':
                 domain.append(('sii_state', 'in', [None, 'Incorrecto']))
-
             elif report.operation_type in ('A1', 'A4'):
                 domain.append(('sii_state', 'in', [
                     'AceptadoConErrores', 'AceptadaConErrores']))
+
+            if report.load_date:
+                domain.append(['OR', [
+                        ('invoice_date', '<=', report.load_date),
+                        ('accounting_date', '=', None),
+                        ], [
+                        ('accounting_date', '<=', report.load_date),
+                        ]])
 
             _logger.debug('Searching invoices for SII report: %s', domain)
 
@@ -463,7 +496,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 to_create.append({
                     'report': report,
                     'invoice': invoice,
-                })
+                    })
 
         if to_create:
             ReportLine.create(to_create)

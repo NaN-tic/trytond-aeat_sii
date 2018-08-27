@@ -60,6 +60,7 @@ Create tax::
     >>> tax.sii_book_key = 'E'
     >>> tax.sii_issued_key = '01'
     >>> tax.sii_subjected_key = 'S1'
+    >>> tax.tax_used = True
     >>> tax.save()
     >>> invoice_base_code = tax.invoice_base_code
     >>> invoice_tax_code = tax.invoice_tax_code
