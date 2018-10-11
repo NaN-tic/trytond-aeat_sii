@@ -10,9 +10,8 @@ from .aeat import (BOOK_KEY, SEND_SPECIAL_REGIME_KEY,
 __all__ = ['TemplateTax', 'Tax']
 
 
-class TemplateTax:
+class TemplateTax(metaclass=PoolMeta):
     __name__ = 'account.tax.template'
-    __metaclass__ = PoolMeta
 
     sii_book_key = fields.Selection(BOOK_KEY, 'Book Key')
     sii_issued_key = fields.Selection(SEND_SPECIAL_REGIME_KEY, 'Issued Key')
@@ -37,9 +36,8 @@ class TemplateTax:
         return res
 
 
-class Tax:
+class Tax(metaclass=PoolMeta):
     __name__ = 'account.tax'
-    __metaclass__ = PoolMeta
 
     sii_book_key = fields.Selection(BOOK_KEY, 'Book Key')
     sii_issued_key = fields.Selection(SEND_SPECIAL_REGIME_KEY, 'Issued Key')

@@ -22,8 +22,7 @@ _SII_INVOICE_KEYS = ['sii_book_key', 'sii_issued_key', 'sii_received_key',
         'sii_intracomunity_key']
 
 
-class Invoice:
-    __metaclass__ = PoolMeta
+class Invoice(metaclass=PoolMeta):
     __name__ = 'account.invoice'
 
     sii_book_key = fields.Selection(BOOK_KEY, 'SII Book Key')
@@ -219,8 +218,7 @@ class Invoice:
             cls.raise_user_warning(warning_name, 'invoices_sii', invoices_sii)
 
 
-class Sale:
-    __metaclass__ = PoolMeta
+class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
 
     def create_invoice(self):
@@ -239,8 +237,7 @@ class Sale:
         return invoice
 
 
-class Purchase:
-    __metaclass__ = PoolMeta
+class Purchase(metaclass=PoolMeta):
     __name__ = 'purchase.purchase'
 
     def create_invoice(self):

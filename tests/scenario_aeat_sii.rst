@@ -70,6 +70,16 @@ Create party::
     >>> party = Party(name='Party')
     >>> party.save()
 
+Create account category::
+
+    >>> ProductCategory = Model.get('product.category')
+    >>> account_category = ProductCategory(name="Account Category")
+    >>> account_category.accounting = True
+    >>> account_category.account_expense = expense
+    >>> account_category.account_revenue = revenue
+    >>> account_category.customer_taxes.append(tax)
+    >>> account_category.save()
+
 Create product::
 
     >>> ProductUom = Model.get('product.uom')
@@ -83,11 +93,9 @@ Create product::
     >>> template.type = 'service'
     >>> template.list_price = Decimal('40')
     >>> template.cost_price = Decimal('25')
-    >>> template.account_expense = expense
-    >>> template.account_revenue = revenue
-    >>> template.customer_taxes.append(tax)
+    >>> template.account_category = account_category
     >>> template.save()
-    >>> product.template = template
+    >>> product, = template.products
     >>> product.save()
 
 Create payment term::
@@ -120,11 +128,11 @@ Create invoice::
     >>> line.unit_price = Decimal(20)
     >>> invoice.save()
     >>> invoice.sii_book_key
-    u'E'
+    'E'
     >>> invoice.sii_operation_key
-    u'F1'
+    'F1'
     >>> invoice.sii_issued_key
-    u'01'
+    '01'
 
     >>> invoice.sii_book_key = 'I'
     >>> invoice.sii_operation_key = 'F2'
@@ -143,7 +151,7 @@ Create invoice::
     True
     >>> invoice.click('post')
     >>> invoice.state
-    u'posted'
+    'posted'
 
 Create Credit invoice::
 
@@ -164,11 +172,11 @@ Create Credit invoice::
     >>> invoice.sii_operation_key = 'R1'
     >>> invoice.save()
     >>> invoice.sii_book_key
-    u'E'
+    'E'
     >>> invoice.sii_operation_key
-    u'R1'
+    'R1'
     >>> invoice.sii_issued_key
-    u'01'
+    '01'
 
     >>> invoice.sii_book_key = 'I'
     >>> invoice.sii_operation_key = 'F2'
@@ -184,7 +192,7 @@ Create Credit invoice::
     True
     >>> invoice.click('post')
     >>> invoice.state
-    u'posted'
+    'posted'
 
 Create AEAT Report::
 
@@ -196,7 +204,7 @@ Create AEAT Report::
     >>> report.book = 'E'
     >>> report.save()
     >>> report.state
-    u'draft'
+    'draft'
     >>> report.click('load_invoices')
     >>> len(report.lines)
     2
@@ -208,7 +216,7 @@ Credit invoice with refund::
     >>> credit.execute('credit')
     >>> invoice.reload()
     >>> invoice.state
-    u'paid'
+    'paid'
     >>> credit, = Invoice.find([('total_amount', '<', 0)])
     >>> credit.sii_operation_key
-    u'R1'
+    'R1'

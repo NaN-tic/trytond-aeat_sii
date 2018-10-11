@@ -222,14 +222,14 @@ def remove_accents(unicode_string):
             except UnicodeDecodeError:
                 return unicode_string_bak
 
-    if not isinstance(unicode_string, unicode):
+    if not isinstance(unicode_string, str):
         return unicode_string
 
     # From http://www.leccionespracticas.com/uncategorized/eliminar-tildes-con-python-solucionado
     unicode_string_nfd = ''.join(
         (c for c in unicodedata.normalize('NFD', unicode_string)
             if (unicodedata.category(c) != 'Mn'
-                or c in (u'\u0327', u'\u0303'))  # ç or ñ
+                or c in ('\u0327', '\u0303'))  # ç or ñ
             ))
     # It converts nfd to nfc to allow unicode.decode()
     return unicodedata.normalize('NFC', unicode_string_nfd)

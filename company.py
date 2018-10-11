@@ -15,9 +15,8 @@ __all__ = ['Company']
 _logger = getLogger(__name__)
 
 
-class Company:
+class Company(metaclass=PoolMeta):
     __name__ = 'company.company'
-    __metaclass__ = PoolMeta
 
     pem_certificate = fields.Binary('PEM Certificate')
     encrypted_private_key = fields.Binary('Encrypted Private Key')
