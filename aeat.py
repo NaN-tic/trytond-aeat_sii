@@ -554,7 +554,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         lines_to_create = []
         for reg in registers:
             taxes_to_create = []
-            taxes = exemption = None
+            taxes = None
+            exemption = ''
             tipo_desglose = reg.DatosFacturaEmitida.TipoDesglose
             if tipo_desglose.DesgloseFactura:
                 sujeta = tipo_desglose.DesgloseFactura.Sujeta
@@ -589,7 +590,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'invoice': invoices_ids.get(
                     reg.IDFactura.NumSerieFacturaEmisor),
                 'state': reg.EstadoFactura.EstadoRegistro,
-                'last_modify_date': _datetime(
+                'last_modify_date': _date(
                     reg.EstadoFactura.TimestampUltimaModificacion),
                 'communication_code': reg.EstadoFactura.CodigoErrorRegistro,
                 'communication_msg': reg.EstadoFactura.DescripcionErrorRegistro,
@@ -738,7 +739,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             sii_report_line = {
                 'report': self.id,
                 'state': reg.EstadoFactura.EstadoRegistro,
-                'last_modify_date': _datetime(
+                'last_modify_date': _date(
                     reg.EstadoFactura.TimestampUltimaModificacion),
                 'communication_code': (
                     reg.EstadoFactura.CodigoErrorRegistro),
@@ -824,7 +825,7 @@ class SIIReportLine(ModelSQL, ModelView):
                 'operation_type') != 'C0',
         })
     state = fields.Selection(AEAT_INVOICE_STATE, 'State')
-    last_modify_date = fields.Char('Last Modification Date', readonly=True)
+    last_modify_date = fields.Date('Last Modification Date', readonly=True)
     communication_code = fields.Integer(
         'Communication Code', readonly=True)
     communication_msg = fields.Char(
