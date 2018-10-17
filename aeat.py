@@ -606,7 +606,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosFacturaEmitida.ClaveRegimenEspecialOTrascendencia),
                 'total_amount': _decimal(reg.DatosFacturaEmitida.ImporteTotal),
                 'taxes': [('add', [t.id for t in taxes])] if taxes else [],
-                'exemption_cause': exemption,
+                'exemption_key': exemption,
                 'counterpart_name': (
                     reg.DatosFacturaEmitida.Contraparte.NombreRazon
                     if reg.DatosFacturaEmitida.Contraparte else None),
