@@ -605,7 +605,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             elif reg.DatosFacturaEmitida.TipoDesglose.DesgloseFactura.Sujeta.\
                     Exenta:
                 exemption = reg.DatosFacturaEmitida.TipoDesglose.\
-                    DesgloseFactura.Sujeta.Exenta.DetalleExenta.CausaExencion
+                    DesgloseFactura.Sujeta.Exenta.DetalleExenta[0].CausaExencion
                 for exempt in EXCEMPTION_CAUSE:
                     if exempt[0] == exemption:
                         exemption = exempt[1]
