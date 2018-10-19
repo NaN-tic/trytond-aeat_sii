@@ -550,6 +550,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
+        SIIReportLine = pool.get('aeat.sii.report.lines')
+        SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
 
         headers = mapping.get_headers(
             name=tools.unaccent(self.company.party.name),
@@ -582,55 +584,72 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         }
         pagination = res.IndicadorPaginacion
         last_invoice = invoices_list[-1]
-        self.lines = tuple(
-            SIIReportLine(
-                invoice=invoices_ids.get(reg.IDFactura.NumSerieFacturaEmisor),
-                state=reg.EstadoFactura.EstadoRegistro,
-                last_modify_date=_datetime(
+        lines_to_create = []
+        for reg in registers:
+            taxes_to_create = []
+            taxes = exemption = None
+            if reg.DatosFacturaEmitida.TipoDesglose.DesgloseFactura.Sujeta.\
+                    NoExenta:
+                for detail in reg.DatosFacturaEmitida.TipoDesglose.\
+                        DesgloseFactura.Sujeta.NoExenta.DesgloseIVA.DetalleIVA:
+                    taxes_to_create.append({
+                            'base': _decimal(detail.BaseImponible),
+                            'rate': _decimal(detail.TipoImpositivo),
+                            'amount': _decimal(detail.CuotaRepercutida),
+                            'surcharge_rate': _decimal(
+                                detail.TipoRecargoEquivalencia),
+                            'surcharge_amount': _decimal(
+                                detail.CuotaRecargoEquivalencia),
+                            })
+                taxes = SIIReportLineTax.create(taxes_to_create)
+            elif reg.DatosFacturaEmitida.TipoDesglose.DesgloseFactura.Sujeta.\
+                    Exenta:
+                exemption = reg.DatosFacturaEmitida.TipoDesglose.\
+                    DesgloseFactura.Sujeta.Exenta.DetalleExenta.CausaExencion
+                for exempt in EXCEMPTION_CAUSE:
+                    if exempt[0] == exemption:
+                        exemption = exempt[1]
+                        break
+
+            sii_report_line = {
+                'report': self.id,
+                'invoice': invoices_ids.get(
+                    reg.IDFactura.NumSerieFacturaEmisor),
+                'state': reg.EstadoFactura.EstadoRegistro,
+                'last_modify_date': _datetime(
                     reg.EstadoFactura.TimestampUltimaModificacion),
-                communication_code=reg.EstadoFactura.CodigoErrorRegistro,
-                communication_msg=reg.EstadoFactura.DescripcionErrorRegistro,
-                issuer_vat_number=(
+                'communication_code': reg.EstadoFactura.CodigoErrorRegistro,
+                'communication_msg': reg.EstadoFactura.DescripcionErrorRegistro,
+                'issuer_vat_number': (
                     reg.IDFactura.IDEmisorFactura.NIF or
                     reg.IDFactura.IDEmisorFactura.IDOtro.ID),
-                serial_number=reg.IDFactura.NumSerieFacturaEmisor,
-                final_serial_number=(
+                'serial_number': reg.IDFactura.NumSerieFacturaEmisor,
+                'final_serial_number': (
                     reg.IDFactura.NumSerieFacturaEmisorResumenFin),
-                issue_date=_date(
+                'issue_date': _date(
                     reg.IDFactura.FechaExpedicionFacturaEmisor),
-                invoice_kind=reg.DatosFacturaEmitida.TipoFactura,
-                special_key=(
-                    reg.DatosFacturaEmitida.
-                    ClaveRegimenEspecialOTrascendencia),
-                total_amount=_decimal(reg.DatosFacturaEmitida.ImporteTotal),
-                taxes=tuple(
-                    SIIReportLineTax(
-                        base=_decimal(detail.BaseImponible),
-                        rate=_decimal(detail.TipoImpositivo),
-                        amount=_decimal(detail.CuotaRepercutida),
-                        surcharge_rate=_decimal(detail.TipoRecargoEquivalencia),
-                        surcharge_amount=_decimal(detail.CuotaRecargoEquivalencia),
-                    )
-                    for detail in reg.DatosFacturaEmitida.TipoDesglose.
-                    DesgloseFactura.Sujeta.NoExenta.DesgloseIVA.DetalleIVA
-                ),
-                counterpart_name=(
+                'invoice_kind': reg.DatosFacturaEmitida.TipoFactura,
+                'special_key': (
+                    reg.DatosFacturaEmitida.ClaveRegimenEspecialOTrascendencia),
+                'total_amount': _decimal(reg.DatosFacturaEmitida.ImporteTotal),
+                'taxes': [('add', [t.id for t in taxes])] if taxes else [],
+                'exemption_cause': exemption,
+                'counterpart_name': (
                     reg.DatosFacturaEmitida.Contraparte.NombreRazon
                     if reg.DatosFacturaEmitida.Contraparte else None),
-                counterpart_id=(
+                'counterpart_id': (
                     (
                         reg.DatosFacturaEmitida.Contraparte.NIF or
                         reg.DatosFacturaEmitida.Contraparte.IDOtro.ID)
                     if reg.DatosFacturaEmitida.Contraparte else None),
-                presenter=reg.DatosPresentacion.NIFPresentador,
-                presentation_date=_datetime(
+                'presenter': reg.DatosPresentacion.NIFPresentador,
+                'presentation_date': _datetime(
                     reg.DatosPresentacion.TimestampPresentacion),
-                csv=reg.DatosPresentacion.CSV,
-                balance_state=reg.DatosPresentacion.CSV,
-            )
-            for reg in registers
-        )
-        self.save()
+                'csv': reg.DatosPresentacion.CSV,
+                'balance_state': reg.DatosPresentacion.CSV,
+                }
+            lines_to_create.append(sii_report_line)
+        SIIReportLine.create(lines_to_create)
 
         if pagination == 'S':
             self.query_issued_invoices(last_invoice=last_invoice)
@@ -860,6 +879,7 @@ class SIIReportLine(ModelSQL, ModelView):
     invoice_operation_key = fields.Function(
         fields.Selection(OPERATION_KEY, 'SII Operation Key'),
         'get_invoice_operation_key')
+    exemption_key = fields.Char('Exemption Cause', readonly=True)
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None
