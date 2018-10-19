@@ -588,10 +588,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         for reg in registers:
             taxes_to_create = []
             taxes = exemption = None
-            if reg.DatosFacturaEmitida.TipoDesglose.DesgloseFactura.Sujeta.\
-                    NoExenta:
-                for detail in reg.DatosFacturaEmitida.TipoDesglose.\
-                        DesgloseFactura.Sujeta.NoExenta.DesgloseIVA.DetalleIVA:
+            tipo_desglose = reg.DatosFacturaEmitida.TipoDesglose
+            if tipo_desglose.DesgloseFactura:
+                sujeta = tipo_desglose.DesgloseFactura.Sujeta
+            else:
+                if tipo_desglose.DesgloseTipoOperacion.PrestacionServicios:
+                    sujeta = tipo_desglose.DesgloseTipoOperacion.\
+                        PrestacionServicios.Sujeta
+                else:
+                    sujeta = tipo_desglose.DesgloseTipoOperacion.Entrega.Sujeta
+
+            if sujeta.NoExenta:
+                for detail in sujeta.NoExenta.DesgloseIVA.DetalleIVA:
                     taxes_to_create.append({
                             'base': _decimal(detail.BaseImponible),
                             'rate': _decimal(detail.TipoImpositivo),
@@ -602,10 +610,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                                 detail.CuotaRecargoEquivalencia),
                             })
                 taxes = SIIReportLineTax.create(taxes_to_create)
-            elif reg.DatosFacturaEmitida.TipoDesglose.DesgloseFactura.Sujeta.\
-                    Exenta:
-                exemption = reg.DatosFacturaEmitida.TipoDesglose.\
-                    DesgloseFactura.Sujeta.Exenta.DetalleExenta[0].CausaExencion
+            elif sujeta.Exenta:
+                exemption = sujeta.Exenta.DetalleExenta[0].CausaExencion
                 for exempt in EXCEMPTION_CAUSE:
                     if exempt[0] == exemption:
                         exemption = exempt[1]
@@ -647,6 +653,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosPresentacion.TimestampPresentacion),
                 'csv': reg.DatosPresentacion.CSV,
                 'balance_state': reg.DatosPresentacion.CSV,
+                'aeat_register': reg,
                 }
             lines_to_create.append(sii_report_line)
         SIIReportLine.create(lines_to_create)
@@ -793,6 +800,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosPresentacion.TimestampPresentacion),
                 'csv': reg.DatosPresentacion.CSV,
                 'balance_state': reg.DatosPresentacion.CSV,
+                'aeat_register': reg,
                 }
 
             domain = [
@@ -880,6 +888,7 @@ class SIIReportLine(ModelSQL, ModelView):
         fields.Selection(OPERATION_KEY, 'SII Operation Key'),
         'get_invoice_operation_key')
     exemption_key = fields.Char('Exemption Cause', readonly=True)
+    aeat_register = fields.Text('Register from AEAT Webservice', readonly=True)
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None
