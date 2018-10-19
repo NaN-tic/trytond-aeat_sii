@@ -627,7 +627,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'invoice': invoices_ids.get(
                     reg.IDFactura.NumSerieFacturaEmisor),
                 'state': reg.EstadoFactura.EstadoRegistro,
-                'last_modify_date': _date(
+                'last_modify_date': _datetime(
                     reg.EstadoFactura.TimestampUltimaModificacion),
                 'communication_code': reg.EstadoFactura.CodigoErrorRegistro,
                 'communication_msg': reg.EstadoFactura.DescripcionErrorRegistro,
@@ -862,7 +862,7 @@ class SIIReportLine(ModelSQL, ModelView):
                 'operation_type') != 'C0',
         })
     state = fields.Selection(AEAT_INVOICE_STATE, 'State')
-    last_modify_date = fields.Date('Last Modification Date', readonly=True)
+    last_modify_date = fields.DateTime('Last Modification Date', readonly=True)
     communication_code = fields.Integer(
         'Communication Code', readonly=True)
     communication_msg = fields.Char(
