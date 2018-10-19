@@ -546,9 +546,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         self._save_response(res)
 
-    def query_issued_invoices(self):
+    def query_issued_invoices(self, last_invoice=None):
         pool = Pool()
         Invoice = pool.get('account.invoice')
+        mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
 
         headers = mapping.get_headers(
             name=tools.unaccent(self.company.party.name),
@@ -562,7 +563,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             res = srv.query(
                 headers,
                 year=self.fiscalyear.name,
-                period=self.period.start_date.month)
+                period=self.period.start_date.month,
+                mapper=mapper,
+                last_invoice=last_invoice)
 
         registers = \
             res.RegistroRespuestaConsultaLRFacturasEmitidas
@@ -577,10 +580,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             invoice.number: invoice.id
             for invoice in invoices_list
         }
+        pagination = res.IndicadorPaginacion
+        last_invoice = invoices_list[-1]
         self.lines = tuple(
             SIIReportLine(
                 invoice=invoices_ids.get(reg.IDFactura.NumSerieFacturaEmisor),
                 state=reg.EstadoFactura.EstadoRegistro,
+                last_modify_date=_datetime(
+                    reg.EstadoFactura.TimestampUltimaModificacion),
                 communication_code=reg.EstadoFactura.CodigoErrorRegistro,
                 communication_msg=reg.EstadoFactura.DescripcionErrorRegistro,
                 issuer_vat_number=(
@@ -624,6 +631,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             for reg in registers
         )
         self.save()
+
+        if pagination == 'S':
+            self.query_issued_invoices(last_invoice=last_invoice)
 
     def submit_recieved_invoices(self):
         pool = Pool()
@@ -682,9 +692,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         self.csv = response.CSV
         self.save()
 
-    def query_recieved_invoices(self):
+    def query_recieved_invoices(self, last_invoice=None):
         pool = Pool()
         Invoice = pool.get('account.invoice')
+        mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
         SIIReportLine = pool.get('aeat.sii.report.lines')
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
 
@@ -700,10 +711,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             res = srv.query(
                 headers,
                 year=self.fiscalyear.name,
-                period=self.period.start_date.month)
+                period=self.period.start_date.month,
+                mapper=mapper,
+                last_invoice=last_invoice)
 
         _logger.debug(res)
         registers = res.RegistroRespuestaConsultaLRFacturasRecibidas
+        pagination = res.IndicadorPaginacion
 
         # FIXME: the reference is not forced to be unique
         lines_to_create = []
@@ -731,6 +745,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             sii_report_line = {
                 'report': self.id,
                 'state': reg.EstadoFactura.EstadoRegistro,
+                'last_modify_date': _datetime(
+                    reg.EstadoFactura.TimestampUltimaModificacion),
                 'communication_code': (
                     reg.EstadoFactura.CodigoErrorRegistro),
                 'communication_msg': (
@@ -792,8 +808,12 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         break
             if invoices:
                 sii_report_line['invoice'] = invoices[0].id
+                last_invoice = invoices[0]
             lines_to_create.append(sii_report_line)
         SIIReportLine.create(lines_to_create)
+
+        if pagination == 'S':
+            self.query_recieved_invoices(last_invoice=last_invoice)
 
 
 class SIIReportLine(ModelSQL, ModelView):
@@ -810,6 +830,7 @@ class SIIReportLine(ModelSQL, ModelView):
                 'operation_type') != 'C0',
         })
     state = fields.Selection(AEAT_INVOICE_STATE, 'State')
+    last_modify_date = fields.Char('Last Modification Date', readonly=True)
     communication_code = fields.Integer(
         'Communication Code', readonly=True)
     communication_msg = fields.Char(
