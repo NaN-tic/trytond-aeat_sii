@@ -8,6 +8,7 @@
     <field name="vat_code"/>
     <field name="identifier_type"/>
     <field name="state"/>
+    <field name="last_modify_date"/>
     <field name="communication_code"/>
     <field name="communication_msg"/>
     <field name="issuer_vat_number"/>

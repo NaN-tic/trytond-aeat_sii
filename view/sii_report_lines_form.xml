@@ -8,6 +8,8 @@
     <field name="invoice"/>
     <label name="state"/>
     <field name="state"/>
+    <label name="last_modify_date"/>
+    <field name="last_modify_date"/>
     <label name="communication_msg"/>
     <field name="communication_msg"/>
     <label name="issuer_vat_number"/>
