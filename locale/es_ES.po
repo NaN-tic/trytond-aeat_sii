@@ -2,6 +2,17 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "error:account.invoice:"
+msgid ""
+"The next invoices are related with SII books:\n"
+"%s.\n"
+"\n"
+"If you edit them take care if you need to update again to SII"
+msgstr "Las facturas están relacionadas con los libros del SII:\n"
+"%s.\n"
+"\n"
+"Si las editas vigila que no cesiten subirse nuevamente al SII"
+
 msgctxt "error:aeat.sii.load_pkcs12:"
 msgid "Unable to load PKCS12: %s"
 msgstr "No se ha podido cargar PKCS12: %s"
@@ -58,6 +69,10 @@ msgctxt "field:account.invoice,sii_subjected_key:"
 msgid "Subjected"
 msgstr "Sujeta"
 
+msgctxt "field:account.tax,invoice_used:"
+msgid "Used in invoice Total"
+msgstr "Usado en el total de la factura"
+
 msgctxt "field:account.tax,sii_book_key:"
 msgid "Book Key"
 msgstr "Clave libro"
@@ -82,6 +97,14 @@ msgctxt "field:account.tax,sii_subjected_key:"
 msgid "Subjected Key"
 msgstr "Clave sujeto"
 
+msgctxt "field:account.tax,tax_used:"
+msgid "Used in Tax"
+msgstr "Usado en los impuestos"
+
+msgctxt "field:account.tax.template,invoice_used:"
+msgid "Used in invoice Total"
+msgstr "Usado en el total de la factura"
+
 msgctxt "field:account.tax.template,sii_book_key:"
 msgid "Book Key"
 msgstr "Clave libro"
@@ -105,6 +128,10 @@ msgstr "Clave recibidas"
 msgctxt "field:account.tax.template,sii_subjected_key:"
 msgid "Subjected Key"
 msgstr "Clave sujeto"
+
+msgctxt "field:account.tax.template,tax_used:"
+msgid "Used in Tax"
+msgstr "Usado en las tasas"
 
 msgctxt "field:aeat.sii.issued.invoice.mapper,id:"
 msgid "ID"
@@ -270,6 +297,10 @@ msgctxt "field:aeat.sii.report.line.tax,write_uid:"
 msgid "Write User"
 msgstr "Usuario de modificación"
 
+msgctxt "field:aeat.sii.report.lines,aeat_register:"
+msgid "Register from AEAT Webservice"
+msgstr "Registro del Webservice de la AEAT"
+
 msgctxt "field:aeat.sii.report.lines,balance_state:"
 msgid "Balance State"
 msgstr "Estado balance"
@@ -306,6 +337,10 @@ msgctxt "field:aeat.sii.report.lines,csv:"
 msgid "CSV"
 msgstr "CSV"
 
+msgctxt "field:aeat.sii.report.lines,exemption_key:"
+msgid "Exemption Cause"
+msgstr "Causa exenta"
+
 msgctxt "field:aeat.sii.report.lines,final_serial_number:"
 msgid "Final Serial Number"
 msgstr "Final número serie"
@@ -337,6 +372,10 @@ msgstr "Fecha emitida"
 msgctxt "field:aeat.sii.report.lines,issuer_vat_number:"
 msgid "Issuer VAT Number"
 msgstr "Número NIF emisores"
+
+msgctxt "field:aeat.sii.report.lines,last_modify_date:"
+msgid "Last Modification Date"
+msgstr "Fecha última modificación"
 
 msgctxt "field:aeat.sii.report.lines,presentation_date:"
 msgid "Presentation Date"
@@ -438,13 +477,9 @@ msgctxt "model:aeat.sii.report.lines,name:"
 msgid "AEAT SII Issued"
 msgstr "Emitidas"
 
-msgctxt "model:ir.action,name:act_aeat_sii_intra_report"
+msgctxt "model:ir.action,name:"
 msgid "SII Report Intracommunity"
 msgstr "Informe Intracomunitarias"
-
-msgctxt "model:ir.action,name:act_aeat_sii_invest_report"
-msgid "SII Report Invest"
-msgstr "Informe Bienes"
 
 msgctxt "model:ir.action,name:act_aeat_sii_issued_report"
 msgid "SII Report Issued"
@@ -474,7 +509,7 @@ msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
 msgid "SII Report Lines"
 msgstr "Líneas informe SII"
 
-msgctxt "model:ir.ui.menu,name:None"
+msgctxt "model:ir.ui.menu,name:"
 msgid "AEAT SII Report"
 msgstr "Informe AEAT SII"
 
@@ -485,14 +520,6 @@ msgstr "Líneas informe AEAT SII"
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report"
 msgid "AEAT SII Report"
 msgstr "Informe AEAT SII"
-
-msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_intra"
-msgid "AEAT SII Report Intracommunity"
-msgstr "Libro Facturas intracomunitarias"
-
-msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_invest"
-msgid "AEAT SII Report Invest"
-msgstr "Libro Facturas Bienes de Inversión"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_issued"
 msgid "AEAT SII Report Issued"
@@ -1465,6 +1492,10 @@ msgid "1.1"
 msgstr "1.1"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid ""
+msgstr ""
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "NIF-VAT"
 msgstr "NIF"
 
@@ -1548,6 +1579,10 @@ msgid ""
 msgstr ""
 "Factura Simplificada y y Facturas sin identificación del destinatario (Art. "
 "6.1.d RD 1619/2012)"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid ""
+msgstr ""
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Accepted"
@@ -1635,6 +1670,14 @@ msgstr "Emitidas"
 msgctxt "view:aeat.sii.report.lines:"
 msgid "AEAT SII Issued Lines"
 msgstr "Línies facturas emitidas"
+
+msgctxt "view:aeat.sii.report.lines:"
+msgid "Main Information"
+msgstr "Información principal"
+
+msgctxt "view:aeat.sii.report.lines:"
+msgid "Register from AEAT Webservice"
+msgstr "Registro del Webservice de la AEAT"
 
 msgctxt "view:aeat.sii.report:"
 msgid "AEAT SII Issued Report"

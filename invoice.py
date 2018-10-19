@@ -62,7 +62,7 @@ class Invoice:
         cls._check_modify_exclude += sii_fields
         cls._error_messages.update({
             'invoices_sii': 'The next invoices are related with SII books:\n'
-                '%s.\n\nIf yuo edit them take care if you need to update '
+                '%s.\n\nIf you edit them take care if you need to update '
                 'again to SII',
             })
 
