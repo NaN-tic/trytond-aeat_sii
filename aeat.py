@@ -801,7 +801,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosPresentacion.TimestampPresentacion),
                 'csv': reg.DatosPresentacion.CSV,
                 'balance_state': reg.DatosPresentacion.CSV,
-                'aeat_register': reg,
+                'aeat_register': str(reg),
                 }
 
             domain = [
