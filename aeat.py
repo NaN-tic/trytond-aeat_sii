@@ -587,7 +587,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             for invoice in invoices_list
         }
         pagination = res.IndicadorPaginacion
-        last_invoice = invoices_list[-1]
+        last_invoice = registers[-1].IDFactura
         lines_to_create = []
         for reg in registers:
             taxes_to_create = []
@@ -749,6 +749,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         _logger.debug(res)
         registers = res.RegistroRespuestaConsultaLRFacturasRecibidas
         pagination = res.IndicadorPaginacion
+        last_invoice = registers[-1].IDFactura
 
         # FIXME: the reference is not forced to be unique
         lines_to_create = []
@@ -840,7 +841,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         break
             if invoices:
                 sii_report_line['invoice'] = invoices[0].id
-                last_invoice = invoices[0]
             lines_to_create.append(sii_report_line)
         SIIReportLine.create(lines_to_create)
 
