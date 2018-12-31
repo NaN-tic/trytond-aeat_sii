@@ -25,7 +25,7 @@ class BaseTrytonInvoiceMapper(Model):
         super(BaseTrytonInvoiceMapper, self).__init__(*args, **kwargs)
         self.pool = Pool()
 
-    year = attrgetter('move.period.fiscalyear.name')
+    year = attrgetter('move.period.start_date.year')
     period = attrgetter('move.period.start_date.month')
     nif = attrgetter('company.party.sii_vat_code')
     issue_date = attrgetter('invoice_date')
