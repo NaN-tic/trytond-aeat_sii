@@ -29,4 +29,4 @@ class Party:
                     return identifier.code
                 return identifier.code[2:]
             elif name == 'sii_vat_country':
-                return identifier[:2]
+                return identifier.code[:2]
