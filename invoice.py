@@ -168,7 +168,7 @@ class Invoice:
     def _set_sii_keys(self):
         tax = None
         for t in self.taxes:
-            if t.tax.tax_used:
+            if t.tax.sii_book_key:
                 tax = t.tax
                 break
         if not tax:
