@@ -207,14 +207,16 @@ class Invoice(metaclass=PoolMeta):
             cls.write(*to_write)
 
     @classmethod
-    def draft(cls, invoices):
-        super(Invoice, cls).draft(invoices)
+    def process(cls, invoices):
+        super(Invoice, cls).process(invoices)
         invoices_sii = ''
         for invoice in invoices:
+            if invoice.state != 'draft':
+                continue
             if invoice.sii_state:
                 invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
         if invoices_sii:
-            warning_name = 'invoices_sii_report_%s' % invoices_sii
+            warning_name = 'invoices_sii_report_%s' % ",".join([str(x.id) for x in invoices])
             cls.raise_user_warning(warning_name, 'invoices_sii', invoices_sii)
 
 
