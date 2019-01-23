@@ -215,7 +215,7 @@ class Invoice:
             if invoice.sii_state:
                 invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
         if invoices_sii:
-            warning_name = 'invoices_sii_report'
+            warning_name = 'invoices_sii_report_%s' % invoices_sii
             cls.raise_user_warning(warning_name, 'invoices_sii', invoices_sii)
 
 
