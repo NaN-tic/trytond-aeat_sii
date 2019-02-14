@@ -12,7 +12,9 @@ except ImportError:
 
 MODULE = 'aeat_sii'
 PREFIX = 'trytonspain'
-MODULE2PREFIX = {}
+MODULE2PREFIX = {
+    'account_invoice_company_currency': 'trytonspain',
+}
 
 
 def read(fname):
