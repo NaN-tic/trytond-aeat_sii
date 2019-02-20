@@ -13,6 +13,7 @@ except ImportError:
 MODULE = 'aeat_sii'
 PREFIX = 'trytonspain'
 MODULE2PREFIX = {
+    'account_es': 'trytonspain',
     'account_invoice_company_currency': 'trytonspain',
 }
 
