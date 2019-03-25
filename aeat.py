@@ -10,7 +10,8 @@ from pyAEATsii import service
 from pyAEATsii import mapping
 
 from trytond.model import ModelSQL, ModelView, fields, Workflow
-from trytond.pyson import Eval, Bool
+from trytond.wizard import Wizard, StateView, StateAction, Button
+from trytond.pyson import Eval, Bool, PYSONEncoder
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 from trytond.config import config
@@ -20,6 +21,10 @@ __all__ = [
     'SIIReport',
     'SIIReportLine',
     'SIIReportLineTax',
+    'CreateSiiIssuedPendingView',
+    'CreateSiiIssuedPending',
+    'CreateSiiReceivedPendingView',
+    'CreateSiiReceivedPending',
 ]
 
 _logger = getLogger(__name__)
@@ -41,6 +46,7 @@ def _datetime(x):
 
 
 COMMUNICATION_TYPE = [   # L0
+    (None, ''),
     ('A0', 'Registration of invoices/records'),
     ('A1', 'Amendment of invoices/records (registration errors)'),
     # ('A4', 'Amendment of Invoice for Travellers'), # Not supported
@@ -434,6 +440,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('sent')
     def send(cls, reports):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+
         for report in reports:
             if report.book == 'E':  # issued invoices
                 if report.operation_type in {'A0', 'A1'}:
@@ -456,8 +465,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             else:
                 raise NotImplementedError
 
+        to_save = []
+        for report in reports:
+            for line in report.lines:
+                invoice = line.invoice
+                invoice.sii_communication_type = report.operation_type
+                invoice.sii_state = line.state
+                to_save.append(invoice)
+
+        Invoice.save(to_save)
         cls.write(reports, {
-            'send_date': datetime.now()})
+            'send_date': datetime.now(),
+            })
         _logger.debug('Done sending reports to AEAT SII')
 
     @classmethod
@@ -538,7 +557,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 crt, key, test=SII_TEST)
             try:
                 res = srv.cancel(
-                    headers, (line.invoice for line in self.lines),
+                    headers, (line.sii_header for line in self.lines),
                     mapper=mapper)
             except Exception as e:
                 self.raise_user_error(tools.unaccent(str(e)))
@@ -697,13 +716,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         with self.company.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_recieved_invoices_service(
                 crt, key, test=SII_TEST)
-            try:
-                res = srv.cancel(
-                    headers, (line.invoice for line in self.lines),
-                    mapper=mapper)
-            except Exception as e:
-                self.raise_user_error(tools.unaccent(str(e)))
-
+            res = srv.cancel(
+                headers, [eval(line.sii_header) for line in self.lines],
+                mapper=mapper)
         self._save_response(res)
 
     def _save_response(self, response):
@@ -889,6 +904,7 @@ class SIIReportLine(ModelSQL, ModelView):
         'get_invoice_operation_key')
     exemption_key = fields.Char('Exemption Cause', readonly=True)
     aeat_register = fields.Text('Register from AEAT Webservice', readonly=True)
+    sii_header = fields.Text('Header')
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None
@@ -928,6 +944,42 @@ class SIIReportLine(ModelSQL, ModelView):
         default['balance_state'] = None
         return super(SIIReportLine, cls).copy(records, default=default)
 
+    @classmethod
+    def create(cls, vlist):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+        SIIReport = pool.get('aeat.sii.report')
+
+        to_write = []
+        vlist = [x.copy() for x in vlist]
+        for vals in vlist:
+            invoice = Invoice(id=vals['invoice'])
+            report = SIIReport(id=vals['report'])
+
+            delete = True if report.operation_type == 'D0' else False
+            vals['sii_header'] = str(invoice.get_sii_header(invoice, delete))
+            if vals.get('state') and vals['state'] == 'Correcto':
+                to_write.extend(([invoice], {
+                        'sii_pending_sending': False,
+                        }))
+        if to_write:
+            Invoice.write(*to_write)
+        return super(SIIReportLine, cls).create(vlist)
+
+    @classmethod
+    def write(cls, *args):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+
+        actions = iter(args)
+
+        to_write = []
+        for lines, values in zip(actions, actions):
+            to_write = [x.invoice for x in lines if x.state == 'Correcto']
+        super(SIIReportLine, cls).write(*args)
+        if to_write:
+            Invoice.write(list(to_write), {'sii_pending_sending': False,})
+
 
 class SIIReportLineTax(ModelSQL, ModelView):
     '''
@@ -945,3 +997,65 @@ class SIIReportLineTax(ModelSQL, ModelView):
     surcharge_amount = fields.Numeric('Surcharge Amount', readonly=True)
     reagyp_rate = fields.Numeric('REAGYP Rate', readonly=True)
     reagyp_amount = fields.Numeric('REAGYP Amount', readonly=True)
+
+
+class CreateSiiIssuedPendingView(ModelView):
+    """
+    Create AEAT SII Issued Pending View
+    """
+    __name__ = "aeat.sii.issued.pending.view"
+
+
+class CreateSiiIssuedPending(Wizard):
+    """
+    Create AEAT SII Issued Pending
+    """
+    __name__ = "aeat.sii.issued.pending"
+    start_state = 'view'
+    view = StateView('aeat.sii.issued.pending.view',
+        'aeat_sii.aeat_sii_issued_pending_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Open', 'open_', 'tryton-ok', default=True),
+            ])
+    open_ = StateAction('aeat_sii.act_aeat_sii_issued_report')
+
+    def do_open_(self, action):
+        Invoice = Pool().get('account.invoice')
+
+        reports = Invoice.get_issued_sii_reports()
+        reports = [x.id for x in reports] if reports else  []
+        action['pyson_domain'] = PYSONEncoder().encode([
+            ('id', 'in', reports),
+            ])
+        return action, {}
+
+
+class CreateSiiReceivedPendingView(ModelView):
+    """
+    Create AEAT SII Received Pending View
+    """
+    __name__ = "aeat.sii.received.pending.view"
+
+
+class CreateSiiReceivedPending(Wizard):
+    """
+    Create AEAT SII Received Pending
+    """
+    __name__ = "aeat.sii.received.pending"
+    start_state = 'view'
+    view = StateView('aeat.sii.received.pending.view',
+        'aeat_sii.aeat_sii_received_pending_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Open', 'open_', 'tryton-ok', default=True),
+            ])
+    open_ = StateAction('aeat_sii.act_aeat_sii_received_report')
+
+    def do_open_(self, action):
+        Invoice = Pool().get('account.invoice')
+
+        reports = Invoice.get_received_sii_reports()
+        reports = [x.id for x in reports] if reports else []
+        action['pyson_domain'] = PYSONEncoder().encode([
+            ('id', 'in', reports),
+            ])
+        return action, {}

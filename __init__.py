@@ -21,6 +21,8 @@ def register():
         invoice.Sale,
         invoice.Purchase,
         load_pkcs12.LoadPKCS12Start,
+        aeat.CreateSiiIssuedPendingView,
+        aeat.CreateSiiReceivedPendingView,
         aeat.SIIReport,
         aeat.SIIReportLine,
         aeat.SIIReportLineTax,
@@ -28,5 +30,7 @@ def register():
         aeat_mapping.RecievedTrytonInvoiceMapper,
         module='aeat_sii', type_='model')
     Pool.register(
+        aeat.CreateSiiIssuedPending,
+        aeat.CreateSiiReceivedPending,
         load_pkcs12.LoadPKCS12,
         module='aeat_sii', type_='wizard')
