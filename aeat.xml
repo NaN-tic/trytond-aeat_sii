@@ -242,5 +242,37 @@
           parent="menu_aeat_sii_report_menu" sequence="10"
           name="AEAT SII Report Intracommunity"/>
       -->
+
+      <record model="ir.ui.view" id="aeat_sii_issued_pending_view_form">
+           <field name="model">aeat.sii.issued.pending.view</field>
+           <field name="type">form</field>
+           <field name="name">aeat_sii_issued_pending_view_form</field>
+       </record>
+
+      <record model="ir.action.wizard" id="wizard_aeat_sii_issued_pending">
+          <field name="name">AEAT SII Pending Issued Invoices</field>
+          <field name="wiz_name">aeat.sii.issued.pending</field>
+      </record>
+
+      <menuitem action="wizard_aeat_sii_issued_pending"
+          id="menu_aeat_sii_pending_issued"
+          parent="aeat_sii.menu_aeat_sii_report_menu" sequence="10"
+          name="Create AEAT SII Report Issued Invoices"/>
+
+      <record model="ir.ui.view" id="aeat_sii_received_pending_view_form">
+           <field name="model">aeat.sii.received.pending.view</field>
+           <field name="type">form</field>
+           <field name="name">aeat_sii_received_pending_view_form</field>
+       </record>
+
+      <record model="ir.action.wizard" id="wizard_aeat_sii_received_pending">
+          <field name="name">AEAT SII Pending Received Invoices</field>
+          <field name="wiz_name">aeat.sii.received.pending</field>
+      </record>
+
+      <menuitem action="wizard_aeat_sii_received_pending"
+          id="menu_aeat_sii_pending_received"
+          parent="aeat_sii.menu_aeat_sii_report_menu" sequence="20"
+          name="Create AEAT SII Report Received Invoices"/>
 </data>
 </tryton>

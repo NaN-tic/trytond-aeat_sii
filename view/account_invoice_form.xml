@@ -23,6 +23,8 @@ contains the full copyright notices and license terms. -->
           <field name="sii_communication_type"/>
           <label name="sii_state"/>
           <field name="sii_state"/>
+          <label name="sii_pending_sending"/>
+          <field name="sii_pending_sending"/>
           <button name="reset_sii_keys" colspan="4"/>
         </page>
     </xpath>

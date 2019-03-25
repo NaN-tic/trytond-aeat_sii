@@ -19,6 +19,8 @@ def register():
         company.Company,
         invoice.Invoice,
         load_pkcs12.LoadPKCS12Start,
+        aeat.CreateSiiIssuedPendingView,
+        aeat.CreateSiiReceivedPendingView,
         aeat.SIIReport,
         aeat.SIIReportLine,
         aeat.SIIReportLineTax,
@@ -34,5 +36,7 @@ def register():
         depends=['purchase'],
         module='aeat_sii', type_='model')
     Pool.register(
+        aeat.CreateSiiIssuedPending,
+        aeat.CreateSiiReceivedPending,
         load_pkcs12.LoadPKCS12,
         module='aeat_sii', type_='wizard')
