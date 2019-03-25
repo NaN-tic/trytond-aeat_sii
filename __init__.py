@@ -15,6 +15,7 @@ def register():
         account.TemplateTax,
         account.Tax,
         party.Party,
+        party.PartyIdentifier,
         company.Company,
         invoice.Invoice,
         load_pkcs12.LoadPKCS12Start,
