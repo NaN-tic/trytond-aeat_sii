@@ -77,15 +77,14 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
 
 PARTY_IDENTIFIER_TYPE = [
     (None, ''),
-    ('02', 'NIF-VAT'),
+    ('02', 'VAT (only for intracommunity operators)'),
     ('03', 'Passport'),
     ('04', 'Official identification document issued by the country '
             'or region of residence'),
     ('05', 'Residence certificate'),
     ('06', 'Other supporting document'),
-    ('07', 'Not registered'),
+    ('07', 'Not registered (only for Spanish VAT not registered)'),
 ]
-
 
 SEND_SPECIAL_REGIME_KEY = [  # L3.1
     (None, ''),

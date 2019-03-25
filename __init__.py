@@ -15,6 +15,7 @@ def register():
         account.TemplateTax,
         account.Tax,
         party.Party,
+        party.PartyIdentifier,
         company.Company,
         invoice.Invoice,
         invoice.Sale,
