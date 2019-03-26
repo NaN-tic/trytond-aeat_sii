@@ -124,13 +124,10 @@ Create invoice::
     >>> invoice.save()
     >>> invoice.sii_book_key
     u'E'
-    >>> invoice.sii_operation_key
-    u'F1'
     >>> invoice.sii_issued_key
     u'01'
 
     >>> invoice.sii_book_key = 'I'
-    >>> invoice.sii_operation_key = 'F2'
     >>> invoice.sii_issued_key = '02'
     >>> invoice.save()
     >>> invoice.reload()
@@ -142,11 +139,11 @@ Create invoice::
 
     >>> invoice.sii_book_key == 'E'
     True
-    >>> invoice.sii_operation_key == 'F1'
-    True
     >>> invoice.click('post')
-    >>> invoice.state
-    u'posted'
+    >>> invoice.state == u'posted'
+    True
+    >>> invoice.sii_operation_key == u'F1'
+    True
 
 Create Credit invoice::
 
