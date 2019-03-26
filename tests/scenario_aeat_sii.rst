@@ -129,8 +129,6 @@ Create invoice::
     >>> invoice.save()
     >>> invoice.sii_book_key
     'E'
-    >>> invoice.sii_operation_key
-    'F1'
     >>> invoice.sii_issued_key
     '01'
 
@@ -147,11 +145,11 @@ Create invoice::
 
     >>> invoice.sii_book_key == 'E'
     True
+    >>> invoice.click('post')
+    >>> invoice.state == 'posted'
+    True
     >>> invoice.sii_operation_key == 'F1'
     True
-    >>> invoice.click('post')
-    >>> invoice.state
-    'posted'
 
 Create Credit invoice::
 
@@ -216,7 +214,7 @@ Credit invoice with refund::
     >>> credit.execute('credit')
     >>> invoice.reload()
     >>> invoice.state
-    'paid'
+    'cancel'
     >>> credit, = Invoice.find([('total_amount', '<', 0)])
     >>> credit.sii_operation_key
     'R1'
