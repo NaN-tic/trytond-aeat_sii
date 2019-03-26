@@ -366,6 +366,7 @@ class Invoice:
             default = {}
         default = default.copy()
         default['sii_records'] = None
+        default['sii_operation_key'] = None
         default['sii_pending_sending'] = False
         default['sii_header'] = None
         return super(Invoice, cls).copy(records, default=default)
@@ -426,6 +427,9 @@ class Invoice:
         for invoice in invoices:
             values = {}
             if invoice.sii_book_key:
+                if not invoice.sii_operation_key:
+                    values['sii_operation_key'] = ('R1'
+                        if invoice.untaxed_amount < Decimal('0.0') else 'F1')
                 values['sii_pending_sending'] = True
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
