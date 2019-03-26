@@ -1015,11 +1015,11 @@ class CreateSiiIssuedPending(Wizard):
     view = StateView('aeat.sii.issued.pending.view',
         'aeat_sii.aeat_sii_issued_pending_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Open', 'open_', 'tryton-ok', default=True),
+            Button('Create', 'create_', 'tryton-ok', default=True),
             ])
-    open_ = StateAction('aeat_sii.act_aeat_sii_issued_report')
+    create_ = StateAction('aeat_sii.act_aeat_sii_issued_report')
 
-    def do_open_(self, action):
+    def do_create_(self, action):
         Invoice = Pool().get('account.invoice')
 
         reports = Invoice.get_issued_sii_reports()
@@ -1046,11 +1046,11 @@ class CreateSiiReceivedPending(Wizard):
     view = StateView('aeat.sii.received.pending.view',
         'aeat_sii.aeat_sii_received_pending_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
-            Button('Open', 'open_', 'tryton-ok', default=True),
+            Button('Create', 'create_', 'tryton-ok', default=True),
             ])
-    open_ = StateAction('aeat_sii.act_aeat_sii_received_report')
+    create_ = StateAction('aeat_sii.act_aeat_sii_received_report')
 
-    def do_open_(self, action):
+    def do_create_(self, action):
         Invoice = Pool().get('account.invoice')
 
         reports = Invoice.get_received_sii_reports()
