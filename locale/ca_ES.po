@@ -1769,7 +1769,7 @@ msgctxt "wizard_button:aeat.sii.issued.pending,view,end:"
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgctxt "wizard_button:aeat.sii.issued.pending,view,open_:"
+msgctxt "wizard_button:aeat.sii.issued.pending,view,create_:"
 msgid "Create"
 msgstr "Crear"
 
@@ -1785,6 +1785,6 @@ msgctxt "wizard_button:aeat.sii.received.pending,view,end:"
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgctxt "wizard_button:aeat.sii.received.pending,view,open_:"
+msgctxt "wizard_button:aeat.sii.received.pending,view,create_:"
 msgid "Create"
 msgstr "Crear"
