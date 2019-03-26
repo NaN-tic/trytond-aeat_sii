@@ -79,13 +79,6 @@ class Invoice(metaclass=PoolMeta):
             cls._intercompany_excluded_fields += ['sii_records']
 
     @staticmethod
-    def default_sii_operation_key():
-        type_ = Transaction().context.get('type', 'out_invoice')
-        if type_ in ('in_credit_note', 'out_credit_note'):
-            return 'R1'
-        return 'F1'
-
-    @staticmethod
     def default_sii_pending_sending():
         return False
 
