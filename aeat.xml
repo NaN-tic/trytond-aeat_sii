@@ -143,6 +143,7 @@
       </record>
 
       <record model="ir.rule.group" id="rule_group_sii_report">
+          <field name="name">User in company</field>
           <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
           <field name="global_p" eval="True"/>
       </record>
@@ -152,6 +153,7 @@
       </record>
 
       <record model="ir.rule.group" id="rule_group_sii_report_line">
+          <field name="name">User in company</field>
           <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
           <field name="global_p" eval="True"/>
       </record>

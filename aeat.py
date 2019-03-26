@@ -15,6 +15,8 @@ from trytond.pyson import Eval, Bool, PYSONEncoder
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 from trytond.config import config
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 from . import tools
 
 __all__ = [
@@ -349,10 +351,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                          Eval('operation_type').in_(['A0', 'A1'])),
                     }
                 })
-        cls._error_messages.update({
-                'delete_cancel': ('Report "%s" must be cancelled before '
-                    'deletion.'),
-                })
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancelled'),
@@ -419,7 +417,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         # Cancel before delete
         for report in reports:
             if report.state != 'cancelled':
-                cls.raise_user_error('delete_cancel', (report.rec_name,))
+                raise UserError(gettext('aeat_sii.msg_delete_cancel',
+                    report=report.rec_name))
         super(SIIReport, cls).delete(reports)
 
     @classmethod
@@ -542,8 +541,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.invoice for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(tools.unaccent(str(e)))
-
+                raise UserError(tools.unaccent(str(e)))
         self._save_response(res)
 
     def delete_issued_invoices(self):
@@ -564,7 +562,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.sii_header for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(tools.unaccent(str(e)))
+                raise UserError(tools.unaccent(str(e)))
 
         self._save_response(res)
 
@@ -703,7 +701,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     headers, (line.invoice for line in self.lines),
                     mapper=mapper)
             except Exception as e:
-                self.raise_user_error(tools.unaccent(str(e)))
+                raise UserError(tools.unaccent(str(e)))
 
         self._save_response(res)
 

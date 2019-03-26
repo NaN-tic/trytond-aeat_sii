@@ -5,6 +5,8 @@ from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Bool
 from trytond.transaction import Transaction
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 from sql import Null
 from sql.aggregate import Max
 from .aeat import (
@@ -61,14 +63,6 @@ class Invoice(metaclass=PoolMeta):
             'sii_excemption_key', 'sii_intracomunity_key','sii_pending_sending',
             'sii_communication_type', 'sii_state', 'sii_header']
         cls._check_modify_exclude += sii_fields
-        cls._error_messages.update({
-            'invoices_sii': ('The next invoices are related with SII books:\n'
-                '%s.\n\nIf you edit them take care if you need to update '
-                'again to SII'),
-            'invoices_sii_pending': ('The next invoices are related with SII '
-                'books on draft state.'),
-            })
-
         cls._buttons.update({
             'reset_sii_keys': {
                 'invisible': Bool(Eval('sii_state', None)),
@@ -394,7 +388,8 @@ class Invoice(metaclass=PoolMeta):
                 invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
         if invoices_sii:
             warning_name = 'invoices_sii_report_%s' % ",".join([str(x.id) for x in invoices])
-            cls.raise_user_warning(warning_name, 'invoices_sii', invoices_sii)
+            raise UserError(gettext('aeat_sii.msg_invoices_sii',
+                invoices=invoices_sii))
 
     @classmethod
     def draft(cls, invoices):
@@ -409,7 +404,7 @@ class Invoice(metaclass=PoolMeta):
                 invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
             for record in invoice.sii_records:
                 if record.report.state == 'draft':
-                    cls.raise_user_error('invoices_sii_pending')
+                    raise UserError(gettext('aeat_sii.invoices_sii_pending'))
 
         if invoices_sii:
             warning_name = 'invoices_sii_report'

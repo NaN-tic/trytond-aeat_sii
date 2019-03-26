@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data group="1">
+        <record model="ir.message" id="msg_missing_fernet_key">
+            <field name="text">Missing Fernet key configuration</field>
+        </record>
+        <record model="ir.message" id="msg_missing_pem_cert">
+            <field name="text">Missing PEM certificate</field>
+        </record>
+        <record model="ir.message" id="msg_delete_cancel">
+            <field name="text">Report "%(report)s" must be cancelled before deletion.</field>
+        </record>
+        <record model="ir.message" id="msg_invoices_sii">
+            <field name="text">The next invoices are related with SII books:\n%(invoices)s.\n\nIf you edit them take care if you need to update again to SII</field>
+        </record>
+        <record model="ir.message" id="msg_invoices_sii_pending">
+            <field name="text">The next invoices are related with SII books on draft state.</field>
+        </record>
+        <record model="ir.message" id="msg_error_loading_pkcs12">
+            <field name="text">Unable to load PKCS12: %(message)s</field>
+        </record>
+    </data>
+</tryton>

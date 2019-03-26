@@ -17,6 +17,8 @@ from trytond.wizard import Wizard
 from trytond.wizard import StateView
 from trytond.wizard import StateTransition
 from trytond.wizard import Button
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = [
     'LoadPKCS12',
@@ -36,14 +38,6 @@ class LoadPKCS12Start(ModelView):
 class LoadPKCS12(Wizard):
     "Load PKCS12"
     __name__ = "aeat.sii.load_pkcs12"
-
-    @classmethod
-    def __setup__(cls):
-        super(LoadPKCS12, cls).__setup__()
-        cls._error_messages.update({
-            'error_loading_pkcs12': 'Unable to load PKCS12: %s',
-        })
-
     start = StateView(
         'aeat.sii.load_pkcs12.start',
         'aeat_sii.load_pkcs12_start_view', [
@@ -72,5 +66,6 @@ class LoadPKCS12(Wizard):
                 _logger.debug('Cryptographic error loading pkcs12 %s', e)
                 errors = e.args[0]
                 message = ', '.join(error[2] for error in errors)
-                self.raise_user_error('error_loading_pkcs12', (message,))
+                raise UserError(gettext('aeat_sii.error_loading_pkcs12',
+                    message=message))
         return 'end'
