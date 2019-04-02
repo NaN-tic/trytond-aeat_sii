@@ -96,13 +96,12 @@ class Invoice:
         delete_issued_invoices = Invoice.search([
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
-                ('sii_header', '!=' , None),
+                ('sii_header', '!=', None),
                 ['OR',
                     ('sii_records.sii_header', '!=', None),
                     ('sii_header', '!=', 'sii_records.sii_header'),
-                ],
-                # TODO upgrade to 4.x
-                ('type', 'in', ['out_invoice', 'out_credit_note']),
+                    ],
+                ('type', '=', 'out'),
                 ])
 
         periods = {}
@@ -118,8 +117,7 @@ class Invoice:
         new_issued_invoices = Invoice.search([
                 ('sii_state', 'in', (None, 'Incorrecto')),
                 ('sii_pending_sending', '=', True),
-                # TDOO upgrade 4.x
-                ('type', 'in', ['out_invoice', 'out_credit_note']),
+                ('type', '=', 'out'),
                 ])
 
         new_issued_invoices += delete_issued_invoices
@@ -137,11 +135,9 @@ class Invoice:
         modify_issued_invoices = Invoice.search([
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
-                ('sii_header', '!=' , None),
+                ('sii_header', '!=', None),
                 ('sii_header', '=', 'sii_records.sii_header'),
-                #  ['OR', ('sii_records.sii_header', '!=', None), ('sii_header', '=', 'sii_records.sii_header')],
-                # TODO upgrade 4.x
-                ('type', 'in', ['out_invoice', 'out_credit_note']),
+                ('type', '=', 'out'),
                 ])
 
         periods2 = {}
@@ -169,12 +165,12 @@ class Invoice:
         delete_received_invoices = Invoice.search([
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
-                ('sii_header', '!=' , None),
+                ('sii_header', '!=', None),
                 ['OR',
                     ('sii_records.sii_header', '!=', None),
                     ('sii_header', '!=', 'sii_records.sii_header'),
-                ],
-                ('type', 'in', ['in_invoice', 'in_credit_note']),
+                    ],
+                ('type', '=', 'in'),
                 ])
 
         periods = {}
@@ -190,8 +186,7 @@ class Invoice:
         new_received_invoices = Invoice.search([
                 ('sii_state', 'in', (None, 'Incorrecto')),
                 ('sii_pending_sending', '=', True),
-                # TODO upgrade 4.x
-                ('type', 'in', ['in_invoice', 'in_credit_note']),
+                ('type', '=', 'in'),
                 ])
 
         new_received_invoices += delete_received_invoices
@@ -207,13 +202,12 @@ class Invoice:
 
         # search received invoices [modify]
         modify_received_invoices = Invoice.search([
-                 ('sii_pending_sending', '=', True),
-                 ('sii_state', '=', 'Correcto'),
-                 ('sii_header', '!=' , None),
-                 ('sii_header', '=', 'sii_records.sii_header'),
-                 #  ['OR', ('sii_records.sii_header', '!=', None), ('sii_header', '=', 'sii_records.sii_header')],
-                 ('type', 'in', ['in_invoice', 'in_credit_note']),
-                 ])
+                ('sii_pending_sending', '=', True),
+                ('sii_state', '=', 'Correcto'),
+                ('sii_header', '!=', None),
+                ('sii_header', '=', 'sii_records.sii_header'),
+                ('type', '=', 'in'),
+                ])
 
         periods2 = {}
         for invoice in modify_received_invoices:
