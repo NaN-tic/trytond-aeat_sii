@@ -102,7 +102,7 @@ class Invoice:
                     ('sii_header', '!=', 'sii_records.sii_header'),
                 ],
                 # TODO upgrade to 4.x
-                ('type', 'in', ['in_invoice', 'in_credit_note']),
+                ('type', 'in', ['out_invoice', 'out_credit_note']),
                 ])
 
         periods = {}
