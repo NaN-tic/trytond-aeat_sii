@@ -1021,9 +1021,25 @@ class CreateSiiIssuedPending(Wizard):
             ])
     create_ = StateAction('aeat_sii.act_aeat_sii_issued_report')
 
-    def do_create_(self, action):
-        Invoice = Pool().get('account.invoice')
+    @classmethod
+    def __setup__(cls):
+        super(CreateSiiIssuedPending, cls).__setup__()
+        cls._error_messages.update({
+            'reports_exist': ("There are some reports in draft and/or "
+                "confirmed. Any report won't be created until this reports "
+                "will be processed"),
+            })
 
+    def do_create_(self, action):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+        Report = pool.get('aeat.sii.report')
+
+        reports = Report.search([
+                ('state', 'in', ('draft', 'confirmed')),
+                ])
+        if reports:
+            self.raise_user_error('reports_exist')
         reports = Invoice.get_issued_sii_reports()
         reports = [x.id for x in reports] if reports else  []
         action['pyson_domain'] = PYSONEncoder().encode([
@@ -1052,9 +1068,25 @@ class CreateSiiReceivedPending(Wizard):
             ])
     create_ = StateAction('aeat_sii.act_aeat_sii_received_report')
 
-    def do_create_(self, action):
-        Invoice = Pool().get('account.invoice')
+    @classmethod
+    def __setup__(cls):
+        super(CreateSiiReceivedPending, cls).__setup__()
+        cls._error_messages.update({
+            'reports_exist': ("There are some reports in draft and/or "
+                "confirmed. Any report won't be created until this reports "
+                "will be processed"),
+            })
 
+    def do_create_(self, action):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+        Report = pool.get('aeat.sii.report')
+
+        reports = Report.search([
+                ('state', 'in', ('draft', 'confirmed')),
+                ])
+        if reports:
+            self.raise_user_error('reports_exist')
         reports = Invoice.get_received_sii_reports()
         reports = [x.id for x in reports] if reports else []
         action['pyson_domain'] = PYSONEncoder().encode([
