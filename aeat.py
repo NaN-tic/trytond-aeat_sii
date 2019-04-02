@@ -1039,6 +1039,7 @@ class CreateSiiIssuedPending(Wizard):
 
         reports = Report.search([
                 ('state', 'in', ('draft', 'confirmed')),
+                ('book', '=', 'E'),
                 ])
         if reports:
             self.raise_user_error('reports_exist')
@@ -1086,6 +1087,7 @@ class CreateSiiReceivedPending(Wizard):
 
         reports = Report.search([
                 ('state', 'in', ('draft', 'confirmed')),
+                ('book', '=', 'R'),
                 ])
         if reports:
             self.raise_user_error('reports_exist')
