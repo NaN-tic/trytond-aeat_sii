@@ -158,8 +158,8 @@ AEAT_INVOICE_STATE = [
     ('AceptadaConErrores', 'Accepted with Errors'),  # Shame on AEAT
     ('Anulada', 'Deleted'),
     ('Incorrecto', 'Rejected')
+    ('duplicated_unsubscribed', 'Duplicated / Unsubscribed')
 ]
-
 
 PROPERTY_STATE = [  # L6
     ('0', ''),
@@ -171,7 +171,6 @@ PROPERTY_STATE = [  # L6
             'reference'),
     ('4', '4. Property located abroad'),
 ]
-
 
 # L7 - Iva Subjected
 IVA_SUBJECTED = [
@@ -445,6 +444,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 invoice = line.invoice
                 invoice.sii_communication_type = report.operation_type
                 invoice.sii_state = line.state
+                if line.communication_code in (3000, 3001):
+                    invoice.sii_pending_sending = False
+                    invoice.sii_state = 'duplicated_unsubscribed'
+
                 to_save.append(invoice)
 
         Invoice.save(to_save)
