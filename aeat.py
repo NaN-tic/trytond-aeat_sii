@@ -157,8 +157,8 @@ AEAT_INVOICE_STATE = [
     ('AceptadoConErrores', 'Accepted with Errors '),
     ('AceptadaConErrores', 'Accepted with Errors'),  # Shame on AEAT
     ('Anulada', 'Deleted'),
-    ('Incorrecto', 'Rejected')
-    ('duplicated_unsubscribed', 'Duplicated / Unsubscribed')
+    ('Incorrecto', 'Rejected'),
+    ('duplicated_unsubscribed', 'Duplicated / Unsubscribed'),
 ]
 
 PROPERTY_STATE = [  # L6
