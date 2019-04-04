@@ -18,6 +18,9 @@ from trytond.config import config
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 from . import tools
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
+
 
 __all__ = [
     'SIIReport',
@@ -1021,15 +1024,6 @@ class CreateSiiIssuedPending(Wizard):
             ])
     create_ = StateAction('aeat_sii.act_aeat_sii_issued_report')
 
-    @classmethod
-    def __setup__(cls):
-        super(CreateSiiIssuedPending, cls).__setup__()
-        cls._error_messages.update({
-            'reports_exist': ("There are some reports in draft and/or "
-                "confirmed. Any report won't be created until this reports "
-                "will be processed"),
-            })
-
     def do_create_(self, action):
         pool = Pool()
         Invoice = pool.get('account.invoice')
@@ -1040,7 +1034,7 @@ class CreateSiiIssuedPending(Wizard):
                 ('book', '=', 'E'),
                 ])
         if reports:
-            self.raise_user_error('reports_exist')
+            raise UserError(gettext('aeat_sii.reports_exist'))
         reports = Invoice.get_issued_sii_reports()
         reports = [x.id for x in reports] if reports else  []
         action['pyson_domain'] = PYSONEncoder().encode([
@@ -1069,14 +1063,6 @@ class CreateSiiReceivedPending(Wizard):
             ])
     create_ = StateAction('aeat_sii.act_aeat_sii_received_report')
 
-    @classmethod
-    def __setup__(cls):
-        super(CreateSiiReceivedPending, cls).__setup__()
-        cls._error_messages.update({
-            'reports_exist': ("There are some reports in draft and/or "
-                "confirmed. Any report won't be created until this reports "
-                "will be processed"),
-            })
 
     def do_create_(self, action):
         pool = Pool()
@@ -1088,7 +1074,7 @@ class CreateSiiReceivedPending(Wizard):
                 ('book', '=', 'R'),
                 ])
         if reports:
-            self.raise_user_error('reports_exist')
+            raise UserError(gettext('aeat_sii.reports_exist'))
         reports = Invoice.get_received_sii_reports()
         reports = [x.id for x in reports] if reports else []
         action['pyson_domain'] = PYSONEncoder().encode([
