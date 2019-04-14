@@ -442,13 +442,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         for report in reports:
             for line in report.lines:
                 invoice = line.invoice
-                invoice.sii_communication_type = report.operation_type
-                invoice.sii_state = line.state
-                if line.communication_code in (3000, 3001):
-                    invoice.sii_pending_sending = False
-                    invoice.sii_state = 'duplicated_unsubscribed'
+                if invoice:
+                    invoice.sii_communication_type = report.operation_type
+                    invoice.sii_state = line.state
 
-                to_save.append(invoice)
+                    to_save.append(invoice)
 
         Invoice.save(to_save)
         cls.write(reports, {
@@ -527,7 +525,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 crt, key, test=SII_TEST)
             try:
                 res = srv.cancel(
-                    headers, (line.sii_header for line in self.lines),
+                    headers, [eval(line.sii_header) for line in self.lines],
                     mapper=mapper)
             except Exception as e:
                 self.raise_user_error(tools.unaccent(str(e)))
@@ -557,15 +555,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 mapper=mapper,
                 last_invoice=last_invoice)
 
-        registers = \
-            res.RegistroRespuestaConsultaLRFacturasEmitidas
+        registers = res.RegistroRespuestaConsultaLRFacturasEmitidas
         # FIXME: the number can be repeated over time
         invoices_list = Invoice.search([
-            ('number', 'in', [
-                reg.IDFactura.NumSerieFacturaEmisor
-                for reg in registers
-            ])
-        ])
+                ('number', 'in', [
+                    reg.IDFactura.NumSerieFacturaEmisor
+                    for reg in registers
+                    ]),
+                ('state', 'in', ('posted', 'paid')),
+                ])
         invoices_ids = {
             invoice.number: invoice.id
             for invoice in invoices_list
@@ -684,11 +682,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             version=self.version)
 
         with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_recieved_invoices_service(
-                crt, key, test=SII_TEST)
-            res = srv.cancel(
-                headers, [eval(line.sii_header) for line in self.lines],
-                mapper=mapper)
+            try:
+                srv = service.bind_recieved_invoices_service(
+                    crt, key, test=SII_TEST)
+                res = srv.cancel(
+                    headers, [eval(line.sii_header) for line in self.lines],
+                    mapper=mapper)
+            except Exception as e:
+                self.raise_user_error(tools.unaccent(str(e)))
         self._save_response(res)
 
     def _save_response(self, response):
@@ -792,6 +793,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             domain = [
                 ('reference', '=', reg.IDFactura.NumSerieFacturaEmisor),
                 ('invoice_date', '=', invoice_date),
+                ('state', 'in', ('posted', 'paid')),
                 ]
             vat = True
             if reg.IDFactura.IDEmisorFactura.NIF:
@@ -923,12 +925,15 @@ class SIIReportLine(ModelSQL, ModelView):
         to_write = []
         vlist = [x.copy() for x in vlist]
         for vals in vlist:
-            invoice = Invoice(id=vals['invoice'])
-            report = SIIReport(id=vals['report'])
+            invoice = (Invoice(id=vals['invoice'])
+                if vals.get('invoice') else None)
+            report = (SIIReport(id=vals['report'])
+                if vals.get('report') else None)
 
-            delete = True if report.operation_type == 'D0' else False
-            vals['sii_header'] = str(invoice.get_sii_header(invoice, delete))
-            if vals.get('state') and vals['state'] == 'Correcto':
+            delete = True if report and report.operation_type == 'D0' else False
+            vals['sii_header'] = (str(invoice.get_sii_header(invoice, delete))
+                if invoice else '')
+            if vals.get('state', None) == 'Correcto' and invoice:
                 to_write.extend(([invoice], {
                         'sii_pending_sending': False,
                         }))
@@ -945,10 +950,32 @@ class SIIReportLine(ModelSQL, ModelView):
 
         to_write = []
         for lines, values in zip(actions, actions):
-            to_write = [x.invoice for x in lines if x.state == 'Correcto']
+            invoice_values = {
+                'sii_pending_sending': False,
+                }
+            if values.get('state', None) == 'Correcto':
+                invoices = [x.invoice for x in lines]
+            else:
+                invoices = [x.invoice for x in lines
+                    if x.state == 'Correcto']
+            if invoices:
+                to_write.extend((invoices, invoice_values))
+
+            invoice_vals = {
+                'sii_pending_sending': False,
+                'sii_state': 'duplicated_unsubscribed',
+                }
+            if values.get('communication_code', None) in (3000, 3001):
+                invoices = [x.invoice for x in lines]
+            else:
+                invoices = [x.invoice for x in lines
+                    if x.communication_code in (3000, 3001)]
+            if invoices:
+                to_write.extend((invoices, invoice_vals))
+
         super(SIIReportLine, cls).write(*args)
         if to_write:
-            Invoice.write(list(to_write), {'sii_pending_sending': False,})
+            Invoice.write(*to_write)
 
 
 class SIIReportLineTax(ModelSQL, ModelView):
