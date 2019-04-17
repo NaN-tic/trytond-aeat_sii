@@ -166,7 +166,6 @@ class Invoice:
         book_type = 'E'  # Issued
         return cls.create_sii_book(issued_invoices, book_type)
 
-
     @classmethod
     def get_received_sii_reports(cls):
         pool = Pool()
@@ -229,7 +228,7 @@ class Invoice:
         new_received_invoices += Invoice.search([
                 ('sii_state', '=', 'Anulada'),
                 ('sii_pending_sending', '=', True),
-                ('type', 'in', ['in_invoice', 'in_credit_note']),
+                ('type', '=', 'in'),
                 ('state', 'in', ['paid', 'posted']),
                 ])
 
@@ -482,7 +481,8 @@ class Invoice:
         ReceivedMapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
 
         if delete:
-            rline = [x for x in invoice.sii_records if x.state == 'Correcto']
+            rline = [x for x in invoice.sii_records if x.state == 'Correcto'
+                and x.sii_header != None]
             if rline:
                 return rline[0].sii_header
         if invoice.type == 'out':
