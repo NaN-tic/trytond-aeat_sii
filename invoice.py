@@ -467,7 +467,8 @@ class Invoice:
         ReceivedMapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
 
         if delete:
-            rline = [x for x in invoice.sii_records if x.state == 'Correcto']
+            rline = [x for x in invoice.sii_records if x.state == 'Correcto'
+                and x.sii_header != None]
             if rline:
                 return rline[0].sii_header
         if invoice.type == 'out':
