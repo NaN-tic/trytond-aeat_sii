@@ -177,7 +177,7 @@ class Invoice:
             'D0': {}, # 'D0', 'Delete Invoices'
             }
 
-        received_invoices = Invoice.search([
+        received_invs = Invoice.search([
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
                 ('sii_header', '!=', None),
