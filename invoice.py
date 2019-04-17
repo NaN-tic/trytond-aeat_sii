@@ -227,7 +227,7 @@ class Invoice:
         new_received_invoices += Invoice.search([
                 ('sii_state', '=', 'Anulada'),
                 ('sii_pending_sending', '=', True),
-                ('type', 'in', ['in_invoice', 'in_credit_note']),
+                ('type', '=', 'in'),
                 ('state', 'in', ['paid', 'posted']),
                 ])
 
@@ -470,7 +470,7 @@ class Invoice:
             rline = [x for x in invoice.sii_records if x.state == 'Correcto']
             if rline:
                 return rline[0].sii_header
-        if invoice.type in ['out_invoice', 'out_credit_note']:
+        if invoice.type == 'out':
             header = IssuedMapper.build_delete_request(invoice)
         else:
             header = ReceivedMapper.build_delete_request(invoice)
