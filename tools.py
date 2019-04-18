@@ -14,8 +14,6 @@ def normalize(text):
 
 
 def unaccent(text):
-    if isinstance(text, bytes):
-        text = str(text, 'utf-8')
     output = text
     for c in range(len(src_chars)):
         if c >= len(dst_chars):
@@ -23,4 +21,4 @@ def unaccent(text):
         output = output.replace(src_chars[c], dst_chars[c])
     output = unicodedata.normalize('NFKD', output).encode('ASCII',
         'ignore')
-    return output.strip('_').encode('utf-8')
+    return output.replace(b"_",b"")

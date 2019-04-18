@@ -35,10 +35,16 @@ class Company(metaclass=PoolMeta):
             converter = len
             default = 0
 
-        pkeys = [
-            company._get_private_key(name)
-            for company in companies
-        ]
+        pkeys = []
+        for company in companies:
+            key = company._get_private_key(name)
+            if not key:
+                continue
+            pkeys.append(key)
+
+        if not pkeys:
+            return {company.id:None for x in companies}
+
         return {
             company.id: converter(pkey) if pkey else default
             for (company, pkey) in zip(companies, pkeys)
@@ -48,6 +54,8 @@ class Company(metaclass=PoolMeta):
         if not self.encrypted_private_key:
             return None
         fernet = self.get_fernet_key()
+        if not fernet:
+            return None
         decrypted_key = fernet.decrypt(bytes(self.encrypted_private_key))
         return decrypted_key
 
@@ -64,7 +72,7 @@ class Company(metaclass=PoolMeta):
         fernet_key = config.get('cryptography', 'fernet_key')
         if not fernet_key:
             _logger.error('Missing Fernet key configuration')
-            raise UserError(gettext('aeat_sii.msg_missing_fernet_key'))
+            # raise UserError(gettext('aeat_sii.msg_missing_fernet_key'))
         else:
             return Fernet(fernet_key)
 

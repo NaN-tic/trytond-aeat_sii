@@ -10,10 +10,6 @@
           <field name="user" ref="res.user_admin"/>
           <field name="group" ref="group_aeat_sii_admin"/>
       </record>
-      <record model="res.user-res.group" id="user_trigger_group_aeat_sii_admin">
-          <field name="user" ref="res.user_trigger"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-      </record>
 
       <menuitem id="menu_aeat_sii_report_menu"
           sequence="999" parent="account.menu_reporting"

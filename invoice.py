@@ -94,8 +94,7 @@ class Invoice(metaclass=PoolMeta):
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
                 ('sii_header', '!=', None),
-                ('type', '=', 'out'),
-                ])
+   	        ])
 
         # search issued invoices [delete]
         delete_issued_invoices = []
