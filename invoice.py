@@ -256,7 +256,7 @@ class Invoice(metaclass=PoolMeta):
         for operation in ['D0', 'A1', 'A0']:
             values = book_invoices[operation]
             delete = True if operation == 'D0' else False
-            for period, invoices in values.iteritems():
+            for period, invoices in values.items():
                 for invs in grouped_slice(invoices, MAX_SII_LINES):
                     report = SIIReport()
                     report.company = company
