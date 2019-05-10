@@ -463,10 +463,6 @@ msgctxt "field:party.party,sii_vat_code:"
 msgid "SII VAT Code"
 msgstr "Número NIF SII"
 
-msgctxt "field:party.party,sii_vat_country:"
-msgid "SII VAT Country"
-msgstr "País NIF SII"
-
 msgctxt "help:aeat.sii.report,load_date:"
 msgid "Filter invoices to the date whitin the period."
 msgstr "Filtra las facturas hasta la fecha dentro del período."

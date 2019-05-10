@@ -13,8 +13,6 @@ class Party(metaclass=PoolMeta):
         'SII Identifier Type', sort=False)
     sii_vat_code = fields.Function(fields.Char('SII VAT Code', size=9),
         'get_sii_vat_data')
-    sii_vat_country = fields.Function(fields.Char('SII VAT Country', size=2),
-        'get_sii_vat_data')
 
     def get_sii_vat_data(self, name=None):
         identifier = self.tax_identifier or (
@@ -26,8 +24,6 @@ class Party(metaclass=PoolMeta):
                         self.sii_identifier_type == '02'):
                     return identifier.code
                 return identifier.code[2:]
-            elif name == 'sii_vat_country':
-                return identifier.code[:2]
 
 
 class PartyIdentifier(metaclass=PoolMeta):
