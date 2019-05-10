@@ -6,7 +6,7 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Bool
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
-from trytond.exceptions import UserError
+from trytond.exceptions import UserError, UserWarning
 from sql import Null
 from sql.aggregate import Max
 from trytond.tools import grouped_slice
@@ -425,8 +425,9 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def draft(cls, invoices):
+        pool = Pool()
+        Warning = pool().get('res.user.warning')
         super(Invoice, cls).draft(invoices)
-
         invoices_sii = ''
         to_write = []
         for invoice in invoices:
@@ -440,7 +441,9 @@ class Invoice(metaclass=PoolMeta):
 
         if invoices_sii:
             warning_name = 'invoices_sii_report'
-            cls.raise_user_warning(warning_name, 'invoices_sii', invoices_sii)
+            if Warning.check(warning_name):
+                raise UserWarning(gettext('aeat_sii.msg_invoices_sii',
+                        invoices=invoices_sii))
 
         if to_write:
             cls.write(*to_write)
