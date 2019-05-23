@@ -426,7 +426,7 @@ class Invoice(metaclass=PoolMeta):
     @classmethod
     def draft(cls, invoices):
         pool = Pool()
-        Warning = pool().get('res.user.warning')
+        Warning = pool.get('res.user.warning')
         super(Invoice, cls).draft(invoices)
         invoices_sii = ''
         to_write = []
