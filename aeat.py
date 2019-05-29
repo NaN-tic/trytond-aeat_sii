@@ -303,6 +303,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
+            ('sended', 'Sended'),
             ('done', 'Done'),
             ('cancelled', 'Cancelled'),
             ('sent', 'Sent'),
@@ -450,6 +451,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
 
         for report in reports:
+            if report.state != 'confirmed':
+                continue
             if report.book == 'E':  # issued invoices
                 if report.operation_type in {'A0', 'A1'}:
                     report.submit_issued_invoices()
@@ -475,9 +478,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         for report in reports:
             for line in report.lines:
                 invoice = line.invoice
-                invoice.sii_communication_type = report.operation_type
-                invoice.sii_state = line.state
-                to_save.append(invoice)
+                if invoice:
+                    invoice.sii_communication_type = report.operation_type
+                    invoice.sii_state = line.state
+                    to_save.append(invoice)
 
         Invoice.save(to_save)
         cls.write(reports, {
@@ -529,23 +533,29 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
 
-        _logger.info('Sending report %s to AEAT SII', self.id)
-        headers = mapping.get_headers(
-            name=tools.unaccent(self.company.party.name),
-            vat=self.company_vat,
-            comm_kind=self.operation_type,
-            version=self.version)
+        if self.communication_state != None:
+            _logger.info('This report %s has already been sended', self.id)
+        else:
+            _logger.info('Sending report %s to AEAT SII', self.id)
+            headers = mapping.get_headers(
+                name=tools.unaccent(self.company.party.name),
+                vat=self.company_vat,
+                comm_kind=self.operation_type,
+                version=self.version)
 
-        with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_issued_invoices_service(
-                crt, key, test=SII_TEST)
-            try:
-                res = srv.submit(
-                    headers, (line.invoice for line in self.lines),
-                    mapper=mapper)
-            except Exception as e:
-                raise UserError(tools.unaccent(str(e)))
-        self._save_response(res)
+            with self.company.tmp_ssl_credentials() as (crt, key):
+                srv = service.bind_issued_invoices_service(
+                    crt, key, test=SII_TEST)
+                try:
+                    res = srv.submit(
+                        headers, (line.invoice for line in self.lines),
+                        mapper=mapper)
+                except Exception as e:
+                    raise UserError(tools.unaccent(str(e)))
+
+            self.state == 'sended'
+            Transaction().commit()
+            self._save_response(res)
 
     def delete_issued_invoices(self):
         pool = Pool()
@@ -567,6 +577,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             except Exception as e:
                 raise UserError(tools.unaccent(str(e)))
 
+        self.state == 'sended'
+        Transaction().commit()
         self._save_response(res)
 
     def query_issued_invoices(self, last_invoice=None):
@@ -706,6 +718,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             except Exception as e:
                 raise UserError(tools.unaccent(str(e)))
 
+        self.state == 'sended'
+        Transaction().commit()
         self._save_response(res)
 
     def delete_recieved_invoices(self):
@@ -724,6 +738,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             res = srv.cancel(
                 headers, [eval(line.sii_header) for line in self.lines],
                 mapper=mapper)
+        self.state == 'sended'
+        Transaction().commit()
         self._save_response(res)
 
     def _save_response(self, response):
