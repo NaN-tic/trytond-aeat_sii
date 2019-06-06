@@ -618,7 +618,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             for invoice in invoices_list
         }
         pagination = res.IndicadorPaginacion
-        last_invoice = registers[-1].IDFactura
+        last_invoice = registers and registers[-1].IDFactura
         lines_to_create = []
         for reg in registers:
             taxes_to_create = []
