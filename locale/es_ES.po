@@ -1765,6 +1765,10 @@ msgctxt "view:aeat.sii.report:"
 msgid "Send"
 msgstr "Enviar"
 
+msgctxt "view:aeat.sii.report:"
+msgid "Process Response"
+msgstr "Procesar respuesta"
+
 msgctxt "view:company.company:"
 msgid "Certificate"
 msgstr "Certificado"

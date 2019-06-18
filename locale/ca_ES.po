@@ -1765,6 +1765,10 @@ msgctxt "view:company.company:"
 msgid "Certificate"
 msgstr "Certificado"
 
+msgctxt "view:aeat.sii.report:"
+msgid "Process Response"
+msgstr "Processar resposta"
+
 msgctxt "wizard_button:aeat.sii.issued.pending,view,end:"
 msgid "Cancel"
 msgstr "Cancelar"
