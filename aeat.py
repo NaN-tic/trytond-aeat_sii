@@ -5,6 +5,9 @@ import unicodedata
 from logging import getLogger
 from decimal import Decimal
 from datetime import datetime
+from zeep import helpers
+import json
+from collections import namedtuple
 
 from pyAEATsii import service
 from pyAEATsii import mapping
