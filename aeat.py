@@ -5,6 +5,9 @@ import unicodedata
 from logging import getLogger
 from decimal import Decimal
 from datetime import datetime
+from zeep import helpers
+import json
+from collections import namedtuple
 
 from pyAEATsii import service
 from pyAEATsii import mapping
@@ -532,7 +535,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             if not self.response:
                 self.state == 'sending'
-                self.response = res
+                self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
                 Transaction().cursor.commit()
         self._save_response(self.response)
@@ -563,7 +566,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             if not self.response:
                 self.state == 'sending'
-                self.response = res
+                self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
                 Transaction().cursor.commit()
         self._save_response(self.response)
@@ -710,7 +713,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             if not self.response:
                 self.state == 'sending'
-                self.response = res
+                self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
                 Transaction().cursor.commit()
         self._save_response(self.response)
@@ -741,13 +744,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             if not self.response:
                 self.state == 'sending'
-                self.response = res
+                self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
                 Transaction().cursor.commit()
         self._save_response(self.response)
 
-    def _save_response(self, response):
-        if response:
+    def _save_response(self, res):
+        if res:
+            response = json.loads(res, object_hook=lambda d: namedtuple(
+                    'SII', d.keys())(*d.values()))
             for (report_line, response_line) in zip(
                     self.lines, response.RespuestaLinea):
                 if not report_line.communication_code:
@@ -760,7 +765,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 self.communication_state = response.EstadoEnvio
             if not self.csv:
                 self.csv = response.CSV
-            self.response = None
+            self.response = ''
             self.save()
 
     def query_recieved_invoices(self, last_invoice=None):
