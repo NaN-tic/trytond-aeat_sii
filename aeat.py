@@ -358,7 +358,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     'invisible': ~Eval('state').in_(['sending']),
                     }
                 })
-    
+
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancelled'),
@@ -903,11 +903,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 if not vat.startswith('ES'):
                     vat = 'ES' + vat
                 domain.append(
-                    ('party.vat_code', '=', vat)
+                    ('party.tax_identifier', '=', vat)
                     )
             elif reg.IDFactura.IDEmisorFactura.IDOtro.IDType == '02':
                 domain.append(
-                    ('party.vat_code', '=',
+                    ('party.tax_identifier', '=',
                         reg.IDFactura.IDEmisorFactura.IDOtro.ID)
                     )
             else:
@@ -984,7 +984,7 @@ class SIIReportLine(ModelSQL, ModelView):
         return self.invoice.sii_operation_key if self.invoice else None
 
     def get_vat_code(self, name):
-        return self.invoice.party.vat_code if self.invoice else None
+        return self.invoice.party.tax_identifier.code  if self.invoice else None
 
     def get_identifier_type(self, name):
         return self.invoice.party.sii_identifier_type if self.invoice else None
