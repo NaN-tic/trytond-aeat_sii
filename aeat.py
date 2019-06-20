@@ -167,7 +167,8 @@ AEAT_INVOICE_STATE = [
     ('AceptadoConErrores', 'Accepted with Errors '),
     ('AceptadaConErrores', 'Accepted with Errors'),  # Shame on AEAT
     ('Anulada', 'Deleted'),
-    ('Incorrecto', 'Rejected')
+    ('Incorrecto', 'Rejected'),
+    ('duplicated_unsubscribed', 'Duplicated / Unsubscribed'),   
 ]
 
 
@@ -578,7 +579,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
-                Transaction().cursor.commit()
+                Transaction().commit()
         self._save_response(self.response)
 
     def delete_issued_invoices(self):
@@ -609,7 +610,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
-                Transaction().cursor.commit()
+                Transaction().commit()
         self._save_response(self.response)
 
     def query_issued_invoices(self, last_invoice=None):
@@ -756,7 +757,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
-                Transaction().cursor.commit()
+                Transaction().commit()
         self._save_response(self.response)
 
     def delete_recieved_invoices(self):
@@ -787,7 +788,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
                 self.save()
-                Transaction().cursor.commit()
+                Transaction().commit()
         self._save_response(self.response)
 
     def _save_response(self, res):
