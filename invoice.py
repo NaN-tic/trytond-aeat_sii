@@ -397,10 +397,12 @@ class Invoice:
         if default is None:
             default = {}
         default = default.copy()
-        default['sii_records'] = None
-        default['sii_operation_key'] = None
-        default['sii_pending_sending'] = False
-        default['sii_header'] = None
+        default.setdefault('sii_records')
+        default.setdefault('sii_state')
+        default.setdefault('sii_communication_type')
+        default.setdefault('sii_operation_key')
+        default.setdefault('sii_pending_sending')
+        default.setdefault('sii_header')
         return super(Invoice, cls).copy(records, default=default)
 
     @classmethod
