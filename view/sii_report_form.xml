@@ -32,10 +32,11 @@
     <field name="communication_state"/>
     <label name="csv"/>
     <field name="csv"/>
-    <group id="buttons" colspan="2">
+    <group id="buttons" colspan="5">
         <button name="draft"/>
         <button name="confirm"/>
         <button name="send"/>
         <button name="cancel"/>
+	<button name="process_response"/> 
     </group>
 </form>

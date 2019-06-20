@@ -303,11 +303,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
-            ('sended', 'Sended'),
-            ('done', 'Done'),
+            ('sending', 'Sending'),
             ('cancelled', 'Cancelled'),
             ('sent', 'Sent'),
-            ], 'State', readonly=True)
+        ], 'State', readonly=True)
     communication_state = fields.Selection(AEAT_COMMUNICATION_STATE,
         'Communication State', readonly=True)
     csv = fields.Char('CSV', readonly=True)
@@ -328,6 +327,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'readonly': Bool(Eval('state') == 'sent'),
         },
         depends=['state'])
+    response = fields.Text('Response', readonly=True)
 
     @classmethod
     def __setup__(cls):
@@ -353,14 +353,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'load_invoices': {
                     'invisible': ~(Eval('state').in_(['draft']) &
                          Eval('operation_type').in_(['A0', 'A1'])),
+                    },
+                'process_response': {
+                    'invisible': ~Eval('state').in_(['sending']),
                     }
                 })
+    
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('draft', 'cancelled'),
                 ('confirmed', 'draft'),
                 ('confirmed', 'sent'),
                 ('confirmed', 'cancelled'),
+                ('sending', 'sent'),
                 ('cancelled', 'draft'),
                 ))
 
@@ -476,11 +481,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         to_save = []
         for report in reports:
+            if report.operation_type == 'C0':
+                continue
             for line in report.lines:
                 invoice = line.invoice
                 if invoice:
                     invoice.sii_communication_type = report.operation_type
                     invoice.sii_state = line.state
+
                     to_save.append(invoice)
 
         Invoice.save(to_save)
@@ -488,6 +496,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'send_date': datetime.now(),
             })
         _logger.debug('Done sending reports to AEAT SII')
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('sent')
+    def process_response(cls, reports):
+        for report in reports:
+            if report.response:
+                cls._save_response(report.response)
+                report.save()
 
     @classmethod
     @ModelView.button
@@ -502,10 +519,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
                 ('state', 'in', ['posted', 'paid']),
-                ]
+            ]
 
             if report.operation_type == 'A0':
                 domain.append(('sii_state', 'in', [None, 'Incorrecto']))
+
             elif report.operation_type in ('A1', 'A4'):
                 domain.append(('sii_state', 'in', [
                     'AceptadoConErrores', 'AceptadaConErrores']))
@@ -533,7 +551,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
 
-        if self.communication_state != None:
+        if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
         else:
             _logger.info('Sending report %s to AEAT SII', self.id)
@@ -553,33 +571,43 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 except Exception as e:
                     raise UserError(tools.unaccent(str(e)))
 
-            self.state == 'sended'
-            Transaction().commit()
-            self._save_response(res)
+            if not self.response:
+                self.state == 'sending'
+                self.response = json.dumps(helpers.serialize_object(res))
+                self.save()
+                Transaction().cursor.commit()
+        self._save_response(self.response)
 
     def delete_issued_invoices(self):
         pool = Pool()
         mapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
 
-        headers = mapping.get_headers(
-            name=tools.unaccent(self.company.party.name),
-            vat=self.company_vat,
-            comm_kind=self.operation_type,
-            version=self.version)
+        if self.state != 'confirmed':
+            _logger.info('This report %s has already been sended', self.id)
+        else:
+            _logger.info('Deleting report %s from AEAT SII', self.id)
+            headers = mapping.get_headers(
+                name=tools.unaccent(self.company.party.name),
+                vat=self.company_vat,
+                comm_kind=self.operation_type,
+                version=self.version)
 
-        with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_issued_invoices_service(
-                crt, key, test=SII_TEST)
-            try:
-                res = srv.cancel(
-                    headers, (line.sii_header for line in self.lines),
-                    mapper=mapper)
-            except Exception as e:
-                raise UserError(tools.unaccent(str(e)))
+            with self.company.tmp_ssl_credentials() as (crt, key):
+                srv = service.bind_issued_invoices_service(
+                    crt, key, test=SII_TEST)
+                try:
+                    res = srv.cancel(
+                        headers, [eval(line.sii_header) for line in self.lines],
+                        mapper=mapper)
+                except Exception as e:
+                    self.raise_user_error(tools.unaccent(str(e)))
 
-        self.state == 'sended'
-        Transaction().commit()
-        self._save_response(res)
+            if not self.response:
+                self.state == 'sending'
+                self.response = json.dumps(helpers.serialize_object(res))
+                self.save()
+                Transaction().cursor.commit()
+        self._save_response(self.response)
 
     def query_issued_invoices(self, last_invoice=None):
         pool = Pool()
@@ -604,15 +632,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 mapper=mapper,
                 last_invoice=last_invoice)
 
-        registers = \
-            res.RegistroRespuestaConsultaLRFacturasEmitidas
+        registers = res.RegistroRespuestaConsultaLRFacturasEmitidas
         # FIXME: the number can be repeated over time
         invoices_list = Invoice.search([
-            ('number', 'in', [
-                reg.IDFactura.NumSerieFacturaEmisor
-                for reg in registers
-            ])
-        ])
+                ('number', 'in', [
+                    reg.IDFactura.NumSerieFacturaEmisor
+                    for reg in registers
+                    ]),
+                ('state', 'in', ('posted', 'paid')),
+                ])
         invoices_ids = {
             invoice.number: invoice.id
             for invoice in invoices_list
@@ -701,58 +729,82 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
 
-        _logger.info('Sending report %s to AEAT SII', self.id)
-        headers = mapping.get_headers(
-            name=tools.unaccent(self.company.party.name),
-            vat=self.company_vat,
-            comm_kind=self.operation_type,
-            version=self.version)
+        if self.state != 'confirmed':
+            _logger.info('This report %s has already been sended', self.id)
+        else:
+            _logger.info('Sending report %s to AEAT SII', self.id)
+            headers = mapping.get_headers(
+                name=tools.unaccent(self.company.party.name),
+                vat=self.company_vat,
+                comm_kind=self.operation_type,
+                version=self.version)
 
-        with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_recieved_invoices_service(
-                crt, key, test=SII_TEST)
-            try:
-                res = srv.submit(
-                    headers, (line.invoice for line in self.lines),
-                    mapper=mapper)
-            except Exception as e:
-                raise UserError(tools.unaccent(str(e)))
+            with self.company.tmp_ssl_credentials() as (crt, key):
+                srv = service.bind_recieved_invoices_service(
+                    crt, key, test=SII_TEST)
+                try:
+                    res = srv.submit(
+                        headers, (line.invoice for line in self.lines),
+                        mapper=mapper)
+                except Exception as e:
+                    self.raise_user_error(tools.unaccent(str(e)))
 
-        self.state == 'sended'
-        Transaction().commit()
-        self._save_response(res)
+            if not self.response:
+                self.state == 'sending'
+                self.response = json.dumps(helpers.serialize_object(res))
+                self.save()
+                Transaction().cursor.commit()
+        self._save_response(self.response)
 
     def delete_recieved_invoices(self):
         pool = Pool()
         mapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
 
-        headers = mapping.get_headers(
-            name=tools.unaccent(self.company.party.name),
-            vat=self.company_vat,
-            comm_kind=self.operation_type,
-            version=self.version)
+        if self.state != 'confirmed':
+            _logger.info('This report %s has already been sended', self.id)
+        else:
+            _logger.info('Deleting report %s from AEAT SII', self.id)
+            headers = mapping.get_headers(
+                name=tools.unaccent(self.company.party.name),
+                vat=self.company_vat,
+                comm_kind=self.operation_type,
+                version=self.version)
 
-        with self.company.tmp_ssl_credentials() as (crt, key):
-            srv = service.bind_recieved_invoices_service(
-                crt, key, test=SII_TEST)
-            res = srv.cancel(
-                headers, [eval(line.sii_header) for line in self.lines],
-                mapper=mapper)
-        self.state == 'sended'
-        Transaction().commit()
-        self._save_response(res)
+            with self.company.tmp_ssl_credentials() as (crt, key):
+                try:
+                    srv = service.bind_recieved_invoices_service(
+                        crt, key, test=SII_TEST)
+                    res = srv.cancel(
+                        headers, [eval(line.sii_header) for line in self.lines],
+                        mapper=mapper)
+                except Exception as e:
+                    self.raise_user_error(tools.unaccent(str(e)))
 
-    def _save_response(self, response):
-        for (report_line, response_line) in zip(
-                self.lines, response.RespuestaLinea):
-            report_line.state = response_line.EstadoRegistro
-            report_line.communication_code = response_line.CodigoErrorRegistro
-            report_line.communication_msg = (
-                response_line.DescripcionErrorRegistro)
-            report_line.save()
-        self.communication_state = response.EstadoEnvio
-        self.csv = response.CSV
-        self.save()
+            if not self.response:
+                self.state == 'sending'
+                self.response = json.dumps(helpers.serialize_object(res))
+                self.save()
+                Transaction().cursor.commit()
+        self._save_response(self.response)
+
+    def _save_response(self, res):
+        if res:
+            response = json.loads(res, object_hook=lambda d: namedtuple(
+                    'SII', d.keys())(*d.values()))
+            for (report_line, response_line) in zip(
+                    self.lines, response.RespuestaLinea):
+                if not report_line.communication_code:
+                    report_line.state = response_line.EstadoRegistro
+                    report_line.communication_code = response_line.CodigoErrorRegistro
+                    report_line.communication_msg = (
+                        response_line.DescripcionErrorRegistro)
+                    report_line.save()
+            if not self.communication_state:
+                self.communication_state = response.EstadoEnvio
+            if not self.csv:
+                self.csv = response.CSV
+            self.response = ''
+            self.save()
 
     def query_recieved_invoices(self, last_invoice=None):
         pool = Pool()
@@ -808,7 +860,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             sii_report_line = {
                 'report': self.id,
                 'state': reg.EstadoFactura.EstadoRegistro,
-                'last_modify_date': _date(
+                'last_modify_date': _datetime(
                     reg.EstadoFactura.TimestampUltimaModificacion),
                 'communication_code': (
                     reg.EstadoFactura.CodigoErrorRegistro),
@@ -843,6 +895,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             domain = [
                 ('reference', '=', reg.IDFactura.NumSerieFacturaEmisor),
                 ('invoice_date', '=', invoice_date),
+                ('state', 'in', ('posted', 'paid')),
                 ]
             vat = True
             if reg.IDFactura.IDEmisorFactura.NIF:
@@ -931,7 +984,7 @@ class SIIReportLine(ModelSQL, ModelView):
         return self.invoice.sii_operation_key if self.invoice else None
 
     def get_vat_code(self, name):
-        return self.invoice.party.sii_vat_code if self.invoice else None
+        return self.invoice.party.vat_code if self.invoice else None
 
     def get_identifier_type(self, name):
         return self.invoice.party.sii_identifier_type if self.invoice else None
@@ -974,12 +1027,15 @@ class SIIReportLine(ModelSQL, ModelView):
         to_write = []
         vlist = [x.copy() for x in vlist]
         for vals in vlist:
-            invoice = Invoice(id=vals['invoice'])
-            report = SIIReport(id=vals['report'])
+            invoice = (Invoice(id=vals['invoice'])
+                if vals.get('invoice') else None)
+            report = (SIIReport(id=vals['report'])
+                if vals.get('report') else None)
 
-            delete = True if report.operation_type == 'D0' else False
-            vals['sii_header'] = str(invoice.get_sii_header(invoice, delete))
-            if vals.get('state') and vals['state'] == 'Correcto':
+            delete = True if report and report.operation_type == 'D0' else False
+            vals['sii_header'] = (str(invoice.get_sii_header(invoice, delete))
+                if invoice else '')
+            if vals.get('state', None) == 'Correcto' and invoice:
                 to_write.extend(([invoice], {
                         'sii_pending_sending': False,
                         }))
@@ -996,10 +1052,32 @@ class SIIReportLine(ModelSQL, ModelView):
 
         to_write = []
         for lines, values in zip(actions, actions):
-            to_write = [x.invoice for x in lines if x.state == 'Correcto']
+            invoice_values = {
+                'sii_pending_sending': False,
+                }
+            if values.get('state', None) == 'Correcto':
+                invoices = [x.invoice for x in lines]
+            else:
+                invoices = [x.invoice for x in lines
+                    if x.state == 'Correcto']
+            if invoices:
+                to_write.extend((invoices, invoice_values))
+
+            invoice_vals = {
+                'sii_pending_sending': False,
+                'sii_state': 'duplicated_unsubscribed',
+                }
+            if values.get('communication_code', None) in (3000, 3001):
+                invoices = [x.invoice for x in lines]
+            else:
+                invoices = [x.invoice for x in lines
+                    if x.communication_code in (3000, 3001)]
+            if invoices:
+                to_write.extend((invoices, invoice_vals))
+
         super(SIIReportLine, cls).write(*args)
         if to_write:
-            Invoice.write(list(to_write), {'sii_pending_sending': False,})
+            Invoice.write(*to_write)
 
 
 class SIIReportLineTax(ModelSQL, ModelView):

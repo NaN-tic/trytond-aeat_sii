@@ -44,33 +44,45 @@ class BaseTrytonInvoiceMapper(Model):
             nif = nif[2:]
         return nif
 
+    def get_tax_amount(self, tax):
+        invoice = tax.invoice
+        val = attrgetter('company_amount')(tax)
+        return val
+
+    def get_tax_base(self, tax):
+        invoice = tax.invoice
+        val = attrgetter('company_base')(tax)
+        return val
+
     def get_invoice_untaxed(self, invoice):
         taxes = self.taxes(invoice)
-        untaxed = 0
+        taxes_base = 0
         for tax in taxes:
-            untaxed += tax.company_base
-        return untaxed
+            taxes_base += self.get_tax_base(tax)
+        return taxes_base
 
     def get_invoice_total(self, invoice):
         taxes = self.total_invoice_taxes(invoice)
-        total = 0
+        taxes_base = 0
+        taxes_amount = 0
         taxes_used = {}
         for tax in taxes:
-            base = tax.company_base
+            taxes_amount += self.get_tax_amount(tax)
+            base = self.get_tax_base(tax)
             parent = tax.tax.parent if tax.tax.parent else tax.tax
             if parent.id in taxes_used.keys() and base == taxes_used[parent.id]:
                 continue
-            total += (base + tax.company_amount)
+            taxes_base += base
             taxes_used[parent.id] = base
-        return total
+        return (taxes_amount + taxes_base)
 
     counterpart_id_type = attrgetter('party.sii_identifier_type')
     counterpart_id = counterpart_nif
     untaxed_amount = get_invoice_untaxed
     total_amount = get_invoice_total
     tax_rate = attrgetter('tax.rate')
-    tax_base = attrgetter('company_base')
-    tax_amount = attrgetter('company_amount')
+    tax_base = get_tax_base
+    tax_amount = get_tax_amount
 
     def counterpart_name(self, invoice):
         return tools.unaccent(invoice.party.name)
