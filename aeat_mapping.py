@@ -123,16 +123,16 @@ class BaseTrytonInvoiceMapper(Model):
                 not invoice_tax.tax.recargo_equivalencia)]
 
     def _tax_equivalence_surcharge(self, invoice_tax):
-            surcharge_taxes = [
+        surcharge_taxes = [
                 sibling
                 for sibling in invoice_tax.invoice.taxes
                 if (
                     sibling.tax.recargo_equivalencia
                 )
             ]
-            if surcharge_taxes:
-                (surcharge_tax,) = surcharge_taxes
-                return surcharge_tax
+        if surcharge_taxes:
+            (surcharge_tax,) = surcharge_taxes
+            return surcharge_tax
         return None
 
     def tax_equivalence_surcharge_rate(self, invoice_tax):
