@@ -95,7 +95,8 @@ class Invoice(metaclass=PoolMeta):
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
                 ('sii_header', '!=', None),
-   	        ])
+                ('type', 'in', ['out']),
+                ])
 
         # search issued invoices [delete]
         delete_issued_invoices = []
@@ -112,23 +113,23 @@ class Invoice(metaclass=PoolMeta):
                 elif issued_inv.sii_header == sii_record.sii_header:
                     modify_issued_invoices.append(issued_inv)
 
-        delete_periods = {}
+        periods = {}
         for invoice in delete_issued_invoices:
             period = invoice.move.period
-            if period in delete_periods:
-                delete_periods[period].append(invoice,)
+            if period in periods:
+                periods[period].append(invoice,)
             else:
-                delete_periods[period] = [invoice]
-        issued_invoices['D0'] = delete_periods
+                periods[period] = [invoice]
+        issued_invoices['D0'] = periods
 
-        modify_periods = {}
+        periods2 = {}
         for invoice in modify_issued_invoices:
             period = invoice.move.period
-            if period in modify_periods:
-                modify_periods[period].append(invoice,)
+            if period in periods2:
+                periods2[period].append(invoice,)
             else:
-                modify_periods[period] = [invoice]
-        issued_invoices['A1'] = modify_periods
+                periods2[period] = [invoice]
+        issued_invoices['A1'] = periods2
 
         # search issued invoices [new]
         new_issued_invoices = Invoice.search([
@@ -147,14 +148,14 @@ class Invoice(metaclass=PoolMeta):
 
         new_issued_invoices += delete_issued_invoices
 
-        issued_periods = {}
+        periods1 = {}
         for invoice in new_issued_invoices:
             period = invoice.move.period
-            if period in issued_periods:
-                issued_periods[period].append(invoice,)
+            if period in periods1:
+                periods1[period].append(invoice,)
             else:
-                issued_periods[period] = [invoice]
-        issued_invoices['A0'] = issued_periods
+                periods1[period] = [invoice]
+        issued_invoices['A0'] = periods1
 
         book_type = 'E'  # Issued
         return cls.create_sii_book(issued_invoices, book_type)
@@ -192,23 +193,23 @@ class Invoice(metaclass=PoolMeta):
                 elif received_inv.sii_header == sii_record.sii_header:
                     modify_received_invoices.append(received_inv)
 
-        delete_periods = {}
-        for invoice in delete_received_invoices:
-            period = invoice.move.period
-            if period in delete_periods:
-                delete_periods[period].append(invoice,)
-            else:
-                delete_periods[period] = [invoice]
-        received_invoices['D0'] = delete_periods
-
-        modify_periods = {}
+        periods2 = {}
         for invoice in modify_received_invoices:
             period = invoice.move.period
-            if period in modify_periods:
-                modify_periods[period].append(invoice,)
+            if period in periods2:
+                periods2[period].append(invoice,)
             else:
-                modify_periods[period] = [invoice]
-        received_invoices['A1'] = modify_periods
+                periods2[period] = [invoice]
+        received_invoices['A1'] = periods2
+
+        periods = {}
+        for invoice in delete_received_invoices:
+            period = invoice.move.period
+            if period in periods:
+                periods[period].append(invoice,)
+            else:
+                periods[period] = [invoice]
+        received_invoices['D0'] = periods
 
         # search received invoices [new]
         new_received_invoices = Invoice.search([
@@ -227,14 +228,14 @@ class Invoice(metaclass=PoolMeta):
 
         new_received_invoices += delete_received_invoices
 
-        received_periods = {}
+        periods1 = {}
         for invoice in new_received_invoices:
             period = invoice.move.period
-            if period in received_periods:
-                received_periods[period].append(invoice,)
+            if period in periods1:
+                periods1[period].append(invoice,)
             else:
-                received_periods[period] = [invoice]
-        received_invoices['A0'] = received_periods
+                periods1[period] = [invoice]
+        received_invoices['A0'] = periods1
 
         book_type = 'R'  # Received
         return cls.create_sii_book(received_invoices, book_type)
@@ -309,11 +310,11 @@ class Invoice(metaclass=PoolMeta):
                 c.remove(None)
 
         c0 = []
-        if clause[-1] is None or is_none:
+        if clause[-1] == None or is_none:
             c0 = [('id', 'not in', invoices)]
 
-        clause2 = [tuple(('state',)) + tuple(clause[1:]),
-            ('id', 'in', lines)]
+        clause2 = [tuple(('state',)) + tuple(clause[1:])] + \
+                [('id', 'in', lines)]
 
         res_lines = SIILines.search(clause2)
 
@@ -457,9 +458,6 @@ class Invoice(metaclass=PoolMeta):
         for invoice in invoices:
             values = {}
             if invoice.sii_book_key:
-                if not invoice.sii_operation_key:
-                    values['sii_operation_key'] = ('R1'
-                        if invoice.untaxed_amount < Decimal('0.0') else 'F1')
                 values['sii_pending_sending'] = True
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
@@ -478,7 +476,8 @@ class Invoice(metaclass=PoolMeta):
         ReceivedMapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
 
         if delete:
-            rline = [x for x in invoice.sii_records if x.state == 'Correcto']
+            rline = [x for x in invoice.sii_records if x.state == 'Correcto'
+                and x.sii_header != None]
             if rline:
                 return rline[0].sii_header
         if invoice.type == 'out':

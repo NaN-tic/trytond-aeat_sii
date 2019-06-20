@@ -2,6 +2,8 @@
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <form>
+    <notebook>
+        <page string="Main Information" id="main_registers">
     <label name="report"/>
     <field name="report"/>
     <label name="invoice"/>
@@ -39,4 +41,9 @@
     <field name="csv"/>
     <label name="balance_state"/>
     <field name="balance_state"/>
+   </page>
+   <page id="aeat_registers">
+      <field name="aeat_register"/>
+   </page>
+    </notebook>
 </form>
