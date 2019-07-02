@@ -45,12 +45,10 @@ class BaseTrytonInvoiceMapper(Model):
         return nif
 
     def get_tax_amount(self, tax):
-        invoice = tax.invoice
         val = attrgetter('company_amount')(tax)
         return val
 
     def get_tax_base(self, tax):
-        invoice = tax.invoice
         val = attrgetter('company_base')(tax)
         return val
 
@@ -127,7 +125,8 @@ class BaseTrytonInvoiceMapper(Model):
                 sibling
                 for sibling in invoice_tax.invoice.taxes
                 if (
-                    sibling.tax.recargo_equivalencia
+                    sibling.tax.recargo_equivalencia and
+                    sibling.tax.recargo_equivalencia_related_tax == invoice_tax.tax
                 )
             ]
         if surcharge_taxes:
