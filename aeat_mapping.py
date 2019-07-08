@@ -123,7 +123,7 @@ class BaseTrytonInvoiceMapper(Model):
     def _tax_equivalence_surcharge(self, invoice_tax):
         surcharge_tax = None
         for all_invoice_tax in invoice_tax.invoice.taxes:
-            if (all_invoice_tax.recargo_equivalencia and
+            if (all_invoice_tax.tax.recargo_equivalencia and
                     invoice_tax.tax.recargo_equivalencia_related_tax ==
                     all_invoice_tax):
                 surcharge_tax = all_invoice_tax
