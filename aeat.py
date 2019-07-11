@@ -68,6 +68,10 @@ BOOK_KEY = [
     ('U', 'Particular Intracommunity Operations'),
 ]
 
+# R1: errores fundados de derecho y causas del artículo 80.Uno, Dos y Seis LIVA
+# R2: concurso de acreedores
+# R3: deudas incobrables
+# R4: resto de causas
 OPERATION_KEY = [    # L2_EMI - L2_RECI
     (None, ''),
     ('F1', 'Invoice (Art 6.7.3 y 7.3 of RD1619/2012)'),
