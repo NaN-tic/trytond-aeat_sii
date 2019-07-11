@@ -371,7 +371,7 @@ class Invoice:
         for field in _SII_INVOICE_KEYS:
             setattr(credit, field, getattr(self, field))
 
-        credit.sii_operation_key = 'R4'
+        credit.sii_operation_key = 'R1'
         return credit
 
     def _set_sii_keys(self):
