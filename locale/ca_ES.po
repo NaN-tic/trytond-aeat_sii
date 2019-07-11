@@ -775,15 +775,15 @@ msgstr ""
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
-msgstr "Factura rectificativa (Art 80.1 y 80.2)"
+msgstr "Factura rectificativa (Art 80.1, 80.2 y 80.6 LIVA)"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Corrected Invoice (Art. 80.3)"
-msgstr "Fatura rectificativa (Art 80.3)"
+msgstr "Factura rectificativa (Art 80.3) [Concurs de creditors]"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Corrected Invoice (Other)"
-msgstr "Factura rectificativa"
+msgstr "Factura rectificativa [Resta de causes]"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Corrected Invoice in simplified invoices"
@@ -791,7 +791,7 @@ msgstr "Factura Rectificativa en facturas simplificadas"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Credit Note (Art 80.4)"
-msgstr "Facura rectificativa (Art. 80.4)"
+msgstr "Factura rectificativa (Art. 80.4) [Deutes incobrables]"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Duty - Complementary clearing"
