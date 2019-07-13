@@ -4,13 +4,11 @@ from decimal import Decimal
 from trytond.pool import PoolMeta
 
 __all__ = ['Sale']
-__metaclass__ = PoolMeta
 
 ZERO = Decimal('0.0')
 
 
-class Sale:
-    'Sale'
+class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
 
     def create_invoice(self):
