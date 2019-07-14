@@ -4,18 +4,22 @@ contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/form/notebook/page[@name='legal_notice']" position="after">
         <page string="AEAT SII" id="aeatsii">
-          <label name="sii_book_key"/>
-          <field name="sii_book_key"/>
-          <label name="sii_issued_key"/>
-          <field name="sii_issued_key"/>
-          <label name="sii_received_key"/>
-          <field name="sii_received_key"/>
-          <label name="sii_intracomunity_key"/>
-          <field name="sii_intracomunity_key"/>
-          <label name="sii_subjected_key"/>
-          <field name="sii_subjected_key"/>
-          <label name="sii_excemption_key"/>
-          <field name="sii_excemption_key"/>
+            <label name="tax_used"/>
+            <field name="tax_used"/>
+            <label name="invoice_used"/>
+            <field name="invoice_used"/>
+            <label name="sii_book_key"/>
+            <field name="sii_book_key"/>
+            <label name="sii_issued_key"/>
+            <field name="sii_issued_key"/>
+            <label name="sii_received_key"/>
+            <field name="sii_received_key"/>
+            <label name="sii_intracomunity_key"/>
+            <field name="sii_intracomunity_key"/>
+            <label name="sii_subjected_key"/>
+            <field name="sii_subjected_key"/>
+            <label name="sii_excemption_key"/>
+            <field name="sii_excemption_key"/>
         </page>
    </xpath>
 </data>

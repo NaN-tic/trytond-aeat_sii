@@ -21,8 +21,6 @@ from trytond.config import config
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 from . import tools
-from trytond.i18n import gettext
-from trytond.exceptions import UserError
 
 
 __all__ = [
@@ -635,7 +633,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 crt, key, test=SII_TEST)
             res = srv.query(
                 headers,
-                year=self.fiscalyear.name,
+                year=self.period.start_date.year,
                 period=self.period.start_date.month,
                 mapper=mapper,
                 last_invoice=last_invoice)
@@ -832,7 +830,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 crt, key, test=SII_TEST)
             res = srv.query(
                 headers,
-                year=self.fiscalyear.name,
+                year=self.period.start_date.year,
                 period=self.period.start_date.month,
                 mapper=mapper,
                 last_invoice=last_invoice)
