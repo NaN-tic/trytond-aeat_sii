@@ -1,27 +1,19 @@
 # This file is part of Tryton.  The COPYRIGHT file at the top level of
 # this repository contains the full copyright notices and license terms.
-from decimal import Decimal
 from trytond.pool import PoolMeta
 from .invoice import _SII_INVOICE_KEYS
 
-__all__ = ['Sale']
-
-ZERO = Decimal('0.0')
+__all__ = ['Purchase']
 
 
-class Sale:
+class Purchase:
     __metaclass__ = PoolMeta
-    __name__ = 'sale.sale'
+    __name__ = 'purchase.purchase'
 
     def create_invoice(self):
-        invoice = super(Sale, self).create_invoice()
+        invoice = super(Purchase, self).create_invoice()
         if not invoice:
             return
-
-        if invoice.untaxed_amount < ZERO:
-            invoice.sii_operation_key = 'R1'
-        else:
-            invoice.sii_operation_key = 'F1'
 
         tax = invoice.taxes and invoice.taxes[0]
         if not tax:
