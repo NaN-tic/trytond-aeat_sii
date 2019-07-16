@@ -9,6 +9,7 @@ from . import load_pkcs12
 from . import account
 from . import aeat_mapping
 from . import sale
+from . import purchase
 
 
 def register():
@@ -30,11 +31,7 @@ def register():
         sale.Sale,
         module='aeat_sii', type_='model')
     Pool.register(
-        invoice.Sale,
-        depends=['sale'],
-        module='aeat_sii', type_='model')
-    Pool.register(
-        invoice.Purchase,
+        purchase.Purchase,
         depends=['purchase'],
         module='aeat_sii', type_='model')
     Pool.register(
