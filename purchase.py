@@ -1,24 +1,19 @@
 # This file is part of Tryton.  The COPYRIGHT file at the top level of
 # this repository contains the full copyright notices and license terms.
 from trytond.pool import PoolMeta
+from .invoice import _SII_INVOICE_KEYS
 
-__all__ = ['Sale']
+__all__ = ['Purchase']
 
 
-class Sale:
-    'Sale'
-    __name__ = 'sale.sale'
+class Purchase:
     __metaclass__ = PoolMeta
+    __name__ = 'purchase.purchase'
 
-    def create_invoice(self, invoice_type):
-        invoice = super(Sale, self).create_invoice(invoice_type)
+    def create_invoice(self. invoice_type):
+        invoice = super(Purchase, self).create_invoice(invoice_type)
         if not invoice:
             return
-
-        if invoice_type in ('in_credit_note', 'out_credit_note'):
-            invoice.sii_operation_key = 'R1'
-        else:
-            invoice.sii_operation_key = 'F1'
 
         tax = invoice.taxes and invoice.taxes[0]
         if not tax:

@@ -9,6 +9,7 @@ from . import load_pkcs12
 from . import account
 from . import aeat_mapping
 from . import sale
+from . import purchase
 
 
 def register():
@@ -19,8 +20,6 @@ def register():
         party.PartyIdentifier,
         company.Company,
         invoice.Invoice,
-        invoice.Sale,
-        invoice.Purchase,
         load_pkcs12.LoadPKCS12Start,
         aeat.CreateSiiIssuedPendingView,
         aeat.CreateSiiReceivedPendingView,
@@ -30,6 +29,7 @@ def register():
         aeat_mapping.IssuedTrytonInvoiceMapper,
         aeat_mapping.RecievedTrytonInvoiceMapper,
         sale.Sale,
+        purchase.Purchase,
         module='aeat_sii', type_='model')
     Pool.register(
         aeat.CreateSiiIssuedPending,
