@@ -10,7 +10,7 @@ class Purchase:
     __metaclass__ = PoolMeta
     __name__ = 'purchase.purchase'
 
-    def create_invoice(self. invoice_type):
+    def create_invoice(self, invoice_type):
         invoice = super(Purchase, self).create_invoice(invoice_type)
         if not invoice:
             return
