@@ -1046,6 +1046,33 @@ class SIIReportLine(ModelSQL, ModelView):
         if to_write:
             Invoice.write(*to_write)
 
+    @classmethod
+    def delete(cls, lines):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+
+        to_save = []
+        for line in lines:
+            invoice = line.invoice
+            if invoice:
+                last_line, = cls.search([
+                        ('invoice', '=', invoice),
+                        ('id', '!=', line.id),
+                        ('report.operation_type', '!=', 'C0'),
+                        ], order=[('report', 'DESC')], limit=1)
+                if last_line:
+                    invoice.sii_communication_type = (
+                        last_line.report.operation_type)
+                    invoice.sii_state = last_line.state
+                    to_save.append(invoice)
+                else:
+                    invoice.sii_communication_type = None
+                    invoice.sii_state = None
+                    to_save.append(invoice)
+        if to_save:
+            Invoice.save(to_save)
+        super(SIIReportLine, cls).delete(lines)
+
 
 class SIIReportLineTax(ModelSQL, ModelView):
     '''
