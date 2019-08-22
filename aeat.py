@@ -1055,11 +1055,12 @@ class SIIReportLine(ModelSQL, ModelView):
         for line in lines:
             invoice = line.invoice
             if invoice:
-                last_line, = cls.search([
+                last_line = cls.search([
                         ('invoice', '=', invoice),
                         ('id', '!=', line.id),
                         ('report.operation_type', '!=', 'C0'),
                         ], order=[('report', 'DESC')], limit=1)
+                last_line = last_line[0] if last_line else None
                 if last_line:
                     invoice.sii_communication_type = (
                         last_line.report.operation_type)
