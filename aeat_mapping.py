@@ -124,7 +124,7 @@ class BaseTrytonInvoiceMapper(Model):
         for all_invoice_tax in invoice_tax.invoice.taxes:
             if (all_invoice_tax.tax.recargo_equivalencia and
                     invoice_tax.tax.recargo_equivalencia_related_tax ==
-                    all_invoice_tax):
+                    all_invoice_tax.tax):
                 surcharge_tax = all_invoice_tax
                 break
         return surcharge_tax
