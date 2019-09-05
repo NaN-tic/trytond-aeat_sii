@@ -342,11 +342,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'draft': {
                     'invisible': ~Eval('state').in_(['confirmed',
                             'cancelled']),
-                    'icon': 'tryton-go-previous',
+                    'icon': 'tryton-back',
                     },
                 'confirm': {
                     'invisible': ~Eval('state').in_(['draft']),
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-forward',
                     },
                 'send': {
                     'invisible': ~Eval('state').in_(['confirmed']),

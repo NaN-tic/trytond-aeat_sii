@@ -69,7 +69,7 @@ class Invoice(metaclass=PoolMeta):
         cls._buttons.update({
             'reset_sii_keys': {
                 'invisible': Bool(Eval('sii_state', None)),
-                'icon': 'tryton-executable'}
+                'icon': 'tryton-launch'}
         })
         if hasattr(cls, '_intercompany_excluded_fields'):
             cls._intercompany_excluded_fields += sii_fields
