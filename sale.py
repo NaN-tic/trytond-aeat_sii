@@ -15,9 +15,10 @@ class Sale:
 
     def create_invoice(self):
         invoice = super(Sale, self).create_invoice()
-        if invoice.untaxed_amount < ZERO:
-            invoice.sii_operation_key = 'R1'
-        else:
-            invoice.sii_operation_key = 'F1'
+        if invoice:
+            if invoice.untaxed_amount < ZERO:
+                invoice.sii_operation_key = 'R1'
+            else:
+                invoice.sii_operation_key = 'F1'
 
         return invoice
