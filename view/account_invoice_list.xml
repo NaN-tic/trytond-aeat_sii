@@ -8,6 +8,6 @@ contains the full copyright notices and license terms. -->
       <field name="sii_communication_type"/>
       <field name="sii_state"/>
       <field name="sii_pending_sending"/>
-      <button name="reset_sii_keys" string="Reset SII Keys" tree_invisible="1"/>
+      <button name="reset_sii_keys" tree_invisible="1"/>
     </xpath>
 </data>
