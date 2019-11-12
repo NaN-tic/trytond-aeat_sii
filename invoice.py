@@ -83,6 +83,7 @@ class Invoice(metaclass=PoolMeta):
     def get_issued_sii_reports(cls):
         pool = Pool()
         Invoice = pool.get('account.invoice')
+        SIIReportLine = pool.get('aeat.sii.report.lines')
 
         issued_invoices = {
             'A0': {}, # 'A0', 'Registration of invoices/records'
