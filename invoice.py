@@ -399,14 +399,16 @@ class Invoice(metaclass=PoolMeta):
         default.setdefault('sii_header')
         return super(Invoice, cls).copy(records, default=default)
 
+    def _get_sii_operation_key(self):
+        return 'R1' if self.untaxed_amount < Decimal('0.0') else 'F1'
+
     @classmethod
     @ModelView.button
     def reset_sii_keys(cls, records):
         to_write = []
         for record in records:
             record._set_sii_keys()
-            record.sii_operation_key = ('R1'
-                if record.untaxed_amount < Decimal('0.0') else 'F1')
+            record.sii_operation_key = record._get_sii_operation_key()
             to_write.extend(([record], record._save_values))
 
         if to_write:
@@ -422,7 +424,6 @@ class Invoice(metaclass=PoolMeta):
             if invoice.sii_state:
                 invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
         if invoices_sii:
-            warning_name = 'invoices_sii_report_%s' % ",".join([str(x.id) for x in invoices])
             raise UserError(gettext('aeat_sii.msg_invoices_sii',
                 invoices=invoices_sii))
 
@@ -459,6 +460,7 @@ class Invoice(metaclass=PoolMeta):
         for invoice in invoices:
             values = {}
             if invoice.sii_book_key:
+                values['sii_operation_key'] = invoice._get_sii_operation_key()
                 values['sii_pending_sending'] = True
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
