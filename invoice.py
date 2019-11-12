@@ -406,14 +406,16 @@ class Invoice:
         default.setdefault('sii_header')
         return super(Invoice, cls).copy(records, default=default)
 
+    def _get_sii_operation_key(self):
+        return 'R1' if self.untaxed_amount < Decimal('0.0') else 'F1'
+
     @classmethod
     @ModelView.button
     def reset_sii_keys(cls, records):
         to_write = []
         for record in records:
             record._set_sii_keys()
-            record.sii_operation_key = ('R1'
-                if record.untaxed_amount < Decimal('0.0') else 'F1')
+            record.sii_operation_key = record._get_sii_operation_key()
             to_write.extend(([record], record._save_values))
 
         if to_write:
@@ -463,8 +465,7 @@ class Invoice:
             values = {}
             if invoice.sii_book_key:
                 if not invoice.sii_operation_key:
-                    values['sii_operation_key'] = ('R1'
-                        if invoice.untaxed_amount < Decimal('0.0') else 'F1')
+                    values['sii_operation_key'] = invoice._get_sii_operation_key()
                 values['sii_pending_sending'] = True
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
