@@ -560,7 +560,7 @@ msgid ""
 "edit them take care if you need to update again to SII"
 msgstr ""
 "Les següents factures estan relacionades amb llibres del "
-"SII\\n%(invoices)s.\\n\\n Si les edites recorda a actualitzarles."
+"SII\\n%(invoices)s.\\n\\n Si les edites, recorda d'actualitzar-les."
 
 msgctxt "model:ir.message,text:msg_invoices_sii_pending"
 msgid "The next invoices are related with SII books on draft state."
