@@ -1,5 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+import hashlib
 from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
@@ -433,22 +434,25 @@ class Invoice(metaclass=PoolMeta):
         pool = Pool()
         Warning = pool.get('res.user.warning')
         super(Invoice, cls).draft(invoices)
-        invoices_sii = ''
+        invoices_sii = []
         to_write = []
         for invoice in invoices:
             to_write.extend(([invoice], {'sii_pending_sending': False}))
 
             if invoice.sii_state:
-                invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
+                invoices_sii.append('%s: %s' % (
+                    invoice.number, invoice.sii_state))
             for record in invoice.sii_records:
                 if record.report.state == 'draft':
                     raise UserError(gettext('aeat_sii.invoices_sii_pending'))
 
         if invoices_sii:
-            warning_name = 'invoices_sii_report'
+            warning_name = 'invoices_sii.' + hashlib.md5(
+                ''.join(invoices_sii).encode('utf-8')).hexdigest()
             if Warning.check(warning_name):
-                raise UserWarning(gettext('aeat_sii.msg_invoices_sii',
-                        invoices=invoices_sii))
+                raise UserWarning(warning_name,
+                        gettext('aeat_sii.msg_invoices_sii',
+                        invoices='\n'.join(invoices_sii)))
 
         if to_write:
             cls.write(*to_write)
