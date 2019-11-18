@@ -185,8 +185,13 @@
           <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
       </record>
 
-      <record model="ir.model.button-res.group"
-          id="load_invoices_admin">
+      <record model="ir.model.button" id="process_response_button">
+          <field name="name">process_response</field>
+          <field name="string">Process Response</field>
+          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+      </record>
+
+      <record model="ir.model.button-res.group" id="load_invoices_admin">
           <field name="button" ref="load_invoices_button"/>
           <field name="group" ref="group_aeat_sii_admin"/>
       </record>
