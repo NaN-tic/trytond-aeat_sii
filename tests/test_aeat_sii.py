@@ -16,13 +16,10 @@ class AeatSIITestCase(ModuleTestCase):
 
     def test_unaccent(self):
         for value, result in [
-                ('aeiou', 'aeiou'),
-                ('áéíóú', 'aeiou'),
-                ('__aéiou__', 'aeiou'),
-                ('__aé@ou__', 'ae_ou'),
-                (u'aeiou', 'aeiou'),
-                (u'áéíóú', 'aeiou'),
-                (b'aeiou', 'aeiou'),
+                ('aeiou', b'aeiou'),
+                ('áéíóú', b'aeiou'),
+                ('__aéiou__', b'aeiou'),
+                ('__aé@ou__', b'aeou'),
                 ]:
             self.assertEqual(unaccent(value), result)
 

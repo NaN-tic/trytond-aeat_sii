@@ -480,8 +480,8 @@ class Invoice(metaclass=PoolMeta):
     @classmethod
     def get_sii_header(cls, invoice, delete):
         pool = Pool()
-        IssuedMapper = pool.get('aeat.sii.issued.invoice.mapper')(pool=pool)
-        ReceivedMapper = pool.get('aeat.sii.recieved.invoice.mapper')(pool=pool)
+        IssuedMapper = pool.get('aeat.sii.issued.invoice.mapper')
+        ReceivedMapper = pool.get('aeat.sii.recieved.invoice.mapper')
 
         if delete:
             rline = [x for x in invoice.sii_records if x.state == 'Correcto'
@@ -489,7 +489,9 @@ class Invoice(metaclass=PoolMeta):
             if rline:
                 return rline[0].sii_header
         if invoice.type == 'out':
-            header = IssuedMapper.build_delete_request(invoice)
+            mapper = IssuedMapper()
+            header = mapper.build_delete_request(invoice)
         else:
-            header = ReceivedMapper.build_delete_request(invoice)
+            mapper = ReceivedMapper()
+            header = mapper.build_delete_request(invoice)
         return header

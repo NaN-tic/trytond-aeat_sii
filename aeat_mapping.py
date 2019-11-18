@@ -21,10 +21,6 @@ _logger = getLogger(__name__)
 
 
 class BaseTrytonInvoiceMapper(Model):
-    def __init__(self, *args, **kwargs):
-        super(BaseTrytonInvoiceMapper, self).__init__(*args, **kwargs)
-        self.pool = Pool()
-
     year = attrgetter('move.period.start_date.year')
     period = attrgetter('move.period.start_date.month')
     nif = attrgetter('company.party.sii_vat_code')
