@@ -565,7 +565,7 @@ msgstr "Reiniciar claves SII"
 
 msgctxt "model:ir.model.button,string:cancel_button"
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancelar"
 
 msgctxt "model:ir.model.button,string:confirm_button"
 msgid "Confirm"
