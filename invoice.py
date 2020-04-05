@@ -1,5 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from ast import literal_eval
 from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
@@ -113,10 +114,11 @@ class Invoice:
             sii_record_id = max([s.id for s in issued_inv.sii_records])
             sii_record = SIIReportLine(sii_record_id)
             if issued_inv.sii_header:
-                if issued_inv.sii_header != sii_record.sii_header:
-                    delete_issued_invoices.append(issued_inv)
-                elif issued_inv.sii_header == sii_record.sii_header:
+                if (literal_eval(issued_inv.sii_header) ==
+                        literal_eval(sii_record.sii_header)):
                     modify_issued_invoices.append(issued_inv)
+                else:
+                    delete_issued_invoices.append(issued_inv)
 
         delete_periods = {}
         for invoice in delete_issued_invoices:
@@ -193,10 +195,11 @@ class Invoice:
             sii_record_id = max([s.id for s in received_inv.sii_records])
             sii_record = SIIReportLine(sii_record_id)
             if received_inv.sii_header:
-                if received_inv.sii_header != sii_record.sii_header:
-                    delete_received_invoices.append(received_inv)
-                elif received_inv.sii_header == sii_record.sii_header:
+                if(literal_eval(received_inv.sii_header) ==
+                        literal_eval(sii_record.sii_header)):
                     modify_received_invoices.append(received_inv)
+                else:
+                    delete_received_invoices.append(received_inv)
 
         delete_periods = {}
         for invoice in delete_received_invoices:
