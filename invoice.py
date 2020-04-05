@@ -463,9 +463,15 @@ class Invoice:
     @classmethod
     def post(cls, invoices):
         to_write = []
+
+        invoices2checksii = []
+        for invoice in invoices:
+            if not invoice.move:
+                invoices2checksii.append(invoice)
+
         super(Invoice, cls).post(invoices)
 
-        for invoice in invoices:
+        for invoice in invoices2checksii:
             values = {}
             if invoice.sii_book_key:
                 if not invoice.sii_operation_key:
