@@ -461,6 +461,12 @@ class Invoice(metaclass=PoolMeta):
     @classmethod
     def post(cls, invoices):
         to_write = []
+
+        invoices2checksii = []
+        for invoice in invoices:
+            if not invoice.move or invoice.move.state == 'draft':
+                invoices2checksii.append(invoice)
+
         super(Invoice, cls).post(invoices)
 
         for invoice in invoices:
