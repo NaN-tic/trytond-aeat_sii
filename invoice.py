@@ -466,7 +466,7 @@ class Invoice:
 
         invoices2checksii = []
         for invoice in invoices:
-            if not invoice.move:
+            if not invoice.move or invoice.move.state == 'draft':
                 invoices2checksii.append(invoice)
 
         super(Invoice, cls).post(invoices)
