@@ -1,6 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 import hashlib
+from ast import literal_eval
 from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
@@ -105,10 +106,11 @@ class Invoice(metaclass=PoolMeta):
             sii_record_id = max([s.id for s in issued_inv.sii_records])
             sii_record = SIIReportLine(sii_record_id)
             if issued_inv.sii_header:
-                if issued_inv.sii_header != sii_record.sii_header:
-                    delete_issued_invoices.append(issued_inv)
-                elif issued_inv.sii_header == sii_record.sii_header:
+                if (literal_eval(issued_inv.sii_header) ==
+                        literal_eval(sii_record.sii_header)):
                     modify_issued_invoices.append(issued_inv)
+                else:
+                    delete_issued_invoices.append(issued_inv)
 
         periods = {}
         for invoice in delete_issued_invoices:
@@ -185,10 +187,11 @@ class Invoice(metaclass=PoolMeta):
             sii_record_id = max([s.id for s in received_inv.sii_records])
             sii_record = SIIReportLine(sii_record_id)
             if received_inv.sii_header:
-                if received_inv.sii_header != sii_record.sii_header:
-                    delete_received_invoices.append(received_inv)
-                elif received_inv.sii_header == sii_record.sii_header:
+                if (literal_eval(received_inv.sii_header) ==
+                        literal_eval(sii_record.sii_header)):
                     modify_received_invoices.append(received_inv)
+                else:
+                    delete_received_invoices.append(received_inv)
 
         periods2 = {}
         for invoice in modify_received_invoices:
@@ -469,7 +472,14 @@ class Invoice(metaclass=PoolMeta):
 
         super(Invoice, cls).post(invoices)
 
+        invoices2checksii = []
         for invoice in invoices:
+            if not invoice.move:
+                invoices2checksii.append(invoice)
+
+        super(Invoice, cls).post(invoices)
+
+        for invoice in invoices2checksii:
             values = {}
             if invoice.sii_book_key:
                 if not invoice.sii_operation_key:
