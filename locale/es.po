@@ -1885,3 +1885,7 @@ msgstr "Cancel·lar"
 msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
 msgid "Reset"
 msgstr "Reiniciar"
+
+msgctxt "field:ir.model.button,string:reset_sii_keys"
+msgid "Reset SII keys"
+msgstr "Reestablecer claves SII"
