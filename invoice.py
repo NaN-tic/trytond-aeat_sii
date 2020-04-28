@@ -72,13 +72,6 @@ class Invoice(metaclass=PoolMeta):
         if hasattr(cls, '_intercompany_excluded_fields'):
             cls._intercompany_excluded_fields += sii_fields
             cls._intercompany_excluded_fields += ['sii_records']
-        cls._buttons.update({
-            'reset_sii_keys': {
-                'readonly': ~Eval('sii_state').in_(['Correcto', 'Correcta']),
-                'invisible': Eval('sii_state').in_(['Correcto', 'Correcta']),
-                'depends': ['sii_state']
-            }
-        })
 
     @staticmethod
     def default_sii_pending_sending():
@@ -475,13 +468,6 @@ class Invoice(metaclass=PoolMeta):
         invoices2checksii = []
         for invoice in invoices:
             if not invoice.move or invoice.move.state == 'draft':
-                invoices2checksii.append(invoice)
-
-        super(Invoice, cls).post(invoices)
-
-        invoices2checksii = []
-        for invoice in invoices:
-            if not invoice.move:
                 invoices2checksii.append(invoice)
 
         super(Invoice, cls).post(invoices)
