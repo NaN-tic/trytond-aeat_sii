@@ -140,9 +140,9 @@ Create invoice::
 
     >>> invoice.sii_book_key == 'I'
     True
-    >>> invoice.click('reset_sii_keys')
+    >>> reset_sii_keys = Wizard('aeat.sii.reset.keys', models=[invoice])
+    >>> reset_sii_keys.execute('reset')
     >>> invoice.reload()
-
     >>> invoice.sii_book_key == 'E'
     True
     >>> invoice.click('post')
@@ -181,9 +181,9 @@ Create Credit invoice::
     >>> invoice.sii_issued_key = '02'
     >>> invoice.save()
     >>> invoice.reload()
-    >>> invoice.click('reset_sii_keys')
+    >>> reset_sii_keys = Wizard('aeat.sii.reset.keys', models=[invoice])
+    >>> reset_sii_keys.execute('reset')
     >>> invoice.reload()
-
     >>> invoice.sii_book_key == 'E'
     True
     >>> invoice.sii_operation_key == 'R1'
@@ -214,7 +214,7 @@ Credit invoice with refund::
     >>> credit.execute('credit')
     >>> invoice.reload()
     >>> invoice.state
-    'cancel'
+    'paid'
     >>> credit, = Invoice.find([('total_amount', '<', 0)])
     >>> credit.sii_operation_key
     'R1'

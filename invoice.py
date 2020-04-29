@@ -404,7 +404,6 @@ class Invoice(metaclass=PoolMeta):
         return 'R1' if self.untaxed_amount < Decimal('0.0') else 'F1'
 
     @classmethod
-    @ModelView.button
     def reset_sii_keys(cls, invoices):
         to_write = []
         for invoice in invoices:
