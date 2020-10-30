@@ -8,7 +8,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_operation_key">F6</field>
             <field name="sii_received_key">13</field>
             <field name="sii_excemption_key">E6</field>
-            <field name="tax_used" eval="False"/>
+            <field name="tax_used" eval="True"/>
             <field name="invoice_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X0_compras_bi">
@@ -16,7 +16,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_operation_key">F6</field>
             <field name="sii_received_key">13</field>
             <field name="sii_excemption_key">E6</field>
-            <field name="tax_used" eval="False"/>
+            <field name="tax_used" eval="True"/>
             <field name="invoice_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X4_compras_bc">
@@ -385,7 +385,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_excemption_key">E6</field>
-            <field name="tax_used" eval="False"/>
+            <field name="tax_used" eval="True"/>
             <field name="invoice_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_4">
@@ -413,7 +413,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_excemption_key">E6</field>
-            <field name="tax_used" eval="False"/>
+            <field name="tax_used" eval="True"/>
             <field name="invoice_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_4_inv">
@@ -441,7 +441,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_excemption_key">E6</field>
-            <field name="tax_used" eval="False"/>
+            <field name="tax_used" eval="True"/>
             <field name="invoice_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_0_asis">
