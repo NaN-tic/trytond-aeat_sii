@@ -68,17 +68,19 @@ class BaseTrytonInvoiceMapper(Model):
         taxes = self.total_invoice_taxes(invoice)
         taxes_base = 0
         taxes_amount = 0
+        taxes_surcharge = 0
         taxes_used = {}
         for tax in taxes:
-            taxes_amount += self.get_tax_amount(tax)
             base = self.get_tax_base(tax)
+            taxes_amount += self.get_tax_amount(tax)
+            taxes_surcharge += self.tax_equivalence_surcharge_amount(tax)
             parent = tax.tax.parent if tax.tax.parent else tax.tax
             if (parent.id in list(taxes_used.keys()) and
                     base == taxes_used[parent.id]):
                 continue
             taxes_base += base
             taxes_used[parent.id] = base
-        return (taxes_amount + taxes_base)
+        return (taxes_amount + taxes_base + taxes_surcharge)
 
     def counterpart_id_type(self, invoice):
         if invoice.sii_operation_key == 'F5':
