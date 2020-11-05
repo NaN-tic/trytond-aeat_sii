@@ -73,7 +73,7 @@ class BaseTrytonInvoiceMapper(Model):
         for tax in taxes:
             base = self.get_tax_base(tax)
             taxes_amount += self.get_tax_amount(tax)
-            taxes_surcharge += self.tax_equivalence_surcharge_amount(tax)
+            taxes_surcharge += self.tax_equivalence_surcharge_amount(tax) or 0
             parent = tax.tax.parent if tax.tax.parent else tax.tax
             if (parent.id in list(taxes_used.keys()) and
                     base == taxes_used[parent.id]):
