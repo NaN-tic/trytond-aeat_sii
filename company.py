@@ -78,7 +78,7 @@ class Company(metaclass=PoolMeta):
 
     @contextmanager
     def tmp_ssl_credentials(self):
-        if not self.pem_certificate:
+        if not self.pem_certificate or not self.private_key:
             raise UserError(gettext('aeat_sii.msg_missing_pem_cert'))
         with NamedTemporaryFile(suffix='.crt') as crt:
             with NamedTemporaryFile(suffix='.pem') as key:

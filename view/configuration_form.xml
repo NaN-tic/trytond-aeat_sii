@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license types. -->
+<data>
+    <xpath expr="/form/separator[@id='invoice']" position="before">
+        <separator id="aeat_sii" string="AEAT SII" colspan="4"/>
+        <label name="aeat_pending_sii"/>
+        <field name="aeat_pending_sii"/>
+        <label name="aeat_pending_sii_send"/>
+        <field name="aeat_pending_sii_send"/>
+        <label name="aeat_received_sii"/>
+        <field name="aeat_received_sii"/>
+        <label name="aeat_received_sii_send"/>
+        <field name="aeat_received_sii_send"/>
+        <newline/>
+    </xpath>
+</data>

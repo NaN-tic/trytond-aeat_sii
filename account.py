@@ -2,12 +2,48 @@
 # copyright notices and license terms.
 from trytond.model import fields
 from trytond.pool import PoolMeta
+from trytond.pyson import Eval
 from .aeat import (BOOK_KEY, OPERATION_KEY, SEND_SPECIAL_REGIME_KEY,
     RECEIVE_SPECIAL_REGIME_KEY, IVA_SUBJECTED, EXCEMPTION_CAUSE,
     INTRACOMUNITARY_TYPE)
 
 
-__all__ = ['TemplateTax', 'Tax']
+__all__ = ['Configuration', 'TemplateTax', 'Tax']
+
+
+class Configuration(metaclass=PoolMeta):
+    __name__ = 'account.configuration'
+    aeat_pending_sii = fields.Boolean('AEAT Pending SII',
+        help='Automatically generate AEAT Pending SII reports by cron')
+    aeat_pending_sii_send = fields.Boolean('AEAT Pending SII Send',
+        states={
+            'invisible': ~Eval('aeat_pending_sii', False),
+        }, depends=['aeat_pending_sii'],
+        help='Automatically send AEAT Pending SII reports by cron')
+    aeat_received_sii = fields.Boolean('AEAT Received SII',
+        help='Automatically generate AEAT Received SII reports by cron')
+    aeat_received_sii_send = fields.Boolean('AEAT Received SII Send',
+        states={
+            'invisible': ~Eval('aeat_received_sii', False),
+        }, depends=['aeat_received_sii'],
+        help='Automatically send AEAT Received SII reports by cron')
+
+    @staticmethod
+    def default_aeat_pending_sii():
+        return False
+
+    @staticmethod
+    def default_aeat_received_sii():
+        return False
+
+    @staticmethod
+    def default_aeat_pending_sii_send():
+        return False
+
+    @staticmethod
+    def default_aeat_received_sii_send():
+        return False
+
 
 
 class TemplateTax(metaclass=PoolMeta):
