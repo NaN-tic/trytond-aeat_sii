@@ -648,7 +648,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.IDFactura.NumSerieFacturaEmisor
                     for reg in registers
                     ]),
-                ('state', 'in', ('posted', 'paid')),
+                ('move', '!=', None),
                 ])
         invoices_ids = {
             invoice.number: invoice.id
@@ -906,7 +906,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             domain = [
                 ('reference', '=', reg.IDFactura.NumSerieFacturaEmisor),
                 ('invoice_date', '=', invoice_date),
-                ('state', 'in', ('posted', 'paid')),
+                ('move', '!=', None),
                 ]
             vat = True
             if reg.IDFactura.IDEmisorFactura.NIF:
@@ -997,17 +997,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         # search issued invoices [new]
         new_issued_invoices = Invoice.search([
-                ('sii_state', 'in', (None, 'Incorrecto')),
+                ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
                 ('sii_pending_sending', '=', True),
                 ('type', '=', 'out'),
-                ])
-
-        # search possible deleted invoices in SII and not uploaded again
-        new_issued_invoices += Invoice.search([
-                ('sii_state', '=', 'Anulada'),
-                ('sii_pending_sending', '=', True),
-                ('type', '=', 'out'),
-                ('state', 'in', ['paid', 'posted']),
+                ('move', '!=', None),
                 ])
 
         new_issued_invoices += delete_issued_invoices
@@ -1078,17 +1071,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         # search received invoices [new]
         new_received_invoices = Invoice.search([
-                ('sii_state', 'in', (None, 'Incorrecto')),
+                ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
                 ('sii_pending_sending', '=', True),
                 ('type', '=', 'in'),
-                ])
-
-        # search possible deleted invoices in SII and not uploaded again
-        new_received_invoices += Invoice.search([
-                ('sii_state', '=', 'Anulada'),
-                ('sii_pending_sending', '=', True),
-                ('type', '=', 'in'),
-                ('state', 'in', ['paid', 'posted']),
+                ('move', '!=', None),
                 ])
 
         new_received_invoices += delete_received_invoices
