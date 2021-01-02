@@ -568,6 +568,17 @@ msgctxt "model:ir.message,text:msg_missing_pem_cert"
 msgid "Missing PEM certificate"
 msgstr "Falta certicat PEM"
 
+msgctxt "model:ir.message,text:msg_missing_nif"
+msgid "The party of the invoice %(invoice)s must has a valid Tax Identifier."
+msgstr "El tercer de la factura %(invoice)s ha de tenir un NIF válid."
+
+msgctxt "model:ir.message,text:msg_sii_operation_key_wrong"
+msgid ""
+"The invoice %(invoice)s has wrong subjected and opertion sii combination."
+msgstr ""
+"La factura %(invoice)s té una convinació de claus del SII 'Operació' y "
+"'Subjecte' errònies."
+
 msgctxt "model:ir.message,text:reports_exist"
 msgid ""
 "There are some reports in draft and/or confirmed. Any report won't be "

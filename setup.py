@@ -45,7 +45,6 @@ minor_version = int(minor_version)
 requires = [
     'cryptography',
     'pyOpenSSL',
-    'pyAEATsii>=1.1.0',
     'python-sql',
     ]
 for dep in info.get('depends', []):

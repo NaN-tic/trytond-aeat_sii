@@ -31,8 +31,8 @@ def register():
         aeat.SIIReport,
         aeat.SIIReportLine,
         aeat.SIIReportLineTax,
-        aeat_mapping.IssuedTrytonInvoiceMapper,
-        aeat_mapping.RecievedTrytonInvoiceMapper,
+        aeat_mapping.IssuedInvoiceMapper,
+        aeat_mapping.RecievedInvoiceMapper,
         module='aeat_sii', type_='model')
     Pool.register(
         sale.Sale,
