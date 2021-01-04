@@ -2,9 +2,19 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 import unicodedata
+from logging import getLogger
+from lxml import etree
+from zeep import Plugin
+
+try:
+    from itertools import ifilter as filter
+except ImportError:
+    pass
 
 src_chars = "/*+?Â¿!$[]{}@#`^:;<>=~%\\"
 dst_chars = "________________________"
+
+_logger = getLogger(__name__)
 
 
 def normalize(text):
@@ -22,3 +32,56 @@ def unaccent(text):
     output = unicodedata.normalize('NFKD', output).encode('ASCII',
         'ignore')
     return output.replace(b"_",b"")
+
+
+def _format_period(period):
+    return str(period).zfill(2)
+
+
+def _rate_to_percent(rate):
+    return None if rate is None else abs(round(100 * rate, 2))
+
+
+def get_headers(name=None, vat=None, comm_kind=None, version='1.1'):
+    return {
+        'IDVersionSii': version,
+        'Titular': {
+            'NombreRazon': name,
+            'NIF': vat,
+            # TODO: NIFRepresentante
+        },
+        'TipoComunicacion': comm_kind,
+    }
+
+
+class _FixedValue(object):
+
+    def __init__(self, value):
+        self._value = value
+
+    def __call__(self, *args, **kwargs):
+        return self._value
+
+
+def fixed_value(value):
+    return _FixedValue(value)
+
+
+class LoggingPlugin(Plugin):
+
+    def ingress(self, envelope, http_headers, operation):
+        _logger.debug('http_headers: %s', http_headers)
+        _logger.debug('operation: %s', operation)
+        _logger.debug('envelope: %s', etree.tostring(
+            envelope, pretty_print=True))
+        return envelope, http_headers
+
+    def egress(self, envelope, http_headers, operation, binding_options):
+        _logger.debug('http_headers: %s', http_headers)
+        _logger.debug('operation: %s', operation)
+        _logger.debug('envelope: %s', etree.tostring(
+            envelope, pretty_print=True))
+        return envelope, http_headers
+
+
+# TODO: JSESSIONID Plugin

@@ -191,6 +191,11 @@ class Invoice(metaclass=PoolMeta):
                 values['sii_pending_sending'] = True
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
+            if (invoice.sii_subjected_key in ('S2', 'S3') and
+                    not invoice.sii_operation_key in (
+                        'F1', 'R1', 'R2', 'R3', 'R4')):
+                raise UserError(gettext('aeat_sii.msg_sii_operation_key_wrong',
+                    invoice=invoice))
         if to_write:
             cls.write(*to_write)
 
