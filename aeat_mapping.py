@@ -475,14 +475,13 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             'BaseImponible': self.tax_base(tax),
         }
         if self.specialkey_or_trascendence(invoice) != '02':
-
             ret['TipoImpositivo'] = tools._rate_to_percent(self.tax_rate(tax))
             ret['CuotaSoportada'] = self.tax_amount(tax)
             ret['TipoRecargoEquivalencia'] = \
                 tools._rate_to_percent(self.tax_equivalence_surcharge_rate(tax))
             ret['CuotaRecargoEquivalencia'] = \
                 self.tax_equivalence_surcharge_amount(tax)
-            bieninversion = all(map(lambda w: w in tax.name, (
+            bieninversion = all(map(lambda w: w in tax.tax.name, (
                         'bien', 'inversión')))
             ret['BienInversion'] = 'S' if bieninversion else 'N'
         else:
