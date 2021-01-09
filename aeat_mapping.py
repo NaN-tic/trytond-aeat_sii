@@ -31,8 +31,20 @@ class BaseInvoiceMapper(Model):
     issue_date = attrgetter('invoice_date')
     invoice_kind = attrgetter('sii_operation_key')
     rectified_invoice_kind = tools.fixed_value('I')
-    not_exempt_kind = attrgetter('sii_subjected_key')
-    exempt_kind = attrgetter('sii_excemption_key')
+
+    def not_exempt_kind(self, tax):
+        return attrgetter('sii_subjected_key')(tax)
+
+    def exempt_kind(self, tax):
+        return attrgetter('sii_exemption_cause')(tax)
+
+    def not_subject(self, invoice):
+        base = 0
+        for line in invoice.lines:
+            for tax in line.taxes:
+                if tax.tax.sii_exemption_cause == 'NotSubject':
+                    base += attrgetter('amount')(line)
+        return base
 
     def counterpart_nif(self, invoice):
         nif = ''
@@ -56,13 +68,6 @@ class BaseInvoiceMapper(Model):
         val = attrgetter('company_base')(tax)
         return val
 
-    def get_invoice_untaxed(self, invoice):
-        taxes = self.taxes(invoice)
-        taxes_base = 0
-        for tax in taxes:
-            taxes_base += self.get_tax_base(tax)
-        return taxes_base
-
     def get_invoice_total(self, invoice):
         taxes = self.total_invoice_taxes(invoice)
         taxes_base = 0
@@ -85,10 +90,18 @@ class BaseInvoiceMapper(Model):
         if invoice.sii_operation_key == 'F5':
             return invoice.company.party.sii_identifier_type
         else:
+            if (invoice.sii_received_key == '09' and
+                    invoice.party.sii_identifier_type != '02'):
+                raise UserError(gettext('aeat_sii.msg_wrong_identifier_type',
+                    invoice=invoice, party=invoice.party))
+            for tax in invoice.taxes:
+                if (self.exempt_kind(tax.tax) == 'E5' and
+                        invoice.party.sii_identifier_type != '02'):
+                    raise UserError(gettext('aeat_sii.msg_wrong_identifier_type',
+                        invoice=invoice, party=invoice.party))
             return invoice.party.sii_identifier_type
 
     counterpart_id = counterpart_nif
-    untaxed_amount = get_invoice_untaxed
     total_amount = get_invoice_total
     tax_rate = attrgetter('tax.rate')
     tax_base = get_tax_base
@@ -170,7 +183,7 @@ class BaseInvoiceMapper(Model):
         id_type = self.counterpart_id_type(invoice)
         if id_type and id_type in OTHER_ID_TYPES:
             ret['IDOtro'] = {
-                'IDType': self.counterpart_id_type(invoice),
+                'IDType': id_type,
                 'CodigoPais': self.counterpart_country(invoice),
                 'ID': self.counterpart_id(invoice),
             }
@@ -233,6 +246,31 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             'NIF': self.nif(invoice),
         }
 
+    def build_taxes(self, tax):
+        res = {
+            'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
+            'BaseImponible': self.tax_base(tax),
+            'CuotaRepercutida': self.tax_amount(tax)
+            }
+
+        if self.tax_equivalence_surcharge_rate(tax):
+            res['TipoRecargoEquivalencia'] = (
+                tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
+                        tax)))
+
+        if self.tax_equivalence_surcharge_amount(tax):
+            res['CuotaRecargoEquivalencia'] = (
+                self.tax_equivalence_surcharge_amount(tax))
+        return res
+
+    def location_rules(self, invoice):
+        base = 0
+        for line in invoice.lines:
+            for tax in line.taxes:
+                if tax.tax.sii_issued_key == '08':
+                    base += attrgetter('amount')(line)
+        return base
+
     def build_issued_invoice(self, invoice):
         ret = {
             'TipoFactura': self.invoice_kind(invoice),
@@ -265,18 +303,10 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         }
         self._update_counterpart(ret, invoice)
 
-        if (self.not_exempt_kind(invoice) in ('S2', 'S3') and
-                not 'NIF' in ret.get('Contraparte', {})):
-            raise UserError(gettext('aeat_sii.msg_missing_nif',
-                invoice=invoice))
-
         must_detail_op = (ret.get('Contraparte', {}) and (
             'IDOtro' in ret['Contraparte'] or ('NIF' in ret['Contraparte'] and
                 ret['Contraparte']['NIF'].startswith('N')))
         )
-        location_rules = (self.specialkey_or_trascendence(invoice) == '08' or
-            (must_detail_op and self.not_exempt_kind(invoice) == 'S2'))
-
         detail = {
             'Sujeta': {},
             'NoSujeta': {}
@@ -293,39 +323,58 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 'DesgloseFactura': detail
             })
 
-        if self.not_exempt_kind(invoice):
-            if self.not_exempt_kind(invoice) == 'S2':
-                # inv. subj. pass.
-                tax_detail = [{
-                    'TipoImpositivo': 0,
-                    'BaseImponible': self.untaxed_amount(invoice),
-                    'CuotaRepercutida': 0
-                }]
-            else:
-                tax_detail = [self.build_taxes(t) for t in self.taxes(invoice)]
-            if tax_detail:
-                detail['Sujeta'].update({
-                    'NoExenta': {
-                        'TipoNoExenta': self.not_exempt_kind(invoice),
-                        'DesgloseIVA': {
-                            'DetalleIVA': tax_detail
+        for tax in self.taxes(invoice):
+            exempt_kind = self.exempt_kind(tax.tax)
+            not_exempt_kind = self.not_exempt_kind(tax.tax)
+            if (not_exempt_kind in ('S2', 'S3') and
+                    not 'NIF' in ret.get('Contraparte', {})):
+                raise UserError(gettext('aeat_sii.msg_missing_nif',
+                    invoice=invoice))
+
+            if not_exempt_kind:
+                if not_exempt_kind == 'S2':
+                    # inv. subj. pass.
+                    tax_detail = {
+                        'TipoImpositivo': 0,
+                        'BaseImponible': self.get_tax_base(tax),
+                        'CuotaRepercutida': 0
+                    }
+                else:
+                    tax_detail = self.build_taxes(tax)
+                if tax_detail:
+                    if not detail['Sujeta']:
+                        detail['Sujeta'].update({
+                            'NoExenta': {
+                                'TipoNoExenta': not_exempt_kind,
+                                'DesgloseIVA': {
+                                    'DetalleIVA': [tax_detail]
+                                }
+                            }
+                        })
+                    else:
+                        detail['Sujeta']['NoExenta']['DesgloseIVA'][
+                            'DetalleIVA'].append(tax_detail)
+            elif exempt_kind:
+                if exempt_kind != 'NotSubject':
+                    detail['Sujeta'].update({
+                        'Exenta': {
+                            'DetalleExenta': {
+                                'CausaExencion': exempt_kind,
+                                'BaseImponible': self.get_tax_base(tax),
+                            }
                         }
-                    }
-                })
-        elif self.exempt_kind(invoice):
-            detail['Sujeta'].update({
-                'Exenta': {
-                    'DetalleExenta': {
-                        'CausaExencion': self.exempt_kind(invoice),
-                        'BaseImponible': self.untaxed_amount(invoice),
-                    }
-                }
-            })
-        if location_rules:
-            detail['NoSujeta'].update({
-                # ImportePorArticulos7_14_Otros: 0,
-                'ImporteTAIReglasLocalizacion': self.untaxed_amount(invoice)
-            })
+                    })
+            if self.not_subject(invoice):
+                detail['NoSujeta'].update({
+                        'ImportePorArticulos7_14_Otros': self.not_subject(
+                            invoice),
+                        })
+            if self.location_rules(invoice):
+                detail['NoSujeta'].update({
+                        'ImporteTAIReglasLocalizacion': self.location_rules(
+                            invoice)
+                        })
+
         # remove unused key
         for key in ('Sujeta', 'NoSujeta'):
             if not detail[key]:
@@ -364,19 +413,6 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                     'CuotaRectificada': self.rectified_amount(invoice),
                     # TODO: CuotaRecargoRectificado
                 }
-
-    def build_taxes(self, tax):
-        return {
-            'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
-            'BaseImponible': self.tax_base(tax),
-            'CuotaRepercutida': self.tax_amount(tax),
-            'TipoRecargoEquivalencia':
-                tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
-                        tax)),
-
-            'CuotaRecargoEquivalencia':
-                self.tax_equivalence_surcharge_amount(tax),
-        }
 
 
 class RecievedInvoiceMapper(BaseInvoiceMapper):
@@ -455,9 +491,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         if _taxes:
             ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].extend(
                 self.build_taxes(invoice, tax) for tax in _taxes)
-        else:
-            ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].append({
-                'BaseImponible': self.untaxed_amount(invoice)})
 
         self._update_rectified_invoice(ret, invoice)
         return ret
@@ -476,10 +509,13 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         if self.specialkey_or_trascendence(invoice) != '02':
             ret['TipoImpositivo'] = tools._rate_to_percent(self.tax_rate(tax))
             ret['CuotaSoportada'] = self.tax_amount(tax)
-            ret['TipoRecargoEquivalencia'] = \
-                tools._rate_to_percent(self.tax_equivalence_surcharge_rate(tax))
-            ret['CuotaRecargoEquivalencia'] = \
-                self.tax_equivalence_surcharge_amount(tax)
+            if self.tax_equivalence_surcharge_rate(tax):
+                ret['TipoRecargoEquivalencia'] = \
+                    tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
+                            tax))
+            if self.tax_equivalence_surcharge_amount(tax):
+                ret['CuotaRecargoEquivalencia'] = \
+                    self.tax_equivalence_surcharge_amount(tax)
             bieninversion = all(map(lambda w: w in tax.tax.name, (
                         'bien', 'inversión')))
             ret['BienInversion'] = 'S' if bieninversion else 'N'
