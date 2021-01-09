@@ -6,6 +6,7 @@ from logging import getLogger
 from operator import attrgetter
 from datetime import date
 
+from trytond.i18n import gettext
 from trytond.model import Model
 from trytond.pool import Pool
 from trytond.exceptions import UserError
