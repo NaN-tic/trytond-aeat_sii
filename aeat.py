@@ -51,7 +51,6 @@ def _date(x):
 def _datetime(x):
     return datetime.strptime(x, "%d-%m-%Y %H:%M:%S")
 
-
 COMMUNICATION_TYPE = [   # L0
     (None, ''),
     ('A0', 'Registration of invoices/records'),
@@ -173,7 +172,6 @@ AEAT_INVOICE_STATE = [
     ('duplicated_unsubscribed', 'Duplicated / Unsubscribed'),
 ]
 
-
 PROPERTY_STATE = [  # L6
     ('0', ''),
     ('1', '1. Property with a land register reference located in any part '
@@ -185,7 +183,6 @@ PROPERTY_STATE = [  # L6
     ('4', '4. Property located abroad'),
     ]
 
-
 # L7 - Iva Subjected
 IVA_SUBJECTED = [
     (None, ''),
@@ -195,8 +192,8 @@ IVA_SUBJECTED = [
         'and VAT reverse charge')
     ]
 
-# L9 - Excemption cause
-EXCEMPTION_CAUSE = [
+# L9 - Exemption cause
+EXEMPTION_CAUSE = [
     (None, ''),
     ('E1', 'Exempt on account of Article 20'),
     ('E2', 'Exempt on account of Article 21'),
@@ -204,26 +201,7 @@ EXCEMPTION_CAUSE = [
     ('E4', 'Exempt on account of Article 23 and Article 24'),
     ('E5', 'Exempt on account of Article 25'),
     ('E6', 'Exempt on other grounds'),
-    ]
-
-# L11 Payment Type
-PAYMENT_TYPE = [
-    ('01', 'Transfer'),
-    ('02', 'Cheque'),
-    ('03', 'Not to be collected/paid (deadline for accrual/forced accrual '
-        'as part of insolvency proceedings)'),
-    ('04', 'Other methods of collection/payment'),
-    ('05', 'Bank debit order'),
-    ]
-
-# L12
-INTRACOMUNITARY_TYPE = [
-    (None, ''),
-    ('A', 'The transmission or receipt of goods to undertake partial reports '
-        'or works stipulated in Article 70, section one, Number 7 '
-        'of the Tax Law (Law 37/1992)'),
-    ('B', 'Transfers of goods or intra-Community acquisitions of goods listed '
-        'in Article 9.3 and Article 16.2 of the Tax Law (Law 37/1992)'),
+    ('NotSubject', 'Not Subject'),
     ]
 
 _STATES = {
@@ -652,7 +630,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 taxes = SIIReportLineTax.create(taxes_to_create)
             elif sujeta.Exenta:
                 exemption = sujeta.Exenta.DetalleExenta[0].CausaExencion
-                for exempt in EXCEMPTION_CAUSE:
+                for exempt in EXEMPTION_CAUSE:
                     if exempt[0] == exemption:
                         exemption = exempt[1]
                         break
@@ -679,7 +657,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosFacturaEmitida.ClaveRegimenEspecialOTrascendencia),
                 'total_amount': _decimal(reg.DatosFacturaEmitida.ImporteTotal),
                 'taxes': [('add', [t.id for t in taxes])] if taxes else [],
-                'exemption_key': exemption,
+                'exemption_cause': exemption,
                 'counterpart_name': (
                     reg.DatosFacturaEmitida.Contraparte.NombreRazon
                     if reg.DatosFacturaEmitida.Contraparte else None),
@@ -1176,9 +1154,25 @@ class SIIReportLine(ModelSQL, ModelView):
     invoice_operation_key = fields.Function(
         fields.Selection(OPERATION_KEY, 'SII Operation Key'),
         'get_invoice_operation_key')
-    exemption_key = fields.Char('Exemption Cause', readonly=True)
+    exemption_cause = fields.Char('Exemption Cause', readonly=True)
     aeat_register = fields.Text('Register from AEAT Webservice', readonly=True)
     sii_header = fields.Text('Header')
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        table = cls.__table_handler__(module_name)
+        sql_table = cls.__table__()
+
+        exist_sii_excemption_key = table.column_exist('exemption_key')
+
+        super(SIIReportLine, cls).__register__(module_name)
+
+        if exist_sii_excemption_key:
+            # Don't use UPDATE FROM because SQLite nor MySQL support it.
+            cursor.execute(*sql_table.update([sql_table.exemption_cause],
+                    [sql_table.exemption_key])),
+            table.drop_column('exemption_key')
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None

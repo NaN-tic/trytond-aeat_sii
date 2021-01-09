@@ -8,16 +8,10 @@ contains the full copyright notices and license terms. -->
           <field name="sii_book_key" colspan="3"/>
           <label name="sii_operation_key"/>
           <field name="sii_operation_key" colspan="3"/>
-          <label name="sii_subjected_key"/>
-          <field name="sii_subjected_key" colspan="3"/>
           <label name="sii_issued_key"/>
           <field name="sii_issued_key" colspan="3"/>
           <label name="sii_received_key"/>
           <field name="sii_received_key" colspan="3"/>
-          <label name="sii_intracomunity_key"/>
-          <field name="sii_intracomunity_key" colspan="3"/>
-          <label name="sii_excemption_key"/>
-          <field name="sii_excemption_key" colspan="3"/>
           <field name="sii_records" colspan="4"/>
           <label name="sii_communication_type"/>
           <field name="sii_communication_type"/>
