@@ -42,7 +42,7 @@ class BaseInvoiceMapper(Model):
         base = 0
         for line in invoice.lines:
             for tax in line.taxes:
-                if tax.tax.sii_exemption_cause == 'NotSubject':
+                if tax.sii_exemption_cause == 'NotSubject':
                     base += attrgetter('amount')(line)
         return base
 
@@ -267,7 +267,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         base = 0
         for line in invoice.lines:
             for tax in line.taxes:
-                if tax.tax.sii_issued_key == '08':
+                if tax.sii_issued_key == '08':
                     base += attrgetter('amount')(line)
         return base
 
