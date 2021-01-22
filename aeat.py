@@ -931,14 +931,10 @@ class SIIReportLine(ModelSQL, ModelView):
         sql_table = cls.__table__()
 
         exist_sii_excemption_key = table.column_exist('exemption_key')
+        if exist_sii_excemption_key:
+            table.column_rename('exemption_key', 'exemption_cause')
 
         super(SIIReportLine, cls).__register__(module_name)
-
-        if exist_sii_excemption_key:
-            # Don't use UPDATE FROM because SQLite nor MySQL support it.
-            cursor.execute(*sql_table.update([sql_table.exemption_cause],
-                    [sql_table.exemption_key])),
-            table.drop_column('exemption_key')
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None

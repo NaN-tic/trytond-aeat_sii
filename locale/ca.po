@@ -318,7 +318,7 @@ msgctxt "field:aeat.sii.report.lines,csv:"
 msgid "CSV"
 msgstr "CSV"
 
-msgctxt "field:aeat.sii.report.lines,exemption_key:"
+msgctxt "field:aeat.sii.report.lines,exemption_cause:"
 msgid "Exemption Cause"
 msgstr "Causa exempte"
 

@@ -365,16 +365,16 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                             }
                         }
                     })
-            if self.not_subject(invoice):
-                detail['NoSujeta'].update({
-                        'ImportePorArticulos7_14_Otros': self.not_subject(
-                            invoice),
-                        })
-            if self.location_rules(invoice):
-                detail['NoSujeta'].update({
-                        'ImporteTAIReglasLocalizacion': self.location_rules(
-                            invoice)
-                        })
+        if self.not_subject(invoice):
+            detail['NoSujeta'].update({
+                    'ImportePorArticulos7_14_Otros': self.not_subject(
+                        invoice),
+                    })
+        if self.location_rules(invoice):
+            detail['NoSujeta'].update({
+                    'ImporteTAIReglasLocalizacion': self.location_rules(
+                        invoice)
+                    })
 
         # remove unused key
         for key in ('Sujeta', 'NoSujeta'):
