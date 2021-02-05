@@ -94,12 +94,12 @@ class BaseInvoiceMapper(Model):
             if (invoice.sii_received_key == '09' and
                     invoice.party.sii_identifier_type != '02'):
                 raise UserError(gettext('aeat_sii.msg_wrong_identifier_type',
-                    invoice=invoice, party=invoice.party))
+                    invoice=invoice.number, party=invoice.party.rec_name))
             for tax in invoice.taxes:
                 if (self.exempt_kind(tax.tax) == 'E5' and
                         invoice.party.sii_identifier_type != '02'):
                     raise UserError(gettext('aeat_sii.msg_wrong_identifier_type',
-                        invoice=invoice, party=invoice.party))
+                        invoice=invoice.number, party=invoice.party.rec_name))
             return invoice.party.sii_identifier_type
 
     counterpart_id = counterpart_nif
