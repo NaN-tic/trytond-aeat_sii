@@ -90,7 +90,7 @@ class Invoice(metaclass=PoolMeta):
     def _set_sii_keys(self):
         tax = None
         for t in self.taxes:
-            if t.tax.sii_book_key:
+            if t.tax and t.tax.sii_book_key:
                 tax = t.tax
                 break
         if not tax:
