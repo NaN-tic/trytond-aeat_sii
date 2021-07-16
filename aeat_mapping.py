@@ -98,8 +98,10 @@ class BaseInvoiceMapper(Model):
             for tax in invoice.taxes:
                 if (self.exempt_kind(tax.tax) == 'E5' and
                         invoice.party.sii_identifier_type != '02'):
-                    raise UserError(gettext('aeat_sii.msg_wrong_identifier_type',
-                        invoice=invoice.number, party=invoice.party.rec_name))
+                    raise UserError(gettext(
+                            'aeat_sii.msg_wrong_identifier_type',
+                            invoice=invoice.number,
+                            party=invoice.party.rec_name))
             return invoice.party.sii_identifier_type
 
     counterpart_id = counterpart_nif
@@ -329,7 +331,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             exempt_kind = self.exempt_kind(tax.tax)
             not_exempt_kind = self.not_exempt_kind(tax.tax)
             if (not_exempt_kind in ('S2', 'S3') and
-                    not 'NIF' in ret.get('Contraparte', {})):
+                    'NIF' not in ret.get('Contraparte', {})):
                 raise UserError(gettext('aeat_sii.msg_missing_nif',
                     invoice=invoice))
 
@@ -358,6 +360,12 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                             'DetalleIVA'].append(tax_detail)
             elif exempt_kind:
                 if exempt_kind != 'NotSubject':
+                    baseimponible = self.get_tax_base(tax)
+                    if detail['Sujeta'].get('Exenta', {}).get(
+                            'DetalleExenta', {}).get(
+                            'CausaExencion', None) == exempt_kind:
+                        baseimponible += detail['Sujeta'].get('Exenta').get(
+                            'DetalleExenta').get('BaseImponible', 0)
                     detail['Sujeta'].update({
                         'Exenta': {
                             'DetalleExenta': {
