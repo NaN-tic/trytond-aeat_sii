@@ -4,19 +4,19 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "field:account.configuration,aeat_pending_sii:"
 msgid "AEAT Pending SII"
-msgstr "Generà Llibres del SII pendents"
+msgstr "Generà Llibres del SII emeses"
 
 msgctxt "field:account.configuration,aeat_pending_sii_send:"
 msgid "AEAT Pending SII Send"
-msgstr "Enviar Llibres del SII pendents"
+msgstr "Enviar Llibres del SII emese"
 
 msgctxt "field:account.configuration,aeat_received_sii:"
 msgid "AEAT Received SII"
-msgstr "Generà Llibres del SII pendents"
+msgstr "Generà Llibres del SII received"
 
 msgctxt "field:account.configuration,aeat_received_sii_send:"
 msgid "AEAT Received SII Send"
-msgstr "Enviar Llibres del SII pendents"
+msgstr "Enviar Llibres del SII received"
 
 msgctxt "field:account.invoice,sii_book_key:"
 msgid "SII Book Key"
