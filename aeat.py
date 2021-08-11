@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-import unicodedata
 from logging import getLogger
 from decimal import Decimal
 from datetime import datetime
@@ -40,6 +39,7 @@ _ZERO = Decimal('0.0')
 SII_TEST = config.getboolean('aeat', 'sii_test', default=True)
 MAX_SII_LINES = config.getint('aeat', 'sii_lines', default=300)
 
+
 def _decimal(x):
     return Decimal(x) if x is not None else None
 
@@ -50,6 +50,7 @@ def _date(x):
 
 def _datetime(x):
     return datetime.strptime(x, "%d-%m-%Y %H:%M:%S")
+
 
 COMMUNICATION_TYPE = [   # L0
     (None, ''),
@@ -89,7 +90,7 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('F4', 'Invoice summary entry'),
     ('F5', 'Import (DUA)'),
     ('F6', 'Other accounting documents'),
-    ('LC', 'Duty - Complementary clearing'), # Not supported
+    ('LC', 'Duty - Complementary clearing'),  # Not supported
     ]
 
 PARTY_IDENTIFIER_TYPE = [
@@ -138,15 +139,16 @@ RECEIVE_SPECIAL_REGIME_KEY = [
     (None, ''),
     ('01', 'General tax regime activity'),
     ('02', 'Activities through which businesses pay compensation for special '
-        'VAT arrangements for agriculture and fisheries'),
+        'VAT arrangements for agriculture and fisheries (REAGYP)'),
     ('03', 'Activities to which the special scheme of used goods, '
-        'works of art, antiquities and collectables (135-139 of the VAT Law)'),
+        'works of art, antiquities and collectables (REBU) [135-139 of the VAT'
+        ' Law]'),
     ('04', 'Special scheme for investment gold'),
     ('05', 'Special scheme for travel agencies'),
     ('06', 'Special scheme applicable to groups of entities, VAT (Advanced)'),
     ('07', 'Special cash basis scheme'),
     ('08', 'Activities subject to Canary Islands General Indirect Tax/Tax '
-        'on Production, Services and Imports'),
+        'on Production, Services and Imports (IPSI/IGIC)'),
     ('09', 'Intra-Community acquisition of assets and provisions of services'),
     ('12', 'Business premises lease activities'),
     ('13', 'Invoice corresponding to an import '
@@ -238,12 +240,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         }, depends=['state', 'fiscalyear'])
     load_date = fields.Date('Load Date',
         domain=['OR', [
-                    ('load_date', '=', None),
-                ], [
-                    ('load_date', '>=', Eval('load_date_start')),
-                    ('load_date', '<=', Eval('load_date_end')),
-                ]
-        ], depends=['load_date_start', 'load_date_end'],
+                ('load_date', '=', None),
+            ], [
+                ('load_date', '>=', Eval('load_date_start')),
+                ('load_date', '<=', Eval('load_date_end')),
+            ]], depends=['load_date_start', 'load_date_end'],
         help='Filter invoices to the date whitin the period.')
     load_date_start = fields.Function(fields.Date('Load Date Start'),
         'on_change_with_load_date_start')
@@ -288,7 +289,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         },
         depends=['state'])
     response = fields.Text('Response', readonly=True)
-    aeat_register = fields.Text('Register sended to AEAT Webservice', readonly=True)
+    aeat_register = fields.Text('Register sended to AEAT Webservice',
+        readonly=True)
 
     @classmethod
     def __setup__(cls):
@@ -500,7 +502,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             _logger.debug('Searching invoices for SII report: %s', domain)
 
             for invoice in Invoice.search(domain):
-                if not all(l.report != report for l in invoice.sii_records):
+                if not all(x.report != report for x in invoice.sii_records):
                     continue
                 to_create.append({
                     'report': report,
@@ -525,7 +527,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 srv = service.bind_issued_invoices_service(
                     crt, key, test=SII_TEST)
                 try:
-                    res, request = srv.submit(headers, (l.invoice for l in self.lines))
+                    res, request = srv.submit(
+                        headers, (x.invoice for x in self.lines))
                     self.aeat_register = request
                 except Exception as e:
                     raise UserError(tools.unaccent(str(e)))
@@ -553,7 +556,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     crt, key, test=SII_TEST)
                 try:
                     res = srv.cancel(
-                        headers, [eval(line.sii_header) for line in self.lines])
+                        headers, [
+                            eval(line.sii_header) for line in self.lines])
                 except Exception as e:
                     raise UserError(gettext('aeat_sii.msg_service_message',
                         message=tools.unaccent(str(e))))
@@ -643,7 +647,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'last_modify_date': _datetime(
                     reg.EstadoFactura.TimestampUltimaModificacion),
                 'communication_code': reg.EstadoFactura.CodigoErrorRegistro,
-                'communication_msg': reg.EstadoFactura.DescripcionErrorRegistro,
+                'communication_msg': (reg.EstadoFactura.
+                    DescripcionErrorRegistro),
                 'issuer_vat_number': (
                     reg.IDFactura.IDEmisorFactura.NIF or
                     reg.IDFactura.IDEmisorFactura.IDOtro.ID),
@@ -653,8 +658,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'issue_date': _date(
                     reg.IDFactura.FechaExpedicionFacturaEmisor),
                 'invoice_kind': reg.DatosFacturaEmitida.TipoFactura,
-                'special_key': (
-                    reg.DatosFacturaEmitida.ClaveRegimenEspecialOTrascendencia),
+                'special_key': (reg.DatosFacturaEmitida.
+                    ClaveRegimenEspecialOTrascendencia),
                 'total_amount': _decimal(reg.DatosFacturaEmitida.ImporteTotal),
                 'taxes': [('add', [t.id for t in taxes])] if taxes else [],
                 'exemption_cause': exemption,
@@ -694,7 +699,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 srv = service.bind_recieved_invoices_service(
                     crt, key, test=SII_TEST)
                 try:
-                    res, request = srv.submit(headers, (l.invoice for l in self.lines))
+                    res, request = srv.submit(
+                        headers, (x.invoice for x in self.lines))
                     self.aeat_register = request
                 except Exception as e:
                     raise UserError(gettext('aeat_sii.msg_service_message',
@@ -723,7 +729,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     srv = service.bind_recieved_invoices_service(
                         crt, key, test=SII_TEST)
                     res = srv.cancel(
-                        headers, [eval(line.sii_header) for line in self.lines])
+                        headers, [
+                            eval(line.sii_header) for line in self.lines])
                 except Exception as e:
                     raise UserError(gettext('aeat_sii.msg_service_message',
                         message=tools.unaccent(str(e))))
@@ -743,7 +750,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     self.lines, response.RespuestaLinea):
                 if not report_line.communication_code:
                     report_line.state = response_line.EstadoRegistro
-                    report_line.communication_code = response_line.CodigoErrorRegistro
+                    report_line.communication_code = (
+                        response_line.CodigoErrorRegistro)
                     report_line.communication_msg = (
                         response_line.DescripcionErrorRegistro)
                     report_line.save()
@@ -786,8 +794,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             invoice_date = _date(reg.IDFactura.FechaExpedicionFacturaEmisor)
 
             taxes_to_create = []
-            for detail in reg.DatosFacturaRecibida.DesgloseFactura.DesgloseIVA.\
-                    DetalleIVA:
+            for detail in reg.DatosFacturaRecibida.DesgloseFactura.\
+                    DesgloseIVA.DetalleIVA:
                 taxes_to_create.append({
                         'base': _decimal(detail.BaseImponible),
                         'rate': _decimal(detail.TipoImpositivo),
@@ -884,9 +892,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLine = pool.get('aeat.sii.report.lines')
 
         issued_invoices = {
-            'A0': {}, # 'A0', 'Registration of invoices/records'
-            'A1': {}, # 'A1', 'Amendment of invoices/records (registration errors)'
-            'D0': {}, # 'D0', 'Delete Invoices'
+            'A0': {},  # 'A0', 'Registration of invoices/records'
+            'A1': {},  # 'A1', 'Amendment of invoices/records
+                       #       (registration errors)'
+            'D0': {},  # 'D0', 'Delete Invoices'
         }
 
         issued_invs = Invoice.search([
@@ -959,9 +968,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLine = pool.get('aeat.sii.report.lines')
 
         received_invoices = {
-            'A0': {}, # 'A0', 'Registration of invoices/records'
-            'A1': {}, # 'A1', 'Amendment of invoices/records (registration errors)'
-            'D0': {}, # 'D0', 'Delete Invoices'
+            'A0': {},  # 'A0', 'Registration of invoices/records'
+            'A1': {},  # 'A1', 'Amendment of invoices/records
+                       #       (registration errors)'
+            'D0': {},  # 'D0', 'Delete Invoices'
             }
 
         received_invs = Invoice.search([
@@ -1059,7 +1069,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     values = []
                     for inv in invs:
                         sii_header = str(inv.get_sii_header(inv, delete))
-                        values.append([report.id, inv.id, sii_header, company.id])
+                        values.append(
+                            [report.id, inv.id, sii_header, company.id])
 
                     cursor.execute(*report_line_table.insert(
                             columns=[report_line_table.report,
@@ -1160,9 +1171,7 @@ class SIIReportLine(ModelSQL, ModelView):
 
     @classmethod
     def __register__(cls, module_name):
-        cursor = Transaction().connection.cursor()
         table = cls.__table_handler__(module_name)
-        sql_table = cls.__table__()
 
         exist_sii_excemption_key = table.column_exist('exemption_key')
         if exist_sii_excemption_key:
@@ -1227,7 +1236,8 @@ class SIIReportLine(ModelSQL, ModelView):
             report = (SIIReport(id=vals['report'])
                 if vals.get('report') else None)
 
-            delete = True if report and report.operation_type == 'D0' else False
+            delete = (True if report and report.operation_type == 'D0' else
+                False)
             vals['sii_header'] = (str(invoice.get_sii_header(invoice, delete))
                 if invoice else '')
             if vals.get('state', None) == 'Correcto' and invoice:
@@ -1348,7 +1358,7 @@ class CreateSiiIssuedPending(Wizard):
         if reports:
             raise UserError(gettext('aeat_sii.reports_exist'))
         reports = Report.get_issued_sii_reports()
-        reports = [x.id for x in reports] if reports else  []
+        reports = [x.id for x in reports] if reports else []
         action['pyson_domain'] = PYSONEncoder().encode([
             ('id', 'in', reports),
             ])
@@ -1387,3 +1397,14 @@ class CreateSiiReceivedPending(Wizard):
             ('id', 'in', reports),
             ])
         return action, {}
+
+
+class Report():
+    __name__ = ''
+
+    @fields.depends('exonerated_mod390', 'period')
+    def on_change_with_exonerated_mod390(self, name=None):
+        if self.period in ('4T', '12') and self.exonerated_mod390 == '0':
+            return '1'
+        else:
+            return self.exonerated_mod390
