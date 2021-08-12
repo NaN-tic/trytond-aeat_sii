@@ -314,7 +314,7 @@ this repository contains the full copyright notices and license terms. -->
             <field name="tax_used" eval="False"/>
             <field name="invoice_used" eval="True"/>
         </record>
-        <record model="account.tax.template" id="account_es.iva_rea_compras_12">
+        <record model="account.tax.template" id="account_es.iva_reaf_compras_12">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">02</field>
             <field name="sii_subjected_key">S1</field>
