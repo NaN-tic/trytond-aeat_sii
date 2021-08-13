@@ -3,11 +3,9 @@
 from io import BytesIO
 from logging import getLogger
 
-from OpenSSL.crypto import load_pkcs12
-from OpenSSL.crypto import dump_certificate
-from OpenSSL.crypto import dump_privatekey
-from OpenSSL.crypto import FILETYPE_PEM
-from OpenSSL.crypto import Error as CryptoError
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.serialization import pkcs12
+from cryptography.exceptions import UnsupportedAlgorithm
 
 from trytond.transaction import Transaction
 from trytond.pool import Pool
@@ -52,9 +50,19 @@ class LoadPKCS12(Wizard):
         (company,) = Company.browse([company_id])
         with BytesIO(self.start.pfx) as pfx:
             try:
-                pkcs12 = load_pkcs12(pfx.read(), self.start.password)
-                crt = dump_certificate(FILETYPE_PEM, pkcs12.get_certificate())
-                key = dump_privatekey(FILETYPE_PEM, pkcs12.get_privatekey())
+                (
+                    private_key,
+                    certificate,
+                    additional_certificates,
+                ) = pkcs12.load_key_and_certificates(
+                    pfx.read(), self.start.password.encode()
+                )
+                key = private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption(),
+                )
+                crt = certificate.public_bytes(serialization.Encoding.PEM)
                 Company.write([company], {
                     'pem_certificate': crt,
                     'private_key': key,
@@ -62,10 +70,15 @@ class LoadPKCS12(Wizard):
                 _logger.info(
                     'Correctly loaded SSL credentials for company %s',
                     company.rec_name)
-            except CryptoError as e:
-                _logger.debug('Cryptographic error loading pkcs12 %s', e)
+            except (ValueError, TypeError, UnsupportedAlgorithm) as e:
+                _logger.debug('Cryptographic error loading pkcs12: %s', e)
                 errors = e.args[0]
-                message = ', '.join(error[2] for error in errors)
-                raise UserError(gettext('aeat_sii.error_loading_pkcs12',
-                    message=message))
+                if isinstance(errors, list):
+                    message = ', '.join(error[2] for error in errors)
+                elif isinstance(errors, str):
+                    message = errors
+                else:
+                    message = ''
+                raise UserError(gettext('aeat_sii.msg_error_loading_pkcs12',
+                        message=message))
         return 'end'
