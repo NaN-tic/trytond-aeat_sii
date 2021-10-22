@@ -1128,8 +1128,8 @@ class SIIReportLine(ModelSQL, ModelView):
     __name__ = 'aeat.sii.report.lines'
 
     report = fields.Many2One(
-        'aeat.sii.report', 'Issued Report', ondelete='CASCADE')
-    invoice = fields.Many2One('account.invoice', 'Invoice',
+        'aeat.sii.report', 'Issued Report', select=True, ondelete='CASCADE')
+    invoice = fields.Many2One('account.invoice', 'Invoice', select=True,
         states={
             'required': Eval('_parent_report', {}).get(
                 'operation_type') != 'C0',
@@ -1319,9 +1319,8 @@ class SIIReportLineTax(ModelSQL, ModelView):
     '''
     __name__ = 'aeat.sii.report.line.tax'
 
-    line = fields.Many2One(
-        'aeat.sii.report.lines', 'Report Line', ondelete='CASCADE')
-
+    line = fields.Many2One('aeat.sii.report.lines', 'Report Line',
+        select=True, ondelete='CASCADE')
     base = fields.Numeric('Base', readonly=True)
     rate = fields.Numeric('Rate', readonly=True)
     amount = fields.Numeric('Amount', readonly=True)
