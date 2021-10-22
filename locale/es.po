@@ -1764,3 +1764,7 @@ msgstr "Cancel·lar"
 msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
 msgid "Reset"
 msgstr "Reiniciar"
+
+msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
+msgid "Invoice \"%(invoice)s\" must be posted or paid."
+msgstr "La factura \"%(invoice)s\" debe estar contabilizada o pagada."
