@@ -1764,3 +1764,7 @@ msgstr "Cancel·lar"
 msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
 msgid "Reset"
 msgstr "Reiniciar"
+
+msgctxt "model:ir.message,text:msg_report_duplicated_invoice"
+msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
+msgstr "La factura \"%(invoice)s\" se ha incluído varias veces en el Libro SII \"%(report)s\"."
