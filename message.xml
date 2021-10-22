@@ -38,5 +38,14 @@ If you edit them take care if you need to update again to SII</field>
         <record model="ir.message" id="msg_wrong_identifier_type">
             <field name="text">The party [%(party)s] of the invoice %(invoice)s must has a valid SII Identifier [VAT (only for intracommunity operators)].</field>
         </record>
+        <record model="ir.message" id="msg_invoice_deny_draft_invalid_sii_state">
+            <field name="text">You can not set to draft invoice "%(invoice)s" because the SII state is "%(sii_state)s". Please first include the invoice in a Delete Invoice SII Book and send to AEAT.</field>
+        </record>
+        <record model="ir.message" id="msg_invoice_modify_invalid_sii_state">
+            <field name="text">Invoice "%(invoice)s" was sent to SII and the state is "%(sii_state)s". Please remember after posting to send it again with a Modify SII Book.</field>
+        </record>
+        <record model="ir.message" id="msg_invoice_deny_modify_sii_pk">
+            <field name="text">Cannot modify "%(fields)s" on invoice "%(invoice)s" because its SII state is "%(sii_state)s". Please first include the invoice in a Delete Invoice SII Book and send to AEAT.</field>
+        </record>
     </data>
 </tryton>

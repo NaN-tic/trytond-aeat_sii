@@ -40,6 +40,15 @@
             <field name="action" ref="act_aeat_sii_reset_keys"/>
             <field name="group" ref="group_aeat_sii_admin"/>
         </record>
-
+    </data>
+    <data depends="account_invoice_posted2draft">
+      <record model="res.group" id="group_invoice_sent_sii_posted2draft">
+          <field name="name">Force Draft Account Invoice sent to SII</field>
+      </record>
+      <record model="res.user-res.group"
+          id="user_admin_group_invoice_sent_sii_posted2draft">
+          <field name="user" ref="res.user_admin"/>
+          <field name="group" ref="group_invoice_sent_sii_posted2draft"/>
+      </record>
     </data>
 </tryton>

@@ -1764,3 +1764,25 @@ msgstr "Cancel·lar"
 msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
 msgid "Reset"
 msgstr "Reiniciar"
+
+msgctxt "model:ir.message,text:msg_invoice_deny_draft_invalid_sii_state"
+msgid ""
+"You can not set to draft invoice \"%(invoice)s\" because the SII state is \"%(sii_state)s\". Please first include the invoice in a Delete Invoice SII Book and send to AEAT."
+msgstr ""
+"No puede pasar a borrador la factura \"%(invoice)s\" porque su estado SII es \"%(sii_state)s\". Por favor incluya la factura en un libro SII de anulación de facturas y envíelo a la AEAT."
+
+msgctxt "model:ir.message,text:msg_invoice_modify_invalid_sii_state"
+msgid ""
+"Invoice \"%(invoice)s\" was sent to SII and the state is \"%(sii_state)s\". Please remember after posting to send it again with a Modify SII Book."
+msgstr ""
+"La factura \"%(invoice)s\" fue enviada al SII y su estado es \"%(sii_state)s\". Por favor recuerde enviarla de nuevo a la AEAT en un libro SII de modificación de facturas tras contabilizarla."
+
+msgctxt "model:ir.message,text:msg_invoice_deny_modify_sii_pk"
+msgid ""
+"Cannot modify \"%(fields)s\" on invoice \"%(invoice)s\" because its SII state is \"%(sii_state)s\". Please first include the invoice in a Delete Invoice SII Book and send to AEAT."
+msgstr ""
+"No puede modificar \"%(fields)s\" en la factura \"%(invoice)s\" porque su estado SII es \"%(sii_state)s\". Por favor incluya la fact
+
+msgctxt "model:res.group,name:group_invoice_sent_sii_posted2draft"
+msgid "Force Draft Account Invoice sent to SII"
+msgstr "Forzar borrador factura enviada a SII"

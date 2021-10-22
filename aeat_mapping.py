@@ -201,6 +201,7 @@ class BaseInvoiceMapper(Model):
             description = tools.unaccent(invoice.description)
         if invoice.lines and invoice.lines[0].description:
             description = tools.unaccent(invoice.lines[0].description)
+
         description = self.serial_number(invoice)
 
         return (description if not self._is_first_semester(invoice)

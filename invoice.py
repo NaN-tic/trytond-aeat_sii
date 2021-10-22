@@ -2,7 +2,7 @@
 # copyright notices and license terms.
 import hashlib
 from decimal import Decimal
-from trytond.model import ModelView, fields
+from trytond.model import ModelView, fields, Workflow
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
@@ -23,8 +23,14 @@ _SII_INVOICE_KEYS = ['sii_book_key', 'sii_operation_key', 'sii_issued_key',
 class Invoice(metaclass=PoolMeta):
     __name__ = 'account.invoice'
 
-    sii_book_key = fields.Selection(BOOK_KEY, 'SII Book Key')
-    sii_operation_key = fields.Selection(OPERATION_KEY, 'SII Operation Key')
+    sii_book_key = fields.Selection(BOOK_KEY, 'SII Book Key',
+        states={
+            'required': Eval('state').in_(['posted', 'paid'])
+        }, depends=['state'])
+    sii_operation_key = fields.Selection(OPERATION_KEY, 'SII Operation Key',
+        states={
+            'required': Eval('state').in_(['posted', 'paid'])
+        }, depends=['state'])
     sii_issued_key = fields.Selection(SEND_SPECIAL_REGIME_KEY,
         'SII Issued Key',
         states={
@@ -273,3 +279,93 @@ class ResetSIIKeys(Wizard):
         invoices = Invoice.browse(Transaction().context['active_ids'])
         Invoice.reset_sii_keys(invoices)
         return 'done'
+
+
+class Invoice2(metaclass=PoolMeta):
+    __name__ = 'account.invoice'
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls._sii_state_deny_draft = {
+            'Correcto', 'Correcta', 'AceptadoConErrores', 'AceptadaConErrores'
+        }
+        cls._deny_modify_sii_fields = {
+            'reference', 'party', 'invoice_date', 'party_tax_identifier'
+        }
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('draft')
+    def draft(cls, invoices):
+        for invoice in invoices:
+            invoice.check_sent_sii()
+        super().draft(invoices)
+
+    @classmethod
+    @ModelView.button
+    @Workflow.transition('posted')
+    def post(cls, invoices):
+        for invoice in invoices:
+            if invoice.state in ('draft', 'validated'):
+                invoice.check_sent_sii()
+        super().post(invoices)
+
+    @classmethod
+    def write(cls, *args):
+        actions = iter(args)
+        args = []
+        for records, values in zip(actions, actions):
+            sii_vals = set(values) & cls._deny_modify_sii_fields
+            if sii_vals:
+                for record in records:
+                    if record.type == 'in':
+                        record.check_sent_sii(list(sii_vals))
+            args.extend((records, values))
+        super().write(*args)
+
+    def check_sent_sii(self, fields=[]):
+        pool = Pool()
+        ModelData = pool.get('ir.model.data')
+        User = pool.get('res.user')
+        Group = pool.get('res.group')
+        Warning = pool.get('res.user.warning')
+
+        if self.sii_state in self._sii_state_deny_draft and \
+                self.sii_communication_type != 'D0':
+
+            # check group
+            def in_group():
+                group = Group(ModelData.get_id(
+                    'aeat_sii',
+                    'group_invoice_sent_sii_posted2draft'))
+                transaction = Transaction()
+                user_id = transaction.user
+                if user_id == 0:
+                    user_id = transaction.context.get('user', user_id)
+                if user_id == 0:
+                    return True
+                user = User(user_id)
+                return group in user.groups
+
+            if fields:
+                raise UserError(gettext(
+                    'aeat_sii.msg_invoice_deny_modify_sii_pk',
+                    fields=', '.join(
+                        [f['string'] for f in self.__class__.fields_get(
+                            fields_names=fields).values()]),
+                    invoice=self.rec_name,
+                    sii_state=self.sii_state))
+            elif not in_group():
+                raise UserError(gettext(
+                    'aeat_sii.msg_invoice_deny_draft_invalid_sii_state',
+                    invoice=self.rec_name,
+                    sii_state=self.sii_state))
+            else:
+                warning_key = ('aeat_sii.'
+                    'msg_invoice_modify_invalid_sii_state_%s' % self.id)
+                if Warning.check(warning_key):
+                    raise UserWarning(warning_key, gettext(
+                        'aeat_sii.msg_invoice_modify_invalid_sii_state',
+                        invoice=self.rec_name,
+                        sii_state=self.sii_state))

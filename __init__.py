@@ -48,3 +48,7 @@ def register():
         aeat.CreateSiiReceivedPending,
         load_pkcs12.LoadPKCS12,
         module='aeat_sii', type_='wizard')
+    Pool.register(
+        invoice.Invoice2,
+        module='aeat_sii', type_='model',
+        depends=['account_invoice_posted2draft'])
