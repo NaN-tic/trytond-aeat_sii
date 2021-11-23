@@ -940,11 +940,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         issued_invoices['A1'] = periods2
 
         # search issued invoices [new]
+        company = Transaction().context.get('company', None)
         new_issued_invoices = Invoice.search([
                 ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
                 ('sii_pending_sending', '=', True),
                 ('type', '=', 'out'),
                 ('move', '!=', None),
+                ('company', '=', company) if company else (),
                 ])
 
         new_issued_invoices += delete_issued_invoices
@@ -974,11 +976,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             'D0': {},  # 'D0', 'Delete Invoices'
             }
 
+        company = Transaction().context.get('company', None)
         received_invs = Invoice.search([
                 ('sii_pending_sending', '=', True),
                 ('sii_state', '=', 'Correcto'),
                 ('sii_header', '!=', None),
                 ('type', '=', 'in'),
+                ('company', '=', company) if company else (),
                 ])
         # search received invoices [delete]
         delete_received_invoices = []
