@@ -278,10 +278,8 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
     def build_issued_invoice(self, invoice):
         ret = {
             'TipoFactura': self.invoice_kind(invoice),
-            # TODO: TipoRectificativa
             # TODO: FacturasAgrupadas
             # TODO: FacturasRectificadas
-            # TODO: ImporteRectificacion
             # TODO: FechaOperacion
             'ClaveRegimenEspecialOTrascendencia':
                 self.specialkey_or_trascendence(invoice),
@@ -485,10 +483,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             # TODO: BaseImponibleACoste
             'DescripcionOperacion': self._description(invoice),
             'DesgloseFactura': {
-                # 'InversionSujetoPasivo': {
-                #     'DetalleIVA':
-                #         map(self.build_taxes, self.taxes(invoice)),
-                # },
                 'DesgloseIVA': {
                     'DetalleIVA': [],
                 }
@@ -496,12 +490,20 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             'Contraparte': self._build_counterpart(invoice),
             'FechaRegContable': self._move_date(invoice).strftime(_DATE_FMT),
             'CuotaDeducible': self._deductible_amount(invoice),
+            # TODO: ADeducirEnPeriodoPosterior
+            # TODO: EjercicioDeduccion
+            # TODO: PeriodoDeduccion
         }
         _taxes = self.taxes(invoice)
         if _taxes:
             ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].extend(
                 self.build_taxes(invoice, tax) for tax in _taxes)
-
+            isp_taxes = self.isp_taxes(_taxes)
+            if isp_taxes:
+                ret['DesgloseFactura']['InversionSujetoPasivo'] = {
+                    'DetalleIVA': [self.build_taxes(invoice, tax) for tax in
+                        isp_taxes]
+                    }
         self._update_rectified_invoice(ret, invoice)
         return ret
 
@@ -535,3 +537,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             ret['ImporteCompensacionREAGYP'] = \
                 (self.tax_amount(tax))
         return ret
+
+    def isp_taxes(self, taxes):
+        return [tax for tax in taxes if tax.tax.isp]

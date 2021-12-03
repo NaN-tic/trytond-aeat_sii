@@ -71,19 +71,21 @@ BOOK_KEY = [
     ('U', 'Particular Intracommunity Operations'),
     ]
 
-# R1: errores fundados de derecho y causas del artículo 80.Uno, Dos y Seis LIVA
-# R2: concurso de acreedores
-# R3: deudas incobrables
-# R4: resto de causas
+# TipoFactura
 OPERATION_KEY = [    # L2_EMI - L2_RECI
     (None, ''),
     ('F1', 'Invoice (Art 6.7.3 y 7.3 of RD1619/2012)'),
     ('F2', 'Simplified Invoice (ticket) and Invoices without destination '
         'identidication (Art 6.1.d of RD1619/2012)'),
+    # R1: errores fundados de derecho y causas del artículo 80.Uno, Dos y Seis
+    #    LIVA
     ('R1', 'Corrected Invoice '
         '(Art 80.1, 80.2 and 80.6 and error grounded in law)'),
+    # R2: concurso de acreedores
     ('R2', 'Corrected Invoice (Art. 80.3)'),
+    # R3: deudas incobrables
     ('R3', 'Credit Note (Art 80.4)'),
+    # R4: resto de causas
     ('R4', 'Corrected Invoice (Other)'),
     ('R5', 'Corrected Invoice in simplified invoices'),
     ('F3', 'Invoice issued to replace simplified invoices issued and filed'),
@@ -93,6 +95,7 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('LC', 'Duty - Complementary clearing'),  # Not supported
     ]
 
+# IDType
 PARTY_IDENTIFIER_TYPE = [
     (None, ''),
     ('02', 'VAT (only for intracommunity operators)'),
@@ -135,6 +138,7 @@ SEND_SPECIAL_REGIME_KEY = [  # L3.1
     ('16', 'First semester 2017 and other invoices before the SII'),
     ]
 
+# ClaveRegimenEspecialOTrascendencia
 RECEIVE_SPECIAL_REGIME_KEY = [
     (None, ''),
     ('01', 'General tax regime activity'),
