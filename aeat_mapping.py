@@ -368,7 +368,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                         'Exenta': {
                             'DetalleExenta': {
                                 'CausaExencion': exempt_kind,
-                                'BaseImponible': self.get_tax_base(tax),
+                                'BaseImponible': baseimponible,
                             }
                         }
                     })
@@ -515,6 +515,8 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             #   BaseRectificada, CuotaRectificada, CuotaRecargoRectificado }
 
     def build_taxes(self, invoice, tax):
+        if not tax.base and not tax.amount:
+            return
         ret = {
             'BaseImponible': self.tax_base(tax),
         }
