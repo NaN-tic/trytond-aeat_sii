@@ -12,7 +12,7 @@ msgstr "Mandar Libros del SII emitidas"
 
 msgctxt "field:account.configuration,aeat_received_sii:"
 msgid "AEAT Received SII"
-msgstr "Generar Libros del SII recividas"
+msgstr "Generar Libros del SII recibidas"
 
 msgctxt "field:account.configuration,aeat_received_sii_send:"
 msgid "AEAT Received SII Send"
