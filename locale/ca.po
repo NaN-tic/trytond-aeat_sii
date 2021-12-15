@@ -8,15 +8,15 @@ msgstr "Generà Llibres del SII emeses"
 
 msgctxt "field:account.configuration,aeat_pending_sii_send:"
 msgid "AEAT Pending SII Send"
-msgstr "Enviar Llibres del SII emese"
+msgstr "Enviar Llibres del SII emeses"
 
 msgctxt "field:account.configuration,aeat_received_sii:"
 msgid "AEAT Received SII"
-msgstr "Generà Llibres del SII received"
+msgstr "Generà Llibres del SII rebuts"
 
 msgctxt "field:account.configuration,aeat_received_sii_send:"
 msgid "AEAT Received SII Send"
-msgstr "Enviar Llibres del SII received"
+msgstr "Enviar Llibres del SII rebuts"
 
 msgctxt "field:account.invoice,sii_book_key:"
 msgid "SII Book Key"
