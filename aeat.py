@@ -77,6 +77,10 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     ('F1', 'Invoice (Art 6.7.3 y 7.3 of RD1619/2012)'),
     ('F2', 'Simplified Invoice (ticket) and Invoices without destination '
         'identidication (Art 6.1.d of RD1619/2012)'),
+    ('F3', 'Invoice issued to replace simplified invoices issued and filed'),
+    ('F4', 'Invoice summary entry'),
+    ('F5', 'Import (DUA)'),
+    ('F6', 'Other accounting documents'),
     # R1: errores fundados de derecho y causas del artículo 80.Uno, Dos y Seis
     #    LIVA
     ('R1', 'Corrected Invoice '
@@ -88,10 +92,6 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
     # R4: resto de causas
     ('R4', 'Corrected Invoice (Other)'),
     ('R5', 'Corrected Invoice in simplified invoices'),
-    ('F3', 'Invoice issued to replace simplified invoices issued and filed'),
-    ('F4', 'Invoice summary entry'),
-    ('F5', 'Import (DUA)'),
-    ('F6', 'Other accounting documents'),
     ('LC', 'Duty - Complementary clearing'),  # Not supported
     ]
 
@@ -139,7 +139,7 @@ SEND_SPECIAL_REGIME_KEY = [  # L3.1
     ]
 
 # ClaveRegimenEspecialOTrascendencia
-RECEIVE_SPECIAL_REGIME_KEY = [
+RECEIVE_SPECIAL_REGIME_KEY = [  # L3.2
     (None, ''),
     ('01', 'General tax regime activity'),
     ('02', 'Activities through which businesses pay compensation for special '
@@ -617,14 +617,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             tipo_desglose = reg.DatosFacturaEmitida.TipoDesglose
             if tipo_desglose.DesgloseFactura:
                 sujeta = tipo_desglose.DesgloseFactura.Sujeta
+                no_sujeta = tipo_desglose.DesgloseFactura.NoSujeta
             else:
                 if tipo_desglose.DesgloseTipoOperacion.PrestacionServicios:
                     sujeta = tipo_desglose.DesgloseTipoOperacion.\
                         PrestacionServicios.Sujeta
+                    no_sujeta = tipo_desglose.DesgloseTipoOperacion.\
+                        PrestacionServicios.NoSujeta
                 else:
                     sujeta = tipo_desglose.DesgloseTipoOperacion.Entrega.Sujeta
+                    no_sujeta = tipo_desglose.DesgloseTipoOperacion.Entrega.NoSujeta
 
-            if sujeta.NoExenta:
+            if sujeta and sujeta.NoExenta:
                 for detail in sujeta.NoExenta.DesgloseIVA.DetalleIVA:
                     taxes_to_create.append({
                             'base': _decimal(detail.BaseImponible),
@@ -636,12 +640,17 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                                 detail.CuotaRecargoEquivalencia),
                             })
                 taxes = SIIReportLineTax.create(taxes_to_create)
-            elif sujeta.Exenta:
+            elif sujeta and sujeta.Exenta:
                 exemption = sujeta.Exenta.DetalleExenta[0].CausaExencion
                 for exempt in EXEMPTION_CAUSE:
                     if exempt[0] == exemption:
                         exemption = exempt[1]
                         break
+            elif no_sujeta:
+                # TODO: Control the possible respons
+                #   'ImportePorArticulos7_14_Otros'
+                #   'ImporteTAIReglasLocalizacion'
+                pass
 
             sii_report_line = {
                 'report': self.id,
