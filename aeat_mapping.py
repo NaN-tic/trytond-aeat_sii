@@ -43,7 +43,8 @@ class BaseInvoiceMapper(Model):
         base = 0
         for line in invoice.lines:
             for tax in line.taxes:
-                if tax.sii_exemption_cause == 'NotSubject':
+                if (tax.sii_exemption_cause == 'NotSubject' and
+                        not tax.service):
                     base += attrgetter('amount')(line)
         return base
 
@@ -271,7 +272,9 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         base = 0
         for line in invoice.lines:
             for tax in line.taxes:
-                if tax.sii_issued_key == '08':
+                if (tax.sii_issued_key == '08' or
+                        (tax.sii_exemption_cause == 'NotSubject' and
+                            tax.service)):
                     base += attrgetter('amount')(line)
         return base
 
@@ -317,7 +320,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             ret['TipoDesglose'].update({
                 'DesgloseTipoOperacion': {
                     'Entrega': detail,
-                    # 'PrestacionDeServicios': {},
+                    'PrestacionServicios': detail,
                 }
             })
         else:
@@ -387,6 +390,13 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         for key in ('Sujeta', 'NoSujeta'):
             if not detail[key]:
                 detail.pop(key)
+
+        if must_detail_op:
+            if tax.service:
+                ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
+            else:
+                ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
+                    'PrestacionServicios')
 
         self._update_total_amount(ret, invoice)
         self._update_rectified_invoice(ret, invoice)

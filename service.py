@@ -12,7 +12,7 @@ _logger = getLogger(__name__)
 
 wsdl_prod = ('https://www2.agenciatributaria.gob.es/static_files/common/'
     'internet/dep/aplicaciones/es/aeat/ssii_1_1_bis/fact/ws/')
-wsdl_test = ('https://www6.aeat.es/static_files/common/internet/dep/'
+wsdl_test = ('https://prewww1.aeat.es/static_files/common/internet/dep/'
     'aplicaciones/es/aeat/ssii_1_1_bis/fact/ws/')
 
 
