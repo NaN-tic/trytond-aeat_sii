@@ -1138,15 +1138,15 @@ msgstr "Régimen especial de las agencias de viajes"
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid ""
 "Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
-msgstr "No exenta - Con o sin Inversion sujeto pasivo"
+msgstr "Subjecta - No exempta - Amb Inversió del subjecte pasiu"
 
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid "Subject - Not exempt. Non VAT reverse charge"
-msgstr "Sujeto - No exento"
+msgstr "Sujecta - No exempta - Sense Inversió del subjecte pasiu"
 
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid "Subject - Not exempt. VAT reverse charge"
-msgstr "No exenta - Con Inversion sujeto pasivo"
+msgstr "Subjecta - No exempta - Amb Inversió del subjecte pasiu"
 
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Investment Goods"
