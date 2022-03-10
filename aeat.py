@@ -378,6 +378,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         return self.period.end_date if self.period else None
 
     @classmethod
+    def get_allowed_companies(cls):
+        company_filter = Transaction().context.get('company_filter')
+        companies = Transaction().context.get('companies')
+        company = Transaction().context.get('company')
+        if company_filter == 'one':
+            companies = [company]
+        return companies
+
+    @classmethod
     def copy(cls, records, default=None):
         if default is None:
             default = {}
@@ -486,22 +495,24 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
                 ('state', 'in', ['posted', 'paid']),
+                ('sii_pending_sending', '=', True),
             ]
 
             if report.operation_type == 'A0':
-                domain.append(('sii_state', 'in', [None, 'Incorrecto']))
+                domain.append(('sii_state', 'in', [None, 'Incorrecto',
+                            'Anulada']))
 
             elif report.operation_type in ('A1', 'A4'):
                 domain.append(('sii_state', 'in', [
-                    'AceptadoConErrores', 'AceptadaConErrores']))
+                            'AceptadoConErrores', 'AceptadaConErrores']))
 
             if report.load_date:
                 domain.append(['OR', [
-                        ('invoice_date', '<=', report.load_date),
-                        ('accounting_date', '=', None),
-                        ], [
-                        ('accounting_date', '<=', report.load_date),
-                        ]])
+                            ('invoice_date', '<=', report.load_date),
+                            ('accounting_date', '=', None),
+                            ], [
+                            ('accounting_date', '<=', report.load_date),
+                            ]])
 
             _logger.debug('Searching invoices for SII report: %s', domain)
 
@@ -596,12 +607,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         registers = res.RegistroRespuestaConsultaLRFacturasEmitidas
         # FIXME: the number can be repeated over time
+        # issue_date: _date(reg.IDFactura.FechaExpedicionFacturaEmisor)
         invoices_list = Invoice.search([
+                ('comapny', '=', self.company),
                 ('number', 'in', [
                     reg.IDFactura.NumSerieFacturaEmisor
                     for reg in registers
                     ]),
                 ('move', '!=', None),
+                # ('invoice_date', '=', issue_date),
                 ])
         invoices_ids = {
             invoice.number: invoice.id
@@ -895,72 +909,79 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         SIIReportLine = pool.get('aeat.sii.report.lines')
 
-        issued_invoices = {
-            'A0': {},  # 'A0', 'Registration of invoices/records'
-            'A1': {},  # 'A1', 'Amendment of invoices/records
-                       #       (registration errors)'
-            'D0': {},  # 'D0', 'Delete Invoices'
-        }
+        companies = cls.get_allowed_companies()
+        issued_invoices = {}
+        for company in companies:
+            issued_invoices[company] = {
+                'A0': {},  # 'A0', 'Registration of invoices/records'
+                'A1': {},  # 'A1', 'Amendment of invoices/records
+                           #       (registration errors)'
+                'D0': {},  # 'D0', 'Delete Invoices'
+                }
 
-        issued_invs = Invoice.search([
-                ('sii_pending_sending', '=', True),
-                ('sii_state', '=', 'Correcto'),
-                ('sii_header', '!=', None),
-                ('type', '=', 'out'),
-                ])
+            issued_invs = Invoice.search([
+                    ('company', '=', company),
+                    ('sii_pending_sending', '=', True),
+                    ('sii_state', '=', 'Correcto'),
+                    ('sii_header', '!=', None),
+                    ('type', '=', 'out'),
+                    ])
 
-        # search issued invoices [delete]
-        delete_issued_invoices = []
-        # search issued invoices [modify]
-        modify_issued_invoices = []
-        for issued_inv in issued_invs:
-            if not issued_inv.sii_records:
-                continue
-            sii_record_id = max([s.id for s in issued_inv.sii_records])
-            sii_record = SIIReportLine(sii_record_id)
-            if issued_inv.sii_header:
-                if (literal_eval(issued_inv.sii_header) ==
-                        literal_eval(sii_record.sii_header)):
-                    modify_issued_invoices.append(issued_inv)
+            # search issued invoices [delete]
+            delete_issued_invoices = []
+            # search issued invoices [modify]
+            modify_issued_invoices = []
+            for issued_inv in issued_invs:
+                if not issued_inv.sii_records:
+                    continue
+                sii_record_id = max([s.id for s in issued_inv.sii_records])
+                sii_record = SIIReportLine(sii_record_id)
+                if issued_inv.sii_header:
+                    if (literal_eval(issued_inv.sii_header) ==
+                            literal_eval(sii_record.sii_header)):
+                        modify_issued_invoices.append(issued_inv)
+                    else:
+                        delete_issued_invoices.append(issued_inv)
+
+            periods = {}
+            for invoice in delete_issued_invoices:
+                period = invoice.move.period
+                if period in periods:
+                    periods[period].append(invoice,)
                 else:
-                    delete_issued_invoices.append(issued_inv)
+                    periods[period] = [invoice]
+            issued_invoices[company]['D0'] = periods
 
-        periods = {}
-        for invoice in delete_issued_invoices:
-            period = invoice.move.period
-            if period in periods:
-                periods[period].append(invoice,)
-            else:
-                periods[period] = [invoice]
-        issued_invoices['D0'] = periods
+            periods2 = {}
+            for invoice in modify_issued_invoices:
+                period = invoice.move.period
+                if period in periods2:
+                    periods2[period].append(invoice,)
+                else:
+                    periods2[period] = [invoice]
+            issued_invoices[company]['A1'] = periods2
 
-        periods2 = {}
-        for invoice in modify_issued_invoices:
-            period = invoice.move.period
-            if period in periods2:
-                periods2[period].append(invoice,)
-            else:
-                periods2[period] = [invoice]
-        issued_invoices['A1'] = periods2
+            # search issued invoices [new]
+            new_issued_invoices = Invoice.search([
+                    ('company', '=', company),
+                    ('sii_book_key', '=', 'E'),
+                    ('state', 'in', ['posted', 'paid']),
+                    ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
+                    ('sii_pending_sending', '=', True),
+                    ('type', '=', 'out'),
+                    ('move', '!=', None),
+                    ])
 
-        # search issued invoices [new]
-        new_issued_invoices = Invoice.search([
-                ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
-                ('sii_pending_sending', '=', True),
-                ('type', '=', 'out'),
-                ('move', '!=', None),
-                ])
+            new_issued_invoices += delete_issued_invoices
 
-        new_issued_invoices += delete_issued_invoices
-
-        periods1 = {}
-        for invoice in new_issued_invoices:
-            period = invoice.move.period
-            if period in periods1:
-                periods1[period].append(invoice,)
-            else:
-                periods1[period] = [invoice]
-        issued_invoices['A0'] = periods1
+            periods1 = {}
+            for invoice in new_issued_invoices:
+                period = invoice.move.period
+                if period in periods1:
+                    periods1[period].append(invoice,)
+                else:
+                    periods1[period] = [invoice]
+            issued_invoices[company]['A0'] = periods1
 
         book_type = 'E'  # Issued
         return cls.create_sii_book(issued_invoices, book_type)
@@ -971,124 +992,129 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         SIIReportLine = pool.get('aeat.sii.report.lines')
 
-        received_invoices = {
-            'A0': {},  # 'A0', 'Registration of invoices/records'
-            'A1': {},  # 'A1', 'Amendment of invoices/records
-                       #       (registration errors)'
-            'D0': {},  # 'D0', 'Delete Invoices'
-            }
+        companies = cls.get_allowed_companies()
+        received_invoices = {}
+        for company in companies:
+            received_invoices[company] = {
+                'A0': {},  # 'A0', 'Registration of invoices/records'
+                'A1': {},  # 'A1', 'Amendment of invoices/records
+                           #       (registration errors)'
+                'D0': {},  # 'D0', 'Delete Invoices'
+                }
 
-        received_invs = Invoice.search([
-                ('sii_pending_sending', '=', True),
-                ('sii_state', '=', 'Correcto'),
-                ('sii_header', '!=', None),
-                ('type', '=', 'in'),
-                ])
-        # search received invoices [delete]
-        delete_received_invoices = []
-        # search received invoices [modify]
-        modify_received_invoices = []
-        for received_inv in received_invs:
-            if not received_inv.sii_records:
-                continue
-            sii_record_id = max([s.id for s in received_inv.sii_records])
-            sii_record = SIIReportLine(sii_record_id)
-            if received_inv.sii_header:
-                if (literal_eval(received_inv.sii_header) ==
-                        literal_eval(sii_record.sii_header)):
-                    modify_received_invoices.append(received_inv)
+            received_invs = Invoice.search([
+                    ('company', '=', company),
+                    ('sii_pending_sending', '=', True),
+                    ('sii_state', '=', 'Correcto'),
+                    ('sii_header', '!=', None),
+                    ('type', '=', 'in'),
+                    ])
+            # search received invoices [delete]
+            delete_received_invoices = []
+            # search received invoices [modify]
+            modify_received_invoices = []
+            for received_inv in received_invs:
+                if not received_inv.sii_records:
+                    continue
+                sii_record_id = max([s.id for s in received_inv.sii_records])
+                sii_record = SIIReportLine(sii_record_id)
+                if received_inv.sii_header:
+                    if (literal_eval(received_inv.sii_header) ==
+                            literal_eval(sii_record.sii_header)):
+                        modify_received_invoices.append(received_inv)
+                    else:
+                        delete_received_invoices.append(received_inv)
+
+            periods2 = {}
+            for invoice in modify_received_invoices:
+                period = invoice.move.period
+                if period in periods2:
+                    periods2[period].append(invoice,)
                 else:
-                    delete_received_invoices.append(received_inv)
+                    periods2[period] = [invoice]
+            received_invoices[company]['A1'] = periods2
 
-        periods2 = {}
-        for invoice in modify_received_invoices:
-            period = invoice.move.period
-            if period in periods2:
-                periods2[period].append(invoice,)
-            else:
-                periods2[period] = [invoice]
-        received_invoices['A1'] = periods2
+            periods = {}
+            for invoice in delete_received_invoices:
+                period = invoice.move.period
+                if period in periods:
+                    periods[period].append(invoice,)
+                else:
+                    periods[period] = [invoice]
+            received_invoices[company]['D0'] = periods
 
-        periods = {}
-        for invoice in delete_received_invoices:
-            period = invoice.move.period
-            if period in periods:
-                periods[period].append(invoice,)
-            else:
-                periods[period] = [invoice]
-        received_invoices['D0'] = periods
+            # search received invoices [new]
+            new_received_invoices = Invoice.search([
+                    ('company', '=', company),
+                    ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
+                    ('sii_pending_sending', '=', True),
+                    ('type', '=', 'in'),
+                    ('move', '!=', None),
+                    ])
 
-        # search received invoices [new]
-        new_received_invoices = Invoice.search([
-                ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
-                ('sii_pending_sending', '=', True),
-                ('type', '=', 'in'),
-                ('move', '!=', None),
-                ])
+            new_received_invoices += delete_received_invoices
 
-        new_received_invoices += delete_received_invoices
-
-        periods1 = {}
-        for invoice in new_received_invoices:
-            period = invoice.move.period
-            if period in periods1:
-                periods1[period].append(invoice,)
-            else:
-                periods1[period] = [invoice]
-        received_invoices['A0'] = periods1
+            periods1 = {}
+            for invoice in new_received_invoices:
+                period = invoice.move.period
+                if period in periods1:
+                    periods1[period].append(invoice,)
+                else:
+                    periods1[period] = [invoice]
+            received_invoices[company]['A0'] = periods1
 
         book_type = 'R'  # Received
         return cls.create_sii_book(received_invoices, book_type)
 
     @classmethod
-    def create_sii_book(cls, book_invoices, book):
+    def create_sii_book(cls, company_invoices, book):
         pool = Pool()
         SIIReport = pool.get('aeat.sii.report')
         SIIReportLine = pool.get('aeat.sii.report.lines')
         Company = Pool().get('company.company')
 
-        company = Transaction().context.get('company')
-        company = Company(company)
-        company_vat = company.party.sii_vat_code
-
         cursor = Transaction().connection.cursor()
         report_line_table = SIIReportLine.__table__()
 
         reports = []
-        for operation in ['D0', 'A1', 'A0']:
-            values = book_invoices[operation]
-            delete = True if operation == 'D0' else False
-            for period, invoices in values.items():
-                for invs in grouped_slice(invoices, MAX_SII_LINES):
-                    report = SIIReport()
-                    report.company = company
-                    report.company_vat = company_vat
-                    report.fiscalyear = period.fiscalyear
-                    report.period = period
-                    report.operation_type = operation
-                    report.book = book
-                    report.save()
-                    reports.append(report)
+        for company, book_invoices in company_invoices.items():
+            company = Company(company)
+            company_vat = company.party.sii_vat_code
+            for operation in ['D0', 'A1', 'A0']:
+                values = book_invoices[operation]
+                delete = True if operation == 'D0' else False
+                for period, invoices in values.items():
+                    for invs in grouped_slice(invoices, MAX_SII_LINES):
+                        report = SIIReport()
+                        report.company = company
+                        report.company_vat = company_vat
+                        report.fiscalyear = period.fiscalyear
+                        report.period = period
+                        report.operation_type = operation
+                        report.book = book
+                        report.save()
+                        reports.append(report)
 
-                    values = []
-                    for inv in invs:
-                        sii_header = str(inv.get_sii_header(inv, delete))
-                        values.append(
-                            [report.id, inv.id, sii_header, company.id])
+                        values = []
+                        for inv in invs:
+                            sii_header = str(inv.get_sii_header(inv, delete))
+                            values.append(
+                                [report.id, inv.id, sii_header, company.id])
 
-                    cursor.execute(*report_line_table.insert(
-                            columns=[report_line_table.report,
-                                report_line_table.invoice,
-                                report_line_table.sii_header,
-                                report_line_table.company],
-                            values=values
-                            ))
-
+                        cursor.execute(*report_line_table.insert(
+                                columns=[report_line_table.report,
+                                    report_line_table.invoice,
+                                    report_line_table.sii_header,
+                                    report_line_table.company],
+                                values=values
+                                ))
         return reports
 
     @classmethod
     def find_reports(cls, book='E'):
+        companies = cls.get_allowed_companies()
         return cls.search([
+                ('company', 'in', companies),
                 ('state', 'in', ('draft', 'confirmed')),
                 ('book', '=', book),
                 ], count=True)
