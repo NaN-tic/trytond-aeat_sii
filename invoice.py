@@ -183,8 +183,8 @@ class Invoice(metaclass=PoolMeta):
         for invoice in invoices:
             if invoice.sii_operation_key:
                 continue
-            has_vat = invoice.party_tax_identifier or invoice.party.tax_identifier
-            if not has_vat:
+            if not (invoice.party_tax_identifier or
+                    invoice.party.tax_identifier):
                 simplified_invoices.append(invoice)
 
         return simplified_invoices
@@ -222,6 +222,7 @@ class Invoice(metaclass=PoolMeta):
                 invoices2checksii.append(invoice)
 
         cls.check_aeat_sii_invoices(invoices)
+        cls.aeat_sii_invoices(invoices)
         super(Invoice, cls).post(invoices)
 
         #TODO:
@@ -246,11 +247,6 @@ class Invoice(metaclass=PoolMeta):
                         invoice=invoice))
         if to_write:
             cls.write(*to_write)
-
-    @classmethod
-    def _post(cls, invoices):
-        cls.aeat_sii_invoices(invoices)
-        super(Invoice, cls)._post(invoices)
 
     @classmethod
     def cancel(cls, invoices):
