@@ -222,7 +222,6 @@ class Invoice(metaclass=PoolMeta):
                 invoices2checksii.append(invoice)
 
         cls.check_aeat_sii_invoices(invoices)
-        cls.aeat_sii_invoices(invoices)
         super(Invoice, cls).post(invoices)
 
         #TODO:
@@ -247,6 +246,11 @@ class Invoice(metaclass=PoolMeta):
                         invoice=invoice))
         if to_write:
             cls.write(*to_write)
+
+    @classmethod
+    def _post(cls, invoices):
+        cls.aeat_sii_invoices(invoices)
+        super(Invoice, cls)._post(invoices)
 
     @classmethod
     def cancel(cls, invoices):
