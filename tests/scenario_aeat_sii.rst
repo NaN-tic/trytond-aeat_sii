@@ -16,6 +16,7 @@ Imports::
     >>> from trytond.modules.account_invoice.tests.tools import \
     ...     set_fiscalyear_invoice_sequences
     >>> today = datetime.date.today()
+    >>> from trytond.exceptions import UserWarning
 
 Install account_sii::
 
@@ -218,3 +219,42 @@ Credit invoice with refund::
     >>> credit, = Invoice.find([('total_amount', '<', 0)])
     >>> credit.sii_operation_key
     'R1'
+
+Create simplified invoice::
+
+    >>> Invoice = Model.get('account.invoice')
+    >>> InvoiceLine = Model.get('account.invoice.line')
+    >>> simplified_invoice = Invoice()
+    >>> simplified_invoice.party = party
+    >>> simplified_invoice.payment_term = payment_term
+    >>> line = InvoiceLine()
+    >>> simplified_invoice.lines.append(line)
+    >>> line.product = product
+    >>> line.quantity = 5
+    >>> line.unit_price = Decimal('40')
+    >>> line = InvoiceLine()
+    >>> simplified_invoice.lines.append(line)
+    >>> line.account = revenue
+    >>> line.description = 'Test'
+    >>> line.quantity = 1
+    >>> line.unit_price = Decimal(20)
+    >>> simplified_invoice.save()
+    >>> simplified_invoice.sii_book_key
+    'E'
+    >>> simplified_invoice.sii_issued_key
+    '01'
+    >>> try:
+    ...     simplified_invoice.click('post')
+    ... except UserWarning as warning:
+    ...     _, (key, *_) = warning.args
+    ...     raise  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+       ...
+    UserWarning: ...
+    >>> Warning = Model.get('res.user.warning')
+    >>> Warning(user=config.user, name=key).save()
+    >>> simplified_invoice.click('post')
+    >>> simplified_invoice.state == 'posted'
+    True
+    >>> simplified_invoice.sii_operation_key == 'F2'
+    True

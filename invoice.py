@@ -178,6 +178,41 @@ class Invoice(metaclass=PoolMeta):
             cls.write(*to_write)
 
     @classmethod
+    def get_simplified_invoices(cls, invoices):
+        simplified_invoices = []
+        for invoice in invoices:
+            if invoice.sii_operation_key:
+                continue
+            if not (invoice.party_tax_identifier or
+                    invoice.party.tax_identifier):
+                simplified_invoices.append(invoice)
+
+        return simplified_invoices
+
+    @classmethod
+    def check_aeat_sii_invoices(cls, invoices):
+        pool = Pool()
+        Warning = pool.get('res.user.warning')
+
+        simplified_invoices = cls.get_simplified_invoices(invoices)
+        if simplified_invoices:
+            names = ', '.join(m.rec_name for m in simplified_invoices[:5])
+        if len(simplified_invoices) > 5:
+            names += '...'
+
+        if simplified_invoices:
+            warning_name = ('%s.aeat_sii_simplified_invoice' % hashlib.md5(
+                    str(simplified_invoices).encode('utf-8')).hexdigest())
+            if Warning.check(warning_name):
+                raise UserWarning(warning_name, gettext(
+                    'aeat_sii.msg_set_simplified_invoice', invoices=names))
+
+    @classmethod
+    def aeat_sii_invoices(cls, invoices):
+        simplified_invoices = cls.get_simplified_invoices(invoices)
+        cls.write(simplified_invoices, {'sii_operation_key': 'F2'})
+
+    @classmethod
     def post(cls, invoices):
         to_write = []
 
@@ -186,6 +221,7 @@ class Invoice(metaclass=PoolMeta):
             if not invoice.move or invoice.move.state == 'draft':
                 invoices2checksii.append(invoice)
 
+        cls.check_aeat_sii_invoices(invoices)
         super(Invoice, cls).post(invoices)
 
         #TODO:
@@ -210,6 +246,11 @@ class Invoice(metaclass=PoolMeta):
                         invoice=invoice))
         if to_write:
             cls.write(*to_write)
+
+    @classmethod
+    def _post(cls, invoices):
+        cls.aeat_sii_invoices(invoices)
+        super(Invoice, cls)._post(invoices)
 
     @classmethod
     def cancel(cls, invoices):
