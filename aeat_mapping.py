@@ -392,7 +392,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 detail.pop(key)
 
         if must_detail_op:
-            if tax.service:
+            if tax.tax.service:
                 ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
             else:
                 ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
