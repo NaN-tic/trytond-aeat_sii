@@ -196,16 +196,18 @@
           <field name="group" ref="group_aeat_sii_admin"/>
       </record>
 
-      <record model="ir.action.act_window" id="act_aeat_sii_issued_report">
-          <field name="name">SII Report Issued</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="domain" eval="[('book', '=', 'E')]" pyson="1"/>
-          <field name="search_value"></field>
-      </record>
-      <menuitem action="act_aeat_sii_issued_report"
-          id="menu_aeat_sii_report_issued"
-          parent="menu_aeat_sii_report_menu" sequence="3"
-          name="AEAT SII Report Issued"/>
+        <record model="ir.action.act_window" id="act_aeat_sii_issued_report">
+            <field name="name">SII Report Issued</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="domain" eval="[('book', '=', 'E')]" pyson="1"/>
+            <field name="search_value"
+                eval="[('fiscalyear.start_date', '>=', Date(day=1, month=1))]"
+                pyson="1"/>
+        </record>
+        <menuitem action="act_aeat_sii_issued_report"
+            id="menu_aeat_sii_report_issued"
+            parent="menu_aeat_sii_report_menu" sequence="3"
+            name="AEAT SII Report Issued"/>
 
       <!--
       <record model="ir.action.act_window" id="act_aeat_sii_invest_report">
@@ -221,18 +223,18 @@
           name="AEAT SII Report Invest"/>
       -->
 
-      <record model="ir.action.act_window" id="act_aeat_sii_received_report">
-          <field name="name">SII Report Received</field>
-          <field name="res_model">aeat.sii.report</field>
-          <field name="domain" eval="[('book', '=', 'R')]"
-              pyson="1"/>
-          <field name="search_value"></field>
-      </record>
-
-      <menuitem action="act_aeat_sii_received_report"
-          id="menu_aeat_sii_report_received"
-          parent="menu_aeat_sii_report_menu" sequence="5"
-          name="AEAT SII Report Received"/>
+        <record model="ir.action.act_window" id="act_aeat_sii_received_report">
+            <field name="name">SII Report Received</field>
+            <field name="res_model">aeat.sii.report</field>
+            <field name="domain" eval="[('book', '=', 'R')]" pyson="1"/>
+            <field name="search_value"
+                eval="[('fiscalyear.start_date', '>=', Date(day=1, month=1))]"
+                pyson="1"/>
+        </record>
+        <menuitem action="act_aeat_sii_received_report"
+            id="menu_aeat_sii_report_received"
+            parent="menu_aeat_sii_report_menu" sequence="5"
+            name="AEAT SII Report Received"/>
 
       <!--
       <record model="ir.action.act_window" id="act_aeat_sii_intra_report">
