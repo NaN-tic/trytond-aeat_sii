@@ -124,7 +124,7 @@ class Invoice(metaclass=PoolMeta):
     def reset_sii_keys(cls, invoices):
         to_write = []
         for invoice in invoices:
-            if invoice.state != 'draft':
+            if invoice.state != 'draft' and not invoice.sii_pending_sending:
                 continue
             for field in _SII_INVOICE_KEYS:
                 setattr(invoice, field, None)
