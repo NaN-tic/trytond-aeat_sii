@@ -492,11 +492,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             'ImporteTotal': self.total_amount(invoice),
             # TODO: BaseImponibleACoste
             'DescripcionOperacion': self._description(invoice),
-            'DesgloseFactura': {
-                'DesgloseIVA': {
-                    'DetalleIVA': [],
-                }
-            },
+            'DesgloseFactura': {},
             'Contraparte': self._build_counterpart(invoice),
             'FechaRegContable': self._move_date(invoice).strftime(_DATE_FMT),
             'CuotaDeducible': self._deductible_amount(invoice),
@@ -505,15 +501,26 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             # TODO: PeriodoDeduccion
         }
         _taxes = self.taxes(invoice)
+        isp_taxes = self.isp_taxes(_taxes)
+        _taxes = list(set(_taxes)-set(isp_taxes))
         if _taxes:
-            ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].extend(
-                self.build_taxes(invoice, tax) for tax in _taxes)
-            isp_taxes = self.isp_taxes(_taxes)
-            if isp_taxes:
-                ret['DesgloseFactura']['InversionSujetoPasivo'] = {
-                    'DetalleIVA': [self.build_taxes(invoice, tax) for tax in
-                        isp_taxes]
-                    }
+            ret['DesgloseFactura']['DesgloseIVA']: {
+                'DetalleIVA': [],
+                }
+        for tax in _taxes:
+            validate_tax = self.build_taxes(invoice, tax)
+            if validate_tax:
+                ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].append(
+                    validate_tax)
+        if isp_taxes:
+            ret['DesgloseFactura']['InversionSujetoPasivo'] = {
+                'DetalleIVA': []
+                }
+        for tax in isp_taxes:
+            validate_tax = self.build_taxes(invoice, tax)
+            if validate_tax:
+                ret['DesgloseFactura']['InversionSujetoPasivo'][
+                    'DetalleIVA'].append(validate_tax)
         self._update_rectified_invoice(ret, invoice)
         return ret
 
