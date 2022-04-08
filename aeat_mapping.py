@@ -504,7 +504,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         isp_taxes = self.isp_taxes(_taxes)
         _taxes = list(set(_taxes)-set(isp_taxes))
         if _taxes:
-            ret['DesgloseFactura']['DesgloseIVA']: {
+            ret['DesgloseFactura']['DesgloseIVA'] = {
                 'DetalleIVA': [],
                 }
         for tax in _taxes:
