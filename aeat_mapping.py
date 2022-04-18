@@ -347,7 +347,8 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 else:
                     tax_detail = self.build_taxes(tax)
                 if tax_detail:
-                    if not detail['Sujeta']:
+                    if (not detail['Sujeta'] or
+                            not detail['Sujeta'].get('NoExenta')):
                         detail['Sujeta'].update({
                             'NoExenta': {
                                 'TipoNoExenta': not_exempt_kind,
