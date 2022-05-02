@@ -41,9 +41,9 @@
           <field name="act_window" ref="act_aeat_sii_report"/>
       </record>
 
-      <menuitem action="act_aeat_sii_report" id="menu_aeat_sii_report"
+      <!-- <menuitem action="act_aeat_sii_report" id="menu_aeat_sii_report"
           parent="menu_aeat_sii_report_menu" sequence="999"
-          name="AEAT SII Report"/>
+          name="AEAT SII Report"/> -->
 
       <record model="ir.model.access" id="access_aeat_sii_report">
           <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
