@@ -1169,10 +1169,16 @@ class SIIReportLine(ModelSQL, ModelView):
     report = fields.Many2One(
         'aeat.sii.report', 'Issued Report', ondelete='CASCADE')
     invoice = fields.Many2One('account.invoice', 'Invoice',
+        domain=[
+            ('type', 'in', Eval('invoice_types')),
+            ],
         states={
             'required': Eval('_parent_report', {}).get(
                 'operation_type') != 'C0',
-        })
+        }, depends=['invoice_types'])
+    invoice_types = fields.Function(
+        fields.MultiSelection('get_invoice_types', "Invoice Types"),
+        'on_change_with_invoice_types')
     state = fields.Selection(AEAT_INVOICE_STATE, 'State')
     last_modify_date = fields.DateTime('Last Modification Date', readonly=True)
     communication_code = fields.Integer(
@@ -1350,6 +1356,20 @@ class SIIReportLine(ModelSQL, ModelView):
         if to_save:
             Invoice.save(to_save)
         super(SIIReportLine, cls).delete(lines)
+
+    @classmethod
+    def get_invoice_types(cls):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+        return Invoice.fields_get(['type'])['type']['selection']
+
+    @fields.depends('report', '_parent_report.book')
+    def on_change_with_invoice_types(self, name=None):
+        if self.report and self.report.book == 'E':
+            return ['out']
+        elif self.report and self.report.book == 'R':
+            return ['in']
+        return ['in', 'out']
 
 
 class SIIReportLineTax(ModelSQL, ModelView):
