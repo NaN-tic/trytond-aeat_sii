@@ -1510,7 +1510,7 @@ msgstr ""
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "Other supporting document"
-msgstr "Otro documento provatorio"
+msgstr "Otro documento probatorio"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "Passport"
@@ -1623,7 +1623,7 @@ msgstr ""
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Other supporting document"
-msgstr "Otro documento provatorio"
+msgstr "Otro documento probatorio"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Passport"
