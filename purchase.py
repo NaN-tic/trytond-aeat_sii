@@ -11,15 +11,17 @@ class Purchase(metaclass=PoolMeta):
 
     def create_invoice(self):
         invoice = super(Purchase, self).create_invoice()
-        if not invoice:
-            return
 
-        tax = invoice.taxes and invoice.taxes[0]
-        if not tax:
-            return invoice
+        if invoice:
+            # create_invoice() from purchase not add taxes fields
+            # call on_change_lines to add taxes
+            invoice.on_change_lines()
+            tax = invoice.taxes and invoice.taxes[0]
+            if not tax:
+                return invoice
 
-        for field in _SII_INVOICE_KEYS:
-            setattr(invoice, field, getattr(tax.tax, field))
-        invoice.save()
+            for field in _SII_INVOICE_KEYS:
+                setattr(invoice, field, getattr(tax.tax, field))
+            invoice.save()
 
         return invoice
