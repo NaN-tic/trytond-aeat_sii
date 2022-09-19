@@ -609,7 +609,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         # FIXME: the number can be repeated over time
         # issue_date: _date(reg.IDFactura.FechaExpedicionFacturaEmisor)
         invoices_list = Invoice.search([
-                ('comapny', '=', self.company),
+                ('company', '=', self.company),
                 ('number', 'in', [
                     reg.IDFactura.NumSerieFacturaEmisor
                     for reg in registers
