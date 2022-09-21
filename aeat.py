@@ -382,8 +382,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         company_filter = Transaction().context.get('company_filter')
         companies = Transaction().context.get('companies')
         company = Transaction().context.get('company')
+        if not companies:
+            companies = []
         if company_filter == 'one':
-            companies = [company]
+            if company:
+                companies = [company]
+            else:
+                companies = []
         return companies
 
     @classmethod
