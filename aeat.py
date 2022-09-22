@@ -387,8 +387,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         if company_filter == 'one':
             if company:
                 companies = [company]
-            else:
-                companies = []
         return companies
 
     @classmethod
