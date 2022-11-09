@@ -1189,7 +1189,7 @@ class SIIReportLine(ModelSQL, ModelView):
     communication_msg = fields.Char(
         'Communication Message', readonly=True)
     company = fields.Many2One(
-        'company.company', 'Company', required=True, select=True)
+        'company.company', 'Company', required=True)
     issuer_vat_number = fields.Char('Issuer VAT Number', readonly=True)
     serial_number = fields.Char('Serial Number', readonly=True)
     final_serial_number = fields.Char('Final Serial Number', readonly=True)
