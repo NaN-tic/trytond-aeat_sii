@@ -17,6 +17,10 @@ class Sale(metaclass=PoolMeta):
         if not invoice:
             return
 
+        # create_invoice() from sale not add untaxed_amount and taxes fields
+        # call on_change_lines to add untaxed_amount and taxes
+        invoice.on_change_lines()
+
         if invoice.untaxed_amount < ZERO:
             invoice.sii_operation_key = 'R1'
         else:
