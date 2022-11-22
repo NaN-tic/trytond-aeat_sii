@@ -733,8 +733,17 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         headers, (x.invoice for x in self.lines))
                     self.aeat_register = request
                 except Exception as e:
+                    message = str(tools.unaccent(str(e)))
+                    if ('Missing element ClaveRegimenEspecialOTrascendencia' in
+                            message):
+                        msg = ''
+                        for line in self.lines:
+                            if not line.invoice.sii_received_key:
+                                msg += '\n%s (%s)' % (line.invoice.number,
+                                    line.invoice.party.rec_name)
+                        message += '\n%s' % msg
                     raise UserError(gettext('aeat_sii.msg_service_message',
-                        message=tools.unaccent(str(e))))
+                        message=message))
 
             if not self.response:
                 self.state == 'sending'
