@@ -29,8 +29,7 @@ class Company(metaclass=PoolMeta):
     def get_private_key(cls, companies, name=None):
         converter = bytes
         default = None
-        format_ = Transaction().context.pop(
-            '%s.%s' % (cls.__name__, name), '')
+        format_ = Transaction().context.get('%s.%s' % (cls.__name__, name))
         if format_ == 'size':
             converter = len
             default = 0
