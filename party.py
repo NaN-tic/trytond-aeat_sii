@@ -38,8 +38,6 @@ class PartyIdentifier(metaclass=PoolMeta):
 
         to_write = []
         for identifier in identifiers:
-            if type_ != 'eu_at_02':
-                continue
             write = True
             type_ = identifier.type
             if type_ == 'eu_vat':
@@ -47,6 +45,8 @@ class PartyIdentifier(metaclass=PoolMeta):
                     sii_identifier_type = None
                 else:
                     sii_identifier_type = '02'
+            elif type_ != 'eu_at_02':
+                continue
             else:
                 sii_identifier_type = '06'
 
