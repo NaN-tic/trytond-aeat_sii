@@ -467,6 +467,13 @@ this repository contains the full copyright notices and license terms. -->
             <field name="tax_used" eval="True"/>
             <field name="invoice_used" eval="True"/>
         </record>
+        <record model="account.tax.template" id="account_es.iva_rep_0">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+            <field name="tax_used" eval="True"/>
+            <field name="invoice_used" eval="True"/>
+        </record>
         <record model="account.tax.template" id="account_es.iva_rep_4">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
