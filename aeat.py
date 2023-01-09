@@ -97,7 +97,7 @@ OPERATION_KEY = [    # L2_EMI - L2_RECI
 
 # IDType
 PARTY_IDENTIFIER_TYPE = [
-    (None, ''),
+    (None, 'VAT (for National operators)'),
     ('02', 'VAT (only for intracommunity operators)'),
     ('03', 'Passport'),
     ('04', 'Official identification document issued by the country '
@@ -105,6 +105,9 @@ PARTY_IDENTIFIER_TYPE = [
     ('05', 'Residence certificate'),
     ('06', 'Other supporting document'),
     ('07', 'Not registered (only for Spanish VAT not registered)'),
+    # Extra register add for the control of Simplified Invocies, but not in the
+    #   SII list
+    ('SI', 'Simplified Invoice'),
     ]
 
 SEND_SPECIAL_REGIME_KEY = [  # L3.1
@@ -549,7 +552,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         headers, (x.invoice for x in self.lines))
                     self.aeat_register = request
                 except Exception as e:
-                    raise UserError(tools.unaccent(str(e)))
+                    raise UserError(str(e))
 
             if not self.response:
                 self.state == 'sending'
@@ -577,8 +580,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         headers, [
                             eval(line.sii_header) for line in self.lines])
                 except Exception as e:
-                    raise UserError(gettext('aeat_sii.msg_service_message',
-                        message=tools.unaccent(str(e))))
+                    raise UserError(str(e))
 
             if not self.response:
                 self.state == 'sending'
@@ -771,8 +773,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         headers, [
                             eval(line.sii_header) for line in self.lines])
                 except Exception as e:
-                    raise UserError(gettext('aeat_sii.msg_service_message',
-                        message=tools.unaccent(str(e))))
+                    raise UserError(str(e))
 
             if not self.response:
                 self.state == 'sending'

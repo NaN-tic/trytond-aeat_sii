@@ -188,8 +188,7 @@ class Invoice(metaclass=PoolMeta):
         for invoice in invoices:
             if invoice.sii_operation_key:
                 continue
-            if not (invoice.party_tax_identifier or
-                    invoice.party.tax_identifier):
+            if invoice.party.sii_identifier_type == 'SI':
                 simplified_invoices.append(invoice)
 
         return simplified_invoices
@@ -245,8 +244,8 @@ class Invoice(metaclass=PoolMeta):
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
             for tax in invoice.taxes:
-                if (tax.tax.sii_subjected_key in ('S2', 'S3') and
-                        invoice.sii_operation_key not in (
+                if (tax.tax.sii_subjected_key in ('S2', 'S3')
+                        and invoice.sii_operation_key not in (
                             'F1', 'R1', 'R2', 'R3', 'R4')):
                     raise UserError(
                         gettext('aeat_sii.msg_sii_operation_key_wrong',

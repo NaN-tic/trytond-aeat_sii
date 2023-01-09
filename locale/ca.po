@@ -1562,7 +1562,15 @@ msgstr "Certificat de residencia"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "VAT (only for intracommunity operators)"
-msgstr " NIF-IVA (només per operadors intracomunitaris)"
+msgstr "NIF-IVA (només per operadors intracomunitaris)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "NIF/CIF (per operadors nacionals)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Simplified Invoice"
+msgstr "Factura Simplificada"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
@@ -1675,6 +1683,14 @@ msgstr "Certificat de residencia"
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "VAT (only for intracommunity operators)"
 msgstr " NIF-IVA (només per operadors intracomunitaris) "
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "NIF/CIF (per operadors nacionals)"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Simplified Invoice"
+msgstr "Factura Simplificada"
 
 msgctxt "view:account.configuration:"
 msgid "AEAT SII"
