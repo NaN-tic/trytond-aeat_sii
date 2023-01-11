@@ -959,7 +959,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 sii_record_id = max([s.id for s in issued_inv.sii_records])
                 sii_record = SIIReportLine(sii_record_id)
                 if issued_inv.sii_header:
-                    if (literal_eval(issued_inv.sii_header) ==
+                    if sii_record.sii_header and (
+                            literal_eval(issued_inv.sii_header) ==
                             literal_eval(sii_record.sii_header)):
                         modify_issued_invoices.append(issued_inv)
                     else:
@@ -1041,7 +1042,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 sii_record_id = max([s.id for s in received_inv.sii_records])
                 sii_record = SIIReportLine(sii_record_id)
                 if received_inv.sii_header:
-                    if (literal_eval(received_inv.sii_header) ==
+                    if sii_record.sii_header and (
+                            literal_eval(received_inv.sii_header) ==
                             literal_eval(sii_record.sii_header)):
                         modify_received_invoices.append(received_inv)
                     else:
