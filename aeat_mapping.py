@@ -43,7 +43,8 @@ class BaseInvoiceMapper(Model):
         base = 0
         for line in invoice.lines:
             for tax in line.taxes:
-                if tax.sii_exemption_cause == 'NotSubject':
+                if (tax.sii_exemption_cause == 'NotSubject' and
+                        not tax.service):
                     base += attrgetter('amount')(line)
         return base
 
@@ -271,17 +272,17 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         base = 0
         for line in invoice.lines:
             for tax in line.taxes:
-                if tax.sii_issued_key == '08':
+                if (tax.sii_issued_key == '08' or
+                        (tax.sii_exemption_cause == 'NotSubject' and
+                            tax.service)):
                     base += attrgetter('amount')(line)
         return base
 
     def build_issued_invoice(self, invoice):
         ret = {
             'TipoFactura': self.invoice_kind(invoice),
-            # TODO: TipoRectificativa
             # TODO: FacturasAgrupadas
             # TODO: FacturasRectificadas
-            # TODO: ImporteRectificacion
             # TODO: FechaOperacion
             'ClaveRegimenEspecialOTrascendencia':
                 self.specialkey_or_trascendence(invoice),
@@ -319,7 +320,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             ret['TipoDesglose'].update({
                 'DesgloseTipoOperacion': {
                     'Entrega': detail,
-                    # 'PrestacionDeServicios': {},
+                    'PrestacionServicios': detail,
                 }
             })
         else:
@@ -346,7 +347,8 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 else:
                     tax_detail = self.build_taxes(tax)
                 if tax_detail:
-                    if not detail['Sujeta']:
+                    if (not detail['Sujeta'] or
+                            not detail['Sujeta'].get('NoExenta')):
                         detail['Sujeta'].update({
                             'NoExenta': {
                                 'TipoNoExenta': not_exempt_kind,
@@ -370,7 +372,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                         'Exenta': {
                             'DetalleExenta': {
                                 'CausaExencion': exempt_kind,
-                                'BaseImponible': self.get_tax_base(tax),
+                                'BaseImponible': baseimponible,
                             }
                         }
                     })
@@ -389,6 +391,13 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         for key in ('Sujeta', 'NoSujeta'):
             if not detail[key]:
                 detail.pop(key)
+
+        if must_detail_op:
+            if tax.tax.service:
+                ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
+            else:
+                ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
+                    'PrestacionServicios')
 
         self._update_total_amount(ret, invoice)
         self._update_rectified_invoice(ret, invoice)
@@ -484,24 +493,35 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             'ImporteTotal': self.total_amount(invoice),
             # TODO: BaseImponibleACoste
             'DescripcionOperacion': self._description(invoice),
-            'DesgloseFactura': {
-                # 'InversionSujetoPasivo': {
-                #     'DetalleIVA':
-                #         map(self.build_taxes, self.taxes(invoice)),
-                # },
-                'DesgloseIVA': {
-                    'DetalleIVA': [],
-                }
-            },
+            'DesgloseFactura': {},
             'Contraparte': self._build_counterpart(invoice),
             'FechaRegContable': self._move_date(invoice).strftime(_DATE_FMT),
             'CuotaDeducible': self._deductible_amount(invoice),
+            # TODO: ADeducirEnPeriodoPosterior
+            # TODO: EjercicioDeduccion
+            # TODO: PeriodoDeduccion
         }
         _taxes = self.taxes(invoice)
+        isp_taxes = self.isp_taxes(_taxes)
+        _taxes = list(set(_taxes)-set(isp_taxes))
         if _taxes:
-            ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].extend(
-                self.build_taxes(invoice, tax) for tax in _taxes)
-
+            ret['DesgloseFactura']['DesgloseIVA'] = {
+                'DetalleIVA': [],
+                }
+        for tax in _taxes:
+            validate_tax = self.build_taxes(invoice, tax)
+            if validate_tax:
+                ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].append(
+                    validate_tax)
+        if isp_taxes:
+            ret['DesgloseFactura']['InversionSujetoPasivo'] = {
+                'DetalleIVA': []
+                }
+        for tax in isp_taxes:
+            validate_tax = self.build_taxes(invoice, tax)
+            if validate_tax:
+                ret['DesgloseFactura']['InversionSujetoPasivo'][
+                    'DetalleIVA'].append(validate_tax)
         self._update_rectified_invoice(ret, invoice)
         return ret
 
@@ -513,6 +533,8 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             #   BaseRectificada, CuotaRectificada, CuotaRecargoRectificado }
 
     def build_taxes(self, invoice, tax):
+        if not tax.base and not tax.amount:
+            return
         ret = {
             'BaseImponible': self.tax_base(tax),
         }
@@ -535,3 +557,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             ret['ImporteCompensacionREAGYP'] = \
                 (self.tax_amount(tax))
         return ret
+
+    def isp_taxes(self, taxes):
+        return [tax for tax in taxes if tax.tax.isp]

@@ -26,9 +26,6 @@ If you edit them take care if you need to update again to SII</field>
       <record model="ir.message" id="reports_exist">
           <field name="text">There are some reports in draft and/or confirmed. Any report won't be created until this reports will be processed.</field>
       </record>
-      <record model="ir.message" id="msg_service_message">
-          <field name="text">%(message)s</field>
-      </record>
         <record model="ir.message" id="msg_missing_nif">
             <field name="text">The party of the invoice %(invoice)s must has a valid Tax Identifier.</field>
         </record>
@@ -40,6 +37,8 @@ If you edit them take care if you need to update again to SII</field>
         </record>
         <record model="ir.message" id="msg_report_duplicated_invoice">
             <field name="text">Invoice "%(invoice)s" is duplicated on SII Report "%(report)s".</field>
+        <record model="ir.message" id="msg_set_simplified_invoice">
+            <field name="text">The invoice "%(invoices)s" has not VAT and SII operation key is Simplified Invoice (ticket) and Invoices without destination identification.</field>
         </record>
     </data>
 </tryton>

@@ -25,6 +25,9 @@ class Party(metaclass=PoolMeta):
                     return identifier.code
                 return identifier.code[2:]
 
+    def default_sii_identifier_type():
+        return 'SI'
+
 
 class PartyIdentifier(metaclass=PoolMeta):
     __name__ = 'party.identifier'
@@ -42,10 +45,10 @@ class PartyIdentifier(metaclass=PoolMeta):
                     sii_identifier_type = None
                 else:
                     sii_identifier_type = '02'
-            elif type_ == 'eu_not_vat':
-                sii_identifier_type = '04'
+            elif type_ != 'eu_at_02':
+                continue
             else:
-                write = False
+                sii_identifier_type = '06'
 
             if write:
                 to_write.extend(([identifier.party], {
