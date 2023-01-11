@@ -422,7 +422,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     @ModelView.button
     @Workflow.transition('confirmed')
     def confirm(cls, reports):
-        pass
+        for report in reports:
+            report.check_duplicate_invoices()
 
     @classmethod
     @ModelView.button
@@ -1173,6 +1174,17 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if config.aeat_received_sii_send:
                 cls.confirm(received_reports)
                 cls.send(received_reports)
+
+    def check_duplicate_invoices(self):
+        if self.operation_type in ('A0', 'D0'):
+            invoices = set()
+            for line in self.lines:
+                if line.invoice in invoices:
+                    raise UserError(gettext(
+                        'aeat_sii.msg_report_duplicated_invoice',
+                        invoice=line.invoice.rec_name,
+                        report=self.rec_name))
+                invoices.add(line.invoice)
 
 
 class SIIReportLine(ModelSQL, ModelView):
