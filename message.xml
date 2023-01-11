@@ -37,6 +37,7 @@ If you edit them take care if you need to update again to SII</field>
         </record>
         <record model="ir.message" id="msg_report_wrong_invoice_state">
             <field name="text">Invoice "%(invoice)s" must be posted or paid.</field>
+        </record>
         <record model="ir.message" id="msg_report_duplicated_invoice">
             <field name="text">Invoice "%(invoice)s" is duplicated on SII Report "%(report)s".</field>
         <record model="ir.message" id="msg_set_simplified_invoice">
