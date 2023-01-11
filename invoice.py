@@ -60,7 +60,8 @@ class Invoice(metaclass=PoolMeta):
     def __register__(cls, module_name):
         table = cls.__table_handler__(module_name)
 
-        exist_sii_intracomunity_key = table.column_exist('sii_intracomunity_key')
+        exist_sii_intracomunity_key = table.column_exist(
+            'sii_intracomunity_key')
         exist_sii_subjected_key = table.column_exist('sii_subjected_key')
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
 
@@ -124,14 +125,17 @@ class Invoice(metaclass=PoolMeta):
     def reset_sii_keys(cls, invoices):
         to_write = []
         for invoice in invoices:
-            if invoice.state != 'draft':
+            if invoice.state in ('paid', 'canceled'):
                 continue
             for field in _SII_INVOICE_KEYS:
                 setattr(invoice, field, None)
             invoice._set_sii_keys()
             if not invoice.sii_operation_key:
                 invoice.sii_operation_key = invoice._get_sii_operation_key()
-            to_write.extend(([invoice], invoice._save_values))
+            values = invoice._save_values
+            if invoice == 'posted':
+                values['sii_sending_pending'] = True
+            to_write.extend(([invoice], values))
 
         if to_write:
             cls.write(*to_write)
@@ -144,7 +148,8 @@ class Invoice(metaclass=PoolMeta):
             if invoice.state != 'draft':
                 continue
             if invoice.sii_state:
-                invoices_sii += '\n%s: %s' % (invoice.number, invoice.sii_state)
+                invoices_sii += '\n%s: %s' % (
+                    invoice.number, invoice.sii_state)
         if invoices_sii:
             raise UserError(gettext('aeat_sii.msg_invoices_sii',
                 invoices=invoices_sii))
@@ -178,6 +183,40 @@ class Invoice(metaclass=PoolMeta):
             cls.write(*to_write)
 
     @classmethod
+    def get_simplified_invoices(cls, invoices):
+        simplified_invoices = []
+        for invoice in invoices:
+            if invoice.sii_operation_key:
+                continue
+            if invoice.party.sii_identifier_type == 'SI':
+                simplified_invoices.append(invoice)
+
+        return simplified_invoices
+
+    @classmethod
+    def check_aeat_sii_invoices(cls, invoices):
+        pool = Pool()
+        Warning = pool.get('res.user.warning')
+
+        simplified_invoices = cls.get_simplified_invoices(invoices)
+        if simplified_invoices:
+            names = ', '.join(m.rec_name for m in simplified_invoices[:5])
+        if len(simplified_invoices) > 5:
+            names += '...'
+
+        if simplified_invoices:
+            warning_name = ('%s.aeat_sii_simplified_invoice' % hashlib.md5(
+                    str(simplified_invoices).encode('utf-8')).hexdigest())
+            if Warning.check(warning_name):
+                raise UserWarning(warning_name, gettext(
+                    'aeat_sii.msg_set_simplified_invoice', invoices=names))
+
+    @classmethod
+    def aeat_sii_invoices(cls, invoices):
+        simplified_invoices = cls.get_simplified_invoices(invoices)
+        cls.write(simplified_invoices, {'sii_operation_key': 'F2'})
+
+    @classmethod
     def post(cls, invoices):
         to_write = []
 
@@ -186,10 +225,12 @@ class Invoice(metaclass=PoolMeta):
             if not invoice.move or invoice.move.state == 'draft':
                 invoices2checksii.append(invoice)
 
+        cls.check_aeat_sii_invoices(invoices)
         super(Invoice, cls).post(invoices)
 
-        #TODO:
-        # OUT invoice, check that all tax have the same TipoNoExenta and(or the same Exenta
+        # TODO:
+        # OUT invoice, check that all tax have the same TipoNoExenta and/or
+        # the same Exenta
         # Suejta-Exenta --> Can only be one
         # NoSujeta --> Can only be one
 
@@ -203,13 +244,19 @@ class Invoice(metaclass=PoolMeta):
                 values['sii_header'] = str(cls.get_sii_header(invoice, False))
                 to_write.extend(([invoice], values))
             for tax in invoice.taxes:
-                if (tax.tax.sii_subjected_key in ('S2', 'S3') and
-                        not invoice.sii_operation_key in (
+                if (tax.tax.sii_subjected_key in ('S2', 'S3')
+                        and invoice.sii_operation_key not in (
                             'F1', 'R1', 'R2', 'R3', 'R4')):
-                    raise UserError(gettext('aeat_sii.msg_sii_operation_key_wrong',
-                        invoice=invoice))
+                    raise UserError(
+                        gettext('aeat_sii.msg_sii_operation_key_wrong',
+                            invoice=invoice))
         if to_write:
             cls.write(*to_write)
+
+    @classmethod
+    def _post(cls, invoices):
+        cls.aeat_sii_invoices(invoices)
+        super(Invoice, cls)._post(invoices)
 
     @classmethod
     def cancel(cls, invoices):
@@ -224,7 +271,7 @@ class Invoice(metaclass=PoolMeta):
 
         if delete:
             rline = [x for x in invoice.sii_records if x.state == 'Correcto'
-                and x.sii_header != None]
+                and x.sii_header is not None]
             if rline:
                 return rline[0].sii_header
         if invoice.type == 'out':

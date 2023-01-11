@@ -4,63 +4,71 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "field:account.configuration,aeat_pending_sii:"
 msgid "AEAT Pending SII"
-msgstr "Generà Llibres del SII emeses"
+msgstr "Genera Llibres del SII emeses"
 
 msgctxt "field:account.configuration,aeat_pending_sii_send:"
 msgid "AEAT Pending SII Send"
-msgstr "Enviar Llibres del SII emese"
+msgstr "Enviar Llibres del SII emeses"
 
 msgctxt "field:account.configuration,aeat_received_sii:"
 msgid "AEAT Received SII"
-msgstr "Generà Llibres del SII received"
+msgstr "Genera Llibres del SII rebuts"
 
 msgctxt "field:account.configuration,aeat_received_sii_send:"
 msgid "AEAT Received SII Send"
-msgstr "Enviar Llibres del SII received"
+msgstr "Enviar Llibres del SII rebuts"
 
 msgctxt "field:account.invoice,sii_book_key:"
 msgid "SII Book Key"
-msgstr "SII Clave libro"
+msgstr "SII Clau llibre"
 
 msgctxt "field:account.invoice,sii_communication_type:"
 msgid "SII Communication Type"
-msgstr "SII Tipo comunicación"
+msgstr "SII Tipus comunicació"
 
 msgctxt "field:account.invoice,sii_header:"
 msgid "Header"
-msgstr "Encapçalat"
+msgstr "Encapçalament"
 
 msgctxt "field:account.invoice,sii_issued_key:"
 msgid "SII Issued Key"
-msgstr "Clave facturas emitidas"
+msgstr "Clau factures emesses"
 
 msgctxt "field:account.invoice,sii_operation_key:"
 msgid "SII Operation Key"
-msgstr "SII Clave operación"
+msgstr "SII Clau operació"
 
 msgctxt "field:account.invoice,sii_pending_sending:"
 msgid "SII Pending Sending Pending"
-msgstr "Pendiente de enviar al SII"
+msgstr "Pendent d'enviar al SII"
 
 msgctxt "field:account.invoice,sii_received_key:"
 msgid "SII Recived Key"
-msgstr "SII Clave recibidas"
+msgstr "SII Clau rebudes"
 
 msgctxt "field:account.invoice,sii_records:"
 msgid "SII Report Lines"
-msgstr "SII Linias"
+msgstr "SII Línies"
 
 msgctxt "field:account.invoice,sii_state:"
 msgid "SII State"
-msgstr "SII Estado"
+msgstr "SII Estat"
 
 msgctxt "field:account.tax,invoice_used:"
 msgid "Used in invoice Total"
 msgstr "Usat en total de factura"
 
+msgctxt "field:account.tax,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "Inversió del Sujeto Pasivo"
+
+msgctxt "field:account.tax,service:"
+msgid "Service Rate"
+msgstr "Taxa de servei"
+
 msgctxt "field:account.tax,sii_book_key:"
 msgid "Book Key"
-msgstr "Clave libro"
+msgstr "Clau llibre"
 
 msgctxt "field:account.tax,sii_exemption_cause:"
 msgid "Exemption Cause"
@@ -68,19 +76,19 @@ msgstr "Causa excepció"
 
 msgctxt "field:account.tax,sii_issued_key:"
 msgid "Issued Key"
-msgstr "Clave emisión"
+msgstr "Clau emissió"
 
 msgctxt "field:account.tax,sii_operation_key:"
 msgid "SII Operation Key"
-msgstr "SII Clave operación"
+msgstr "SII Clau operació"
 
 msgctxt "field:account.tax,sii_received_key:"
 msgid "Received Key"
-msgstr "Clave recibidas"
+msgstr "Clau rebudes"
 
 msgctxt "field:account.tax,sii_subjected_key:"
 msgid "Subjected Key"
-msgstr "Clave sujeto"
+msgstr "Clau subjecte"
 
 msgctxt "field:account.tax,tax_used:"
 msgid "Used in Tax"
@@ -90,29 +98,37 @@ msgctxt "field:account.tax.template,invoice_used:"
 msgid "Used in invoice Total"
 msgstr "Usat en total de factura"
 
+msgctxt "field:account.tax.template,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "Inversió del Sujeto Pasivo"
+
+msgctxt "field:account.tax.template,service:"
+msgid "Service Rate"
+msgstr "Taxa de servei"
+
 msgctxt "field:account.tax.template,sii_book_key:"
 msgid "Book Key"
-msgstr "Clave libro"
+msgstr "Clau llibre"
 
 msgctxt "field:account.tax.template,sii_exemption_cause:"
 msgid "Exemption Cause"
-msgstr "Causa excepción"
+msgstr "Causa excepció"
 
 msgctxt "field:account.tax.template,sii_issued_key:"
 msgid "Issued Key"
-msgstr "Clave emisión"
+msgstr "Clau emissió"
 
 msgctxt "field:account.tax.template,sii_operation_key:"
 msgid "SII Operation Key"
-msgstr "SII Clave operación"
+msgstr "SII Clau operació"
 
 msgctxt "field:account.tax.template,sii_received_key:"
 msgid "Received Key"
-msgstr "Clave recibidas"
+msgstr "Clau rebudes"
 
 msgctxt "field:account.tax.template,sii_subjected_key:"
 msgid "Subjected Key"
-msgstr "Clave sujeto"
+msgstr "Clau sujeto"
 
 msgctxt "field:account.tax.template,tax_used:"
 msgid "Used in Tax"
@@ -120,11 +136,11 @@ msgstr "Usat en impostos"
 
 msgctxt "field:aeat.sii.load_pkcs12.start,password:"
 msgid "Password"
-msgstr "Contraseña"
+msgstr "Contrasenya"
 
 msgctxt "field:aeat.sii.load_pkcs12.start,pfx:"
 msgid "PFX File"
-msgstr "Archivo PFX "
+msgstr "Arxiu PFX "
 
 msgctxt "field:aeat.sii.report,aeat_register:"
 msgid "Register sended to AEAT Webservice"
@@ -132,11 +148,11 @@ msgstr "Registres enviats al webservice de l'AEAT"
 
 msgctxt "field:aeat.sii.report,book:"
 msgid "Book"
-msgstr "Libro"
+msgstr "Llibre"
 
 msgctxt "field:aeat.sii.report,communication_state:"
 msgid "Communication State"
-msgstr "Estado comunicación"
+msgstr "Estat comunicació"
 
 msgctxt "field:aeat.sii.report,company:"
 msgid "Company"
@@ -156,11 +172,11 @@ msgstr "Moneda"
 
 msgctxt "field:aeat.sii.report,fiscalyear:"
 msgid "Fiscal Year"
-msgstr "Ejercicio fiscal"
+msgstr "Exercisi fiscal"
 
 msgctxt "field:aeat.sii.report,lines:"
 msgid "Lines"
-msgstr "Líneas"
+msgstr "Línies"
 
 msgctxt "field:aeat.sii.report,load_date:"
 msgid "Load Date"
@@ -176,11 +192,11 @@ msgstr "Desde data límit"
 
 msgctxt "field:aeat.sii.report,operation_type:"
 msgid "Operation Type"
-msgstr "Tipo de operación"
+msgstr "Tipus d'operació"
 
 msgctxt "field:aeat.sii.report,period:"
 msgid "Period"
-msgstr "Período"
+msgstr "Període"
 
 msgctxt "field:aeat.sii.report,response:"
 msgid "Response"
@@ -188,19 +204,19 @@ msgstr "Resposta"
 
 msgctxt "field:aeat.sii.report,send_date:"
 msgid "Send date"
-msgstr "Fecha de envío"
+msgstr "Data d'enviament"
 
 msgctxt "field:aeat.sii.report,state:"
 msgid "State"
-msgstr "Estado"
+msgstr "Estat"
 
 msgctxt "field:aeat.sii.report,version:"
 msgid "Version"
-msgstr "Versión"
+msgstr "Versió"
 
 msgctxt "field:aeat.sii.report.line.tax,amount:"
 msgid "Amount"
-msgstr "Importe"
+msgstr "Import"
 
 msgctxt "field:aeat.sii.report.line.tax,base:"
 msgid "Base"
@@ -208,27 +224,27 @@ msgstr "Base"
 
 msgctxt "field:aeat.sii.report.line.tax,line:"
 msgid "Report Line"
-msgstr "Línea informe"
+msgstr "Línia informe"
 
 msgctxt "field:aeat.sii.report.line.tax,rate:"
 msgid "Rate"
-msgstr "Tasa de cambio"
+msgstr "Taxa de canvi"
 
 msgctxt "field:aeat.sii.report.line.tax,reagyp_amount:"
 msgid "REAGYP Amount"
-msgstr "Importe REAGYP"
+msgstr "Import REAGYP"
 
 msgctxt "field:aeat.sii.report.line.tax,reagyp_rate:"
 msgid "REAGYP Rate"
-msgstr "Importe REAGYP"
+msgstr "Import REAGYP"
 
 msgctxt "field:aeat.sii.report.line.tax,surcharge_amount:"
 msgid "Surcharge Amount"
-msgstr "Importe recargo"
+msgstr "Import recargo"
 
 msgctxt "field:aeat.sii.report.line.tax,surcharge_rate:"
 msgid "Surcharge Rate"
-msgstr "Conversión recargo"
+msgstr "Conversió recàrrec"
 
 msgctxt "field:aeat.sii.report.lines,aeat_register:"
 msgid "Register from AEAT Webservice"
@@ -236,15 +252,15 @@ msgstr "Registre del Webservice de l'AEAT"
 
 msgctxt "field:aeat.sii.report.lines,balance_state:"
 msgid "Balance State"
-msgstr "Estado balance"
+msgstr "Estat balanç"
 
 msgctxt "field:aeat.sii.report.lines,communication_code:"
 msgid "Communication Code"
-msgstr "Código de comunicación"
+msgstr "Codi de comunicació"
 
 msgctxt "field:aeat.sii.report.lines,communication_msg:"
 msgid "Communication Message"
-msgstr "Mensaje de comunicación"
+msgstr "Missatge de comunicació"
 
 msgctxt "field:aeat.sii.report.lines,company:"
 msgid "Company"
@@ -256,7 +272,7 @@ msgstr "ID contrapartida"
 
 msgctxt "field:aeat.sii.report.lines,counterpart_name:"
 msgid "Counterpart Name"
-msgstr "Nombre contrapartida"
+msgstr "Nom contrapartida"
 
 msgctxt "field:aeat.sii.report.lines,csv:"
 msgid "CSV"
@@ -272,7 +288,7 @@ msgstr "Final número serie"
 
 msgctxt "field:aeat.sii.report.lines,identifier_type:"
 msgid "Identifier Type"
-msgstr "Tipo identificación"
+msgstr "Tipus identificació"
 
 msgctxt "field:aeat.sii.report.lines,invoice:"
 msgid "Invoice"
@@ -280,15 +296,19 @@ msgstr "Factura"
 
 msgctxt "field:aeat.sii.report.lines,invoice_kind:"
 msgid "Invoice Kind"
-msgstr "Tipo factura"
+msgstr "Tipus factura"
 
 msgctxt "field:aeat.sii.report.lines,invoice_operation_key:"
 msgid "SII Operation Key"
-msgstr "SII clave operación"
+msgstr "SII Clau operación"
+
+msgctxt "field:aeat.sii.report.lines,invoice_types:"
+msgid "Invoice Types"
+msgstr "Tipus de factures"
 
 msgctxt "field:aeat.sii.report.lines,issue_date:"
 msgid "Issued Date"
-msgstr "Fecha emitida"
+msgstr "Data emessa"
 
 msgctxt "field:aeat.sii.report.lines,issuer_vat_number:"
 msgid "Issuer VAT Number"
@@ -300,15 +320,15 @@ msgstr "Data última modificació"
 
 msgctxt "field:aeat.sii.report.lines,presentation_date:"
 msgid "Presentation Date"
-msgstr "Fecha presentación"
+msgstr "Data presentació"
 
 msgctxt "field:aeat.sii.report.lines,presenter:"
 msgid "Presenter"
-msgstr "Presentación"
+msgstr "Presentació"
 
 msgctxt "field:aeat.sii.report.lines,report:"
 msgid "Issued Report"
-msgstr "Informe Emitidas"
+msgstr "Informe emesses"
 
 msgctxt "field:aeat.sii.report.lines,serial_number:"
 msgid "Serial Number"
@@ -316,23 +336,23 @@ msgstr "Número serie"
 
 msgctxt "field:aeat.sii.report.lines,sii_header:"
 msgid "Header"
-msgstr "Encabezado"
+msgstr "Encapçalament"
 
 msgctxt "field:aeat.sii.report.lines,special_key:"
 msgid "Special Key"
-msgstr "Clave especial"
+msgstr "Clau especial"
 
 msgctxt "field:aeat.sii.report.lines,state:"
 msgid "State"
-msgstr "Estado"
+msgstr "Estat"
 
 msgctxt "field:aeat.sii.report.lines,taxes:"
 msgid "Tax Lines"
-msgstr "Líneas de impuesto"
+msgstr "Línies d'impost"
 
 msgctxt "field:aeat.sii.report.lines,total_amount:"
 msgid "Total Amount"
-msgstr "Importe total"
+msgstr "Import total"
 
 msgctxt "field:aeat.sii.report.lines,vat_code:"
 msgid "VAT Code"
@@ -340,15 +360,15 @@ msgstr "NIF/CIF"
 
 msgctxt "field:company.company,encrypted_private_key:"
 msgid "Encrypted Private Key"
-msgstr "Clave privada encriptada"
+msgstr "Clau privada encriptada"
 
 msgctxt "field:company.company,pem_certificate:"
 msgid "PEM Certificate"
-msgstr "Certificado PEM"
+msgstr "Certificat PEM"
 
 msgctxt "field:company.company,private_key:"
 msgid "Private Key"
-msgstr "Clave privada"
+msgstr "Clau privada"
 
 msgctxt "field:party.party,sii_identifier_type:"
 msgid "SII Identifier Type"
@@ -361,7 +381,7 @@ msgstr "Número NIF SII"
 msgctxt "help:account.configuration,aeat_pending_sii:"
 msgid "Automatically generate AEAT Pending SII reports by cron"
 msgstr ""
-"Generà automàticament Llibres del SII pendents des de les acciones "
+"Genera automàticament Llibres del SII pendents des de les acciones "
 "planificades"
 
 msgctxt "help:account.configuration,aeat_pending_sii_send:"
@@ -373,7 +393,7 @@ msgstr ""
 msgctxt "help:account.configuration,aeat_received_sii:"
 msgid "Automatically generate AEAT Received SII reports by cron"
 msgstr ""
-"Generà automàticament Llibres del SII pendents des de les acciones "
+"Genera automàticament Llibres del SII pendents des de les acciones "
 "planificades"
 
 msgctxt "help:account.configuration,aeat_received_sii_send:"
@@ -381,6 +401,22 @@ msgid "Automatically send AEAT Received SII reports by cron"
 msgstr ""
 "Enviar automàticament Llibres del SII pendents des de les acciones "
 "planificades"
+
+msgctxt "help:account.tax,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "Indicar si l'impost és Inversion del sujeto Pasivo"
+
+msgctxt "help:account.tax,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "Indicar si l'impost s'utilitza en serveis"
+
+msgctxt "help:account.tax.template,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "Indicar si l'impost és Inversion del sujeto Pasivo"
+
+msgctxt "help:account.tax.template,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "Indicar si l'impost s'utilitza en serveis"
 
 msgctxt "help:aeat.sii.report,load_date:"
 msgid "Filter invoices to the date whitin the period."
@@ -396,7 +432,7 @@ msgstr "Vista Crear AEAT SII Pendientes Enviadas"
 
 msgctxt "model:aeat.sii.load_pkcs12.start,name:"
 msgid "Load PKCS12 Start"
-msgstr "Cargar PKCS12"
+msgstr "Carrega PKCS12"
 
 msgctxt "model:aeat.sii.received.pending.view,name:"
 msgid "Create AEAT SII Received Pending View"
@@ -412,11 +448,11 @@ msgstr "Informe SII"
 
 msgctxt "model:aeat.sii.report.line.tax,name:"
 msgid "SII Report Line Tax"
-msgstr "Informe SII línea impuesto"
+msgstr "Informe SII línia impost"
 
 msgctxt "model:aeat.sii.report.lines,name:"
 msgid "AEAT SII Issued"
-msgstr "Emitidas"
+msgstr "Emeses"
 
 msgctxt "model:aeat.sii.reset.keys.end,name:"
 msgid "Reset to default SII Keys End"
@@ -428,19 +464,19 @@ msgstr "Inici Restabliment per defecte de les claus del SII"
 
 msgctxt "model:ir.action,name:"
 msgid "SII Report Intracommunity"
-msgstr "Informe Intracomunitarias"
+msgstr "Informe Intracomunitaries"
 
 msgctxt "model:ir.action,name:act_aeat_sii_issued_report"
 msgid "SII Report Issued"
-msgstr "Informe Emitidas"
+msgstr "Informe Emesses"
 
 msgctxt "model:ir.action,name:act_aeat_sii_load_pkcs12"
 msgid "Load PKCS12"
-msgstr "Cargar PKCS12"
+msgstr "Carrega PKCS12"
 
 msgctxt "model:ir.action,name:act_aeat_sii_received_report"
 msgid "SII Report Received"
-msgstr "Informe Recibidas"
+msgstr "Informe Rebudes"
 
 msgctxt "model:ir.action,name:act_aeat_sii_report"
 msgid "SII Report"
@@ -448,15 +484,15 @@ msgstr "Informe SII"
 
 msgctxt "model:ir.action,name:act_aeat_sii_report_line"
 msgid "AEAT SII Report Lines"
-msgstr "Líneas informe SII"
+msgstr "Línies informe SII"
 
 msgctxt "model:ir.action,name:act_aeat_sii_report_line_related"
 msgid "AEAT SII Report Lines"
-msgstr "Líneas informe SII"
+msgstr "Línies informe SII"
 
 msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
 msgid "SII Report Lines"
-msgstr "Líneas informe SII"
+msgstr "Línies informe SII"
 
 msgctxt "model:ir.action,name:act_aeat_sii_reset_keys"
 msgid "Reset AEAT SII Keys"
@@ -490,7 +526,7 @@ msgstr ""
 
 msgctxt "model:ir.message,text:msg_invoices_sii_pending"
 msgid "The next invoices are related with SII books on draft state."
-msgstr "La factura està relacionade amb un llibre del SII en estat esborany."
+msgstr "La factura està relaciona amb un llibre del SII en estat esborany."
 
 msgctxt "model:ir.message,text:msg_missing_fernet_key"
 msgid "Missing Fernet key configuration"
@@ -506,7 +542,16 @@ msgstr "Falta certicat PEM"
 
 msgctxt "model:ir.message,text:msg_service_message"
 msgid "%(message)s"
+msgstr "%(message)s"
+
+msgctxt "model:ir.message,text:msg_set_simplified_invoice"
+msgid ""
+"The invoice \"%(invoices)s\" has not VAT and SII operation key is Simplified"
+" Invoice (ticket) and Invoices without destination identification."
 msgstr ""
+"La factura \"%(invoices)s\" no té IVA i la clau del SII d'operació és "
+"factura simplificada (tiquet) i factures sense identificació del "
+"destinatari."
 
 msgctxt "model:ir.message,text:msg_sii_operation_key_wrong"
 msgid ""
@@ -531,13 +576,17 @@ msgstr ""
 "Hi ha varis Llibres del SII pendent d'enviar. No es crearà cap nou Llibre "
 "fins a tractar els pendents."
 
+msgctxt "model:ir.message,text:msg_report_duplicated_invoice"
+msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
+msgstr "La factura \"%(invoice)s\" està duplicada en el Llibre SII \"%(report)s\"."
+
 msgctxt "model:ir.model.button,string:cancel_button"
 msgid "Cancel"
-msgstr "Cancel·lat"
+msgstr "Cancel·la"
 
 msgctxt "model:ir.model.button,string:confirm_button"
 msgid "Confirm"
-msgstr "Confirmar"
+msgstr "Confirma"
 
 msgctxt "model:ir.model.button,string:draft_button"
 msgid "Draft"
@@ -545,7 +594,7 @@ msgstr "Esborrany"
 
 msgctxt "model:ir.model.button,string:load_invoices_button"
 msgid "Load Invoices"
-msgstr "Carga facturas"
+msgstr "Carrega factures"
 
 msgctxt "model:ir.model.button,string:process_response_button"
 msgid "Process Response"
@@ -569,23 +618,19 @@ msgstr "Informe AEAT SII"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_lines_report"
 msgid "AEAT SII Report Lines"
-msgstr "Líneas informe AEAT SII"
+msgstr "Línies informe AEAT SII"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_issued"
 msgid "Create AEAT SII Report Issued Invoices"
-msgstr "Crear AEAT SII Informe Facturas Enviadas"
+msgstr "Crea AEAT SII Informe Factures Enviades"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_received"
 msgid "Create AEAT SII Report Received Invoices"
-msgstr "Crear AEAT SII Informe Facturas Recibidas"
-
-msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report"
-msgid "AEAT SII Report"
-msgstr "Informe AEAT SII"
+msgstr "Crea AEAT SII Informe Factures Rebudes"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_issued"
 msgid "AEAT SII Report Issued"
-msgstr "Libro Facturas Emitidas"
+msgstr "Llibre Factures emesses"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_menu"
 msgid "AEAT SII"
@@ -593,43 +638,43 @@ msgstr "AEAT SII"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_received"
 msgid "AEAT SII Report Received"
-msgstr "Libro Facturas recibidas"
+msgstr "Llibre Factures rebudes"
 
 msgctxt "model:res.group,name:group_aeat_sii_admin"
 msgid "AEAT SII Administration"
-msgstr "Administración AEAT SII"
+msgstr "Administració AEAT SII"
 
 msgctxt "selection:account.invoice,sii_book_key:"
 msgid "Investment Goods"
-msgstr "Bienes de inversión"
+msgstr "Bens d'inversió"
 
 msgctxt "selection:account.invoice,sii_book_key:"
 msgid "Issued Invoices"
-msgstr "Facturas emitidas"
+msgstr "Factures emeses"
 
 msgctxt "selection:account.invoice,sii_book_key:"
 msgid "Particular Intracommunity Operations"
-msgstr "Determinadas operaciones intracomunitarias"
+msgstr "Determinades operacions intracomunitaries"
 
 msgctxt "selection:account.invoice,sii_book_key:"
 msgid "Received Invoices"
-msgstr "Facturas recibidas"
+msgstr "Factures rebudes"
 
 msgctxt "selection:account.invoice,sii_communication_type:"
 msgid "Amendment of invoices/records (registration errors)"
-msgstr "Modificar facturas"
+msgstr "Modificar factures"
 
 msgctxt "selection:account.invoice,sii_communication_type:"
 msgid "Delete Invoices"
-msgstr "Borrar facturas"
+msgstr "Borrar factures"
 
 msgctxt "selection:account.invoice,sii_communication_type:"
 msgid "Query Invoices"
-msgstr "Consultar facturas"
+msgstr "Consultar factures"
 
 msgctxt "selection:account.invoice,sii_communication_type:"
 msgid "Registration of invoices/records"
-msgstr "Nuevas facturas"
+msgstr "Noves factures"
 
 msgctxt "selection:account.invoice,sii_issued_key:"
 msgid ""
@@ -687,7 +732,7 @@ msgstr ""
 
 msgctxt "selection:account.invoice,sii_issued_key:"
 msgid "General tax regime activity"
-msgstr "Operación de régimen general"
+msgstr "Operació de règim general"
 
 msgctxt "selection:account.invoice,sii_issued_key:"
 msgid ""
@@ -753,7 +798,7 @@ msgstr "Aduanes - Liquidació complementaria"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Import (DUA)"
-msgstr "Importaciones (DUA)"
+msgstr "Importacions (DUA)"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
@@ -767,11 +812,11 @@ msgstr ""
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Invoice summary entry"
-msgstr "Asiento resumen de facturas"
+msgstr "Assentaments resum de factures"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid "Other accounting documents"
-msgstr "Justificantes contables"
+msgstr "Justificants comptables"
 
 msgctxt "selection:account.invoice,sii_operation_key:"
 msgid ""
@@ -818,7 +863,7 @@ msgstr ""
 
 msgctxt "selection:account.invoice,sii_received_key:"
 msgid "General tax regime activity"
-msgstr "Operación de régimen general"
+msgstr "Operació de règim general"
 
 msgctxt "selection:account.invoice,sii_received_key:"
 msgid "Intra-Community acquisition of assets and provisions of services"
@@ -849,19 +894,19 @@ msgstr "Régimen especial de las agencias de viajes"
 
 msgctxt "selection:account.invoice,sii_state:"
 msgid "Accepted"
-msgstr "Correcta"
+msgstr "Correcte"
 
 msgctxt "selection:account.invoice,sii_state:"
 msgid "Accepted "
-msgstr "Correcto"
+msgstr "Correcte"
 
 msgctxt "selection:account.invoice,sii_state:"
 msgid "Accepted with Errors"
-msgstr "Aceptada con errores"
+msgstr "Acceptada amb errors"
 
 msgctxt "selection:account.invoice,sii_state:"
 msgid "Accepted with Errors "
-msgstr "Aceptada con errores"
+msgstr "Acceptada amb errors"
 
 msgctxt "selection:account.invoice,sii_state:"
 msgid "Deleted"
@@ -873,43 +918,43 @@ msgstr "Duplicat / No subscrit"
 
 msgctxt "selection:account.invoice,sii_state:"
 msgid "Rejected"
-msgstr "Rechazado"
+msgstr "Rebutjat"
 
 msgctxt "selection:account.tax,sii_book_key:"
 msgid "Investment Goods"
-msgstr "Bienes de inversión"
+msgstr "Bens d'inversió"
 
 msgctxt "selection:account.tax,sii_book_key:"
 msgid "Issued Invoices"
-msgstr "Facturas emitidas"
+msgstr "Factures emeses"
 
 msgctxt "selection:account.tax,sii_book_key:"
 msgid "Particular Intracommunity Operations"
-msgstr "Determinadas operaciones Intracomunitarias"
+msgstr "Determinades operacions intracomunitaries"
 
 msgctxt "selection:account.tax,sii_book_key:"
 msgid "Received Invoices"
-msgstr "Facturas recibidas"
+msgstr "Factures rebudes"
 
 msgctxt "selection:account.tax,sii_exemption_cause:"
 msgid "Exempt on account of Article 20"
-msgstr "Exenta por el artículo 20"
+msgstr "Exempt per l'article  20"
 
 msgctxt "selection:account.tax,sii_exemption_cause:"
 msgid "Exempt on account of Article 21"
-msgstr "Exenta por el artículo 21"
+msgstr "Exempt per l'article 21"
 
 msgctxt "selection:account.tax,sii_exemption_cause:"
 msgid "Exempt on account of Article 22"
-msgstr "Exenta por el artículo 22"
+msgstr "Exempt per l'article 22"
 
 msgctxt "selection:account.tax,sii_exemption_cause:"
 msgid "Exempt on account of Article 23 and Article 24"
-msgstr "Exenta por el artículo 24"
+msgstr "Exempt per l'article 24"
 
 msgctxt "selection:account.tax,sii_exemption_cause:"
 msgid "Exempt on account of Article 25"
-msgstr "Exenta por el artículo 25"
+msgstr "Exempt per l'article 25"
 
 msgctxt "selection:account.tax,sii_exemption_cause:"
 msgid "Exempt on other grounds"
@@ -966,7 +1011,7 @@ msgstr ""
 
 msgctxt "selection:account.tax,sii_issued_key:"
 msgid "Export"
-msgstr "Exportación"
+msgstr "Exportació"
 
 msgctxt "selection:account.tax,sii_issued_key:"
 msgid "First semester 2017 and other invoices before the SII"
@@ -975,7 +1020,7 @@ msgstr ""
 
 msgctxt "selection:account.tax,sii_issued_key:"
 msgid "General tax regime activity"
-msgstr "Operación de régimen general"
+msgstr "Operació de règim general"
 
 msgctxt "selection:account.tax,sii_issued_key:"
 msgid ""
@@ -1041,7 +1086,7 @@ msgstr "Aduanes - Liquidació complementaria"
 
 msgctxt "selection:account.tax,sii_operation_key:"
 msgid "Import (DUA)"
-msgstr "Importaciones (DUA)"
+msgstr "Importacions (DUA)"
 
 msgctxt "selection:account.tax,sii_operation_key:"
 msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
@@ -1055,11 +1100,11 @@ msgstr ""
 
 msgctxt "selection:account.tax,sii_operation_key:"
 msgid "Invoice summary entry"
-msgstr "Asiento resumen de facturas"
+msgstr "Assentaments resum de factures"
 
 msgctxt "selection:account.tax,sii_operation_key:"
 msgid "Other accounting documents"
-msgstr "Justificantes contables"
+msgstr "Justificants comptables"
 
 msgctxt "selection:account.tax,sii_operation_key:"
 msgid ""
@@ -1106,7 +1151,7 @@ msgstr ""
 
 msgctxt "selection:account.tax,sii_received_key:"
 msgid "General tax regime activity"
-msgstr "Operación de régimen general"
+msgstr "Operació de règim general"
 
 msgctxt "selection:account.tax,sii_received_key:"
 msgid "Intra-Community acquisition of assets and provisions of services"
@@ -1138,51 +1183,51 @@ msgstr "Régimen especial de las agencias de viajes"
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid ""
 "Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
-msgstr "No exenta - Con o sin Inversion sujeto pasivo"
+msgstr "Subjecta - No exempta - Amb Inversió del subjecte pasiu"
 
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid "Subject - Not exempt. Non VAT reverse charge"
-msgstr "Sujeto - No exento"
+msgstr "Sujecta - No exempta - Sense Inversió del subjecte pasiu"
 
 msgctxt "selection:account.tax,sii_subjected_key:"
 msgid "Subject - Not exempt. VAT reverse charge"
-msgstr "No exenta - Con Inversion sujeto pasivo"
+msgstr "Subjecta - No exempta - Amb Inversió del subjecte pasiu"
 
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Investment Goods"
-msgstr "Bienes de inversión"
+msgstr "Bens d'inversió"
 
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Issued Invoices"
-msgstr "Facturas emitidas"
+msgstr "Factures emeses"
 
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Particular Intracommunity Operations"
-msgstr "Determinadas operaciones Intracomunitarias"
+msgstr "Determinades operacions intracomunitaries"
 
 msgctxt "selection:account.tax.template,sii_book_key:"
 msgid "Received Invoices"
-msgstr "Facturas recibidas"
+msgstr "Factures rebudes"
 
 msgctxt "selection:account.tax.template,sii_exemption_cause:"
 msgid "Exempt on account of Article 20"
-msgstr "Exenta por el artículo 20"
+msgstr "Exempt per l'article 20"
 
 msgctxt "selection:account.tax.template,sii_exemption_cause:"
 msgid "Exempt on account of Article 21"
-msgstr "Exenta por el artículo 21"
+msgstr "Exempt per l'article  21"
 
 msgctxt "selection:account.tax.template,sii_exemption_cause:"
 msgid "Exempt on account of Article 22"
-msgstr "Exenta por el artículo 22"
+msgstr "Exempt per l'article 22"
 
 msgctxt "selection:account.tax.template,sii_exemption_cause:"
 msgid "Exempt on account of Article 23 and Article 24"
-msgstr "Exenta por el artículo 24"
+msgstr "Exempt per l'article 24"
 
 msgctxt "selection:account.tax.template,sii_exemption_cause:"
 msgid "Exempt on account of Article 25"
-msgstr "Exenta por el artículo 25"
+msgstr "Exempt per l'article 25"
 
 msgctxt "selection:account.tax.template,sii_exemption_cause:"
 msgid "Exempt on other grounds"
@@ -1239,7 +1284,7 @@ msgstr ""
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
 msgid "Export"
-msgstr "Exportación"
+msgstr "Exportació"
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
 msgid "First semester 2017 and other invoices before the SII"
@@ -1248,7 +1293,7 @@ msgstr ""
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
 msgid "General tax regime activity"
-msgstr "Operación de régimen general"
+msgstr "Operació de règim general"
 
 msgctxt "selection:account.tax.template,sii_issued_key:"
 msgid ""
@@ -1314,7 +1359,7 @@ msgstr "Aduanes - Liquidació complementaria"
 
 msgctxt "selection:account.tax.template,sii_operation_key:"
 msgid "Import (DUA)"
-msgstr "Importaciones (DUA)"
+msgstr "Importacions (DUA)"
 
 msgctxt "selection:account.tax.template,sii_operation_key:"
 msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
@@ -1328,11 +1373,11 @@ msgstr ""
 
 msgctxt "selection:account.tax.template,sii_operation_key:"
 msgid "Invoice summary entry"
-msgstr "Asiento resumen de facturas"
+msgstr "Assentaments resum de factures"
 
 msgctxt "selection:account.tax.template,sii_operation_key:"
 msgid "Other accounting documents"
-msgstr "Justificantes contables"
+msgstr "Justificants comptables"
 
 msgctxt "selection:account.tax.template,sii_operation_key:"
 msgid ""
@@ -1379,7 +1424,7 @@ msgstr ""
 
 msgctxt "selection:account.tax.template,sii_received_key:"
 msgid "General tax regime activity"
-msgstr "Operación de régimen general"
+msgstr "Operació de règim general"
 
 msgctxt "selection:account.tax.template,sii_received_key:"
 msgid "Intra-Community acquisition of assets and provisions of services"
@@ -1411,7 +1456,7 @@ msgstr "Régimen especial de las agencias de viajes"
 msgctxt "selection:account.tax.template,sii_subjected_key:"
 msgid ""
 "Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
-msgstr "No exenta - Con o sin Inversion sujeto pasivo"
+msgstr "No exempta - Amb o sense Inversion sujeto pasivo"
 
 msgctxt "selection:account.tax.template,sii_subjected_key:"
 msgid "Subject - Not exempt. Non VAT reverse charge"
@@ -1419,59 +1464,59 @@ msgstr "Sujeto - No exento"
 
 msgctxt "selection:account.tax.template,sii_subjected_key:"
 msgid "Subject - Not exempt. VAT reverse charge"
-msgstr "No exenta - Con Inversion sujeto pasivo"
+msgstr "No exempta - Amb Inversion sujeto pasivo"
 
 msgctxt "selection:aeat.sii.report,book:"
 msgid "Investment Goods"
-msgstr "Bienes de inversión"
+msgstr "Bens d'inversió"
 
 msgctxt "selection:aeat.sii.report,book:"
 msgid "Issued Invoices"
-msgstr "Facturas emitidas"
+msgstr "Factures emeses"
 
 msgctxt "selection:aeat.sii.report,book:"
 msgid "Particular Intracommunity Operations"
-msgstr "Determinadas operaciones Intracomunitarias"
+msgstr "Determinades operacions intracomunitaries"
 
 msgctxt "selection:aeat.sii.report,book:"
 msgid "Received Invoices"
-msgstr "Facturas recibidas"
+msgstr "Factures rebudes"
 
 msgctxt "selection:aeat.sii.report,communication_state:"
 msgid "Accepted"
-msgstr "Correcto"
+msgstr "Correcte"
 
 msgctxt "selection:aeat.sii.report,communication_state:"
 msgid "Partially Accepted"
-msgstr "Aceptada parcialmente"
+msgstr "Acceptada parcialment"
 
 msgctxt "selection:aeat.sii.report,communication_state:"
 msgid "Rejected"
-msgstr "Rechazado"
+msgstr "Rebutjat"
 
 msgctxt "selection:aeat.sii.report,operation_type:"
 msgid "Amendment of invoices/records (registration errors)"
-msgstr "Modificar facturas"
+msgstr "Modificar factures"
 
 msgctxt "selection:aeat.sii.report,operation_type:"
 msgid "Delete Invoices"
-msgstr "Borrar facturas"
+msgstr "Borrar factures"
 
 msgctxt "selection:aeat.sii.report,operation_type:"
 msgid "Query Invoices"
-msgstr "Consultar facturas"
+msgstr "Consultar factures"
 
 msgctxt "selection:aeat.sii.report,operation_type:"
 msgid "Registration of invoices/records"
-msgstr "Nuevas facturas"
+msgstr "Noves factures"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Cancelled"
-msgstr "Cancelado"
+msgstr "Cancel·lat"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Confirmed"
-msgstr "Confirmado"
+msgstr "Confirmat"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Draft"
@@ -1483,7 +1528,7 @@ msgstr "Enviant"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Sent"
-msgstr "Enviado"
+msgstr "Enviat"
 
 msgctxt "selection:aeat.sii.report,version:"
 msgid "0.7"
@@ -1499,30 +1544,37 @@ msgstr "1.1"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "Not registered (only for Spanish VAT not registered)"
-msgstr "No censado (solo para NIF españoles no censados)"
+msgstr "No censat (només per  NIF espanyols no censats)"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid ""
 "Official identification document issued by the country or region of "
 "residence"
-msgstr ""
-"Documento oficial de identificación expedido per el país de residencia"
+msgstr "Document oficial de identificació expedit pel país de residencia"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "Other supporting document"
-msgstr "Otro documento provatorio"
+msgstr "Altre document probatori"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "Passport"
-msgstr "Pasaporte"
+msgstr "Passaport"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "Residence certificate"
-msgstr "Certificado de residencia"
+msgstr "Certificat de residencia"
 
 msgctxt "selection:aeat.sii.report.lines,identifier_type:"
 msgid "VAT (only for intracommunity operators)"
-msgstr " NIF-IVA (Solo para operadores intracomunitarios)"
+msgstr "NIF-IVA (només per operadors intracomunitaris)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "NIF/CIF (per operadors nacionals)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Simplified Invoice"
+msgstr "Factura Simplificada"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
@@ -1550,7 +1602,7 @@ msgstr "Aduanes - Liquidació complementaria"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Import (DUA)"
-msgstr "Importaciones (DUA)"
+msgstr "Importacions (DUA)"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
@@ -1564,11 +1616,11 @@ msgstr ""
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Invoice summary entry"
-msgstr "Asiento resumen de facturas"
+msgstr "Assentaments resum de factures"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid "Other accounting documents"
-msgstr "Justificantes contables"
+msgstr "Justificants comptables"
 
 msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
 msgid ""
@@ -1580,19 +1632,19 @@ msgstr ""
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Accepted"
-msgstr "Correcta"
+msgstr "Correcte"
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Accepted "
-msgstr "Correcto"
+msgstr "Correcte"
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Accepted with Errors"
-msgstr "Aceptada con errores"
+msgstr "Acceptada amb errors"
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Accepted with Errors "
-msgstr "Aceptada con errores"
+msgstr "Acceptada amb errors"
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Deleted"
@@ -1604,7 +1656,7 @@ msgstr "Duplicat / No subscrit"
 
 msgctxt "selection:aeat.sii.report.lines,state:"
 msgid "Rejected"
-msgstr "Rechazado"
+msgstr "Rebutjat"
 
 msgctxt "selection:ir.cron,method:"
 msgid "AEAT SII"
@@ -1612,30 +1664,37 @@ msgstr "AEAT SII"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Not registered (only for Spanish VAT not registered)"
-msgstr "No censado (solo para NIF españoles no censados)"
+msgstr "No censat (només per  NIF espanyols no censats)"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid ""
 "Official identification document issued by the country or region of "
 "residence"
-msgstr ""
-"Documento oficial de identificación expedido per el país de residencia"
+msgstr "Document oficial de identificació expedit pel país de residencia"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Other supporting document"
-msgstr "Otro documento provatorio"
+msgstr "Altre document probatori"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Passport"
-msgstr "Pasaporte"
+msgstr "Passaport"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "Residence certificate"
-msgstr "Certificado de residencia"
+msgstr "Certificat de residencia"
 
 msgctxt "selection:party.party,sii_identifier_type:"
 msgid "VAT (only for intracommunity operators)"
-msgstr " NIF-IVA (Solo para operadores intracomunitarios) "
+msgstr " NIF-IVA (només per operadors intracomunitaris) "
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "NIF/CIF (per operadors nacionals)"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Simplified Invoice"
+msgstr "Factura Simplificada"
 
 msgctxt "view:account.configuration:"
 msgid "AEAT SII"
@@ -1655,27 +1714,27 @@ msgstr "AEAT SII"
 
 msgctxt "view:aeat.sii.issued.pending.view:"
 msgid "Note that this operation may take a few minutes."
-msgstr "Tenga en cuenta que esta operación puede tardar unos minutos."
+msgstr "Tingueu en compte que aquesta operació pot trigar uns minuts."
 
 msgctxt "view:aeat.sii.issued.pending.view:"
 msgid "The AEAT SII Pending Issued Ivoices books will be create."
-msgstr "Los libros de las Facturas Enviadas Pendientes serán creados."
+msgstr "Els llibres de les factures enviades pendents seran creats."
 
 msgctxt "view:aeat.sii.load_pkcs12.start:"
 msgid "Load PKCS12"
-msgstr "Cargar PKCS12"
+msgstr "Carrega PKCS12"
 
 msgctxt "view:aeat.sii.received.pending.view:"
 msgid "Note that this operation may take a few minutes."
-msgstr "Tenga en cuenta que esta operación puede tardar unos minutos."
+msgstr "Tingueu en compte que aquesta operació pot trigar uns minuts."
 
 msgctxt "view:aeat.sii.received.pending.view:"
 msgid "The AEAT SII Pending Received Ivoices books will be create."
-msgstr "Los libros de las Facturas Recibidas Pendientes serán creados."
+msgstr "Els llibres de les factures rebudes pendents seran creats."
 
 msgctxt "view:aeat.sii.report.line.tax:"
 msgid "SII Report Line Tax"
-msgstr "Informe SII línea impuesto"
+msgstr "Informe SII línia impost"
 
 msgctxt "view:aeat.sii.report.lines:"
 msgid "Main Information"
@@ -1683,15 +1742,15 @@ msgstr "Informació principal"
 
 msgctxt "view:aeat.sii.report:"
 msgid "AEAT SII Issued Report"
-msgstr "Libro Facturas emitidas"
+msgstr "Llibre Factures emesses"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Cancel·lat"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Confirm"
-msgstr "Confirmar"
+msgstr "Confirma"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Draft"
@@ -1699,7 +1758,7 @@ msgstr "Borrador"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Load Invoices"
-msgstr "Cargar facturas"
+msgstr "Carrega factures"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Send"
@@ -1725,31 +1784,31 @@ msgstr ""
 
 msgctxt "view:company.company:"
 msgid "Certificate"
-msgstr "Certificado"
+msgstr "Certificat"
 
 msgctxt "wizard_button:aeat.sii.issued.pending,view,create_:"
 msgid "Create"
-msgstr "Crear"
+msgstr "Crea"
 
 msgctxt "wizard_button:aeat.sii.issued.pending,view,end:"
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Cancel·la"
 
 msgctxt "wizard_button:aeat.sii.load_pkcs12,start,end:"
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Cancel·la"
 
 msgctxt "wizard_button:aeat.sii.load_pkcs12,start,load:"
 msgid "Load"
-msgstr "Cargar"
+msgstr "Carrega"
 
 msgctxt "wizard_button:aeat.sii.received.pending,view,create_:"
 msgid "Create"
-msgstr "Crear"
+msgstr "Crea"
 
 msgctxt "wizard_button:aeat.sii.received.pending,view,end:"
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Cancel·la"
 
 msgctxt "wizard_button:aeat.sii.reset.keys,done,end:"
 msgid "Ok"
@@ -1757,7 +1816,7 @@ msgstr "D'acord"
 
 msgctxt "wizard_button:aeat.sii.reset.keys,start,end:"
 msgid "Cancel"
-msgstr "Cancel·lat"
+msgstr "Cancel·la"
 
 msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
 msgid "Reset"
