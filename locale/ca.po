@@ -576,6 +576,10 @@ msgstr ""
 "Hi ha varis Llibres del SII pendent d'enviar. No es crearà cap nou Llibre "
 "fins a tractar els pendents."
 
+msgctxt "model:ir.message,text:msg_report_duplicated_invoice"
+msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
+msgstr "La factura \"%(invoice)s\" està duplicada en el Llibre SII \"%(report)s\"."
+
 msgctxt "model:ir.model.button,string:cancel_button"
 msgid "Cancel"
 msgstr "Cancel·la"
