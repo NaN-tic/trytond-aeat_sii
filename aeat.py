@@ -423,6 +423,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     @Workflow.transition('confirmed')
     def confirm(cls, reports):
         for report in reports:
+            report.check_invoice_state()
             report.check_duplicate_invoices()
 
     @classmethod
@@ -441,6 +442,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         for report in reports:
             if report.state != 'confirmed':
                 continue
+            report.check_invoice_state()
             if report.book == 'E':  # issued invoices
                 if report.operation_type in {'A0', 'A1'}:
                     report.submit_issued_invoices()
@@ -488,6 +490,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if report.response:
                 cls._save_response(report.response)
                 report.save()
+
+    def check_invoice_state(self):
+        for line in self.lines:
+            if line.invoice and line.invoice.state not in ('posted', 'paid'):
+                raise UserError(gettext(
+                    'aeat_sii.msg_report_wrong_invoice_state',
+                    invoice=line.invoice.rec_name))
 
     @classmethod
     @ModelView.button
