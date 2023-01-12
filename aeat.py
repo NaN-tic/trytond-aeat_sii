@@ -561,6 +561,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     res, request = srv.submit(
                         headers, (x.invoice for x in self.lines))
                     self.aeat_register = request
+                except UserError as e:
+                    raise UserError(str(e))
                 except Exception as e:
                     raise UserError(str(e))
 
