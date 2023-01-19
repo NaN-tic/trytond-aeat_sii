@@ -110,6 +110,7 @@ PARTY_IDENTIFIER_TYPE = [
     ('SI', 'Simplified Invoice'),
     ]
 
+# ClaveRegimenEspecialOTrascendencia
 SEND_SPECIAL_REGIME_KEY = [  # L3.1
     (None, ''),
     ('01', 'General tax regime activity'),
@@ -321,8 +322,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-cancel',
                     },
                 'load_invoices': {
-                    'invisible': ~(Eval('state').in_(['draft']) &
-                         Eval('operation_type').in_(['A0', 'A1'])),
+                    'invisible': ~(Eval('state').in_(['draft'])
+                        & Eval('operation_type').in_(['A0', 'A1'])),
                     },
                 'process_response': {
                     'invisible': ~Eval('state').in_(['sending']),
@@ -564,8 +565,19 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 except UserError as e:
                     raise UserError(str(e))
                 except Exception as e:
-                    raise UserError(str(e))
-
+                    message = str(tools.unaccent(str(e)))
+                    if ('Missing element ClaveRegimenEspecialOTrascendencia' in
+                            message):
+                        msg = ''
+                        for line in self.lines:
+                            if not line.invoice.sii_received_key:
+                                msg += '\n%s (%s)' % (line.invoice.number,
+                                    line.invoice.party.rec_name)
+                        message += '\n%s' % msg
+                        raise UserError(gettext('aeat_sii.msg_service_message',
+                            message=message))
+                    else:
+                        raise UserError(str(e))
             if not self.response:
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
@@ -657,7 +669,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         PrestacionServicios.NoSujeta
                 else:
                     sujeta = tipo_desglose.DesgloseTipoOperacion.Entrega.Sujeta
-                    no_sujeta = tipo_desglose.DesgloseTipoOperacion.Entrega.NoSujeta
+                    no_sujeta = (
+                        tipo_desglose.DesgloseTipoOperacion.Entrega.NoSujeta)
 
             if sujeta and sujeta.NoExenta:
                 for detail in sujeta.NoExenta.DesgloseIVA.DetalleIVA:
@@ -693,9 +706,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'communication_code': reg.EstadoFactura.CodigoErrorRegistro,
                 'communication_msg': (reg.EstadoFactura.
                     DescripcionErrorRegistro),
-                'issuer_vat_number': (
-                    reg.IDFactura.IDEmisorFactura.NIF or
-                    reg.IDFactura.IDEmisorFactura.IDOtro.ID),
+                'issuer_vat_number': (reg.IDFactura.IDEmisorFactura.NIF
+                    or reg.IDFactura.IDEmisorFactura.IDOtro.ID),
                 'serial_number': reg.IDFactura.NumSerieFacturaEmisor,
                 'final_serial_number': (
                     reg.IDFactura.NumSerieFacturaEmisorResumenFin),
@@ -711,9 +723,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.DatosFacturaEmitida.Contraparte.NombreRazon
                     if reg.DatosFacturaEmitida.Contraparte else None),
                 'counterpart_id': (
-                    (
-                        reg.DatosFacturaEmitida.Contraparte.NIF or
-                        reg.DatosFacturaEmitida.Contraparte.IDOtro.ID)
+                    (reg.DatosFacturaEmitida.Contraparte.NIF
+                        or reg.DatosFacturaEmitida.Contraparte.IDOtro.ID)
                     if reg.DatosFacturaEmitida.Contraparte else None),
                 'presenter': reg.DatosPresentacion.NIFPresentador,
                 'presentation_date': _datetime(
@@ -756,8 +767,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                                 msg += '\n%s (%s)' % (line.invoice.number,
                                     line.invoice.party.rec_name)
                         message += '\n%s' % msg
-                    raise UserError(gettext('aeat_sii.msg_service_message',
-                        message=message))
+                        raise UserError(gettext('aeat_sii.msg_service_message',
+                            message=message))
+                    else:
+                        raise UserError(str(e))
 
             if not self.response:
                 self.state == 'sending'
@@ -872,9 +885,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     reg.EstadoFactura.CodigoErrorRegistro),
                 'communication_msg': (
                     reg.EstadoFactura.DescripcionErrorRegistro),
-                'issuer_vat_number': (
-                    reg.IDFactura.IDEmisorFactura.NIF or
-                    reg.IDFactura.IDEmisorFactura.IDOtro.ID),
+                'issuer_vat_number': (reg.IDFactura.IDEmisorFactura.NIF
+                    or reg.IDFactura.IDEmisorFactura.IDOtro.ID),
                 'serial_number': reg.IDFactura.NumSerieFacturaEmisor,
                 'final_serial_number': (
                     reg.IDFactura.NumSerieFacturaEmisorResumenFin),
@@ -887,9 +899,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 'taxes': [('add', [t.id for t in taxes])],
                 'counterpart_name': (
                     reg.DatosFacturaRecibida.Contraparte.NombreRazon),
-                'counterpart_id': (
-                    reg.DatosFacturaRecibida.Contraparte.NIF or
-                    reg.DatosFacturaRecibida.Contraparte.IDOtro.ID),
+                'counterpart_id': (reg.DatosFacturaRecibida.Contraparte.NIF
+                    or reg.DatosFacturaRecibida.Contraparte.IDOtro.ID),
                 'presenter': reg.DatosPresentacion.NIFPresentador,
                 'presentation_date': _datetime(
                     reg.DatosPresentacion.TimestampPresentacion),

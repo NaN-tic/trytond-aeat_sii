@@ -125,7 +125,7 @@ class Invoice(metaclass=PoolMeta):
     def reset_sii_keys(cls, invoices):
         to_write = []
         for invoice in invoices:
-            if invoice.state in ('paid', 'canceled'):
+            if invoice.state == 'canceled':
                 continue
             for field in _SII_INVOICE_KEYS:
                 setattr(invoice, field, None)
