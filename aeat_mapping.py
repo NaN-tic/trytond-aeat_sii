@@ -503,7 +503,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         }
         _taxes = self.taxes(invoice)
         isp_taxes = self.isp_taxes(_taxes)
-        _taxes = list(set(_taxes)-set(isp_taxes))
+        _taxes = list(set(_taxes) - set(isp_taxes))
         if _taxes:
             ret['DesgloseFactura']['DesgloseIVA'] = {
                 'DetalleIVA': [],
@@ -533,7 +533,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             #   BaseRectificada, CuotaRectificada, CuotaRecargoRectificado }
 
     def build_taxes(self, invoice, tax):
-        if not tax.base and not tax.amount:
+        if tax.base is None and tax.amount is None:
             return
         ret = {
             'BaseImponible': self.tax_base(tax),
