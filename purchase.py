@@ -22,6 +22,5 @@ class Purchase(metaclass=PoolMeta):
 
             for field in _SII_INVOICE_KEYS:
                 setattr(invoice, field, getattr(tax.tax, field))
-            invoice.save()
 
         return invoice
