@@ -234,6 +234,7 @@ class Invoice(metaclass=PoolMeta):
         # Suejta-Exenta --> Can only be one
         # NoSujeta --> Can only be one
 
+        invoices2checksii = cls.browse(invoices2checksii)
         for invoice in invoices2checksii:
             values = {}
             if invoice.sii_book_key:
