@@ -54,7 +54,7 @@ class Company(metaclass=PoolMeta):
             return None
         fernet = self.get_fernet_key()
         if not fernet:
-            return None
+            return
         decrypted_key = fernet.decrypt(bytes(self.encrypted_private_key))
         return decrypted_key
 
@@ -63,6 +63,8 @@ class Company(metaclass=PoolMeta):
         encrypted_key = None
         if value:
             fernet = cls.get_fernet_key()
+            if not fernet:
+                return
             encrypted_key = fernet.encrypt(bytes(value))
         cls.write(companies, {'encrypted_private_key': encrypted_key})
 
@@ -71,7 +73,6 @@ class Company(metaclass=PoolMeta):
         fernet_key = config.get('cryptography', 'fernet_key')
         if not fernet_key:
             _logger.error('Missing Fernet key configuration')
-            # raise UserError(gettext('aeat_sii.msg_missing_fernet_key'))
         else:
             return Fernet(fernet_key)
 
