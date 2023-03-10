@@ -5,8 +5,6 @@ from . import cron
 from . import invoice
 from . import aeat
 from . import party
-from . import company
-from . import load_pkcs12
 from . import account
 from . import aeat_mapping
 from . import sale
@@ -21,11 +19,9 @@ def register():
         cron.Cron,
         party.Party,
         party.PartyIdentifier,
-        company.Company,
         invoice.Invoice,
         invoice.ResetSIIKeysStart,
         invoice.ResetSIIKeysEnd,
-        load_pkcs12.LoadPKCS12Start,
         aeat.CreateSiiIssuedPendingView,
         aeat.CreateSiiReceivedPendingView,
         aeat.SIIReport,
@@ -46,5 +42,4 @@ def register():
         invoice.ResetSIIKeys,
         aeat.CreateSiiIssuedPending,
         aeat.CreateSiiReceivedPending,
-        load_pkcs12.LoadPKCS12,
         module='aeat_sii', type_='wizard')

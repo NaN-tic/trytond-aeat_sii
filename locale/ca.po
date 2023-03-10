@@ -358,18 +358,6 @@ msgctxt "field:aeat.sii.report.lines,vat_code:"
 msgid "VAT Code"
 msgstr "NIF/CIF"
 
-msgctxt "field:company.company,encrypted_private_key:"
-msgid "Encrypted Private Key"
-msgstr "Clau privada encriptada"
-
-msgctxt "field:company.company,pem_certificate:"
-msgid "PEM Certificate"
-msgstr "Certificat PEM"
-
-msgctxt "field:company.company,private_key:"
-msgid "Private Key"
-msgstr "Clau privada"
-
 msgctxt "field:party.party,sii_identifier_type:"
 msgid "SII Identifier Type"
 msgstr "SII Identificador"
@@ -510,10 +498,6 @@ msgctxt "model:ir.message,text:msg_delete_cancel"
 msgid "Report \"%(report)s\" must be cancelled before deletion."
 msgstr "L'informe \"%(report)s\" s'ha de cancel·lar abans de poder esborrar-lo."
 
-msgctxt "model:ir.message,text:msg_error_loading_pkcs12"
-msgid "Unable to load PKCS12: %(message)s"
-msgstr "No s'ha pogut llegir PKCS12: %(message)s"
-
 msgctxt "model:ir.message,text:msg_invoices_sii"
 msgid ""
 "The next invoices are related with SII books:\n"
@@ -535,10 +519,6 @@ msgstr "Falta clau Fernte"
 msgctxt "model:ir.message,text:msg_missing_nif"
 msgid "The party of the invoice %(invoice)s must has a valid Tax Identifier."
 msgstr "El tercer de la factura %(invoice)s ha de tenir un NIF válid."
-
-msgctxt "model:ir.message,text:msg_missing_pem_cert"
-msgid "Missing PEM certificate"
-msgstr "Falta certicat PEM"
 
 msgctxt "model:ir.message,text:msg_service_message"
 msgid "%(message)s"
@@ -1723,10 +1703,6 @@ msgstr "Tingueu en compte que aquesta operació pot trigar uns minuts."
 msgctxt "view:aeat.sii.issued.pending.view:"
 msgid "The AEAT SII Pending Issued Ivoices books will be create."
 msgstr "Els llibres de les factures enviades pendents seran creats."
-
-msgctxt "view:aeat.sii.load_pkcs12.start:"
-msgid "Load PKCS12"
-msgstr "Carrega PKCS12"
 
 msgctxt "view:aeat.sii.received.pending.view:"
 msgid "Note that this operation may take a few minutes."
