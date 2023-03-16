@@ -18,6 +18,7 @@ from trytond.config import config
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 from trytond.tools import grouped_slice
+from trytond.modules.account.exceptions import FiscalYearNotFoundError
 from . import tools
 from . import service
 
@@ -346,9 +347,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     @staticmethod
     def default_fiscalyear():
-        FiscalYear = Pool().get('account.fiscalyear')
-        return FiscalYear.find(
-            Transaction().context.get('company'), exception=False)
+        pool = Pool()
+        FiscalYear = pool.get('account.fiscalyear')
+        try:
+            fiscalyear = FiscalYear.find(
+                Transaction().context.get('company'), test_state=False)
+        except FiscalYearNotFoundError:
+            return None
+        return fiscalyear.id
 
     @staticmethod
     def default_state():
