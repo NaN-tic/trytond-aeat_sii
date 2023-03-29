@@ -966,8 +966,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             issued_invs = Invoice.search([
                     ('company', '=', company),
+                    ('state', 'in', ['posted', 'paid']),
                     ('sii_pending_sending', '=', True),
-                    ('sii_state', '=', 'Correcto'),
+                    ('sii_state', 'in', ('Correcto', 'AceptadoConErrores')),
                     ('sii_header', '!=', None),
                     ('type', '=', 'out'),
                     ])
@@ -983,8 +984,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 sii_record = SIIReportLine(sii_record_id)
                 if issued_inv.sii_header:
                     if sii_record.sii_header and (
-                            literal_eval(issued_inv.sii_header) ==
-                            literal_eval(sii_record.sii_header)):
+                            literal_eval(issued_inv.sii_header)
+                            == literal_eval(sii_record.sii_header)):
                         modify_issued_invoices.append(issued_inv)
                     else:
                         delete_issued_invoices.append(issued_inv)
@@ -1050,8 +1051,9 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             received_invs = Invoice.search([
                     ('company', '=', company),
+                    ('state', 'in', ['posted', 'paid']),
                     ('sii_pending_sending', '=', True),
-                    ('sii_state', '=', 'Correcto'),
+                    ('sii_state', 'in', ('Correcto', 'AceptadoConErrores')),
                     ('sii_header', '!=', None),
                     ('type', '=', 'in'),
                     ])
@@ -1066,8 +1068,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 sii_record = SIIReportLine(sii_record_id)
                 if received_inv.sii_header:
                     if sii_record.sii_header and (
-                            literal_eval(received_inv.sii_header) ==
-                            literal_eval(sii_record.sii_header)):
+                            literal_eval(received_inv.sii_header)
+                            == literal_eval(sii_record.sii_header)):
                         modify_received_invoices.append(received_inv)
                     else:
                         delete_received_invoices.append(received_inv)
@@ -1093,6 +1095,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             # search received invoices [new]
             new_received_invoices = Invoice.search([
                     ('company', '=', company),
+                    ('state', 'in', ['posted', 'paid']),
                     ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
                     ('sii_pending_sending', '=', True),
                     ('type', '=', 'in'),
