@@ -11,6 +11,7 @@ from . import account
 from . import aeat_mapping
 from . import sale
 from . import purchase
+from . import contract
 
 
 def register():
@@ -33,6 +34,10 @@ def register():
         aeat.SIIReportLineTax,
         aeat_mapping.IssuedInvoiceMapper,
         aeat_mapping.RecievedInvoiceMapper,
+        module='aeat_sii', type_='model')
+    Pool.register(
+        contract.ContractConsumption,
+        depends=['contract'],
         module='aeat_sii', type_='model')
     Pool.register(
         sale.Sale,
