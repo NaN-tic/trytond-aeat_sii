@@ -260,8 +260,14 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def cancel(cls, invoices):
-        cls.write(invoices, {'sii_pending_sending': False})
-        return super(Invoice, cls).cancel(invoices)
+        result = super(Invoice, cls).cancel(invoices)
+        to_write = []
+        for invoice in invoices:
+            if not invoice.cancel_move:
+                to_write.append(invoice)
+        if to_write:
+            cls.write(to_write, {'sii_pending_sending': False})
+        return result
 
     @classmethod
     def get_sii_header(cls, invoice, delete):
