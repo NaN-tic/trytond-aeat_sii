@@ -581,8 +581,8 @@ msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
 msgstr "La factura \"%(invoice)s\" està duplicada en el Llibre SII \"%(report)s\"."
 
 msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
-msgid "Invoice \"%(invoice)s\" must be posted or paid."
-msgstr "La factura \"%(invoice)s\" ha d'estar comptabilitzada o pagada."
+msgid "Invoice \"%(invoice)s\" must be posted, paid or refunded."
+msgstr "La factura \"%(invoice)s\" ha d'estar comptabilitzada, pagada o abonada."
 
 msgctxt "model:ir.model.button,string:cancel_button"
 msgid "Cancel"
