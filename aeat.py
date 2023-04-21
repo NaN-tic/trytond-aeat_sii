@@ -500,7 +500,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     def check_invoice_state(self):
         for line in self.lines:
-            if line.invoice and line.invoice.state not in ('posted', 'paid'):
+            if (line.invoice
+                    and (line.invoice.state in ('draft', 'validated')
+                        or (line.invoice.state == 'cancelled'
+                            and line.invoice.cancel_move == None))):
                 raise UserError(gettext(
                     'aeat_sii.msg_report_wrong_invoice_state',
                     invoice=line.invoice.rec_name))
@@ -517,7 +520,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             domain = [
                 ('sii_book_key', '=', report.book),
                 ('move.period', '=', report.period.id),
-                ('state', 'in', ['posted', 'paid']),
+                ['OR',
+                    ('state', 'in', ['posted', 'paid']),
+                    [
+                        ('state', '=', 'cancelled'),
+                        ('cancel_move', '!=', None)
+                        ],
+                    ],
                 ('sii_pending_sending', '=', True),
             ]
 
@@ -972,7 +981,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
             issued_invs = Invoice.search([
                     ('company', '=', company),
-                    ('state', 'in', ['posted', 'paid']),
+                    ['OR',
+                        ('state', 'in', ['posted', 'paid']),
+                        [
+                            ('state', '=', 'cancelled'),
+                            ('cancel_move', '!=', None)
+                            ],
+                        ],
                     ('sii_pending_sending', '=', True),
                     ('sii_state', 'in', ('Correcto', 'AceptadoConErrores')),
                     ('sii_header', '!=', None),
@@ -1018,7 +1033,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             new_issued_invoices = Invoice.search([
                     ('company', '=', company),
                     ('sii_book_key', '=', 'E'),
-                    ('state', 'in', ['posted', 'paid']),
+                    ['OR',
+                        ('state', 'in', ['posted', 'paid']),
+                        [
+                            ('state', '=', 'cancelled'),
+                            ('cancel_move', '!=', None)
+                            ],
+                        ],
                     ('sii_state', 'in', (None, 'Incorrecto', 'Anulada')),
                     ('sii_pending_sending', '=', True),
                     ('type', '=', 'out'),
