@@ -9,3 +9,4 @@ class ContractConsumption(metaclass=PoolMeta):
         Invoice = pool.get('account.invoice')
         invoices = super()._invoice(consumptions)
         Invoice.reset_sii_keys(invoices)
+        return invoices
