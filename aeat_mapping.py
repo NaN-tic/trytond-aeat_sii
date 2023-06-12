@@ -121,6 +121,9 @@ class BaseInvoiceMapper(Model):
         return (invoice.invoice_address.country.code
             if invoice.invoice_address.country else '')
 
+    def serial_number(self, invoice):
+        return invoice.number if invoice.type == 'out' else invoice.reference
+
     def final_serial_number(self, invoice):
         pool = Pool()
         SaleLine = pool.get('sale.line')
@@ -228,7 +231,6 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
     Tryton Issued Invoice to AEAT mapper
     """
     __name__ = 'aeat.sii.issued.invoice.mapper'
-    serial_number = attrgetter('number')
     specialkey_or_trascendence = attrgetter('sii_issued_key')
 
     def _is_first_semester(self, invoice):
@@ -439,7 +441,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
     Tryton Recieved Invoice to AEAT mapper
     """
     __name__ = 'aeat.sii.recieved.invoice.mapper'
-    serial_number = attrgetter('reference')
     specialkey_or_trascendence = attrgetter('sii_received_key')
     move_date = attrgetter('move.date')
 
