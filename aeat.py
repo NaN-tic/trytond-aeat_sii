@@ -1301,7 +1301,9 @@ class SIIReportLine(ModelSQL, ModelView):
         return self.invoice.sii_operation_key if self.invoice else None
 
     def get_vat_code(self, name):
-        if self.invoice and self.invoice.party_tax_identifier:
+        if self.identifier_type and self.identifier_type == 'SI':
+            return None
+        elif self.invoice and self.invoice.party_tax_identifier:
             return self.invoice.party_tax_identifier.code
         elif self.invoice and self.invoice.party.tax_identifier:
             return self.invoice.party.tax_identifier.code
