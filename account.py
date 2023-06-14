@@ -13,6 +13,8 @@ __all__ = ['Configuration', 'TemplateTax', 'Tax']
 
 class Configuration(metaclass=PoolMeta):
     __name__ = 'account.configuration'
+    aeat_certificate_sii = fields.Many2One('certificate',
+        'AEAT Certificate SII')
     aeat_pending_sii = fields.Boolean('AEAT Pending SII',
         help='Automatically generate AEAT Pending SII reports by cron')
     aeat_pending_sii_send = fields.Boolean('AEAT Pending SII Send',
