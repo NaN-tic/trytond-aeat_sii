@@ -6,9 +6,6 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="msg_missing_fernet_key">
             <field name="text">Missing Fernet key configuration</field>
         </record>
-        <record model="ir.message" id="msg_missing_pem_cert">
-            <field name="text">Missing PEM certificate</field>
-        </record>
         <record model="ir.message" id="msg_delete_cancel">
             <field name="text">Report "%(report)s" must be cancelled before deletion.</field>
         </record>
@@ -19,9 +16,6 @@ If you edit them take care if you need to update again to SII</field>
         </record>
         <record model="ir.message" id="msg_invoices_sii_pending">
             <field name="text">The next invoices are related with SII books on draft state.</field>
-        </record>
-        <record model="ir.message" id="msg_error_loading_pkcs12">
-            <field name="text">Unable to load PKCS12: %(message)s</field>
         </record>
       <record model="ir.message" id="reports_exist">
           <field name="text">There are some reports in draft and/or confirmed. Any report won't be created until this reports will be processed.</field>
