@@ -4,6 +4,8 @@ copyright notices and license types. -->
 <data>
     <xpath expr="/form/separator[@id='invoice']" position="before">
         <separator id="aeat_sii" string="AEAT SII" colspan="4"/>
+        <label name="aeat_certificate_sii"/>
+        <field name="aeat_certificate_sii"/>
         <label name="aeat_pending_sii"/>
         <field name="aeat_pending_sii"/>
         <label name="aeat_pending_sii_send"/>

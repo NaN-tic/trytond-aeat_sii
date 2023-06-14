@@ -553,7 +553,21 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         if to_create:
             ReportLine.create(to_create)
 
+    def _get_certificate(self):
+        Configuration = Pool().get('account.configuration')
+        config = Configuration(1)
+
+        certificate = config.aeat_certificate_sii
+        if not certificate:
+            _logger.info('Missing AEAT Certificate SII configuration')
+        return certificate
+
     def submit_issued_invoices(self):
+        # get certificate from company
+        certificate = self._get_certificate()
+        if not certificate:
+            return
+
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
         else:
@@ -564,7 +578,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 comm_kind=self.operation_type,
                 version=self.version)
 
-            with self.company.tmp_ssl_credentials() as (crt, key):
+            with certificate.tmp_ssl_credentials() as (crt, key):
                 srv = service.bind_issued_invoices_service(
                     crt, key, test=SII_TEST)
                 try:
@@ -595,6 +609,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         self._save_response(self.response)
 
     def delete_issued_invoices(self):
+        # get certificate from company
+        certificate = self._get_certificate()
+        if not certificate:
+            return
+
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
         else:
@@ -605,7 +624,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 comm_kind=self.operation_type,
                 version=self.version)
 
-            with self.company.tmp_ssl_credentials() as (crt, key):
+            with certificate.tmp_ssl_credentials() as (crt, key):
                 srv = service.bind_issued_invoices_service(
                     crt, key, test=SII_TEST)
                 try:
@@ -628,13 +647,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLine = pool.get('aeat.sii.report.lines')
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
 
+        # get certificate from company
+        certificate = self._get_certificate()
+        if not certificate:
+            return
+
         headers = tools.get_headers(
             name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
 
-        with self.company.tmp_ssl_credentials() as (crt, key):
+        with certificate.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_issued_invoices_service(
                 crt, key, test=SII_TEST)
             res = srv.query(
@@ -749,6 +773,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             self.query_issued_invoices(last_invoice=last_invoice)
 
     def submit_recieved_invoices(self):
+        # get certificate from company
+        certificate = self._get_certificate()
+        if not certificate:
+            return
+
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
         else:
@@ -759,7 +788,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 comm_kind=self.operation_type,
                 version=self.version)
 
-            with self.company.tmp_ssl_credentials() as (crt, key):
+            with certificate.tmp_ssl_credentials() as (crt, key):
                 srv = service.bind_recieved_invoices_service(
                     crt, key, test=SII_TEST)
                 try:
@@ -789,6 +818,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         self._save_response(self.response)
 
     def delete_recieved_invoices(self):
+        # get certificate from company
+        certificate = self._get_certificate()
+        if not certificate:
+            return
+
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
         else:
@@ -799,7 +833,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 comm_kind=self.operation_type,
                 version=self.version)
 
-            with self.company.tmp_ssl_credentials() as (crt, key):
+            with certificate.tmp_ssl_credentials() as (crt, key):
                 try:
                     srv = service.bind_recieved_invoices_service(
                         crt, key, test=SII_TEST)
@@ -842,13 +876,18 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReportLine = pool.get('aeat.sii.report.lines')
         SIIReportLineTax = pool.get('aeat.sii.report.line.tax')
 
+        # get certificate from company
+        certificate = self._get_certificate()
+        if not certificate:
+            return
+
         headers = tools.get_headers(
             name=tools.unaccent(self.company.party.name),
             vat=self.company_vat,
             comm_kind=self.operation_type,
             version=self.version)
 
-        with self.company.tmp_ssl_credentials() as (crt, key):
+        with certificate.tmp_ssl_credentials() as (crt, key):
             srv = service.bind_recieved_invoices_service(
                 crt, key, test=SII_TEST)
             res = srv.query(
