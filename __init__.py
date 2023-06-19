@@ -15,6 +15,7 @@ from . import contract
 def register():
     Pool.register(
         account.Configuration,
+        account.ConfigurationDefaultSII,
         account.TemplateTax,
         account.Tax,
         cron.Cron,

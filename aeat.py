@@ -566,13 +566,12 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         certificate = config.aeat_certificate_sii
         if not certificate:
             _logger.info('Missing AEAT Certificate SII configuration')
+            raise UserError(gettext('aeat_sii.msg_missing_certificate'))
         return certificate
 
     def submit_issued_invoices(self):
         # get certificate from company
         certificate = self._get_certificate()
-        if not certificate:
-            return
 
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
@@ -617,8 +616,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_issued_invoices(self):
         # get certificate from company
         certificate = self._get_certificate()
-        if not certificate:
-            return
 
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
@@ -655,8 +652,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         # get certificate from company
         certificate = self._get_certificate()
-        if not certificate:
-            return
 
         headers = tools.get_headers(
             name=tools.unaccent(self.company.party.name),
@@ -781,8 +776,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def submit_recieved_invoices(self):
         # get certificate from company
         certificate = self._get_certificate()
-        if not certificate:
-            return
 
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
@@ -826,8 +819,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     def delete_recieved_invoices(self):
         # get certificate from company
         certificate = self._get_certificate()
-        if not certificate:
-            return
 
         if self.state != 'confirmed':
             _logger.info('This report %s has already been sended', self.id)
@@ -884,8 +875,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
         # get certificate from company
         certificate = self._get_certificate()
-        if not certificate:
-            return
 
         headers = tools.get_headers(
             name=tools.unaccent(self.company.party.name),

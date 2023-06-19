@@ -38,5 +38,8 @@ If you edit them take care if you need to update again to SII</field>
         <record model="ir.message" id="msg_set_simplified_invoice">
             <field name="text">The invoice "%(invoices)s" has not VAT and SII operation key is Simplified Invoice (ticket) and Invoices without destination identification.</field>
         </record>
+        <record model="ir.message" id="msg_missing_certificate">
+            <field name="text">There isn't a certificate deffined in the account configuration for the SII.</field>
+        </record>
     </data>
 </tryton>
