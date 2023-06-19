@@ -1,18 +1,64 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from trytond.model import fields
-from trytond.pool import PoolMeta
+from trytond.model import fields, ModelSQL
+from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
+from trytond.modules.company.model import CompanyValueMixin
 from .aeat import (BOOK_KEY, OPERATION_KEY, SEND_SPECIAL_REGIME_KEY,
     RECEIVE_SPECIAL_REGIME_KEY, IVA_SUBJECTED, EXEMPTION_CAUSE)
 
 
-__all__ = ['Configuration', 'TemplateTax', 'Tax']
-
-
 class Configuration(metaclass=PoolMeta):
     __name__ = 'account.configuration'
+
+    aeat_certificate_sii = fields.MultiValue(fields.Many2One('certificate',
+        'AEAT Certificate SII'))
+    aeat_pending_sii = fields.MultiValue(fields.Boolean('AEAT Pending SII',
+        help='Automatically generate AEAT Pending SII reports by cron'))
+    aeat_pending_sii_send = fields.MultiValue(fields.Boolean('AEAT Pending SII Send',
+        states={
+            'invisible': ~Eval('aeat_pending_sii', False),
+        }, depends=['aeat_pending_sii'],
+        help='Automatically send AEAT Pending SII reports by cron'))
+    aeat_received_sii = fields.MultiValue(fields.Boolean('AEAT Received SII',
+        help='Automatically generate AEAT Received SII reports by cron'))
+    aeat_received_sii_send = fields.MultiValue(fields.Boolean('AEAT Received SII Send',
+        states={
+            'invisible': ~Eval('aeat_received_sii', False),
+        }, depends=['aeat_received_sii'],
+        help='Automatically send AEAT Received SII reports by cron'))
+
+    @classmethod
+    def multivalue_model(cls, field):
+        pool = Pool()
+        if field in {'aeat_certificate_sii', 'aeat_pending_sii',
+                'aeat_pending_sii_send', 'aeat_received_sii',
+                'aeat_received_sii_send'}:
+            return pool.get('account.configuration.default_sii')
+        return super().multivalue_model(field)
+
+    @classmethod
+    def default_aeat_pending_sii(cls, **pattern):
+        return False
+
+    @classmethod
+    def default_aeat_received_sii(cls, **pattern):
+        return False
+
+    @classmethod
+    def default_aeat_pending_sii_send(cls, **pattern):
+        return False
+
+    @classmethod
+    def default_aeat_received_sii_send(cls, **pattern):
+        return False
+
+
+class ConfigurationDefaultSII(ModelSQL, CompanyValueMixin):
+    "Account Configuration Default SII Values"
+    __name__ = 'account.configuration.default_sii'
+
     aeat_certificate_sii = fields.Many2One('certificate',
         'AEAT Certificate SII')
     aeat_pending_sii = fields.Boolean('AEAT Pending SII',
@@ -29,22 +75,6 @@ class Configuration(metaclass=PoolMeta):
             'invisible': ~Eval('aeat_received_sii', False),
         }, depends=['aeat_received_sii'],
         help='Automatically send AEAT Received SII reports by cron')
-
-    @staticmethod
-    def default_aeat_pending_sii():
-        return False
-
-    @staticmethod
-    def default_aeat_received_sii():
-        return False
-
-    @staticmethod
-    def default_aeat_pending_sii_send():
-        return False
-
-    @staticmethod
-    def default_aeat_received_sii_send():
-        return False
 
 
 class TemplateTax(metaclass=PoolMeta):
