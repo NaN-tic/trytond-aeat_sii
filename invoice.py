@@ -133,7 +133,7 @@ class Invoice(metaclass=PoolMeta):
             if not invoice.sii_operation_key:
                 invoice.sii_operation_key = invoice._get_sii_operation_key()
             values = invoice._save_values
-            if invoice == 'posted':
+            if invoice.state in ('posted', 'paid'):
                 values['sii_sending_pending'] = True
             to_write.extend(([invoice], values))
 

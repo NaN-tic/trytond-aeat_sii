@@ -564,6 +564,13 @@ msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
 msgid "Invoice \"%(invoice)s\" must be posted, paid or refunded."
 msgstr "La factura \"%(invoice)s\" ha d'estar comptabilitzada, pagada o abonada."
 
+msgctxt "model:ir.message,text:msg_missing_certificate"
+msgid ""
+"There isn't a certificate deffined in the account configuration for the SII."
+msgstr ""
+"No exiteix cap certificat definit a la configuració comptable per "
+"l'enviament del SII."
+
 msgctxt "model:ir.model.button,string:cancel_button"
 msgid "Cancel"
 msgstr "Cancel·la"
