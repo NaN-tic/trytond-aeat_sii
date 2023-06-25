@@ -186,9 +186,9 @@ class Invoice(metaclass=PoolMeta):
     def get_simplified_invoices(cls, invoices):
         simplified_invoices = []
         for invoice in invoices:
-            if invoice.sii_operation_key:
-                continue
-            if invoice.party.sii_identifier_type == 'SI':
+            if (invoice.party.sii_identifier_type == 'SI'
+                    and invoice.sii_operation_key
+                    and invoice.sii_operation_key != 'F2'):
                 simplified_invoices.append(invoice)
 
         return simplified_invoices
@@ -201,10 +201,8 @@ class Invoice(metaclass=PoolMeta):
         simplified_invoices = cls.get_simplified_invoices(invoices)
         if simplified_invoices:
             names = ', '.join(m.rec_name for m in simplified_invoices[:5])
-        if len(simplified_invoices) > 5:
-            names += '...'
-
-        if simplified_invoices:
+            if len(simplified_invoices) > 5:
+                names += '...'
             warning_name = ('%s.aeat_sii_simplified_invoice' % hashlib.md5(
                     str(simplified_invoices).encode('utf-8')).hexdigest())
             if Warning.check(warning_name):
@@ -214,7 +212,8 @@ class Invoice(metaclass=PoolMeta):
     @classmethod
     def aeat_sii_invoices(cls, invoices):
         simplified_invoices = cls.get_simplified_invoices(invoices)
-        cls.write(simplified_invoices, {'sii_operation_key': 'F2'})
+        if simplified_invoices:
+            cls.write(simplified_invoices, {'sii_operation_key': 'F2'})
 
     @classmethod
     def post(cls, invoices):
