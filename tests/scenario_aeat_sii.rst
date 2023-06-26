@@ -26,6 +26,10 @@ Create company::
 
     >>> _ = create_company()
     >>> company = get_company()
+    >>> tax_identifier = company.party.identifiers.new()
+    >>> tax_identifier.type = 'eu_vat'
+    >>> tax_identifier.code = 'ES01234567L'
+    >>> company.party.save()
 
 Create fiscal year::
 
@@ -69,7 +73,18 @@ Create party::
 
     >>> Party = Model.get('party.party')
     >>> party = Party(name='Party')
+    >>> party.sii_identifier_type
+    'SI'
+    >>> party.sii_identifier_type = None
+    >>> tax_identifier = company.party.identifiers.new()
+    >>> tax_identifier.type = 'eu_vat'
+    >>> tax_identifier.code = 'ES01234567L'
     >>> party.save()
+
+Create Simplified Invoice party::
+
+    >>> simplified_party = Party(name='Party')
+    >>> simplified_party.save()
 
 Create account category::
 
@@ -225,7 +240,7 @@ Create simplified invoice::
     >>> Invoice = Model.get('account.invoice')
     >>> InvoiceLine = Model.get('account.invoice.line')
     >>> simplified_invoice = Invoice()
-    >>> simplified_invoice.party = party
+    >>> simplified_invoice.party = simplified_party
     >>> simplified_invoice.payment_term = payment_term
     >>> line = InvoiceLine()
     >>> simplified_invoice.lines.append(line)
