@@ -34,25 +34,23 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     @classmethod
     def set_sii_identifier_type(cls, identifiers):
-        Party = Pool().get('party.party')
+        pool = Pool()
+        Party = pool.get('party.party')
 
         to_write = []
         for identifier in identifiers:
-            write = True
-            type_ = identifier.type
-            if type_ == 'eu_vat':
-                if identifier.code.startswith('ES'):
-                    sii_identifier_type = None
-                else:
-                    sii_identifier_type = '02'
-            elif type_ != 'eu_at_02':
+            if ((identifier.type == 'eu_vat' and identifier.code[:2] == 'ES')
+                    or identifier.type in ('es_cif', 'es_dni', 'es_nie',
+                        'es_nif')):
+                sii_identifier_type = None
+            elif identifier.type == 'eu_vat':
+                sii_identifier_type = '02'
+            elif identifier.type == 'eu_at_02':
                 continue
             else:
                 sii_identifier_type = '06'
-
-            if write:
-                to_write.extend(([identifier.party], {
-                    'sii_identifier_type': sii_identifier_type}))
+            to_write.extend(([identifier.party], {
+                'sii_identifier_type': sii_identifier_type}))
 
         if to_write:
             Party.write(*to_write)
@@ -73,3 +71,21 @@ class PartyIdentifier(metaclass=PoolMeta):
         actions = iter(args)
         for identifiers, values in zip(actions, actions):
             cls.set_sii_identifier_type(get_identifiers(identifiers))
+
+    @classmethod
+    def delete(cls, identifiers):
+        pool = Pool()
+        Party = pool.get('party.party')
+
+        parties = [i.party for i in identifiers]
+        super().delete(identifiers)
+        to_write = []
+        for party in parties:
+            if not party.tax_identifier:
+                to_write.extend(([party], {
+                    'sii_identifier_type': 'SI'}))
+            else:
+                cls.set_sii_identifier_type(party.identifiers)
+
+        if to_write:
+            Party.write(*to_write)
