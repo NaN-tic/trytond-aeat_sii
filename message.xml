@@ -41,5 +41,8 @@ If you edit them take care if you need to update again to SII</field>
         <record model="ir.message" id="msg_missing_certificate">
             <field name="text">There isn't a certificate deffined in the account configuration for the SII.</field>
         </record>
+        <record model="ir.message" id="msg_invoice_in_missing_ref">
+            <field name="text">The invoices "%(invoices)s" haven't got reference.</field>
+        </record>
     </data>
 </tryton>

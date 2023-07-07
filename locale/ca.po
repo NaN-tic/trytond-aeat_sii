@@ -498,6 +498,10 @@ msgctxt "model:ir.message,text:msg_delete_cancel"
 msgid "Report \"%(report)s\" must be cancelled before deletion."
 msgstr "L'informe \"%(report)s\" s'ha de cancel·lar abans de poder esborrar-lo."
 
+msgctxt "model:ir.message,text:msg_invoice_in_missing_ref"
+msgid "The invoices \"%(invoices)s\" haven't got reference."
+msgstr "Les factures \"%(invoices)s\" no tenen referència."
+
 msgctxt "model:ir.message,text:msg_invoices_sii"
 msgid ""
 "The next invoices are related with SII books:\n"
