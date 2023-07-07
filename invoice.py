@@ -217,6 +217,9 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def post(cls, invoices):
+        pool = Pool()
+        Warning = pool.get('res.user.warning')
+
         to_write = []
 
         invoices2checksii = []
@@ -251,6 +254,20 @@ class Invoice(metaclass=PoolMeta):
                             invoice=invoice))
         if to_write:
             cls.write(*to_write)
+
+        # Control that the in ivoices have reference.
+        invoices_wo_ref = [i for i in invoices if i.type == 'in'
+            and not i.reference]
+        if invoices_wo_ref:
+            names = ', '.join(m.rec_name for m in invoices_wo_ref[:5])
+            if len(invoices_wo_ref) > 5:
+                names += '...'
+            warning_key = Warning.format(
+                    'invoice_in_missing_ref', invoices_wo_ref)
+            if Warning.check(warning_key):
+                raise UserWarning(warning_key,
+                    gettext('aeat_sii.msg_invoice_in_missing_ref',
+                        invoices=names))
 
     @classmethod
     def _post(cls, invoices):
