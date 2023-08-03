@@ -189,7 +189,7 @@ class Invoice(metaclass=PoolMeta):
             if (invoice.party.sii_identifier_type == 'SI'
                     and (not invoice.sii_operation_key
                         or (invoice.sii_operation_key
-                            and invoice.sii_operation_key != 'F2'))):
+                            and invoice.sii_operation_key not in ('F2', 'R5')))):
                 simplified_invoices.append(invoice)
         return simplified_invoices
 
