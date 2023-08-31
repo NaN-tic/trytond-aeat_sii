@@ -181,7 +181,10 @@ class Invoice(metaclass=PoolMeta):
 
     def simplified_serial_number(self, type='first'):
         pool = Pool()
-        SaleLine = pool.get('sale.line')
+        try:
+            SaleLine = pool.get('sale.line')
+        except KeyError:
+            SaleLine = None
 
         if self.type == 'out' and SaleLine is not None:
             origin_numbers = [
@@ -249,12 +252,12 @@ class Invoice(metaclass=PoolMeta):
             first_invoice = invoice.simplified_serial_number('first')
             last_invoice = invoice.simplified_serial_number('last')
             if invoice.total_amount < 0:
-                invoice_keys['R5'].apennd(invoice)
+                invoice_keys['R5'].append(invoice)
             elif ((not first_invoice and not last_invoice)
                     or first_invoice == last_invoice):
-                invoice_keys['F2'].apennd(invoice)
+                invoice_keys['F2'].append(invoice)
             else:
-                invoice_keys['F4'].apennd(invoice)
+                invoice_keys['F4'].append(invoice)
 
         # Ensure that if is used the F4 key on SII operation (Invoice summary
         # entry) have more than one simplified number. If not the invoice will
@@ -265,7 +268,7 @@ class Invoice(metaclass=PoolMeta):
             if (invoice.sii_operation_key == 'F4'
                     and ((not first_invoice and not last_invoice)
                         or first_invoice == last_invoice)):
-                invoice_keys['F2'].apennd(invoice)
+                invoice_keys['F2'].append(invoice)
 
         to_write = []
         for key, invoices in invoice_keys.items():
