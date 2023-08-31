@@ -23,16 +23,6 @@ from . import tools
 from . import service
 
 
-__all__ = [
-    'SIIReport',
-    'SIIReportLine',
-    'SIIReportLineTax',
-    'CreateSiiIssuedPendingView',
-    'CreateSiiIssuedPending',
-    'CreateSiiReceivedPendingView',
-    'CreateSiiReceivedPending',
-]
-
 _logger = getLogger(__name__)
 _ZERO = Decimal('0.0')
 
@@ -530,6 +520,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('sii_pending_sending', '=', True),
             ]
 
+            if report.book == 'E':
+                domain.append(('type', '=', 'out'))
+            else:
+                domain.append(('type', '=', 'in'))
+
             if report.operation_type == 'A0':
                 domain.append(('sii_state', 'in', [None, 'Incorrecto',
                             'Anulada']))
@@ -669,21 +664,24 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 last_invoice=last_invoice)
 
         registers = res.RegistroRespuestaConsultaLRFacturasEmitidas
-        # FIXME: the number can be repeated over time
-        # issue_date: _date(reg.IDFactura.FechaExpedicionFacturaEmisor)
+
+        # Selecte all the invoices in the same period of register asked.
         invoices_list = Invoice.search([
                 ('company', '=', self.company),
-                ('number', 'in', [
-                    reg.IDFactura.NumSerieFacturaEmisor
-                    for reg in registers
-                    ]),
-                ('move', '!=', None),
-                # ('invoice_date', '=', issue_date),
+                ('type', '=', 'out'),
+                ('move.period', '=', self.period),
                 ])
-        invoices_ids = {
-            invoice.number: invoice.id
-            for invoice in invoices_list
-        }
+        invoices_ids = {}
+        # If the invoice is a summary of invices ensure to set the number as
+        # sended to SII. Mergin the invoice number with the first simplified
+        # serial number.
+        for invoice in invoices_list:
+            number = invoice.number
+            if invoice.sii_operation_key == 'F4':
+                first_invoice = invoice.simplified_serial_number('first')
+                number += first_invoice
+            invoices_ids[number] = invoice.id
+
         pagination = res.IndicadorPaginacion
         last_invoice = registers and registers[-1].IDFactura
         lines_to_create = []
@@ -956,6 +954,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('reference', '=', reg.IDFactura.NumSerieFacturaEmisor),
                 ('invoice_date', '=', invoice_date),
                 ('move', '!=', None),
+                ('type', '=', 'in'),
                 ]
             vat = True
             if reg.IDFactura.IDEmisorFactura.NIF:
