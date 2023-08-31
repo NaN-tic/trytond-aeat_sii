@@ -124,17 +124,6 @@ class BaseInvoiceMapper(Model):
     def serial_number(self, invoice):
         return invoice.number if invoice.type == 'out' else invoice.reference
 
-    def final_serial_number(self, invoice):
-        pool = Pool()
-        SaleLine = pool.get('sale.line')
-
-        if SaleLine is not None:
-            return max([
-                line.origin.number
-                for line in invoice.lines
-                if isinstance(line.origin, SaleLine)
-            ])
-
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
                 invoice_tax.tax.tax_used and
@@ -173,15 +162,18 @@ class BaseInvoiceMapper(Model):
         }
 
     def _build_invoice_id(self, invoice):
+        number = self.serial_number(invoice)
         ret = {
             'IDEmisorFactura': self._build_issuer_id(invoice),
-            'NumSerieFacturaEmisor': self.serial_number(invoice),
+            'NumSerieFacturaEmisor': number,
             'FechaExpedicionFacturaEmisor':
                 self.issue_date(invoice).strftime(_DATE_FMT),
         }
         if self.invoice_kind(invoice) == 'F4':
-            ret['NumSerieFacturaEmisorResumenFin'] = \
-                self.final_serial_number(invoice)
+            first_invoice = invoice.simplified_serial_number('first')
+            last_invoice = invoice.simplified_serial_number('last')
+            ret['NumSerieFacturaEmisor'] = number + first_invoice
+            ret['NumSerieFacturaEmisorResumenFin'] = number + last_invoice
         return ret
 
     def _build_counterpart(self, invoice):

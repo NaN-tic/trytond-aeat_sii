@@ -163,14 +163,12 @@ class Invoice(metaclass=PoolMeta):
         to_write = []
         for invoice in invoices:
             to_write.extend(([invoice], {'sii_pending_sending': False}))
-
             if invoice.sii_state:
                 invoices_sii.append('%s: %s' % (
                     invoice.number, invoice.sii_state))
             for record in invoice.sii_records:
                 if record.report.state == 'draft':
                     raise UserError(gettext('aeat_sii.invoices_sii_pending'))
-
         if invoices_sii:
             warning_name = 'invoices_sii.' + hashlib.md5(
                 ''.join(invoices_sii).encode('utf-8')).hexdigest()
@@ -178,27 +176,58 @@ class Invoice(metaclass=PoolMeta):
                 raise UserWarning(warning_name,
                         gettext('aeat_sii.msg_invoices_sii',
                         invoices='\n'.join(invoices_sii)))
-
         if to_write:
             cls.write(*to_write)
 
+    def simplified_serial_number(self, type='first'):
+        pool = Pool()
+        SaleLine = pool.get('sale.line')
+
+        if self.type == 'out' and SaleLine is not None:
+            origin_numbers = [
+                line.origin.number
+                for line in self.lines
+                if isinstance(line.origin, SaleLine)
+                ]
+            if origin_numbers and type == 'first':
+                return min(origin_numbers)
+            elif origin_numbers and type == 'last':
+                return max(origin_numbers)
+            else:
+                return ''
+
     @classmethod
     def get_simplified_invoices(cls, invoices):
-        simplified_invoices = []
+        simplified_parties = []  # Simplified party but not invoice
+        simplified_invoices = []  # Simplified invoice but not party
         for invoice in invoices:
             if (invoice.party.sii_identifier_type == 'SI'
                     and (not invoice.sii_operation_key
-                        or (invoice.sii_operation_key
-                            and invoice.sii_operation_key != 'F2'))):
+                        or (invoice.sii_operation_key not in (
+                            'F2', 'F4', 'R5')))):
+                simplified_parties.append(invoice)
+            if (invoice.sii_operation_key
+                    and invoice.sii_operation_key in ('F2', 'F4', 'R5')
+                    and invoice.party.sii_identifier_type != 'SI'):
                 simplified_invoices.append(invoice)
-        return simplified_invoices
+        return simplified_parties, simplified_invoices
 
     @classmethod
     def check_aeat_sii_invoices(cls, invoices):
         pool = Pool()
         Warning = pool.get('res.user.warning')
 
-        simplified_invoices = cls.get_simplified_invoices(invoices)
+        simplified_parties, simplified_invoices = cls.get_simplified_invoices(
+            invoices)
+        if simplified_parties:
+            names = ', '.join(m.rec_name for m in simplified_parties[:5])
+            if len(simplified_parties) > 5:
+                names += '...'
+            warning_name = ('%s.aeat_sii_simplified_party' % hashlib.md5(
+                    str(simplified_parties).encode('utf-8')).hexdigest())
+            if Warning.check(warning_name):
+                raise UserWarning(warning_name, gettext(
+                    'aeat_sii.msg_set_simplified_party', invoices=names))
         if simplified_invoices:
             names = ', '.join(m.rec_name for m in simplified_invoices[:5])
             if len(simplified_invoices) > 5:
@@ -210,10 +239,39 @@ class Invoice(metaclass=PoolMeta):
                     'aeat_sii.msg_set_simplified_invoice', invoices=names))
 
     @classmethod
-    def aeat_sii_invoices(cls, invoices):
-        simplified_invoices = cls.get_simplified_invoices(invoices)
-        if simplified_invoices:
-            cls.write(simplified_invoices, {'sii_operation_key': 'F2'})
+    def simplified_aeat_sii_invoices(cls, invoices):
+        simplified_parties, simplified_invoices = cls.get_simplified_invoices(
+            invoices)
+        invoice_keys = {'F2': [], 'F4': [], 'R5': []}
+        # If the user accept the warning about change the key in the invoice,
+        # because the party has the Simplified key, change the key.
+        for invoice in simplified_parties:
+            first_invoice = invoice.simplified_serial_number('first')
+            last_invoice = invoice.simplified_serial_number('last')
+            if invoice.total_amount < 0:
+                invoice_keys['R5'].apennd(invoice)
+            elif ((not first_invoice and not last_invoice)
+                    or first_invoice == last_invoice):
+                invoice_keys['F2'].apennd(invoice)
+            else:
+                invoice_keys['F4'].apennd(invoice)
+
+        # Ensure that if is used the F4 key on SII operation (Invoice summary
+        # entry) have more than one simplified number. If not the invoice will
+        # be declined, so we change the key before send.
+        for invoice in simplified_invoices:
+            first_invoice = invoice.simplified_serial_number('first')
+            last_invoice = invoice.simplified_serial_number('last')
+            if (invoice.sii_operation_key == 'F4'
+                    and ((not first_invoice and not last_invoice)
+                        or first_invoice == last_invoice)):
+                invoice_keys['F2'].apennd(invoice)
+
+        to_write = []
+        for key, invoices in invoice_keys.items():
+            to_write.extend((invoices, {'sii_operation_key': key}))
+        if to_write:
+            cls.write(*to_write)
 
     @classmethod
     def post(cls, invoices):
@@ -272,7 +330,7 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def _post(cls, invoices):
-        cls.aeat_sii_invoices(invoices)
+        cls.simplified_aeat_sii_invoices(invoices)
         super(Invoice, cls)._post(invoices)
 
     @classmethod
