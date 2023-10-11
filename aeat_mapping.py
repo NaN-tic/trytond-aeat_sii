@@ -8,7 +8,6 @@ from datetime import date
 
 from trytond.i18n import gettext
 from trytond.model import Model
-from trytond.pool import Pool
 from trytond.exceptions import UserError
 from . import tools
 
