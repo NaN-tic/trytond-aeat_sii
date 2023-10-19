@@ -666,7 +666,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 ('move.period', '=', self.period),
                 ])
         invoices_ids = {}
-        # If the invoice is a summary of invices ensure to set the number as
+        # If the invoice is a summary of invoices, ensure to set the number as
         # sended to SII. Mergin the invoice number with the first simplified
         # serial number.
         for invoice in invoices_list:
