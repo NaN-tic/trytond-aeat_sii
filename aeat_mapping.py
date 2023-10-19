@@ -122,7 +122,7 @@ class BaseInvoiceMapper(Model):
             if invoice.invoice_address.country else '')
 
     def serial_number(self, invoice):
-        return invoice.number if invoice.type == 'out' else invoice.reference
+        return invoice.number if invoice.type == 'out' else (invoice.reference or '')
 
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
