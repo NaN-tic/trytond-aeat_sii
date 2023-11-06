@@ -267,7 +267,7 @@ Create simplified invoice::
        ...
     UserWarning: ...
     >>> Warning = Model.get('res.user.warning')
-    >>> Warning(user=config.user, name=key).save()
+    >>> Warning.skip(key, True, config.context)
     >>> simplified_invoice.click('post')
     >>> simplified_invoice.state == 'posted'
     True
