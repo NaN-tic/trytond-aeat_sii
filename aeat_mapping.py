@@ -245,6 +245,10 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         }
 
     def build_taxes(self, tax):
+        # in case tax base is 0, return empty dict
+        if self.tax_base(tax) == Decimal(0):
+            return {}
+
         res = {
             'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
             'BaseImponible': self.tax_base(tax),
@@ -525,8 +529,10 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             #   BaseRectificada, CuotaRectificada, CuotaRecargoRectificado }
 
     def build_taxes(self, invoice, tax):
-        if tax.base is None and tax.amount is None:
-            return
+        # in case tax base is 0, return empty dict
+        if self.tax_base(tax) == Decimal(0):
+            return {}
+
         ret = {
             'BaseImponible': self.tax_base(tax),
         }
