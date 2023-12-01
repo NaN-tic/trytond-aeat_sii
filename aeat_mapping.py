@@ -325,7 +325,8 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 'DesgloseFactura': detail
             })
 
-        for tax in self.taxes(invoice):
+        taxes = self.taxes(invoice)
+        for tax in taxes:
             exempt_kind = self.exempt_kind(tax.tax)
             not_exempt_kind = self.not_exempt_kind(tax.tax)
             if (not_exempt_kind in ('S2', 'S3') and
@@ -390,7 +391,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 detail.pop(key)
 
         if must_detail_op:
-            if not tax:
+            if not taxes:
                 if self.not_subject(invoice):
                     ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
                         'PrestacionServicios')
