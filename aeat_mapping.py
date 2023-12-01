@@ -373,15 +373,15 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                             }
                         }
                     })
-        if self.not_subject(invoice):
-            detail['NoSujeta'].update({
-                    'ImportePorArticulos7_14_Otros': self.not_subject(
-                        invoice),
-                    })
         if self.location_rules(invoice):
             detail['NoSujeta'].update({
                     'ImporteTAIReglasLocalizacion': self.location_rules(
                         invoice)
+                    })
+        elif self.not_subject(invoice):
+            detail['NoSujeta'].update({
+                    'ImportePorArticulos7_14_Otros': self.not_subject(
+                        invoice),
                     })
 
         # remove unused key
@@ -390,11 +390,18 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 detail.pop(key)
 
         if must_detail_op:
-            if tax.tax.service:
-                ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
+            if not tax:
+                if self.not_subject(invoice):
+                    ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
+                        'PrestacionServicios')
+                elif self.location_rules(invoice):
+                    ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
             else:
-                ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
-                    'PrestacionServicios')
+                if tax.tax.service:
+                    ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
+                else:
+                    ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
+                        'PrestacionServicios')
 
         self._update_total_amount(ret, invoice)
         self._update_rectified_invoice(ret, invoice)
