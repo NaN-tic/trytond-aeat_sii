@@ -245,8 +245,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         }
 
     def build_taxes(self, tax):
-        # in case tax base is 0, return empty dict
-        if self.tax_base(tax) == Decimal(0):
+        if not tax:
             return {}
 
         res = {
@@ -254,6 +253,10 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             'BaseImponible': self.tax_base(tax),
             'CuotaRepercutida': self.tax_amount(tax)
             }
+
+        # In case base is 0, return only the tax, not the possible IRPF.
+        if self.tax_base(tax) == Decimal(0):
+            return res
 
         if self.tax_equivalence_surcharge_rate(tax):
             res['TipoRecargoEquivalencia'] = (
@@ -537,31 +540,37 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             #   BaseRectificada, CuotaRectificada, CuotaRecargoRectificado }
 
     def build_taxes(self, invoice, tax):
-        # in case tax base is 0, return empty dict
-        if self.tax_base(tax) == Decimal(0):
+        if not tax:
             return {}
-
-        ret = {
-            'BaseImponible': self.tax_base(tax),
-        }
-        if self.specialkey_or_trascendence(invoice) != '02':
-            ret['TipoImpositivo'] = tools._rate_to_percent(self.tax_rate(tax))
-            ret['CuotaSoportada'] = self.tax_amount(tax)
-            if self.tax_equivalence_surcharge_rate(tax):
-                ret['TipoRecargoEquivalencia'] = \
-                    tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
-                            tax))
-            if self.tax_equivalence_surcharge_amount(tax):
-                ret['CuotaRecargoEquivalencia'] = \
-                    self.tax_equivalence_surcharge_amount(tax)
-            bieninversion = all(map(lambda w: w in tax.tax.name, (
-                        'bien', 'inversión')))
-            ret['BienInversion'] = 'S' if bieninversion else 'N'
+        # In case base is 0, return only the tax, not the possible IRPF.
+        if self.tax_base(tax) == Decimal(0):
+            ret = {
+                'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
+                'BaseImponible': Decimal(0),
+                'CuotaSoportada': Decimal(0),
+            }
         else:
-            ret['PorcentCompensacionREAGYP'] = \
-                tools._rate_to_percent(self.tax_rate(tax))
-            ret['ImporteCompensacionREAGYP'] = \
-                (self.tax_amount(tax))
+            ret = {
+                'BaseImponible': self.tax_base(tax),
+            }
+            if self.specialkey_or_trascendence(invoice) != '02':
+                ret['TipoImpositivo'] = tools._rate_to_percent(self.tax_rate(tax))
+                ret['CuotaSoportada'] = self.tax_amount(tax)
+                if self.tax_equivalence_surcharge_rate(tax):
+                    ret['TipoRecargoEquivalencia'] = \
+                        tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
+                                tax))
+                if self.tax_equivalence_surcharge_amount(tax):
+                    ret['CuotaRecargoEquivalencia'] = \
+                        self.tax_equivalence_surcharge_amount(tax)
+                bieninversion = all(map(lambda w: w in tax.tax.name, (
+                            'bien', 'inversión')))
+                ret['BienInversion'] = 'S' if bieninversion else 'N'
+            else:
+                ret['PorcentCompensacionREAGYP'] = \
+                    tools._rate_to_percent(self.tax_rate(tax))
+                ret['ImporteCompensacionREAGYP'] = \
+                    (self.tax_amount(tax))
         return ret
 
     def isp_taxes(self, taxes):
