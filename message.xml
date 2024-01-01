@@ -47,5 +47,8 @@ If you edit them take care if you need to update again to SII</field>
         <record model="ir.message" id="msg_invoice_in_missing_ref">
             <field name="text">The invoices "%(invoices)s" haven't got reference.</field>
         </record>
+        <record model="ir.message" id="msg_missing_sii_keys">
+            <field name="text">The invoice "%(invoice)s" haven't got the necessary SII keys filled.</field>
+        </record>
     </data>
 </tryton>

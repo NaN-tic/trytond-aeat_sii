@@ -97,6 +97,14 @@ class Invoice(metaclass=PoolMeta):
         for field in _SII_INVOICE_KEYS:
             setattr(self, field, getattr(tax, field))
 
+    @property
+    def sii_keys_filled(self):
+        if (self.sii_book_key and self.sii_operation_key
+                and ((self.type == 'out' and self.sii_issued_key)
+                    or (self.type == 'in' and self.sii_received_key))):
+            return True
+        return False
+
     @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
         super(Invoice, self)._on_change_lines_taxes()
@@ -285,11 +293,23 @@ class Invoice(metaclass=PoolMeta):
     def post(cls, invoices):
         pool = Pool()
         Warning = pool.get('res.user.warning')
+        Configuration = pool.get('account.configuration')
+
+        # Check if set by configuartion that all SII Keys are filled.
+        config = Configuration(1)
+        not_allow_not_sii_out = config.not_allow_out_invoices_aeat_sii_keys
+        not_allow_not_sii_in = config.not_allow_in_invoices_aeat_sii_keys
 
         to_write = []
 
         invoices2checksii = []
         for invoice in invoices:
+            if (((invoice.type == 'out' and not_allow_not_sii_out)
+                        or (invoice.type == 'in' and not_allow_not_sii_in))
+                    and not invoice.sii_keys_filled):
+                raise UserError(
+                    gettext('aeat_sii.msg_missing_sii_keys',
+                        invoice=invoice.rec_name))
             if not invoice.move or invoice.move.state == 'draft':
                 invoices2checksii.append(invoice)
 
