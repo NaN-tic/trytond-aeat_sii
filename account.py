@@ -28,13 +28,19 @@ class Configuration(metaclass=PoolMeta):
             'invisible': ~Eval('aeat_received_sii', False),
         }, depends=['aeat_received_sii'],
         help='Automatically send AEAT Received SII reports by cron'))
+    not_allow_out_invoices_aeat_sii_keys = fields.MultiValue(fields.Boolean(
+        'Not allow post out invoices without AEAT SII Keys'))
+    not_allow_in_invoices_aeat_sii_keys = fields.MultiValue(fields.Boolean(
+        'Not allow post in invoices without AEAT SII Keys'))
 
     @classmethod
     def multivalue_model(cls, field):
         pool = Pool()
         if field in {'aeat_certificate_sii', 'aeat_pending_sii',
                 'aeat_pending_sii_send', 'aeat_received_sii',
-                'aeat_received_sii_send'}:
+                'aeat_received_sii_send',
+                'not_allow_out_invoices_aeat_sii_keys',
+                'not_allow_in_invoices_aeat_sii_keys'}:
             return pool.get('account.configuration.default_sii')
         return super().multivalue_model(field)
 
@@ -52,6 +58,14 @@ class Configuration(metaclass=PoolMeta):
 
     @classmethod
     def default_aeat_received_sii_send(cls, **pattern):
+        return False
+
+    @classmethod
+    def default_not_allow_out_invoices_aeat_sii_keys(cls, **pattern):
+        return False
+
+    @classmethod
+    def default_not_allow_in_invoices_aeat_sii_keys(cls, **pattern):
         return False
 
 
@@ -75,6 +89,10 @@ class ConfigurationDefaultSII(ModelSQL, CompanyValueMixin):
             'invisible': ~Eval('aeat_received_sii', False),
         }, depends=['aeat_received_sii'],
         help='Automatically send AEAT Received SII reports by cron')
+    not_allow_out_invoices_aeat_sii_keys = fields.Boolean(
+        'Not allow post out invoices without AEAT SII Keys')
+    not_allow_in_invoices_aeat_sii_keys = fields.Boolean(
+        'Not allow post in invoices without AEAT SII Keys')
 
 
 class TemplateTax(metaclass=PoolMeta):
