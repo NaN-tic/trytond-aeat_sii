@@ -14,6 +14,11 @@ copyright notices and license types. -->
         <field name="aeat_received_sii"/>
         <label name="aeat_received_sii_send"/>
         <field name="aeat_received_sii_send"/>
+	<newline/>
+        <label name="not_allow_out_invoices_aeat_sii_keys"/>
+        <field name="not_allow_out_invoices_aeat_sii_keys"/>
+        <label name="not_allow_in_invoices_aeat_sii_keys"/>
+        <field name="not_allow_in_invoices_aeat_sii_keys"/>
         <newline/>
     </xpath>
 </data>
