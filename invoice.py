@@ -295,21 +295,10 @@ class Invoice(metaclass=PoolMeta):
         Warning = pool.get('res.user.warning')
         Configuration = pool.get('account.configuration')
 
-        # Check if set by configuartion that all SII Keys are filled.
-        config = Configuration(1)
-        not_allow_not_sii_out = config.not_allow_out_invoices_aeat_sii_keys
-        not_allow_not_sii_in = config.not_allow_in_invoices_aeat_sii_keys
-
         to_write = []
 
         invoices2checksii = []
         for invoice in invoices:
-            if (((invoice.type == 'out' and not_allow_not_sii_out)
-                        or (invoice.type == 'in' and not_allow_not_sii_in))
-                    and not invoice.sii_keys_filled):
-                raise UserError(
-                    gettext('aeat_sii.msg_missing_sii_keys',
-                        invoice=invoice.rec_name))
             if not invoice.move or invoice.move.state == 'draft':
                 invoices2checksii.append(invoice)
 
@@ -357,6 +346,19 @@ class Invoice(metaclass=PoolMeta):
 
         # Control the simplified operation SII key is setted correctly
         cls.simplified_aeat_sii_invoices(invoices)
+
+        # After all SII updates and controls. Check, if set by configuartion,
+        # that all SII Keys are filled.
+        config = Configuration(1)
+        not_allow_not_sii_out = config.not_allow_out_invoices_aeat_sii_keys
+        not_allow_not_sii_in = config.not_allow_in_invoices_aeat_sii_keys
+        for invoice in invoices:
+            if (((invoice.type == 'out' and not_allow_not_sii_out)
+                        or (invoice.type == 'in' and not_allow_not_sii_in))
+                    and not invoice.sii_keys_filled):
+                raise UserError(
+                    gettext('aeat_sii.msg_missing_sii_keys',
+                        invoice=invoice.rec_name))
 
     @classmethod
     def cancel(cls, invoices):
