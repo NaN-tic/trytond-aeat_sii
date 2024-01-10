@@ -217,7 +217,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     company = fields.Many2One('company.company', 'Company', required=True,
         states={
             'readonly': Eval('state') != 'draft',
-        }, depends=['state'])
+        })
     company_vat = fields.Char('VAT', size=9,
         states={
             'required': Eval('state').in_(['confirmed', 'done']),
@@ -230,13 +230,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         required=True, states={
             'readonly': ((Eval('state') != 'draft')
                 | (Eval('lines', [0]) & Eval('fiscalyear'))),
-        }, depends=['state'])
+        })
     period = fields.Many2One('account.period', 'Period', required=True,
         domain=[('fiscalyear', '=', Eval('fiscalyear'))],
         states={
             'readonly': ((Eval('state') != 'draft')
                 | (Eval('lines', [0]) & Eval('period'))),
-        }, depends=['state', 'fiscalyear'])
+        })
     load_date = fields.Date('Load Date',
         domain=['OR', [
                 ('load_date', '=', None),
@@ -254,12 +254,12 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         states={
             'readonly': ((~Eval('state').in_(['draft', 'confirmed']))
                 | (Eval('lines', [0]) & Eval('operation_type'))),
-        }, depends=['state'])
+        })
     book = fields.Selection(BOOK_KEY, 'Book', required=True,
         states={
             'readonly': ((~Eval('state').in_(['draft', 'confirmed']))
                 | (Eval('lines', [0]) & Eval('book'))),
-        }, depends=['state'])
+        })
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -278,7 +278,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     lines = fields.One2Many('aeat.sii.report.lines', 'report',
         'Lines', states={
             'readonly': Eval('state') != 'draft',
-        }, depends=['state'])
+        })
     # TODO crash GTK client 4.x with widget date in XML view and attribute
     # readonly = True. At the moment, use PYSON to readonly field in XML views.
     send_date = fields.DateTime('Send date',
@@ -1281,7 +1281,7 @@ class SIIReportLine(ModelSQL, ModelView):
         states={
             'required': Eval('_parent_report', {}).get(
                 'operation_type') != 'C0',
-        }, depends=['invoice_types'])
+        })
     invoice_types = fields.Function(
         fields.MultiSelection('get_invoice_types', "Invoice Types"),
         'on_change_with_invoice_types')

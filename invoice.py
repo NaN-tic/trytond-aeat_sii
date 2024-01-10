@@ -29,12 +29,12 @@ class Invoice(metaclass=PoolMeta):
         'SII Issued Key',
         states={
             'invisible': ~Eval('sii_book_key').in_(['E']),
-        }, depends=['sii_book_key'])
+        })
     sii_received_key = fields.Selection(RECEIVE_SPECIAL_REGIME_KEY,
         'SII Recived Key',
         states={
             'invisible': ~Eval('sii_book_key').in_(['R']),
-        }, depends=['sii_book_key'])
+        })
     sii_records = fields.One2Many('aeat.sii.report.lines', 'invoice',
         "SII Report Lines")
     sii_state = fields.Selection(AEAT_INVOICE_STATE,

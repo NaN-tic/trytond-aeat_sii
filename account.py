@@ -19,14 +19,14 @@ class Configuration(metaclass=PoolMeta):
     aeat_pending_sii_send = fields.MultiValue(fields.Boolean('AEAT Pending SII Send',
         states={
             'invisible': ~Eval('aeat_pending_sii', False),
-        }, depends=['aeat_pending_sii'],
+        },
         help='Automatically send AEAT Pending SII reports by cron'))
     aeat_received_sii = fields.MultiValue(fields.Boolean('AEAT Received SII',
         help='Automatically generate AEAT Received SII reports by cron'))
     aeat_received_sii_send = fields.MultiValue(fields.Boolean('AEAT Received SII Send',
         states={
             'invisible': ~Eval('aeat_received_sii', False),
-        }, depends=['aeat_received_sii'],
+        },
         help='Automatically send AEAT Received SII reports by cron'))
     not_allow_out_invoices_aeat_sii_keys = fields.MultiValue(fields.Boolean(
         'Not allow post out invoices without AEAT SII Keys'))
@@ -80,14 +80,14 @@ class ConfigurationDefaultSII(ModelSQL, CompanyValueMixin):
     aeat_pending_sii_send = fields.Boolean('AEAT Pending SII Send',
         states={
             'invisible': ~Eval('aeat_pending_sii', False),
-        }, depends=['aeat_pending_sii'],
+        },
         help='Automatically send AEAT Pending SII reports by cron')
     aeat_received_sii = fields.Boolean('AEAT Received SII',
         help='Automatically generate AEAT Received SII reports by cron')
     aeat_received_sii_send = fields.Boolean('AEAT Received SII Send',
         states={
             'invisible': ~Eval('aeat_received_sii', False),
-        }, depends=['aeat_received_sii'],
+        },
         help='Automatically send AEAT Received SII reports by cron')
     not_allow_out_invoices_aeat_sii_keys = fields.Boolean(
         'Not allow post out invoices without AEAT SII Keys')
