@@ -222,8 +222,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         states={
             'required': Eval('state').in_(['confirmed', 'done']),
             'readonly': ~Eval('state').in_(['draft', 'confirmed']),
-            },
-        depends=['state'])
+            })
     currency = fields.Function(fields.Many2One('currency.currency',
         'Currency'), 'on_change_with_currency')
     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
@@ -243,8 +242,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             ], [
                 ('load_date', '>=', Eval('load_date_start')),
                 ('load_date', '<=', Eval('load_date_end')),
-            ]], depends=['load_date_start', 'load_date_end'],
-        help='Filter invoices to the date whitin the period.')
+            ]], help='Filter invoices to the date whitin the period.')
     load_date_start = fields.Function(fields.Date('Load Date Start'),
         'on_change_with_load_date_start')
     load_date_end = fields.Function(fields.Date('Load Date End'),
@@ -285,8 +283,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         states={
             'invisible': Eval('state') != 'sent',
             'readonly': Bool(Eval('state') == 'sent'),
-        },
-        depends=['state'])
+        })
     response = fields.Text('Response', readonly=True)
     aeat_register = fields.Text('Register sended to AEAT Webservice',
         readonly=True)
