@@ -1,11 +1,13 @@
 from logging import getLogger
 from requests import Session
+from requests.exceptions import ConnectionError
 
 from zeep import Client
 from zeep.transports import Transport
 from zeep.plugins import HistoryPlugin
 
 from trytond.pool import Pool
+from trytond.exceptions import UserError
 from .tools import LoggingPlugin
 
 _logger = getLogger(__name__)
@@ -25,7 +27,12 @@ def _get_client(wsdl, public_crt, private_key, test=False):
     # http://www.agenciatributaria.es/AEAT.internet/Inicio/Ayuda/Modelos__Procedimientos_y_Servicios/Ayuda_P_G417____IVA__Llevanza_de_libros_registro__SII_/Ayuda_tecnica/Informacion_tecnica_SII/Preguntas_tecnicas_frecuentes/1__Cuestiones_Generales/16___Como_se_debe_utilizar_el_dato_sesionId__.shtml
     if test:
         plugins.append(LoggingPlugin())
-    client = Client(wsdl=wsdl, transport=transport, plugins=plugins)
+
+    try:
+        client = Client(wsdl=wsdl, transport=transport, plugins=plugins)
+    except ConnectionError as e:
+        raise UserError(str(e))
+
     return client
 
 
