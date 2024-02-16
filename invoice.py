@@ -4,7 +4,7 @@ import hashlib
 from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
+from trytond.pyson import Bool, Eval
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
 from trytond.exceptions import UserError, UserWarning
@@ -55,6 +55,14 @@ class Invoice(metaclass=PoolMeta):
         if hasattr(cls, '_intercompany_excluded_fields'):
             cls._intercompany_excluded_fields += sii_fields
             cls._intercompany_excluded_fields += ['sii_records']
+
+        # not allow modify reference when is supplier or not pending to sending
+        readonly = (
+            (Eval('state') != 'draft') & (Eval('type') == 'in') ) | (
+            (Eval('state') != 'draft') & ~Bool(Eval('sii_pending_sending'))
+            )
+        if 'readonly' in cls.reference.states:
+            cls.reference.states['readonly'] |= readonly
 
     @classmethod
     def __register__(cls, module_name):
