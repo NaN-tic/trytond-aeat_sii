@@ -46,14 +46,14 @@
           name="AEAT SII Report"/> -->
 
       <record model="ir.model.access" id="access_aeat_sii_report">
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
           <field name="perm_read" eval="True"/>
           <field name="perm_write" eval="False"/>
           <field name="perm_create" eval="False"/>
           <field name="perm_delete" eval="False"/>
       </record>
       <record model="ir.model.access" id="access_aeat_sii_report_admin">
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
           <field name="group" ref="group_aeat_sii_admin"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_write" eval="True"/>
@@ -117,14 +117,14 @@
           name="AEAT SII Report Lines"/>
 
       <record model="ir.model.access" id="access_aeat_sii_report_line">
-          <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
+          <field name="model">aeat.sii.report.lines</field>
           <field name="perm_read" eval="True"/>
           <field name="perm_write" eval="False"/>
           <field name="perm_create" eval="False"/>
           <field name="perm_delete" eval="False"/>
       </record>
       <record model="ir.model.access" id="access_aeat_sii_report_line_admin">
-          <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
+          <field name="model">aeat.sii.report.lines</field>
           <field name="group" ref="group_aeat_sii_admin"/>
           <field name="perm_read" eval="True"/>
           <field name="perm_write" eval="True"/>
@@ -140,7 +140,7 @@
 
       <record model="ir.rule.group" id="rule_group_sii_report">
           <field name="name">User in company</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
           <field name="global_p" eval="True"/>
       </record>
       <record model="ir.rule" id="rule_sii_report1">
@@ -150,7 +150,7 @@
 
       <record model="ir.rule.group" id="rule_group_sii_report_line">
           <field name="name">User in company</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report.lines')]"/>
+          <field name="model">aeat.sii.report.lines</field>
           <field name="global_p" eval="True"/>
       </record>
       <record model="ir.rule" id="rule_sii_report_line1">
@@ -162,33 +162,33 @@
       <record model="ir.model.button" id="load_invoices_button">
           <field name="name">load_invoices</field>
           <field name="string">Load Invoices</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
       </record>
       <record model="ir.model.button" id="draft_button">
           <field name="name">draft</field>
           <field name="string">Draft</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
       </record>
       <record model="ir.model.button" id="confirm_button">
           <field name="name">confirm</field>
           <field name="string">Confirm</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
       </record>
       <record model="ir.model.button" id="send_button">
           <field name="name">send</field>
           <field name="string">Send</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
       </record>
       <record model="ir.model.button" id="cancel_button">
           <field name="name">cancel</field>
           <field name="string">Cancel</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
       </record>
 
       <record model="ir.model.button" id="process_response_button">
           <field name="name">process_response</field>
           <field name="string">Process Response</field>
-          <field name="model" search="[('model', '=', 'aeat.sii.report')]"/>
+          <field name="model">aeat.sii.report</field>
       </record>
 
       <record model="ir.model.button-res.group" id="load_invoices_admin">
