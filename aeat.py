@@ -948,6 +948,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 }
 
             domain = [
+                ('company', '=', self.company),
                 ('reference', '=', reg.IDFactura.NumSerieFacturaEmisor),
                 ('invoice_date', '=', invoice_date),
                 ('move', '!=', None),
