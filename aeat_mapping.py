@@ -40,11 +40,11 @@ class BaseInvoiceMapper(Model):
 
     def not_subject(self, invoice):
         base = 0
-        for line in invoice.lines:
-            for tax in line.taxes:
-                if (tax.sii_exemption_cause == 'NotSubject' and
-                        not tax.service):
-                    base += attrgetter('amount')(line)
+        taxes = self.total_invoice_taxes(invoice)
+        for tax in taxes:
+            if (tax.tax.sii_exemption_cause == 'NotSubject' and
+                    not tax.tax.service):
+                base += self.get_tax_base(tax)
         return base
 
     def counterpart_nif(self, invoice):
@@ -270,12 +270,12 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
 
     def location_rules(self, invoice):
         base = 0
-        for line in invoice.lines:
-            for tax in line.taxes:
-                if (tax.sii_issued_key == '08' or
-                        (tax.sii_exemption_cause == 'NotSubject' and
-                            tax.service)):
-                    base += attrgetter('amount')(line)
+        taxes = self.total_invoice_taxes(invoice)
+        for tax in taxes:
+            if (tax.tax.sii_issued_key == '08' or
+                    (tax.tax.sii_exemption_cause == 'NotSubject' and
+                        tax.tax.service)):
+                base += self.get_tax_base(tax)
         return base
 
     def build_issued_invoice(self, invoice):
