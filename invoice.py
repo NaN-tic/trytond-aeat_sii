@@ -135,7 +135,7 @@ class Invoice(metaclass=PoolMeta):
         return super(Invoice, cls).copy(records, default=default)
 
     def _get_sii_operation_key(self):
-        return 'R1' if self.untaxed_amount < Decimal('0.0') else 'F1'
+        return 'R1' if self.untaxed_amount < Decimal(0) else 'F1'
 
     @classmethod
     def reset_sii_keys(cls, invoices):

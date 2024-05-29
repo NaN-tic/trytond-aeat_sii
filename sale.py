@@ -6,7 +6,7 @@ from .invoice import _SII_INVOICE_KEYS
 
 __all__ = ['Sale']
 
-ZERO = Decimal('0.0')
+ZERO = Decimal(0)
 
 
 class Sale(metaclass=PoolMeta):

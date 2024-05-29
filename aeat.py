@@ -24,7 +24,7 @@ from . import service
 
 
 _logger = getLogger(__name__)
-_ZERO = Decimal('0.0')
+_ZERO = Decimal(0)
 
 # AEAT SII test
 SII_TEST = config.getboolean('aeat', 'sii_test', default=True)
