@@ -184,7 +184,7 @@ class Invoice(metaclass=PoolMeta):
                     invoice.number, invoice.sii_state))
             for record in invoice.sii_records:
                 if record.report.state == 'draft':
-                    raise UserError(gettext('aeat_sii.invoices_sii_pending'))
+                    raise UserError(gettext('aeat_sii.msg_invoices_sii_pending'))
         if invoices_sii:
             warning_name = 'invoices_sii.' + hashlib.md5(
                 ''.join(invoices_sii).encode('utf-8')).hexdigest()
