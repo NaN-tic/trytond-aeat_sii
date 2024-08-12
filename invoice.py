@@ -204,7 +204,7 @@ class Invoice(metaclass=PoolMeta):
 
         if self.type == 'out' and SaleLine is not None:
             origin_numbers = [
-                line.origin.number
+                line.origin.sale.number
                 for line in self.lines
                 if isinstance(line.origin, SaleLine)
                 ]
