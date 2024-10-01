@@ -4,8 +4,6 @@ from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from . import aeat
 
-__all__ = ['Party', 'PartyIdentifier']
-
 
 class Party(metaclass=PoolMeta):
     __name__ = 'party.party'

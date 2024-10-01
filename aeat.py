@@ -379,11 +379,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         company_filter = Transaction().context.get('company_filter')
         companies = Transaction().context.get('companies')
         company = Transaction().context.get('company')
-        if not companies:
-            companies = []
-        if company_filter == 'one':
-            if company:
-                companies = [company]
+
+        companies = []
+        # context from user
+        if company_filter and company_filter == 'one' and company:
+            companies = [company]
+        # context from cron; context has not companies and not company_filter
+        elif not company_filter and company:
+            companies = [company]
         return companies
 
     @classmethod

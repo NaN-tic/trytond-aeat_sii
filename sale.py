@@ -4,8 +4,6 @@ from decimal import Decimal
 from trytond.pool import PoolMeta
 from .invoice import _SII_INVOICE_KEYS
 
-__all__ = ['Sale']
-
 ZERO = Decimal(0)
 
 

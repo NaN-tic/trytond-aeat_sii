@@ -3,8 +3,6 @@
 from trytond.pool import PoolMeta
 from .invoice import _SII_INVOICE_KEYS
 
-__all__ = ['Purchase']
-
 
 class Purchase(metaclass=PoolMeta):
     __name__ = 'purchase.purchase'

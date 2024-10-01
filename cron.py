@@ -2,7 +2,6 @@
 # copyright notices and license terms.
 from trytond.pool import  PoolMeta
 
-__all__ = ['Cron']
 
 class Cron(metaclass=PoolMeta):
     __name__ = 'ir.cron'
