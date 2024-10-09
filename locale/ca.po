@@ -512,10 +512,6 @@ msgctxt "model:aeat.sii.reset.keys.start,name:"
 msgid "Reset to default SII Keys Start"
 msgstr "Inici Restabliment per defecte de les claus del SII"
 
-msgctxt "model:ir.action,name:"
-msgid "SII Report Intracommunity"
-msgstr "Informe Intracomunitaries"
-
 msgctxt "model:ir.action,name:act_aeat_sii_issued_report"
 msgid "SII Report Issued"
 msgstr "Informe Emesses"
