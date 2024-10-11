@@ -150,7 +150,11 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def process(cls, invoices):
+        pool = Pool()
+        Warning = pool.get('res.user.warning')
+
         super(Invoice, cls).process(invoices)
+
         invoices_sii = ''
         for invoice in invoices:
             if invoice.state != 'draft':
@@ -159,14 +163,20 @@ class Invoice(metaclass=PoolMeta):
                 invoices_sii += '\n%s: %s' % (
                     invoice.number, invoice.sii_state)
         if invoices_sii:
-            raise UserError(gettext('aeat_sii.msg_invoices_sii',
-                invoices=invoices_sii))
+            warning_name = 'invoices_sii.' + hashlib.md5(
+                ''.join(invoices_sii).encode('utf-8')).hexdigest()
+            if Warning.check(warning_name):
+                raise UserWarning(warning_name,
+                        gettext('aeat_sii.msg_invoices_sii',
+                        invoices='\n'.join(invoices_sii)))
 
     @classmethod
     def draft(cls, invoices):
         pool = Pool()
         Warning = pool.get('res.user.warning')
+
         super(Invoice, cls).draft(invoices)
+
         invoices_sii = []
         to_write = []
         for invoice in invoices:
