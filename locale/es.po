@@ -563,7 +563,7 @@ msgid ""
 "If you edit them take care if you need to update again to SII"
 msgstr ""
 "Les siguients facturas estan relacionados con un Libro del SII:\n"
-"%(invoice)s\n"
+"%(invoices)s\n"
 "Si las modificas, recuerde de actualizarlas"
 
 msgctxt "model:ir.message,text:msg_invoices_sii_pending"
