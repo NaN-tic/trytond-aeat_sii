@@ -11,7 +11,7 @@ class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
 
     def create_invoice(self):
-        invoice = super(Sale, self).create_invoice()
+        invoice = super().create_invoice()
         if not invoice:
             return
 

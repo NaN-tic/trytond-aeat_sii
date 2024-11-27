@@ -117,7 +117,7 @@ class TemplateTax(metaclass=PoolMeta):
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
         exist_sii_intracomunity_key = table.column_exist('sii_intracomunity_key')
 
-        super(TemplateTax, cls).__register__(module_name)
+        super().__register__(module_name)
 
         if exist_sii_excemption_key:
             # Don't use UPDATE FROM because SQLite nor MySQL support it.
@@ -129,7 +129,7 @@ class TemplateTax(metaclass=PoolMeta):
             table.drop_column('sii_intracomunity_key')
 
     def _get_tax_value(self, tax=None):
-        res = super(TemplateTax, self)._get_tax_value(tax)
+        res = super()._get_tax_value(tax)
         for field in ('sii_book_key', 'sii_operation_key', 'sii_issued_key',
                 'sii_subjected_key', 'sii_exemption_cause', 'sii_received_key',
                 'tax_used', 'invoice_used'):
@@ -162,7 +162,7 @@ class Tax(metaclass=PoolMeta):
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
         exist_sii_intracomunity_key = table.column_exist('sii_intracomunity_key')
 
-        super(Tax, cls).__register__(module_name)
+        super().__register__(module_name)
 
         if exist_sii_excemption_key:
             # Don't use UPDATE FROM because SQLite nor MySQL support it.

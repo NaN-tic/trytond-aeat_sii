@@ -8,7 +8,7 @@ class Purchase(metaclass=PoolMeta):
     __name__ = 'purchase.purchase'
 
     def create_invoice(self):
-        invoice = super(Purchase, self).create_invoice()
+        invoice = super().create_invoice()
 
         if invoice:
             # create_invoice() from purchase not add taxes fields
