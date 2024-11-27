@@ -45,7 +45,7 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def __setup__(cls):
-        super(Invoice, cls).__setup__()
+        super().__setup__()
         sii_fields = {'sii_book_key', 'sii_operation_key', 'sii_received_key',
             'sii_issued_key', 'sii_state', 'sii_pending_sending',
             'sii_communication_type', 'sii_header'}
@@ -71,7 +71,7 @@ class Invoice(metaclass=PoolMeta):
         exist_sii_subjected_key = table.column_exist('sii_subjected_key')
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
 
-        super(Invoice, cls).__register__(module_name)
+        super().__register__(module_name)
 
         if exist_sii_intracomunity_key:
             table.drop_column('sii_intracomunity_key')
@@ -85,7 +85,7 @@ class Invoice(metaclass=PoolMeta):
         return False
 
     def _credit(self, **values):
-        credit = super(Invoice, self)._credit(**values)
+        credit = super()._credit(**values)
         for field in _SII_INVOICE_KEYS:
             setattr(credit, field, getattr(self, field))
 
@@ -113,7 +113,7 @@ class Invoice(metaclass=PoolMeta):
 
     @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
-        super(Invoice, self)._on_change_lines_taxes()
+        super()._on_change_lines_taxes()
         for field in _SII_INVOICE_KEYS:
             if getattr(self, field):
                 return
@@ -130,7 +130,7 @@ class Invoice(metaclass=PoolMeta):
         default.setdefault('sii_operation_key')
         default.setdefault('sii_pending_sending')
         default.setdefault('sii_header')
-        return super(Invoice, cls).copy(records, default=default)
+        return super().copy(records, default=default)
 
     def _get_sii_operation_key(self):
         return 'R1' if self.untaxed_amount < Decimal(0) else 'F1'
@@ -159,7 +159,7 @@ class Invoice(metaclass=PoolMeta):
         pool = Pool()
         Warning = pool.get('res.user.warning')
 
-        super(Invoice, cls).process(invoices)
+        super().process(invoices)
 
         invoices_sii = ''
         for invoice in invoices:
@@ -181,7 +181,7 @@ class Invoice(metaclass=PoolMeta):
         pool = Pool()
         Warning = pool.get('res.user.warning')
 
-        super(Invoice, cls).draft(invoices)
+        super().draft(invoices)
 
         invoices_sii = []
         to_write = []
@@ -319,7 +319,7 @@ class Invoice(metaclass=PoolMeta):
                 invoices2checksii.append(invoice)
 
         cls.check_aeat_sii_invoices(invoices)
-        super(Invoice, cls).post(invoices)
+        super().post(invoices)
 
         # TODO:
         # OUT invoice, check that all tax have the same TipoNoExenta and/or
@@ -378,7 +378,7 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def cancel(cls, invoices):
-        result = super(Invoice, cls).cancel(invoices)
+        result = super().cancel(invoices)
         to_write = []
         for invoice in invoices:
             if not invoice.cancel_move:

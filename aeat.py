@@ -290,7 +290,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def __setup__(cls):
-        super(SIIReport, cls).__setup__()
+        super().__setup__()
         cls._buttons.update({
                 'draft': {
                     'invisible': ~Eval('state').in_(['confirmed',
@@ -398,7 +398,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         default['communication_state'] = None
         default['csv'] = None
         default['send_date'] = None
-        return super(SIIReport, cls).copy(records, default=default)
+        return super().copy(records, default=default)
 
     @classmethod
     def delete(cls, reports):
@@ -407,7 +407,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if report.state != 'cancelled':
                 raise UserError(gettext('aeat_sii.msg_delete_cancel',
                     report=report.rec_name))
-        super(SIIReport, cls).delete(reports)
+        super().delete(reports)
 
     @classmethod
     @ModelView.button
@@ -1329,7 +1329,7 @@ class SIIReportLine(ModelSQL, ModelView):
         if exist_sii_excemption_key:
             table.column_rename('exemption_key', 'exemption_cause')
 
-        super(SIIReportLine, cls).__register__(module_name)
+        super().__register__(module_name)
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None
@@ -1374,7 +1374,7 @@ class SIIReportLine(ModelSQL, ModelView):
         default['presentation_date'] = None
         default['csv'] = None
         default['balance_state'] = None
-        return super(SIIReportLine, cls).copy(records, default=default)
+        return super().copy(records, default=default)
 
     @classmethod
     def create(cls, vlist):
@@ -1400,7 +1400,7 @@ class SIIReportLine(ModelSQL, ModelView):
                         }))
         if to_write:
             Invoice.write(*to_write)
-        return super(SIIReportLine, cls).create(vlist)
+        return super().create(vlist)
 
     @classmethod
     def write(cls, *args):
@@ -1434,7 +1434,7 @@ class SIIReportLine(ModelSQL, ModelView):
             if invoices:
                 to_write.extend((invoices, invoice_vals))
 
-        super(SIIReportLine, cls).write(*args)
+        super().write(*args)
         if to_write:
             Invoice.write(*to_write)
 
@@ -1464,7 +1464,7 @@ class SIIReportLine(ModelSQL, ModelView):
                     to_save.append(invoice)
         if to_save:
             Invoice.save(to_save)
-        super(SIIReportLine, cls).delete(lines)
+        super().delete(lines)
 
     @classmethod
     def get_invoice_types(cls):

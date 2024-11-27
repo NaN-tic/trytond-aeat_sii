@@ -55,13 +55,13 @@ class PartyIdentifier(metaclass=PoolMeta):
 
     @classmethod
     def create(cls, vlist):
-        identifiers = super(PartyIdentifier, cls).create(vlist)
+        identifiers = super().create(vlist)
         cls.set_sii_identifier_type(identifiers)
         return identifiers
 
     @classmethod
     def write(cls, *args):
-        super(PartyIdentifier, cls).write(*args)
+        super().write(*args)
 
         def get_identifiers(identifiers):
             return list(set(identifiers))
