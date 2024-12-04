@@ -677,10 +677,6 @@ msgctxt "model:ir.rule.group,name:rule_group_sii_report_line"
 msgid "User in company"
 msgstr "Usuari empresa"
 
-msgctxt "model:ir.ui.menu,name:"
-msgid "AEAT SII Report"
-msgstr "Informe AEAT SII"
-
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_lines_report"
 msgid "AEAT SII Report Lines"
 msgstr "Línies informe AEAT SII"
