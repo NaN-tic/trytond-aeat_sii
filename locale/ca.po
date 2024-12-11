@@ -30,6 +30,10 @@ msgctxt "field:account.configuration,not_allow_out_invoices_aeat_sii_keys:"
 msgid "Not allow post out invoices without AEAT SII Keys"
 msgstr "No permetre comptabilitzar factures client sense claus AEAT SII"
 
+msgctxt "field:account.configuration,sii_default_limit_date:"
+msgid "SII Default Limit Date"
+msgstr "Data limit per defecte SII"
+
 msgctxt "field:account.configuration.default_sii,aeat_certificate_sii:"
 msgid "AEAT Certificate SII"
 msgstr "Certificat AEAT SII"
@@ -63,6 +67,10 @@ msgctxt ""
 "field:account.configuration.default_sii,not_allow_out_invoices_aeat_sii_keys:"
 msgid "Not allow post out invoices without AEAT SII Keys"
 msgstr "No permetre comptabilitzar factures client sense claus AEAT SII"
+
+msgctxt "field:account.configuration.default_sii,sii_default_limit_date:"
+msgid "SII Default Limit Date"
+msgstr "Data limit per defecte SII"
 
 msgctxt "field:account.invoice,sii_book_key:"
 msgid "SII Book Key"
@@ -428,6 +436,10 @@ msgstr ""
 "Enviar automàticament Llibres del SII pendents des de les acciones "
 "planificades"
 
+msgctxt "help:account.configuration,sii_default_limit_date:"
+msgid "Default limit date for SII reports in days"
+msgstr "Data limit per defecte informes SII en dies"
+
 msgctxt "help:account.configuration.default_sii,aeat_pending_sii:"
 msgid "Automatically generate AEAT Pending SII reports by cron"
 msgstr ""
@@ -452,6 +464,10 @@ msgstr ""
 "Enviar automàticament Llibres del SII pendents des de les acciones "
 "planificades"
 
+msgctxt "help:account.configuration.default_sii,sii_default_limit_date:"
+msgid "Default limit date for SII reports in days"
+msgstr "Data limit per defecte informes SII en dies"
+
 msgctxt "help:account.tax,isp:"
 msgid "Indicates if the tax is Inversion del sujeto Pasivo"
 msgstr "Indicar si l'impost és Inversion del sujeto Pasivo"
@@ -474,7 +490,7 @@ msgstr "Filtra les factures fins la data dins del període."
 
 msgctxt "model:account.configuration.default_sii,name:"
 msgid "Account Configuration Default SII Values"
-msgstr ""
+msgstr "Configuració comptabilitat valors per defecte SII"
 
 msgctxt "model:aeat.sii.issued.invoice.mapper,name:"
 msgid "Tryton Issued Invoice to AEAT mapper"

@@ -32,6 +32,8 @@ class Configuration(metaclass=PoolMeta):
         'Not allow post out invoices without AEAT SII Keys'))
     not_allow_in_invoices_aeat_sii_keys = fields.MultiValue(fields.Boolean(
         'Not allow post in invoices without AEAT SII Keys'))
+    sii_default_limit_date = fields.MultiValue(fields.Integer('SII Default Limit Date',
+        help='Default limit date for SII reports in days'))
 
     @classmethod
     def multivalue_model(cls, field):
@@ -40,7 +42,8 @@ class Configuration(metaclass=PoolMeta):
                 'aeat_pending_sii_send', 'aeat_received_sii',
                 'aeat_received_sii_send',
                 'not_allow_out_invoices_aeat_sii_keys',
-                'not_allow_in_invoices_aeat_sii_keys'}:
+                'not_allow_in_invoices_aeat_sii_keys',
+                'sii_default_limit_date'}:
             return pool.get('account.configuration.default_sii')
         return super().multivalue_model(field)
 
@@ -93,6 +96,12 @@ class ConfigurationDefaultSII(ModelSQL, CompanyValueMixin):
         'Not allow post out invoices without AEAT SII Keys')
     not_allow_in_invoices_aeat_sii_keys = fields.Boolean(
         'Not allow post in invoices without AEAT SII Keys')
+    sii_default_limit_date = fields.Integer('SII Default Limit Date',
+        help='Default limit date for SII reports in days',
+        domain=[
+            ('sii_default_limit_date', '>=', 0),
+            ('sii_default_limit_date', '<=', 4),
+            ],)
 
 
 class TemplateTax(metaclass=PoolMeta):
