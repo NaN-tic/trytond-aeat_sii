@@ -14,6 +14,8 @@ copyright notices and license types. -->
         <field name="aeat_received_sii"/>
         <label name="aeat_received_sii_send"/>
         <field name="aeat_received_sii_send"/>
+        <label name="sii_default_offset_days"/>
+        <field name="sii_default_offset_days"/>
 	<newline/>
         <label name="not_allow_out_invoices_aeat_sii_keys"/>
         <field name="not_allow_out_invoices_aeat_sii_keys"/>
