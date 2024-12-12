@@ -1062,9 +1062,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             issued_invoices[company]['A1'] = periods2
 
             today = date.today()
-            invoice_date = today
-            if config.sii_default_offset_days:
-                invoice_date = today - timedelta(days=config.sii_default_offset_days)
+            invoice_date = (today - timedelta(days=config.sii_default_offset_days)
+                if config.sii_default_offset_days else today)
             # search issued invoices [new]
             new_issued_invoices = Invoice.search([
                     ('company', '=', company),
@@ -1159,9 +1158,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             received_invoices[company]['D0'] = periods
 
             today = date.today()
-            invoice_date = today
-            if config.sii_default_offset_days:
-                invoice_date = today - timedelta(days=config.sii_default_offset_days)
+            invoice_date = (today - timedelta(days=config.sii_default_offset_days)
+                if config.sii_default_offset_days else today)
             # search received invoices [new]
             new_received_invoices = Invoice.search([
                     ('company', '=', company),
@@ -1264,8 +1262,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             for report in issued_reports:
                 if not report.load_date:
                     report.load_date = (date.today() -
-                            timedelta(days=config.sii_default_offset_days
-                                      if config.sii_default_offset_days else 0))
+                        timedelta(days=config.sii_default_offset_days
+                            if config.sii_default_offset_days else 0))
             cls.save(issued_reports)
             if config.aeat_pending_sii_send:
                 cls.confirm(issued_reports)
@@ -1281,8 +1279,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             for report in received_reports:
                 if not report.load_date:
                     report.load_date = (date.today() -
-                            timedelta(days=config.sii_default_offset_days
-                                      if config.sii_default_offset_days else 0))
+                        timedelta(days=config.sii_default_offset_days
+                            if config.sii_default_offset_days else 0))
             cls.save(issued_reports)
             if config.aeat_received_sii_send:
                 cls.confirm(received_reports)
