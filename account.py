@@ -32,6 +32,8 @@ class Configuration(metaclass=PoolMeta):
         'Not allow post out invoices without AEAT SII Keys'))
     not_allow_in_invoices_aeat_sii_keys = fields.MultiValue(fields.Boolean(
         'Not allow post in invoices without AEAT SII Keys'))
+    sii_default_offset_days = fields.MultiValue(fields.Integer('SII Default Offset Days',
+        help='Default offset days in the invoices search for the SII Books'))
 
     @classmethod
     def multivalue_model(cls, field):
@@ -40,7 +42,8 @@ class Configuration(metaclass=PoolMeta):
                 'aeat_pending_sii_send', 'aeat_received_sii',
                 'aeat_received_sii_send',
                 'not_allow_out_invoices_aeat_sii_keys',
-                'not_allow_in_invoices_aeat_sii_keys'}:
+                'not_allow_in_invoices_aeat_sii_keys',
+                'sii_default_offset_days'}:
             return pool.get('account.configuration.default_sii')
         return super().multivalue_model(field)
 
@@ -68,6 +71,10 @@ class Configuration(metaclass=PoolMeta):
     def default_not_allow_in_invoices_aeat_sii_keys(cls, **pattern):
         return False
 
+    @classmethod
+    def default_sii_default_offset_days(cls, **pattern):
+        return 0
+
 
 class ConfigurationDefaultSII(ModelSQL, CompanyValueMixin):
     "Account Configuration Default SII Values"
@@ -93,6 +100,12 @@ class ConfigurationDefaultSII(ModelSQL, CompanyValueMixin):
         'Not allow post out invoices without AEAT SII Keys')
     not_allow_in_invoices_aeat_sii_keys = fields.Boolean(
         'Not allow post in invoices without AEAT SII Keys')
+    sii_default_offset_days = fields.Integer('SII Default Offset Days',
+        help='Default offset days in the invoices search for the SII Books',
+        domain=[
+            ('sii_default_offset_days', '>=', 0),
+            ('sii_default_offset_days', '<=', 4),
+            ],)
 
 
 class TemplateTax(metaclass=PoolMeta):
