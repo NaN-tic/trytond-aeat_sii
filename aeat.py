@@ -505,8 +505,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         ReportLine = pool.get('aeat.sii.report.lines')
+        Configuration = Pool().get('account.configuration')
         Date = pool.get('ir.date')
 
+        config = Configuration(1)
         today = Date.today()
         to_create = []
         for report in reports:
