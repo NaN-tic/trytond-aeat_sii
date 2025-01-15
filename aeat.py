@@ -3,7 +3,7 @@
 # copyright notices and license terms.
 from logging import getLogger
 from decimal import Decimal
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 from zeep import helpers
 import json
@@ -505,11 +505,23 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         ReportLine = pool.get('aeat.sii.report.lines')
+        Date = pool.get('ir.date')
 
+        today = Date.today()
         to_create = []
         for report in reports:
             if not report.load_date:
-                report.load_date = date.today()
+                load_date = (today - timedelta(
+                    days=config.sii_default_offset_days
+                    if config.sii_default_offset_days else 0))
+                if (load_date >= report.load_date_start
+                        and load_date < report.load_date_end):
+                    report.load_date = load_date
+                if (today >= report.load_date_start
+                    and today < report.load_date_end):
+                    report.load_date = today
+                else:
+                    report.load_date = report.load_date_end
                 report.save()
             domain = [
                 ('sii_book_key', '=', report.book),
@@ -527,8 +539,7 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         ('accounting_date', '=', None),
                         ], [
                         ('accounting_date', '<=', report.load_date),
-                        ]],
-            ]
+                        ]],]
 
             if report.book == 'E':
                 domain.append(('type', '=', 'out'))
@@ -999,7 +1010,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         SIIReportLine = pool.get('aeat.sii.report.lines')
         Configuration = pool.get('account.configuration')
+        Date = pool.get('ir.date')
+
         config = Configuration(1)
+        today = Date.today()
 
         companies = cls.get_allowed_companies()
         issued_invoices = {}
@@ -1061,8 +1075,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     periods2[period] = [invoice]
             issued_invoices[company]['A1'] = periods2
 
-            today = date.today()
-            invoice_date = (today - timedelta(days=config.sii_default_offset_days)
+            invoice_date = (today - timedelta(
+                    days=config.sii_default_offset_days)
                 if config.sii_default_offset_days else today)
             # search issued invoices [new]
             new_issued_invoices = Invoice.search([
@@ -1102,7 +1116,10 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         Invoice = pool.get('account.invoice')
         SIIReportLine = pool.get('aeat.sii.report.lines')
         Configuration = pool.get('account.configuration')
+        Date = pool.get('ir.date')
+
         config = Configuration(1)
+        today = Date.today()
 
         companies = cls.get_allowed_companies()
         received_invoices = {}
@@ -1157,8 +1174,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     periods[period] = [invoice]
             received_invoices[company]['D0'] = periods
 
-            today = date.today()
-            invoice_date = (today - timedelta(days=config.sii_default_offset_days)
+            invoice_date = (today - timedelta(
+                    days=config.sii_default_offset_days)
                 if config.sii_default_offset_days else today)
             # search received invoices [new]
             new_received_invoices = Invoice.search([
@@ -1196,6 +1213,11 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         SIIReport = pool.get('aeat.sii.report')
         SIIReportLine = pool.get('aeat.sii.report.lines')
         Company = pool.get('company.company')
+        Configuration = pool.get('account.configuration')
+        Date = pool.get('ir.date')
+
+        config = Configuration(1)
+        today = Date.today()
 
         cursor = Transaction().connection.cursor()
         report_line_table = SIIReportLine.__table__()
@@ -1216,6 +1238,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         report.period = period
                         report.operation_type = operation
                         report.book = book
+                        if (today >= report.load_date_start
+                                and today < report.load_date_end):
+                            report.load_date = (today -
+                                timedelta(days=config.sii_default_offset_days
+                                    if config.sii_default_offset_days else 0))
+                        else:
+                            report.load_date = report.load_date_end
                         report.save()
                         reports.append(report)
 
@@ -1245,7 +1274,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def calculate_sii(cls):
-        Configuration = Pool().get('account.configuration')
+        pool = Pool()
+        Configuration = pool.get('account.configuration')
 
         config = Configuration(1)
 
@@ -1259,12 +1289,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     'because is other reports pending to sending')
                 return
             issued_reports = cls.get_issued_sii_reports()
-            for report in issued_reports:
-                if not report.load_date:
-                    report.load_date = (date.today() -
-                        timedelta(days=config.sii_default_offset_days
-                            if config.sii_default_offset_days else 0))
-            cls.save(issued_reports)
             if config.aeat_pending_sii_send:
                 cls.confirm(issued_reports)
                 cls.send(issued_reports)
@@ -1276,12 +1300,6 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                     'because is other reports pending to sending')
                 return
             received_reports = cls.get_received_sii_reports()
-            for report in received_reports:
-                if not report.load_date:
-                    report.load_date = (date.today() -
-                        timedelta(days=config.sii_default_offset_days
-                            if config.sii_default_offset_days else 0))
-            cls.save(issued_reports)
             if config.aeat_received_sii_send:
                 cls.confirm(received_reports)
                 cls.send(received_reports)
