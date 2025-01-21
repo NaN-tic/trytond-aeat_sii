@@ -900,21 +900,21 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             invoice_date = _date(reg.IDFactura.FechaExpedicionFacturaEmisor)
 
             taxes_to_create = []
-            for detail in reg.DatosFacturaRecibida.DesgloseFactura.\
-                    DesgloseIVA.DetalleIVA:
-                taxes_to_create.append({
-                        'base': _decimal(detail.BaseImponible),
-                        'rate': _decimal(detail.TipoImpositivo),
-                        'amount': _decimal(detail.CuotaSoportada),
-                        'surcharge_rate': _decimal(
-                            detail.TipoRecargoEquivalencia),
-                        'surcharge_amount': _decimal(
-                            detail.CuotaRecargoEquivalencia),
-                        'reagyp_rate': _decimal(
-                            detail.PorcentCompensacionREAGYP),
-                        'reagyp_amount': _decimal(
-                            detail.ImporteCompensacionREAGYP),
-                        })
+            if (desglose_iva := reg.DatosFacturaRecibida.DesgloseFactura.DesgloseIVA) is not None:
+                for detail in desglose_iva.DetalleIVA:
+                    taxes_to_create.append({
+                            'base': _decimal(detail.BaseImponible),
+                            'rate': _decimal(detail.TipoImpositivo),
+                            'amount': _decimal(detail.CuotaSoportada),
+                            'surcharge_rate': _decimal(
+                                detail.TipoRecargoEquivalencia),
+                            'surcharge_amount': _decimal(
+                                detail.CuotaRecargoEquivalencia),
+                            'reagyp_rate': _decimal(
+                                detail.PorcentCompensacionREAGYP),
+                            'reagyp_amount': _decimal(
+                                detail.ImporteCompensacionREAGYP),
+                            })
             taxes = SIIReportLineTax.create(taxes_to_create)
 
             sii_report_line = {
