@@ -10,7 +10,8 @@ from trytond.modules.company.tests import CompanyTestMixin
 class AeatSiiTestCase(CompanyTestMixin, ModuleTestCase):
     'Test AeatSii module'
     module = 'aeat_sii'
-    extras = ['account_invoice_intercompany', 'party_identifier', 'sale', 'purchase', 'aeat_303']
+    extras = ['account_invoice_intercompany', 'party_identifier', 'sale',
+        'purchase', 'aeat_303']
 
     def test_unaccent(self):
         for value, result in [
