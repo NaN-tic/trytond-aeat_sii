@@ -39,13 +39,17 @@ class BaseInvoiceMapper(Model):
         return attrgetter('sii_exemption_cause')(tax)
 
     def not_subject(self, invoice):
+        subject = False
         base = 0
         taxes = self.total_invoice_taxes(invoice)
         for tax in taxes:
             if (tax.tax.sii_exemption_cause == 'NotSubject' and
                     not tax.tax.service):
+                subject = True
                 base += self.get_tax_base(tax)
-        return base
+        if subject:
+            return base
+        return None
 
     def counterpart_nif(self, invoice):
         nif = ''
@@ -269,14 +273,18 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
         return res
 
     def location_rules(self, invoice):
+        location = False
         base = 0
         taxes = self.total_invoice_taxes(invoice)
         for tax in taxes:
             if (tax.tax.sii_issued_key == '08' or
                     (tax.tax.sii_exemption_cause == 'NotSubject' and
                         tax.tax.service)):
+                location = True
                 base += self.get_tax_base(tax)
-        return base
+        if location:
+            return base
+        return None
 
     def build_issued_invoice(self, invoice):
         ret = {
@@ -377,12 +385,12 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                             }
                         }
                     })
-        if self.location_rules(invoice):
+        if self.location_rules(invoice) is not None:
             detail['NoSujeta'].update({
                     'ImporteTAIReglasLocalizacion': self.location_rules(
                         invoice)
                     })
-        elif self.not_subject(invoice):
+        elif self.not_subject(invoice) is not None:
             detail['NoSujeta'].update({
                     'ImportePorArticulos7_14_Otros': self.not_subject(
                         invoice),
@@ -395,10 +403,10 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
 
         if must_detail_op:
             if not taxes:
-                if self.not_subject(invoice):
+                if self.not_subject(invoice) is not None:
                     ret['TipoDesglose']['DesgloseTipoOperacion'].pop(
                         'PrestacionServicios')
-                elif self.location_rules(invoice):
+                elif self.location_rules(invoice) is not None:
                     ret['TipoDesglose']['DesgloseTipoOperacion'].pop('Entrega')
             else:
                 if tax.tax.service:
