@@ -13,7 +13,7 @@ class Purchase(metaclass=PoolMeta):
         if invoice:
             # create_invoice() from purchase not add taxes fields
             # call on_change_lines to add taxes
-            invoice.on_change_lines()
+            invoice._on_change_lines_taxes()
             tax = invoice.taxes and invoice.taxes[0]
             if not tax:
                 return invoice
