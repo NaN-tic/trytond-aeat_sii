@@ -407,6 +407,18 @@ class Invoice(metaclass=PoolMeta):
         return header
 
 
+class InvoiceLine(metaclass=PoolMeta):
+    __name__ = 'account.invoice.line'
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        # Until is found the best way to control the deductible rate applied
+        # over taxes to present it correctly to AEAT SII, will be not allow
+        # to use it with the aeat_sii module installed.
+        cls.taxes_deductible_rate.states['invisible'] = True
+
+
 class ResetSIIKeysStart(ModelView):
     """
     Reset to default SII Keys Start
