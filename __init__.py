@@ -24,6 +24,7 @@ def register():
         invoice.Invoice,
         invoice.ResetSIIKeysStart,
         invoice.ResetSIIKeysEnd,
+        invoice.InvoiceLine,
         aeat.CreateSiiIssuedPendingView,
         aeat.CreateSiiReceivedPendingView,
         aeat.SIIReport,
