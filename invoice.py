@@ -130,7 +130,7 @@ class Invoice(metaclass=PoolMeta):
         Configuration = Pool().get('account.configuration')
 
         config = Configuration(1)
-        return config.aeat_certificate_sii or False
+        return True if config.aeat_certificate_sii else False
 
     def _set_sii_keys(self):
         tax = None
