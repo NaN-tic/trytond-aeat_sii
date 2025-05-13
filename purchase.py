@@ -9,8 +9,10 @@ class Purchase(metaclass=PoolMeta):
 
     def create_invoice(self):
         invoice = super().create_invoice()
+        if not invoice:
+            return
 
-        if invoice:
+        if invoice.on_change_with_is_sii():
             # create_invoice() from purchase not add taxes fields
             # call on_change_lines to add taxes
             invoice._on_change_lines_taxes()

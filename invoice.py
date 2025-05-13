@@ -2,6 +2,8 @@
 # copyright notices and license terms.
 import hashlib
 from decimal import Decimal
+from sql import Null
+from trytond.pool import Pool
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval
@@ -20,7 +22,7 @@ _SII_INVOICE_KEYS = ['sii_book_key', 'sii_operation_key', 'sii_issued_key',
 
 class Invoice(metaclass=PoolMeta):
     __name__ = 'account.invoice'
-
+    is_sii = fields.Boolean('Is SII', readonly=True)
     sii_book_key = fields.Selection(BOOK_KEY, 'SII Book Key')
     sii_operation_key = fields.Selection(OPERATION_KEY, 'SII Operation Key')
     sii_issued_key = fields.Selection(SEND_SPECIAL_REGIME_KEY,
@@ -34,13 +36,13 @@ class Invoice(metaclass=PoolMeta):
             'invisible': ~Eval('sii_book_key').in_(['R']),
         })
     sii_records = fields.One2Many('aeat.sii.report.lines', 'invoice',
-        "SII Report Lines")
+        'SII Report Lines')
     sii_state = fields.Selection(AEAT_INVOICE_STATE,
-            'SII State', readonly=True)
+        'SII State', readonly=True)
     sii_communication_type = fields.Selection(
         COMMUNICATION_TYPE, 'SII Communication Type', readonly=True)
     sii_pending_sending = fields.Boolean('SII Pending Sending Pending',
-            readonly=True)
+        readonly=True)
     sii_header = fields.Text('Header')
 
     @classmethod
@@ -64,12 +66,21 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def __register__(cls, module_name):
+        AccountConfigurationSii = Pool().get('account.configuration.default_sii')
+
         table = cls.__table_handler__(module_name)
+
+        sql_table = cls.__table__()
+        account_configuration_sii = AccountConfigurationSii.__table__()
+
+        transaction = Transaction()
+        cursor = transaction.connection.cursor()
 
         exist_sii_intracomunity_key = table.column_exist(
             'sii_intracomunity_key')
         exist_sii_subjected_key = table.column_exist('sii_subjected_key')
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
+        exist_is_sii = table.column_exist('is_sii')
 
         super().__register__(module_name)
 
@@ -79,9 +90,31 @@ class Invoice(metaclass=PoolMeta):
             table.drop_column('sii_subjected_key')
         if exist_sii_excemption_key:
             table.drop_column('sii_excemption_key')
+        if not exist_is_sii:
+            query = account_configuration_sii.select(
+                account_configuration_sii.company,
+                where=account_configuration_sii.aeat_certificate_sii != Null,
+                group_by=account_configuration_sii.company)
+            cursor.execute(*query)
+            company_ids = [r[0] for r in cursor.fetchall()]
+            cursor.execute(*sql_table.update(
+                    [sql_table.is_sii], [True],
+                    where=sql_table.company.in_(company_ids)))
+
+    @classmethod
+    def view_attributes(cls):
+        return super().view_attributes() + [
+            ('//page[@id="sii"]', 'states', {
+                'invisible': ~Eval('is_sii', False),
+            }),
+            ]
 
     @staticmethod
     def default_sii_pending_sending():
+        return False
+
+    @staticmethod
+    def default_is_sii():
         return False
 
     def _credit(self, **values):
@@ -91,6 +124,13 @@ class Invoice(metaclass=PoolMeta):
 
         credit.sii_operation_key = 'R1'
         return credit
+
+    @fields.depends('company')
+    def on_change_with_is_sii(self):
+        Configuration = Pool().get('account.configuration')
+
+        config = Configuration(1)
+        return config.aeat_certificate_sii or False
 
     def _set_sii_keys(self):
         tax = None
@@ -118,6 +158,23 @@ class Invoice(metaclass=PoolMeta):
             if getattr(self, field):
                 return
         self._set_sii_keys()
+
+    @classmethod
+    def create(cls, vlist):
+        pool = Pool()
+        Configuration = pool.get('account.configuration')
+
+        vlist = [x.copy() for x in vlist]
+
+        companies = set([i.get('company', -1) for i in vlist])
+        is_sii = {}
+        for company_id in companies:
+            with Transaction().set_context(company=company_id):
+                is_sii[company_id] = Configuration(1).aeat_certificate_sii
+        for vals in vlist:
+            company_id = vals.get('company', -1)
+            vals['is_sii'] = is_sii.get(company_id, False)
+        return super().create(vlist)
 
     @classmethod
     def copy(cls, records, default=None):
@@ -163,7 +220,7 @@ class Invoice(metaclass=PoolMeta):
 
         invoices_sii = ''
         for invoice in invoices:
-            if invoice.state != 'draft':
+            if invoice.state != 'draft' or not invoice.is_sii:
                 continue
             if invoice.sii_state:
                 invoices_sii += '\n%s: %s' % (
@@ -186,6 +243,9 @@ class Invoice(metaclass=PoolMeta):
         invoices_sii = []
         to_write = []
         for invoice in invoices:
+            if not invoice.is_sii:
+                continue
+
             to_write.extend(([invoice], {'sii_pending_sending': False}))
             if invoice.sii_state:
                 invoices_sii.append('%s: %s' % (
@@ -229,6 +289,9 @@ class Invoice(metaclass=PoolMeta):
         simplified_invoices = []  # Simplified invoice but not party
         simplifieds = []  # Simplified party and invoice
         for invoice in invoices:
+            if not invoice.is_sii:
+                continue
+
             if (invoice.party.sii_identifier_type == 'SI'
                     and (not invoice.sii_operation_key
                         or (invoice.sii_operation_key not in (
@@ -315,6 +378,9 @@ class Invoice(metaclass=PoolMeta):
 
         invoices2checksii = []
         for invoice in invoices:
+            if not invoice.is_sii:
+                continue
+
             if not invoice.move or invoice.move.state == 'draft':
                 invoices2checksii.append(invoice)
 
@@ -347,8 +413,8 @@ class Invoice(metaclass=PoolMeta):
             cls.write(*to_write)
 
         # Control that the in ivoices have reference.
-        invoices_wo_ref = [i for i in invoices if i.type == 'in'
-            and not i.reference]
+        invoices_wo_ref = [i for i in invoices
+            if i.is_sii and i.type == 'in' and not i.reference]
         if invoices_wo_ref:
             names = ', '.join(m.rec_name for m in invoices_wo_ref[:5])
             if len(invoices_wo_ref) > 5:
@@ -379,8 +445,12 @@ class Invoice(metaclass=PoolMeta):
     @classmethod
     def cancel(cls, invoices):
         result = super().cancel(invoices)
+
         to_write = []
         for invoice in invoices:
+            if not invoice.is_sii:
+                continue
+
             if not invoice.cancel_move:
                 to_write.append(invoice)
         if to_write:

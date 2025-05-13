@@ -3,10 +3,10 @@
 contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/tree/field[@name='state']" position="after">
-      <field name="sii_book_key"/>
-      <field name="sii_operation_key"/>
-      <field name="sii_communication_type"/>
-      <field name="sii_state"/>
-      <field name="sii_pending_sending"/>
+      <field name="sii_book_key" optional="1"/>
+      <field name="sii_operation_key" optional="1"/>
+      <field name="sii_communication_type" optional="1"/>
+      <field name="sii_state" optional="1"/>
+      <field name="sii_pending_sending" optional="1"/>
     </xpath>
 </data>

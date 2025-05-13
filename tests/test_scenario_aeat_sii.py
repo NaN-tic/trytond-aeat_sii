@@ -58,6 +58,17 @@ class Test(unittest.TestCase):
         revenue = accounts['revenue']
         expense = accounts['expense']
 
+        # Create dummy certificate and add account configuration
+        Certificate = Model.get('certificate')
+        certificate = Certificate()
+        certificate.name = 'Dummy'
+        certificate.save()
+
+        AccountConfiguration = Model.get('account.configuration')
+        account_config = AccountConfiguration(1)
+        account_config.aeat_certificate_sii = certificate
+        account_config.save()
+
         # Create tax
         tax = create_tax(Decimal('.10'))
         tax.sii_book_key = 'E'
@@ -140,7 +151,9 @@ class Test(unittest.TestCase):
         line.description = 'Test'
         line.quantity = 1
         line.unit_price = Decimal(20)
+        self.assertEqual(invoice.is_sii, True)
         invoice.save()
+        self.assertEqual(invoice.is_sii, True)
         self.assertEqual(invoice.sii_book_key, 'E')
         self.assertEqual(invoice.sii_issued_key, '01')
         invoice.sii_book_key = 'I'
