@@ -72,6 +72,10 @@ msgctxt "field:account.configuration.default_sii,sii_default_offset_days:"
 msgid "SII Default Offset Days"
 msgstr "Dies marge per defecte SII"
 
+msgctxt "field:account.invoice,is_sii:"
+msgid "Is SII"
+msgstr "És SII"
+
 msgctxt "field:account.invoice,sii_book_key:"
 msgid "SII Book Key"
 msgstr "SII Clau llibre"
