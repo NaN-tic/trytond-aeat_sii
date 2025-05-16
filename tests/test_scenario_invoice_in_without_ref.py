@@ -50,6 +50,18 @@ class Test(unittest.TestCase):
         expense = accounts['expense']
         revenue = accounts['revenue']
 
+
+        # Create dummy certificate and add account configuration
+        Certificate = Model.get('certificate')
+        certificate = Certificate()
+        certificate.name = 'Dummy'
+        certificate.save()
+
+        AccountConfiguration = Model.get('account.configuration')
+        account_config = AccountConfiguration(1)
+        account_config.aeat_certificate_sii = certificate
+        account_config.save()
+
         # Create party
         Party = Model.get('party.party')
         party = Party(name='Party')
