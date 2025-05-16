@@ -3,7 +3,6 @@
 import hashlib
 from decimal import Decimal
 from sql import Null
-from trytond.pool import Pool
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval
