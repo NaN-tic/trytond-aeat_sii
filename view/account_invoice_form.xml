@@ -19,6 +19,7 @@ contains the full copyright notices and license terms. -->
           <field name="sii_state"/>
           <label name="sii_pending_sending"/>
           <field name="sii_pending_sending"/>
+          <field name="is_sii" invisible="1"/>
         </page>
     </xpath>
 </data>
