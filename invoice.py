@@ -21,7 +21,10 @@ _SII_INVOICE_KEYS = ['sii_book_key', 'sii_operation_key', 'sii_issued_key',
 
 class Invoice(metaclass=PoolMeta):
     __name__ = 'account.invoice'
-    is_sii = fields.Boolean('Is SII', readonly=True)
+    is_sii = fields.Boolean('Is SII',
+        states={
+            'readonly': Bool(Eval('company', False)),
+        })
     sii_book_key = fields.Selection(BOOK_KEY, 'SII Book Key')
     sii_operation_key = fields.Selection(OPERATION_KEY, 'SII Operation Key')
     sii_issued_key = fields.Selection(SEND_SPECIAL_REGIME_KEY,
@@ -164,13 +167,14 @@ class Invoice(metaclass=PoolMeta):
         Configuration = pool.get('account.configuration')
 
         vlist = [x.copy() for x in vlist]
-
         companies = set([i.get('company', -1) for i in vlist])
         is_sii = {}
         for company_id in companies:
             with Transaction().set_context(company=company_id):
                 is_sii[company_id] = Configuration(1).aeat_certificate_sii
         for vals in vlist:
+            if vals.get('is_sii'):
+                continue
             company_id = vals.get('company', -1)
             vals['is_sii'] = is_sii.get(company_id, False)
         return super().create(vlist)
