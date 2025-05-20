@@ -8,11 +8,8 @@ import io
 from configparser import ConfigParser
 
 MODULE = 'aeat_sii'
-PREFIX = 'trytonspain'
-MODULE2PREFIX = {
-    'account_es': 'trytonspain',
-    'account_invoice_company_currency': 'trytonspain',
-}
+PREFIX = 'nantic'
+MODULE2PREFIX = {}
 
 
 def read(fname):
@@ -42,18 +39,25 @@ major_version, minor_version, _ = version.split('.', 2)
 major_version = int(major_version)
 minor_version = int(minor_version)
 
-requires = [
-    'cryptography',
-    'python-sql',
-    ]
+requires = []
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res)(\W|$)', dep):
         prefix = MODULE2PREFIX.get(dep, 'trytond')
         requires.append(get_require_version('%s_%s' % (prefix, dep)))
 requires.append(get_require_version('trytond'))
 
-tests_require = [get_require_version('proteus')]
+tests_require = [
+    get_require_version('proteus'),
+]
+
+series = '%s.%s' % (major_version, minor_version)
+if minor_version % 2:
+    branch = 'default'
+else:
+    branch = series
+
 dependency_links = []
+
 if minor_version % 2:
     # Add development index for testing with proteus
     dependency_links.append('https://trydevpi.tryton.org/')
@@ -62,10 +66,10 @@ setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
     description='',
     long_description=read('README'),
-    author='TrytonSpain',
-    author_email='',
-    url='https://bitbucket.org/trytonspain/',
-    download_url="https://bitbucket.org/trytonspain/trytond-%s" % MODULE,
+    author='NaN·tic',
+    author_email='info@nan-tic.com',
+    url='http://www.nan-tic.com/',
+    download_url="https://bitbucket.org/nantic/trytond-%s" % MODULE,
     package_dir={'trytond.modules.%s' % MODULE: '.'},
     packages=[
         'trytond.modules.%s' % MODULE,
@@ -73,7 +77,7 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         ],
     package_data={
         'trytond.modules.%s' % MODULE: (info.get('xml', [])
-            + ['tryton.cfg', 'view/*.xml', 'locale/*.po', 'tests/*.rst']),
+            + ['tryton.cfg', 'locale/*.po', 'tests/*.rst']),
         },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -93,10 +97,10 @@ setup(name='%s_%s' % (PREFIX, MODULE),
         'Natural Language :: Russian',
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Office/Business',
