@@ -99,9 +99,10 @@ class Invoice(metaclass=PoolMeta):
                 group_by=account_configuration_sii.company)
             cursor.execute(*query)
             company_ids = [r[0] for r in cursor.fetchall()]
-            cursor.execute(*sql_table.update(
-                    [sql_table.is_sii], [True],
-                    where=sql_table.company.in_(company_ids)))
+            if company_ids:
+                cursor.execute(*sql_table.update(
+                        [sql_table.is_sii], [True],
+                        where=sql_table.company.in_(company_ids)))
 
     @classmethod
     def view_attributes(cls):
