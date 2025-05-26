@@ -3,6 +3,7 @@
 import hashlib
 from decimal import Decimal
 from sql import Null
+from urllib.parse import urlencode
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval
@@ -479,6 +480,27 @@ class Invoice(metaclass=PoolMeta):
             mapper = ReceivedMapper()
             header = mapper.build_delete_request(invoice)
         return header
+
+    def get_aeat_qr_url(self, name):
+        # test url "https://prewww2.aeat.es/wlpl/TIKE-CONT/ValidarQRNoVerifactu"
+        url_base = "https://www2.agenciatributaria.gob.es/wlpl/TIKE-CONT/ValidarQRNoVerifactu"
+        nif = self.company.party.verifactu_vat_code
+        numserie = self.number
+        fecha = self.invoice_date.strftime("%d-%m-%Y") if self.invoice_date else None
+        importe = self.total_amount
+
+        if not all([nif, numserie, fecha, importe]) or not self.is_sii:
+            return
+
+        params = {
+            "nif": nif,
+            "numserie": numserie,
+            "fecha": fecha,
+            "importe": importe,
+        }
+        query = urlencode(params)
+        qr_url = f"{url_base}?{query}"
+        return qr_url
 
 
 class InvoiceLine(metaclass=PoolMeta):
