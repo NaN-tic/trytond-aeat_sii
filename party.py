@@ -18,10 +18,9 @@ class Party(metaclass=PoolMeta):
         if identifier:
             if name == 'sii_vat_code':
                 if (identifier.type == 'eu_vat' and
-                        not identifier.code.startswith('ES') and
-                        self.sii_identifier_type == '02'):
-                    return identifier.code
-                return identifier.code[2:]
+                        identifier.code.startswith('ES')):
+                    return identifier.code[2:]
+                return identifier.code
 
     def default_sii_identifier_type():
         return 'SI'
