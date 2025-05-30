@@ -90,10 +90,12 @@ class Test(unittest.TestCase):
         party = Party(name='Party')
         self.assertEqual(party.sii_identifier_type, 'SI')
         party.sii_identifier_type = None
-        tax_identifier = company.party.identifiers.new()
+        tax_identifier = party.identifiers.new()
         tax_identifier.type = 'eu_vat'
         tax_identifier.code = 'ES01234567L'
         party.save()
+
+        self.assertEqual(party.sii_vat_code, '01234567L')
 
         # Create Simplified Invoice party
         simplified_party = Party(name='Party')
