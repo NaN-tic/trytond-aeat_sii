@@ -28,7 +28,7 @@ _logger = getLogger(__name__)
 _ZERO = Decimal(0)
 
 # AEAT SII test
-SII_TEST = config.getboolean('aeat', 'sii_test', default=True)
+SII_TEST = not config.getboolean('database', 'production', default=False)
 MAX_SII_LINES = config.getint('aeat', 'sii_lines', default=300)
 
 
