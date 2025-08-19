@@ -3,7 +3,7 @@
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from . import aeat
-from trytond.modules.party import Party as TAX_IDENTIFIER_TYPES
+from trytond.modules.party import TAX_IDENTIFIER_TYPES
 
 __all__ = ['Party', 'PartyIdentifier']
 
