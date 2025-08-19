@@ -3,6 +3,7 @@
 from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 from . import aeat
+from trytond.modules.party import Party as TAX_IDENTIFIER_TYPES
 
 __all__ = ['Party', 'PartyIdentifier']
 
@@ -38,18 +39,26 @@ class PartyIdentifier(metaclass=PoolMeta):
         Party = pool.get('party.party')
 
         to_write = []
+        valid_identifier_by_party = {}
         for identifier in identifiers:
-            if ((identifier.type == 'eu_vat' and identifier.code[:2] == 'ES')
-                    or identifier.type in ('es_cif', 'es_dni', 'es_nie',
-                        'es_nif')):
+            if identifier.type in TAX_IDENTIFIER_TYPES:
+                valid_identifier_by_party.setdefault(
+                    identifier.party, []).append(identifier)
+
+        for party, identifiers in valid_identifier_by_party.items():
+            for identifier in identifiers:
                 sii_identifier_type = None
-            elif identifier.type == 'eu_vat':
-                sii_identifier_type = '02'
-            elif identifier.type == 'eu_at_02':
-                continue
+                if ((identifier.type == 'eu_vat' and identifier.code[:2] == 'ES')
+                        or identifier.type in ('es_cif', 'es_dni', 'es_nie',
+                            'es_nif')):
+                    sii_identifier_type = None
+                elif identifier.type == 'eu_vat':
+                    sii_identifier_type = '02'
+                if sii_identifier_type:
+                    break
             else:
                 sii_identifier_type = '06'
-            to_write.extend(([identifier.party], {
+            to_write.extend(([party], {
                 'sii_identifier_type': sii_identifier_type}))
 
         if to_write:
