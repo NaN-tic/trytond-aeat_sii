@@ -8,108 +8,92 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_operation_key">F6</field>
             <field name="sii_received_key">13</field>
             <field name="sii_exemption_cause">E6</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X0_compras_bi">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F6</field>
             <field name="sii_received_key">13</field>
             <field name="sii_exemption_cause">E6</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X4_compras_bc">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F5</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X4_compras_bi">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F5</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X10_compras_bc">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F5</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X10_compras_bi">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F5</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X21_compras_bc">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F5</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X21_compras_bi">
             <field name="sii_book_key">R</field>
             <field name="sii_operation_key">F5</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X0">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">02</field>
             <field name="sii_exemption_cause">E2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_X0_spanish_excluded_tax">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">02</field>
             <field name="sii_exemption_cause">E2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_compras_16">
             <field name="sii_book_key">E</field>
             <field name="sii_operation_key">F1</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_isp">
             <field name="sii_book_key">E</field>
             <field name="sii_operation_key">F1</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_reciclaje_0">
             <field name="sii_book_key">E</field>
             <field name="sii_operation_key">F1</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_obra_0">
             <field name="sii_book_key">E</field>
             <field name="sii_operation_key">F1</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IO">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E5</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IO_serv">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">NotSubject</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
 
         <record model="account.tax.template" id="account_es.iva_IC_compras_2_bc">
@@ -119,7 +103,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_2_bc_2">
             <field name="sii_book_key"></field>
@@ -134,7 +117,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_2_bi_2">
             <field name="sii_book_key"></field>
@@ -149,7 +131,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_2_ser_2">
             <field name="sii_book_key"></field>
@@ -164,7 +145,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_4_bc_2">
             <field name="sii_book_key"></field>
@@ -179,7 +159,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_4_bi_2">
             <field name="sii_book_key"></field>
@@ -194,7 +173,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_4_servicios_2">
             <field name="sii_book_key"></field>
@@ -209,7 +187,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_75_bc_2">
             <field name="sii_book_key"></field>
@@ -224,7 +201,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_75_bi_2">
             <field name="sii_book_key"></field>
@@ -239,7 +215,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_75_ser_2">
             <field name="sii_book_key"></field>
@@ -254,7 +229,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_10_bc_2">
             <field name="sii_book_key"></field>
@@ -269,7 +243,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_10_bi_2">
             <field name="sii_book_key"></field>
@@ -284,7 +257,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_10_servicios_2">
             <field name="sii_book_key"></field>
@@ -299,7 +271,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_21_bc_2">
             <field name="sii_book_key"></field>
@@ -314,7 +285,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_21_bi_2">
             <field name="sii_book_key"></field>
@@ -329,7 +299,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">09</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_IC_compras_21_ser_2">
             <field name="sii_book_key"></field>
@@ -351,13 +320,11 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">02</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_regp_compras_105">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">02</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_compras_serv">
             <field name="sii_tax_used" eval="False"/>
@@ -367,7 +334,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_operation_key">F1</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_compras_serv_2">
             <field name="sii_book_key">R</field>
@@ -384,7 +350,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_operation_key">F1</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_compras_2">
             <field name="sii_book_key"></field>
@@ -401,7 +366,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_operation_key">F1</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S2</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_ISP_compras_bi_2">
             <field name="sii_book_key"></field>
@@ -438,139 +402,116 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_exemption_cause">E6</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_0">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_2">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_4">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_5">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_75">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_10">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_21">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_ex_inv">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_exemption_cause">E6</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_4_inv">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_10_inv">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_21_inv">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_ex">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E6</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_ex_form">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_0_asis">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_0_ter_rus">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_0">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_2">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_4">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_5">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_75">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_10">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_21">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_alq_ex">
             <field name="sii_book_key">R</field>
@@ -588,19 +529,16 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_no_ded_10">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_no_ded_21">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-            <field name="sii_tax_used" eval="True"/>
         </record>
     </data>
 </tryton>

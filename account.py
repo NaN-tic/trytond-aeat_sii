@@ -143,6 +143,10 @@ class TemplateTax(metaclass=PoolMeta):
         table.drop_column('sii_intracomunity_key')
         table.drop_column('invoice_used')
 
+    @staticmethod
+    def default_sii_tax_used():
+        return True
+
     def _get_tax_value(self, tax=None):
         res = super()._get_tax_value(tax)
         for field in ('sii_book_key', 'sii_operation_key', 'sii_issued_key',
