@@ -148,7 +148,7 @@ msgctxt "field:account.tax,sii_subjected_key:"
 msgid "Subjected Key"
 msgstr "Clave sujeto"
 
-msgctxt "field:account.tax,tax_used:"
+msgctxt "field:account.tax,sii_tax_used:"
 msgid "Used in Tax"
 msgstr "Usado en impuestos"
 
@@ -188,7 +188,7 @@ msgctxt "field:account.tax.template,sii_subjected_key:"
 msgid "Subjected Key"
 msgstr "Clave sujeto"
 
-msgctxt "field:account.tax.template,tax_used:"
+msgctxt "field:account.tax.template,sii_tax_used:"
 msgid "Used in Tax"
 msgstr "Usado en impuestos"
 
