@@ -284,8 +284,7 @@ class Invoice(metaclass=PoolMeta):
                 return min(origin_numbers)
             elif origin_numbers and type == 'last':
                 return max(origin_numbers)
-            else:
-                return ''
+        return ''
 
     @classmethod
     def get_simplified_invoices(cls, invoices):
