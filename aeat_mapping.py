@@ -129,12 +129,12 @@ class BaseInvoiceMapper(Model):
 
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
-                invoice_tax.tax.tax_used and
+                invoice_tax.tax.sii_tax_used and
                 not invoice_tax.tax.recargo_equivalencia)]
 
     def total_invoice_taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
-                invoice_tax.tax.invoice_used and
+                invoice_tax.tax.sii_invoice_used and
                 not invoice_tax.tax.recargo_equivalencia)]
 
     def _tax_equivalence_surcharge(self, invoice_tax):
