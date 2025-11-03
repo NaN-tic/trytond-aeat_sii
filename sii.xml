@@ -428,11 +428,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_sop_75">
-            <field name="sii_book_key">R</field>
-            <field name="sii_received_key">01</field>
-            <field name="sii_subjected_key">S1</field>
             <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_10">
