@@ -489,11 +489,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_rep_2">
-            <field name="sii_book_key">E</field>
-            <field name="sii_issued_key">01</field>
-            <field name="sii_subjected_key">S1</field>
             <field name="sii_tax_used" eval="True"/>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_4">
@@ -502,11 +497,6 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_subjected_key">S1</field>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_5">
-            <field name="sii_book_key">E</field>
-            <field name="sii_issued_key">01</field>
-            <field name="sii_subjected_key">S1</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_rep_75">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
