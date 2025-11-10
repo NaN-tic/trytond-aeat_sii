@@ -74,7 +74,7 @@ class Test(unittest.TestCase):
         tax.sii_book_key = 'E'
         tax.sii_issued_key = '01'
         tax.sii_subjected_key = 'S1'
-        tax.tax_used = True
+        tax.sii_tax_used = True
         tax.save()
         invoice_base_code = create_tax_code(tax, 'base', 'invoice')
         invoice_base_code.save()
