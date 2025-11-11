@@ -10,6 +10,7 @@ from . import aeat_mapping
 from . import sale
 from . import purchase
 from . import contract
+from . import document
 
 
 def register():
@@ -50,3 +51,7 @@ def register():
         aeat.CreateSiiIssuedPending,
         aeat.CreateSiiReceivedPending,
         module='aeat_sii', type_='wizard')
+    Pool.register(
+        document.Document,
+        depends=['papyrus_model'],
+        module='aeat_sii', type_='model')
