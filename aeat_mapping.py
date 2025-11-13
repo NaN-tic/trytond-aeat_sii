@@ -41,7 +41,7 @@ class BaseInvoiceMapper(Model):
     def not_subject(self, invoice):
         subject = False
         base = 0
-        taxes = self.total_invoice_taxes(invoice)
+        taxes = self.taxes(invoice)
         for tax in taxes:
             if (tax.tax.sii_exemption_cause == 'NotSubject' and
                     not tax.tax.service):
@@ -74,7 +74,7 @@ class BaseInvoiceMapper(Model):
         return val
 
     def get_invoice_total(self, invoice):
-        taxes = self.total_invoice_taxes(invoice)
+        taxes = self.taxes(invoice)
         taxes_base = 0
         taxes_amount = 0
         taxes_surcharge = 0
@@ -132,9 +132,14 @@ class BaseInvoiceMapper(Model):
                 invoice_tax.tax.sii_tax_used and
                 not invoice_tax.tax.recargo_equivalencia)]
 
-    def total_invoice_taxes(self, invoice):
-        return [invoice_tax for invoice_tax in invoice.taxes if
-            not invoice_tax.tax.recargo_equivalencia]
+    def taxes_without_same_parent(self, taxes):
+        taxes_used = []
+        for tax in taxes:
+            parent = tax.tax.parent if tax.tax.parent else tax.tax
+            if parent.id in taxes_used:
+                continue
+            taxes_used.append(parent.id)
+        return taxes_used
 
     def _tax_equivalence_surcharge(self, invoice_tax):
         surcharge_tax = None
@@ -274,7 +279,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
     def location_rules(self, invoice):
         location = False
         base = 0
-        taxes = self.total_invoice_taxes(invoice)
+        taxes = self.taxes(invoice)
         for tax in taxes:
             if (tax.tax.sii_issued_key == '08' or
                     (tax.tax.sii_exemption_cause == 'NotSubject' and
@@ -335,7 +340,8 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                 'DesgloseFactura': detail
             })
 
-        taxes = self.taxes(invoice)
+        _taxes = self.taxes(invoice)
+        taxes = self.taxes_without_same_parent(_taxes)
         for tax in taxes:
             exempt_kind = self.exempt_kind(tax.tax)
             not_exempt_kind = self.not_exempt_kind(tax.tax)
@@ -463,7 +469,9 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
 
     def _deductible_amount(self, invoice):
         val = Decimal(0)
-        for tax in self.taxes(invoice):
+        _taxes = self.taxes(invoice)
+        taxes = self.taxes_without_same_parent(_taxes)
+        for tax in taxes:
             if tax.tax.deducible:
                 val += tax.company_amount
 
@@ -516,13 +524,14 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             # TODO: PeriodoDeduccion
         }
         _taxes = self.taxes(invoice)
-        isp_taxes = self.isp_taxes(_taxes)
-        _taxes = list(set(_taxes) - set(isp_taxes))
-        if _taxes:
+        taxes = self.taxes_without_same_parent(_taxes)
+        isp_taxes = self.isp_taxes(taxes)
+        taxes = list(set(taxes) - set(isp_taxes))
+        if taxes:
             ret['DesgloseFactura']['DesgloseIVA'] = {
                 'DetalleIVA': [],
                 }
-        for tax in _taxes:
+        for tax in taxes:
             validate_tax = self.build_taxes(invoice, tax)
             if validate_tax:
                 ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].append(
