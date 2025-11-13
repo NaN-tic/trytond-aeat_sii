@@ -133,13 +133,13 @@ class BaseInvoiceMapper(Model):
                 not invoice_tax.tax.recargo_equivalencia)]
 
     def taxes_without_same_parent(self, taxes):
-        taxes_used = []
+        taxes_used = {}
         for tax in taxes:
             parent = tax.tax.parent if tax.tax.parent else tax.tax
-            if parent.id in taxes_used:
+            if parent.id in taxes_used.keys():
                 continue
-            taxes_used.append(parent.id)
-        return taxes_used
+            taxes_used[parent.id] = parent
+        return taxes_used.values()
 
     def _tax_equivalence_surcharge(self, invoice_tax):
         surcharge_tax = None
