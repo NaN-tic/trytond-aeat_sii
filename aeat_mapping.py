@@ -138,7 +138,7 @@ class BaseInvoiceMapper(Model):
             parent = tax.tax.parent if tax.tax.parent else tax.tax
             if parent.id in taxes_used.keys():
                 continue
-            taxes_used[parent.id] = parent
+            taxes_used[parent.id] = tax
         return taxes_used.values()
 
     def _tax_equivalence_surcharge(self, invoice_tax):
