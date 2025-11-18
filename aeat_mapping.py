@@ -85,7 +85,7 @@ class BaseInvoiceMapper(Model):
             taxes_surcharge += self.tax_equivalence_surcharge_amount(tax) or 0
             parent = tax.tax.parent if tax.tax.parent else tax.tax
             if (parent.id in list(taxes_used.keys()) and
-                    base == taxes_used[parent.id]):
+                    (base == taxes_used[parent.id] or tax.manual)):
                 continue
             taxes_base += base
             taxes_used[parent.id] = base
@@ -136,7 +136,7 @@ class BaseInvoiceMapper(Model):
         taxes_used = {}
         for tax in taxes:
             parent = tax.tax.parent if tax.tax.parent else tax.tax
-            if parent.id in taxes_used.keys():
+            if parent.id in taxes_used.keys() and not tax.manual:
                 continue
             taxes_used[parent.id] = tax
         return taxes_used.values()
