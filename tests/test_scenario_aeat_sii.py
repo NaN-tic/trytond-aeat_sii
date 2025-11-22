@@ -5,9 +5,10 @@ from decimal import Decimal
 from dateutil.relativedelta import relativedelta
 from proteus import Model, Wizard
 from trytond.exceptions import UserWarning
-from trytond.modules.account.tests.tools import (create_chart,
-                                                 create_fiscalyear, create_tax,
-                                                 create_tax_code, get_accounts)
+from trytond.modules.account_es.tests.tools import (create_chart, create_tax,
+    get_accounts)
+from trytond.modules.account.tests.tools import (create_fiscalyear,
+    create_tax_code)
 from trytond.modules.account_invoice.tests.tools import \
     set_fiscalyear_invoice_sequences
 from trytond.modules.company.tests.tools import create_company, get_company
@@ -74,7 +75,6 @@ class Test(unittest.TestCase):
         tax.sii_book_key = 'E'
         tax.sii_issued_key = '01'
         tax.sii_subjected_key = 'S1'
-        tax.sii_tax_used = True
         tax.save()
         invoice_base_code = create_tax_code(tax, 'base', 'invoice')
         invoice_base_code.save()

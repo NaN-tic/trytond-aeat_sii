@@ -118,7 +118,6 @@ class TemplateTax(metaclass=PoolMeta):
         'Received Key')
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected Key')
     sii_exemption_cause = fields.Selection(EXEMPTION_CAUSE, 'Exemption Cause')
-    sii_tax_used = fields.Boolean('Used in Tax')
 
     @classmethod
     def __register__(cls, module_name):
@@ -127,10 +126,8 @@ class TemplateTax(metaclass=PoolMeta):
         sql_table = cls.__table__()
 
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
-        rename_tax_used = (table.column_exist('tax_used')
-            and not table.column_exist('sii_tax_used'))
-        if rename_tax_used:
-            table.column_rename('tax_used', 'sii_tax_used')
+        tax_used = table.column_exist('tax_used')
+        sii_tax_used = table.column_exist('sii_tax_used')
 
         super().__register__(module_name)
 
@@ -143,15 +140,16 @@ class TemplateTax(metaclass=PoolMeta):
         table.drop_column('sii_intracomunity_key')
         table.drop_column('invoice_used')
 
-    @staticmethod
-    def default_sii_tax_used():
-        return True
+        if tax_used:
+            table.drop_column('tax_used')
+        if sii_tax_used:
+            table.drop_column('sii_tax_used')
 
     def _get_tax_value(self, tax=None):
         res = super()._get_tax_value(tax)
         for field in ('sii_book_key', 'sii_operation_key', 'sii_issued_key',
-                'sii_subjected_key', 'sii_exemption_cause', 'sii_received_key',
-                'sii_tax_used'):
+                'sii_subjected_key', 'sii_exemption_cause',
+                'sii_received_key'):
 
             if not tax or getattr(tax, field) != getattr(self, field):
                 res[field] = getattr(self, field)
@@ -169,7 +167,6 @@ class Tax(metaclass=PoolMeta):
         'Received Key')
     sii_subjected_key = fields.Selection(IVA_SUBJECTED, 'Subjected Key')
     sii_exemption_cause = fields.Selection(EXEMPTION_CAUSE, 'Exemption Cause')
-    sii_tax_used = fields.Boolean('Used in Tax')
 
     @classmethod
     def __register__(cls, module_name):
@@ -179,10 +176,8 @@ class Tax(metaclass=PoolMeta):
 
         exist_sii_excemption_key = table.column_exist('sii_excemption_key')
 
-        rename_tax_used = (table.column_exist('tax_used')
-            and not table.column_exist('sii_tax_used'))
-        if rename_tax_used:
-            table.column_rename('tax_used', 'sii_tax_used')
+        tax_used = table.column_exist('tax_used')
+        sii_tax_used = table.column_exist('sii_tax_used')
 
         super().__register__(module_name)
 
@@ -194,4 +189,7 @@ class Tax(metaclass=PoolMeta):
 
         table.drop_column('sii_intracomunity_key')
         table.drop_column('invoice_used')
-
+        if tax_used:
+            table.drop_column('tax_used')
+        if sii_tax_used:
+            table.drop_column('sii_tax_used')
