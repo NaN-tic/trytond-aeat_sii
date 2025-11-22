@@ -85,7 +85,7 @@ class BaseInvoiceMapper(Model):
             taxes_surcharge += self.tax_equivalence_surcharge_amount(tax) or 0
             parent = tax.tax.parent if tax.tax.parent else tax.tax
             if (parent.id in list(taxes_used.keys()) and
-                    (base == taxes_used[parent.id] or tax.manual)):
+                    base == taxes_used[parent.id]):
                 continue
             taxes_base += base
             taxes_used[parent.id] = base
@@ -129,22 +129,26 @@ class BaseInvoiceMapper(Model):
 
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
-                invoice_tax.tax.sii_tax_used and
-                not invoice_tax.tax.recargo_equivalencia)]
+                invoice_tax.tax.tax_kind == 'vat')]
 
     def taxes_without_same_parent(self, taxes):
-        taxes_used = {}
+        taxes_used = []
+        parents = []
         for tax in taxes:
-            parent = tax.tax.parent if tax.tax.parent else tax.tax
-            if parent.id in taxes_used.keys() and not tax.manual:
-                continue
-            taxes_used[parent.id] = tax
-        return taxes_used.values()
+            if not tax.tax.parent:
+                taxes_used.append(tax)
+            else:
+                parent = tax.tax.parent
+                if parent in parents:
+                    continue
+                taxes_used.append(tax)
+                parents.append(parent)
+        return taxes_used
 
     def _tax_equivalence_surcharge(self, invoice_tax):
         surcharge_tax = None
         for invoicetax in invoice_tax.invoice.taxes:
-            if (invoicetax.tax.recargo_equivalencia and
+            if (invoicetax.tax.tax_kind == 'surcharge' and
                     invoice_tax.tax.recargo_equivalencia_related_tax ==
                     invoicetax.tax and invoicetax.base ==
                     invoicetax.base.copy_sign(invoice_tax.base)):

@@ -4,9 +4,9 @@ from decimal import Decimal
 
 from proteus import Model
 from trytond.exceptions import UserWarning
-from trytond.modules.account.tests.tools import (create_chart,
-                                                 create_fiscalyear,
-                                                 get_accounts)
+from trytond.modules.account_es.tests.tools import (create_chart,
+    get_accounts)
+from trytond.modules.account.tests.tools import create_fiscalyear
 from trytond.modules.account_invoice.tests.tools import \
     set_fiscalyear_invoice_sequences
 from trytond.modules.company.tests.tools import create_company, get_company
