@@ -4,8 +4,6 @@ contains the full copyright notices and license terms. -->
 <data>
     <xpath expr="/form/notebook/page[@name='legal_notice']" position="after">
         <page string="AEAT SII" id="aeatsii">
-            <label name="sii_tax_used"/>
-            <field name="sii_tax_used"/>
             <label name="sii_book_key"/>
             <field name="sii_book_key"/>
             <label name="sii_operation_key"/>
