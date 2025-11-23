@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         today = datetime.date.today()
 
         # Install account_sii
-        config = activate_modules('aeat_sii')
+        config = activate_modules(['aeat_sii', 'account_code_digits'])
 
         # Create company
         _ = create_company()

@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
         today = datetime.date.today()
 
         # Activate modules
-        activate_modules('aeat_sii')
+        activate_modules(['aeat_sii', 'account_code_digits'])
 
         # Create company
         _ = create_company()
