@@ -30,7 +30,6 @@ class BaseInvoiceMapper(Model):
     nif = attrgetter('company.party.sii_vat_code')
     issue_date = attrgetter('invoice_date')
     invoice_kind = attrgetter('sii_operation_key')
-    rectified_invoice_kind = tools.fixed_value('I')
 
     def not_exempt_kind(self, tax):
         return attrgetter('sii_subjected_key')(tax)
@@ -450,13 +449,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
 
     def _update_rectified_invoice(self, ret, invoice):
         if ret['TipoFactura'] in RECTIFIED_KINDS:
-            ret['TipoRectificativa'] = self.rectified_invoice_kind(invoice)
-            if ret['TipoRectificativa'] == 'S':
-                ret['ImporteRectificacion'] = {
-                    'BaseRectificada': self.rectified_base(invoice),
-                    'CuotaRectificada': self.rectified_amount(invoice),
-                    # TODO: CuotaRecargoRectificado
-                }
+            ret['TipoRectificativa'] = 'I'
 
 
 class RecievedInvoiceMapper(BaseInvoiceMapper):
@@ -554,10 +547,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
 
     def _update_rectified_invoice(self, ret, invoice):
         if ret['TipoFactura'] in RECTIFIED_KINDS:
-            ret['TipoRectificativa'] = self.rectified_invoice_kind(invoice)
-            # TODO: FacturasRectificadas:{IDFacturaRectificada:[{Num, Fecha}]}
-            # TODO: ImporteRectificacion: {
-            #   BaseRectificada, CuotaRectificada, CuotaRecargoRectificado }
+            ret['TipoRectificativa'] = 'I'
 
     def build_taxes(self, invoice, tax):
         if not tax:
