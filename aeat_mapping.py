@@ -133,12 +133,19 @@ class BaseInvoiceMapper(Model):
     def taxes_without_same_parent(self, taxes):
         taxes_used = []
         parents = []
+        invoice = taxes[0].invoice if taxes else None
+        if not invoice:
+            return []
+        credit_invoice = True if invoice.sii_operation_key in (
+            'R1', 'R2', 'R3', 'R4', 'R5') else False
         for tax in taxes:
             if not tax.tax.parent:
                 taxes_used.append(tax)
             else:
                 parent = tax.tax.parent
-                if parent in parents:
+                if (parent in parents
+                        or (credit_invoice and tax.amount >= Decimal(0))
+                        or (not credit_invoice and tax.amount < Decimal(0))):
                     continue
                 taxes_used.append(tax)
                 parents.append(parent)
