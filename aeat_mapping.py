@@ -477,7 +477,8 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         taxes = self.taxes_without_same_parent(_taxes)
 
         for tax in taxes:
-            if self.tax_equivalence_surcharge_rate(tax):
+
+            if self.tax_equivalence_surcharge_amount(tax):
                 return 0
             if tax.tax.deducible:
                 val += tax.company_amount
