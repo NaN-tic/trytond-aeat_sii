@@ -476,9 +476,10 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         _taxes = self.taxes(invoice)
         taxes = self.taxes_without_same_parent(_taxes)
         for tax in taxes:
+            if self.tax_equivalence_surcharge_amount(tax):
+                return 0
             if tax.tax.deducible:
                 val += tax.company_amount
-
         return val if not self._is_first_semester(invoice) else 0
 
     def _move_date(self, invoice):
