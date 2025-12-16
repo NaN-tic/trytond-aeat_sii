@@ -234,33 +234,6 @@ class BaseInvoiceMapper(Model):
             result['ClavePaginacion'] = last_invoice
         return result
 
-    def group_taxes(self, taxes):
-        group_taxes = {}
-        for tax in taxes:
-            if tax.tax not in group_taxes:
-                group_taxes[tax.tax] = {
-                    'rate': tools._rate_to_percent(self.tax_rate(tax)),
-                    'base': self.tax_base(tax),
-                    'amount': self.tax_amount(tax)
-                }
-            else:
-                group_taxes[tax.tax]['base'] += self.tax_base(tax)
-                group_taxes[tax.tax]['amount'] += self.tax_amount(tax)
-
-            # In case base is 0, return only the tax
-            if group_taxes[tax.tax]['base'] == Decimal(0):
-                continue
-
-            if self.tax_equivalence_surcharge_rate(tax):
-                group_taxes[tax.tax]['surcharge_rate'] = (
-                    tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
-                            tax)))
-
-            if self.tax_equivalence_surcharge_amount(tax):
-                group_taxes[tax.tax]['surcharge_amount'] = (
-                    self.tax_equivalence_surcharge_amount(tax))
-        return group_taxes
-
 
 class IssuedInvoiceMapper(BaseInvoiceMapper):
     """
@@ -289,25 +262,28 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             'NIF': self.nif(invoice),
         }
 
-    def build_taxes(self, values):
-        if not values:
+    def build_taxes(self, tax):
+        if not tax:
             return {}
 
         res = {
-            'TipoImpositivo': values['rate'],
-            'BaseImponible': values['base'],
-            'CuotaRepercutida': values['amount'],
+            'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
+            'BaseImponible': self.tax_base(tax),
+            'CuotaRepercutida': self.tax_amount(tax)
             }
 
         # In case base is 0, return only the tax, not the possible IRPF.
-        if values['base'] == Decimal(0):
+        if self.tax_base(tax) == Decimal(0):
             return res
 
-        if values.get('surcharge_rate'):
-            res['TipoRecargoEquivalencia'] = values['surcharge_rate']
+        if self.tax_equivalence_surcharge_rate(tax):
+            res['TipoRecargoEquivalencia'] = (
+                tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
+                        tax)))
 
-        if values.get('surcharge_amount'):
-            res['CuotaRecargoEquivalencia'] = values['surcharge_amount']
+        if self.tax_equivalence_surcharge_amount(tax):
+            res['CuotaRecargoEquivalencia'] = (
+                self.tax_equivalence_surcharge_amount(tax))
         return res
 
     def location_rules(self, invoice):
@@ -376,10 +352,9 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
 
         _taxes = self.taxes(invoice)
         taxes = self.taxes_without_same_parent(_taxes)
-        group_taxes = self.group_taxes(taxes)
-        for tax, values in group_taxes.items():
-            exempt_kind = self.exempt_kind(tax)
-            not_exempt_kind = self.not_exempt_kind(tax)
+        for tax in taxes:
+            exempt_kind = self.exempt_kind(tax.tax)
+            not_exempt_kind = self.not_exempt_kind(tax.tax)
             if (not_exempt_kind in ('S2', 'S3') and
                     'NIF' not in ret.get('Contraparte', {})):
                 raise UserError(gettext('aeat_sii.msg_missing_nif',
@@ -390,11 +365,11 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                     # inv. subj. pass.
                     tax_detail = {
                         'TipoImpositivo': 0,
-                        'BaseImponible': values['base'],
+                        'BaseImponible': self.get_tax_base(tax),
                         'CuotaRepercutida': 0
                     }
                 else:
-                    tax_detail = self.build_taxes(values)
+                    tax_detail = self.build_taxes(tax)
                 if tax_detail:
                     if (not detail['Sujeta'] or
                             not detail['Sujeta'].get('NoExenta')):
@@ -411,7 +386,7 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
                             'DetalleIVA'].append(tax_detail)
             elif exempt_kind:
                 if exempt_kind != 'NotSubject':
-                    baseimponible = values['base']
+                    baseimponible = self.get_tax_base(tax)
                     if detail['Sujeta'].get('Exenta', {}).get(
                             'DetalleExenta', {}).get(
                             'CausaExencion', None) == exempt_kind:
@@ -561,9 +536,8 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             ret['DesgloseFactura']['DesgloseIVA'] = {
                 'DetalleIVA': [],
                 }
-        group_taxes = self.group_taxes(taxes)
-        for values in group_taxes.values():
-            validate_tax = self.build_taxes(invoice, values)
+        for tax in taxes:
+            validate_tax = self.build_taxes(invoice, tax)
             if validate_tax:
                 ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].append(
                     validate_tax)
@@ -571,9 +545,8 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             ret['DesgloseFactura']['InversionSujetoPasivo'] = {
                 'DetalleIVA': []
                 }
-        group_isp_taxes = self.group_taxes(isp_taxes)
-        for values in group_isp_taxes.values():
-            validate_tax = self.build_taxes(invoice, values)
+        for tax in isp_taxes:
+            validate_tax = self.build_taxes(invoice, tax)
             if validate_tax:
                 ret['DesgloseFactura']['InversionSujetoPasivo'][
                     'DetalleIVA'].append(validate_tax)
@@ -584,40 +557,38 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         if ret['TipoFactura'] in RECTIFIED_KINDS:
             ret['TipoRectificativa'] = 'I'
 
-    def group_taxes(self, taxes):
-        group_taxes = super().group_taxes(taxes)
-        for tax in taxes:
-            bieninversion = all(map(lambda w: w in tax.tax.name, (
-                        'bien', 'inversión')))
-            group_taxes[tax.tax]['investment'] = 'S' if bieninversion else 'N'
-        return group_taxes
-
-    def build_taxes(self, invoice, values):
-        if not values:
+    def build_taxes(self, invoice, tax):
+        if not tax:
             return {}
         # In case base is 0, return only the tax, not the possible IRPF.
-        if values['base'] == Decimal(0):
+        if self.tax_base(tax) == Decimal(0):
             ret = {
-                'TipoImpositivo': values['rate'],
+                'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
                 'BaseImponible': Decimal(0),
                 'CuotaSoportada': Decimal(0),
             }
         else:
             ret = {
-                'BaseImponible': values['base'],
+                'BaseImponible': self.tax_base(tax),
             }
             if self.specialkey_or_trascendence(invoice) != '02':
-                ret['TipoImpositivo'] = values['rate']
-                ret['CuotaSoportada'] = values['amount']
-                if values.get('surcharge_rate'):
-                    ret['TipoRecargoEquivalencia'] = values['surcharge_rate']
-                if values.get('surcharge_amount'):
-                    ret['CuotaRecargoEquivalencia'] = values[
-                        'surcharge_amount']
-                ret['BienInversion'] = values.get('investment', 'N')
+                ret['TipoImpositivo'] = tools._rate_to_percent(self.tax_rate(tax))
+                ret['CuotaSoportada'] = self.tax_amount(tax)
+                if self.tax_equivalence_surcharge_rate(tax):
+                    ret['TipoRecargoEquivalencia'] = \
+                        tools._rate_to_percent(self.tax_equivalence_surcharge_rate(
+                                tax))
+                if self.tax_equivalence_surcharge_amount(tax):
+                    ret['CuotaRecargoEquivalencia'] = \
+                        self.tax_equivalence_surcharge_amount(tax)
+                bieninversion = all(map(lambda w: w in tax.tax.name, (
+                            'bien', 'inversión')))
+                ret['BienInversion'] = 'S' if bieninversion else 'N'
             else:
-                ret['PorcentCompensacionREAGYP'] = values['rate']
-                ret['ImporteCompensacionREAGYP'] = values['amount']
+                ret['PorcentCompensacionREAGYP'] = \
+                    tools._rate_to_percent(self.tax_rate(tax))
+                ret['ImporteCompensacionREAGYP'] = \
+                    (self.tax_amount(tax))
         return ret
 
     def isp_taxes(self, taxes):
