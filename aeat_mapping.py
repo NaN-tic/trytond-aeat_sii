@@ -6,9 +6,11 @@ from logging import getLogger
 from operator import attrgetter
 from datetime import date
 
+from trytond.pool import Pool
 from trytond.i18n import gettext
 from trytond.model import Model
 from trytond.exceptions import UserError
+from trytond.transaction import Transaction
 from . import tools
 
 
@@ -74,6 +76,7 @@ class BaseInvoiceMapper(Model):
 
     def get_invoice_total(self, invoice):
         taxes = self.taxes(invoice)
+        not_deductible_taxes = self._not_deductible_taxes(invoice)
         taxes_base = 0
         taxes_amount = 0
         taxes_surcharge = 0
@@ -88,6 +91,11 @@ class BaseInvoiceMapper(Model):
                 continue
             taxes_base += base
             taxes_used[parent.id] = base
+
+        for tax in not_deductible_taxes.values():
+            taxes_base += tax['base']
+            taxes_amount += tax['amount']
+
         return (taxes_amount + taxes_base + taxes_surcharge)
 
     def counterpart_id_type(self, invoice):
@@ -124,7 +132,8 @@ class BaseInvoiceMapper(Model):
             if invoice.invoice_address.country else '')
 
     def serial_number(self, invoice):
-        return invoice.number if invoice.type == 'out' else (invoice.reference or '')
+        return (invoice.number if invoice.type == 'out'
+            else (invoice.reference or ''))
 
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
@@ -477,12 +486,45 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
         taxes = self.taxes_without_same_parent(_taxes)
 
         for tax in taxes:
-
             if self.tax_equivalence_surcharge_amount(tax):
                 return 0
             if tax.tax.deducible:
                 val += tax.company_amount
-        return val if not self._is_first_semester(invoice) else 0
+        return val if not self._is_first_semester(invoice) else Decimal(0)
+
+    def _not_deductible_taxes(self, invoice):
+        pool = Pool()
+        Tax = pool.get('account.tax')
+
+        taxes = {}
+        for line in invoice.lines:
+            if (line.taxes_deductible_rate is None
+                    or line.taxes_deductible_rate == 1):
+                continue
+            with Transaction().set_context(_deductible_rate=1):
+                taxes_values = line._get_taxes().values()
+            for tax_value in taxes_values:
+                if not tax_value.get('tax', None):
+                    continue
+                tax = Tax(tax_value['tax'])
+                if tax.tax_kind == 'surcharge':
+                    continue
+                rate = tools._rate_to_percent(tax.rate)
+                non_deductible_base = (
+                    tax_value.get('base', Decimal(0))
+                    * (1 - line.taxes_deductible_rate))
+                non_deductible_amount = (
+                    tax_value.get('amount', Decimal(0))
+                    * (1 - line.taxes_deductible_rate))
+                if rate in taxes:
+                    taxes[rate]['base'] += non_deductible_base
+                    taxes[rate]['amount'] += non_deductible_amount
+                else:
+                    taxes[rate] = {
+                        'base': non_deductible_base,
+                        'amount': non_deductible_amount,
+                        }
+        return taxes
 
     def _move_date(self, invoice):
         return (
@@ -530,11 +572,12 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             # TODO: EjercicioDeduccion
             # TODO: PeriodoDeduccion
         }
+        not_deductible_taxes = self._not_deductible_taxes(invoice)
         _taxes = self.taxes(invoice)
         taxes = self.taxes_without_same_parent(_taxes)
         isp_taxes = self.isp_taxes(taxes)
         taxes = list(set(taxes) - set(isp_taxes))
-        if taxes:
+        if taxes or not_deductible_taxes:
             ret['DesgloseFactura']['DesgloseIVA'] = {
                 'DetalleIVA': [],
                 }
@@ -543,6 +586,22 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             if validate_tax:
                 ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA'].append(
                     validate_tax)
+        for rate, tax in not_deductible_taxes.items():
+            details = ret['DesgloseFactura']['DesgloseIVA']['DetalleIVA']
+            rate_used = False
+            for detail in details:
+                if detail.get('TipoImpositivo', None) == rate:
+                    rate_used =True
+                    detail['BaseImponible'] += tax['base']
+                    detail['CuotaSoportada'] += tax['amount']
+                    break
+            if not rate_used:
+                details.append({
+                        'TipoImpositivo': rate,
+                        'BaseImponible': tax['base'],
+                        'CuotaSoportada': tax['amount'],
+                        })
+
         if isp_taxes:
             ret['DesgloseFactura']['InversionSujetoPasivo'] = {
                 'DetalleIVA': []
@@ -552,6 +611,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             if validate_tax:
                 ret['DesgloseFactura']['InversionSujetoPasivo'][
                     'DetalleIVA'].append(validate_tax)
+
         self._update_rectified_invoice(ret, invoice)
         return ret
 

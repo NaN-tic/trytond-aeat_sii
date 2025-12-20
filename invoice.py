@@ -137,9 +137,9 @@ class Invoice(metaclass=PoolMeta):
 
     def _set_sii_keys(self):
         tax = None
-        for t in self.taxes:
-            if t.tax and t.tax.sii_book_key:
-                tax = t.tax
+        taxes = [tax_line for line in self.lines for tax_line in line.taxes]
+        for tax in taxes:
+            if tax and tax.sii_book_key:
                 break
         if not tax:
             return
@@ -482,15 +482,6 @@ class Invoice(metaclass=PoolMeta):
 
 class InvoiceLine(metaclass=PoolMeta):
     __name__ = 'account.invoice.line'
-
-    @classmethod
-    def __setup__(cls):
-        super().__setup__()
-        # Until is found the best way to control the deductible rate applied
-        # over taxes to present it correctly to AEAT SII, will be not allow
-        # to use it with the aeat_sii module installed.
-        cls.taxes_deductible_rate.states['invisible'] = True
-
 
 class ResetSIIKeysStart(ModelView):
     """
