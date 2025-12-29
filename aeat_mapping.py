@@ -110,7 +110,8 @@ class BaseInvoiceMapper(Model):
 
     def get_invoice_total(self, invoice):
         taxes = self.taxes(invoice)
-        not_deductible_taxes = self._not_deductible_taxes(invoice)
+        not_deductible_taxes = (self._not_deductible_taxes(invoice)
+            if invoice.type == 'in' else {})
         taxes_base = 0
         taxes_amount = 0
         taxes_surcharge = 0
