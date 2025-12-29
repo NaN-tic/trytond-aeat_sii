@@ -74,6 +74,40 @@ class BaseInvoiceMapper(Model):
         val = attrgetter('company_base')(tax)
         return val
 
+    def _not_deductible_taxes(self, invoice):
+        pool = Pool()
+        Tax = pool.get('account.tax')
+
+        taxes = {}
+        for line in invoice.lines:
+            if (line.taxes_deductible_rate is None
+                    or line.taxes_deductible_rate == 1):
+                continue
+            with Transaction().set_context(_deductible_rate=1):
+                taxes_values = line._get_taxes().values()
+            for tax_value in taxes_values:
+                if not tax_value.get('tax', None):
+                    continue
+                tax = Tax(tax_value['tax'])
+                if tax.tax_kind == 'surcharge':
+                    continue
+                rate = tools._rate_to_percent(tax.rate)
+                non_deductible_base = (
+                    tax_value.get('base', Decimal(0))
+                    * (1 - line.taxes_deductible_rate))
+                non_deductible_amount = (
+                    tax_value.get('amount', Decimal(0))
+                    * (1 - line.taxes_deductible_rate))
+                if rate in taxes:
+                    taxes[rate]['base'] += non_deductible_base
+                    taxes[rate]['amount'] += non_deductible_amount
+                else:
+                    taxes[rate] = {
+                        'base': non_deductible_base,
+                        'amount': non_deductible_amount,
+                        }
+        return taxes
+
     def get_invoice_total(self, invoice):
         taxes = self.taxes(invoice)
         not_deductible_taxes = self._not_deductible_taxes(invoice)
@@ -491,40 +525,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             if tax.tax.deducible:
                 val += tax.company_amount
         return val if not self._is_first_semester(invoice) else Decimal(0)
-
-    def _not_deductible_taxes(self, invoice):
-        pool = Pool()
-        Tax = pool.get('account.tax')
-
-        taxes = {}
-        for line in invoice.lines:
-            if (line.taxes_deductible_rate is None
-                    or line.taxes_deductible_rate == 1):
-                continue
-            with Transaction().set_context(_deductible_rate=1):
-                taxes_values = line._get_taxes().values()
-            for tax_value in taxes_values:
-                if not tax_value.get('tax', None):
-                    continue
-                tax = Tax(tax_value['tax'])
-                if tax.tax_kind == 'surcharge':
-                    continue
-                rate = tools._rate_to_percent(tax.rate)
-                non_deductible_base = (
-                    tax_value.get('base', Decimal(0))
-                    * (1 - line.taxes_deductible_rate))
-                non_deductible_amount = (
-                    tax_value.get('amount', Decimal(0))
-                    * (1 - line.taxes_deductible_rate))
-                if rate in taxes:
-                    taxes[rate]['base'] += non_deductible_base
-                    taxes[rate]['amount'] += non_deductible_amount
-                else:
-                    taxes[rate] = {
-                        'base': non_deductible_base,
-                        'amount': non_deductible_amount,
-                        }
-        return taxes
 
     def _move_date(self, invoice):
         return (
