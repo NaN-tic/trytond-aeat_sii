@@ -79,6 +79,7 @@ class BaseInvoiceMapper(Model):
         Tax = pool.get('account.tax')
 
         taxes = {}
+        currency = invoice.currency
         for line in invoice.lines:
             if (line.taxes_deductible_rate is None
                     or line.taxes_deductible_rate == 1):
@@ -92,10 +93,10 @@ class BaseInvoiceMapper(Model):
                 if tax.tax_kind == 'surcharge':
                     continue
                 rate = tools._rate_to_percent(tax.rate)
-                non_deductible_base = (
+                non_deductible_base = currency.round(
                     tax_value.get('base', Decimal(0))
                     * (1 - line.taxes_deductible_rate))
-                non_deductible_amount = (
+                non_deductible_amount = currency.round(
                     tax_value.get('amount', Decimal(0))
                     * (1 - line.taxes_deductible_rate))
                 if rate in taxes:
