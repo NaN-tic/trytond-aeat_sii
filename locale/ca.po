@@ -112,10 +112,6 @@ msgctxt "field:account.invoice,sii_state:"
 msgid "SII State"
 msgstr "SII Estat"
 
-msgctxt "field:account.tax,invoice_used:"
-msgid "Used in invoice Total"
-msgstr "Usat en total de factura"
-
 msgctxt "field:account.tax,isp:"
 msgid "Inversion del Sujeto Pasivo"
 msgstr "Inversió del Sujeto Pasivo"
@@ -148,14 +144,6 @@ msgctxt "field:account.tax,sii_subjected_key:"
 msgid "Subjected Key"
 msgstr "Clau subjecte"
 
-msgctxt "field:account.tax,tax_used:"
-msgid "Used in Tax"
-msgstr "Usat en impostos"
-
-msgctxt "field:account.tax.template,invoice_used:"
-msgid "Used in invoice Total"
-msgstr "Usat en total de factura"
-
 msgctxt "field:account.tax.template,isp:"
 msgid "Inversion del Sujeto Pasivo"
 msgstr "Inversió del Sujeto Pasivo"
@@ -187,10 +175,6 @@ msgstr "Clau rebudes"
 msgctxt "field:account.tax.template,sii_subjected_key:"
 msgid "Subjected Key"
 msgstr "Clau sujeto"
-
-msgctxt "field:account.tax.template,tax_used:"
-msgid "Used in Tax"
-msgstr "Usat en impostos"
 
 msgctxt "field:aeat.sii.report,aeat_register:"
 msgid "Register sended to AEAT Webservice"
@@ -616,6 +600,10 @@ msgstr "La factura \"%(invoice)s\" està duplicada en el Llibre SII \"%(report)s
 msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
 msgid "Invoice \"%(invoice)s\" must be posted, paid or refunded."
 msgstr "La factura \"%(invoice)s\" ha d'estar comptabilitzada, pagada o abonada."
+
+msgctxt "model:ir.message,text:msg_service_message"
+msgid "%(message)s"
+msgstr "%(message)s"
 
 msgctxt "model:ir.message,text:msg_set_simplified_invoice"
 msgid ""
