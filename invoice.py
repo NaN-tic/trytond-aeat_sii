@@ -185,6 +185,9 @@ class Invoice(metaclass=PoolMeta):
 
     @classmethod
     def copy(cls, records, default=None):
+        pool = Pool()
+        Configuration = pool.get('account.configuration')
+
         if default is None:
             default = {}
         default = default.copy()
@@ -194,7 +197,21 @@ class Invoice(metaclass=PoolMeta):
         default.setdefault('sii_operation_key')
         default.setdefault('sii_pending_sending')
         default.setdefault('sii_header')
-        return super().copy(records, default=default)
+
+        invoices = []
+        group_by_comapny = {}
+        for record in records:
+            if record.company not in group_by_comapny:
+                group_by_comapny[record.company] = []
+            group_by_comapny[record.company].append(record)
+
+        for company, invs in group_by_comapny.items():
+            with Transaction().set_context(company=company.id):
+                is_sii = (True if Configuration(1).aeat_certificate_sii
+                    else False)
+            default.setdefault('is_sii', is_sii)
+            invoices.extend(super().copy(invs, default=default))
+        return invoices
 
     def _get_sii_operation_key(self):
         return 'R1' if self.untaxed_amount < Decimal(0) else 'F1'
