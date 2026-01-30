@@ -42,19 +42,23 @@ class PartyIdentifier(metaclass=PoolMeta):
                 valid_identifier_by_party.setdefault(
                     identifier.party, []).append(identifier)
 
+        if not valid_identifier_by_party:
+            parties = [i.party for i in identifiers]
+            sii_identifier_type = 'SI'
+            to_write.extend((parties, {
+                'sii_identifier_type': 'SI'}))
+
         for party, identifiers in valid_identifier_by_party.items():
+            sii_identifier_type = '06'
             for identifier in identifiers:
-                sii_identifier_type = None
                 if ((identifier.type == 'eu_vat' and identifier.code[:2] == 'ES')
                         or identifier.type in ('es_cif', 'es_dni', 'es_nie',
                             'es_nif')):
                     sii_identifier_type = None
                 elif identifier.type == 'eu_vat':
                     sii_identifier_type = '02'
-                if sii_identifier_type:
+                if sii_identifier_type != '06':
                     break
-            else:
-                sii_identifier_type = '06'
             to_write.extend(([party], {
                 'sii_identifier_type': sii_identifier_type}))
 
