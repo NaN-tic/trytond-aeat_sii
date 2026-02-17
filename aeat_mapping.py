@@ -173,7 +173,7 @@ class BaseInvoiceMapper(Model):
 
     def taxes(self, invoice):
         return [invoice_tax for invoice_tax in invoice.taxes if (
-                invoice_tax.tax.tax_kind == 'vat')]
+                invoice_tax.tax.tax_kind in ('vat', 'reimbursements'))]
 
     def taxes_without_same_parent(self, taxes):
         taxes_used = []
