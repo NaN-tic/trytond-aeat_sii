@@ -462,30 +462,5 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
         </record>
-        <record model="account.tax.template" id="account_es.iva_ex_art_24_1_sale">
-            <field name="sii_book_key">E</field>
-            <field name="sii_issued_key">01</field>
-            <field name="sii_exemption_cause">E4</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_ex_art_20_1_sale">
-            <field name="sii_book_key">E</field>
-            <field name="sii_issued_key">01</field>
-            <field name="sii_exemption_cause">E1</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_ex_art_21_sale">
-            <field name="sii_book_key">E</field>
-            <field name="sii_issued_key">01</field>
-            <field name="sii_exemption_cause">E2</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_ex_art_24_1_purchase">
-            <field name="sii_book_key">R</field>
-            <field name="sii_received_key">01</field>
-            <field name="sii_exemption_cause">E4</field>
-        </record>
-        <record model="account.tax.template" id="account_es.iva_ex_art_20_1_purchase">
-            <field name="sii_book_key">R</field>
-            <field name="sii_received_key">01</field>
-            <field name="sii_exemption_cause">E1</field>
-        </record>
     </data>
 </tryton>
