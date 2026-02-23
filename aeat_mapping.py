@@ -90,7 +90,7 @@ class BaseInvoiceMapper(Model):
                 if not tax_value.get('tax', None):
                     continue
                 tax = Tax(tax_value['tax'])
-                if tax.tax_kind == 'surcharge':
+                if tax.tax_kind in ('surcharge', 'irpf'):
                     continue
                 rate = tools._rate_to_percent(tax.rate)
                 non_deductible_base = currency.round(
