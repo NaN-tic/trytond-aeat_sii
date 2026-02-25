@@ -139,7 +139,7 @@ class Test(unittest.TestCase):
         # Create invoice
         Invoice = Model.get('account.invoice')
         InvoiceLine = Model.get('account.invoice.line')
-        invoice = Invoice()
+        invoice = Invoice(type='out')
         invoice.party = party
         invoice.payment_term = payment_term
         line = InvoiceLine()
@@ -173,7 +173,7 @@ class Test(unittest.TestCase):
         self.assertEqual(invoice.sii_operation_key, 'F1')
 
         # Create Credit invoice
-        invoice = Invoice()
+        invoice = Invoice(type='out')
         invoice.party = party
         invoice.payment_term = payment_term
         line = InvoiceLine()
@@ -229,7 +229,7 @@ class Test(unittest.TestCase):
         # Create simplified invoice
         Invoice = Model.get('account.invoice')
         InvoiceLine = Model.get('account.invoice.line')
-        simplified_invoice = Invoice()
+        simplified_invoice = Invoice(type='out')
         simplified_invoice.party = simplified_party
         simplified_invoice.payment_term = payment_term
         line = InvoiceLine()
