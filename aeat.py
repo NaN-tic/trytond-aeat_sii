@@ -976,10 +976,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if reg.IDFactura.IDEmisorFactura.NIF:
                 vat = reg.IDFactura.IDEmisorFactura.NIF
                 if not vat.startswith('ES'):
-                    vat = 'ES' + vat
-                domain.append(
-                    ('party.tax_identifier', '=', vat)
-                    )
+                    vat2 = 'ES' + vat
+                else:
+                    vat2 = vat[2:]
+                domain.append(['OR',
+                        ('party.tax_identifier', '=', vat),
+                        ('party.tax_identifier', '=', vat2),
+                        ])
             elif reg.IDFactura.IDEmisorFactura.IDOtro.IDType == '02':
                 domain.append(
                     ('party.tax_identifier', '=',
