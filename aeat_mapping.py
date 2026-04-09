@@ -357,7 +357,6 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
             # TODO: ClaveRegimenEspecialOTrascendenciaAdicional2
             # TODO: NumRegistroAcuerdoFacturacion
             'ImporteTotal': self.total_amount(invoice),
-            # TODO: BaseImponibleACoste
             'DescripcionOperacion': self._description(invoice),
             # TODO: RefExterna
             # TODO: FacturaSimplificadaArticulos7.2_7.3
@@ -563,7 +562,6 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
             # TODO: ClaveRegimenEspecialOTrascendenciaAdicional2
             # TODO: NumRegistroAcuerdoFacturacion
             'ImporteTotal': self.total_amount(invoice),
-            # TODO: BaseImponibleACoste
             'DescripcionOperacion': self._description(invoice),
             'DesgloseFactura': {},
             'Contraparte': self._build_counterpart(invoice),
