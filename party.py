@@ -51,7 +51,8 @@ class PartyIdentifier(metaclass=PoolMeta):
         for party, identifiers in valid_identifier_by_party.items():
             sii_identifier_type = '06'
             for identifier in identifiers:
-                if ((identifier.type == 'eu_vat' and identifier.code[:2] == 'ES')
+                if ((identifier.type == 'eu_vat'
+                            and identifier.code[:2] == 'ES')
                         or identifier.type in ('es_cif', 'es_dni', 'es_nie',
                             'es_nif')):
                     sii_identifier_type = None
