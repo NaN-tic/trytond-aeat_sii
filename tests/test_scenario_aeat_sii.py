@@ -217,6 +217,33 @@ class Test(unittest.TestCase):
         report.click('load_invoices')
         self.assertEqual(len(report.lines), 2)
 
+        # Copy the report with a line linked to a draft invoice to ensure the
+        # copied line keeps its existing SII header instead of rebuilding it
+        # from invoice.move.period, which is missing before posting.
+        draft_invoice = Invoice()
+        draft_invoice.party = party
+        draft_invoice.payment_term = payment_term
+        line = InvoiceLine()
+        draft_invoice.lines.append(line)
+        line.product = product
+        line.quantity = 1
+        line.unit_price = Decimal('10')
+        draft_invoice.save()
+
+        manual_header = "{'IDFactura': {'NumSerieFacturaEmisor': 'DRAFT'}}"
+        draft_line = report.lines.new()
+        draft_line.invoice = draft_invoice
+        draft_line.company = company
+        draft_line.sii_header = manual_header
+        report.save()
+
+        copied_report, = AEATReport.copy([report], config.context)
+        copied_report = AEATReport(copied_report)
+        copied_draft_lines = [line for line in copied_report.lines
+            if line.invoice and line.invoice.id == draft_invoice.id]
+        self.assertEqual(len(copied_draft_lines), 1)
+        self.assertEqual(copied_draft_lines[0].sii_header, manual_header)
+
         # Credit invoice with refund
         credit = Wizard('account.invoice.credit', [invoice])
         credit.form.with_refund = True
