@@ -1446,8 +1446,10 @@ class SIIReportLine(ModelSQL, ModelView):
 
             delete = (True if report and report.operation_type == 'D0' else
                 False)
-            vals['sii_header'] = (str(invoice.get_sii_header(invoice, delete))
-                if invoice else '')
+            if not vals.get('sii_header'):
+                vals['sii_header'] = (str(invoice.get_sii_header(invoice,
+                            delete))
+                    if invoice and invoice.move else '')
             if vals.get('state', None) == 'Correcto' and invoice:
                 to_write.extend(([invoice], {
                         'sii_pending_sending': False,
