@@ -220,12 +220,13 @@ class Test(unittest.TestCase):
         # Copy the report with a line linked to a draft invoice to ensure the
         # copied line keeps its existing SII header instead of rebuilding it
         # from invoice.move.period, which is missing before posting.
-        draft_invoice = Invoice()
+        draft_invoice = Invoice(type='out')
         draft_invoice.party = party
         draft_invoice.payment_term = payment_term
         line = InvoiceLine()
         draft_invoice.lines.append(line)
         line.product = product
+        line.account = revenue
         line.quantity = 1
         line.unit_price = Decimal('10')
         draft_invoice.save()
