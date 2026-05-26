@@ -160,9 +160,12 @@ class Invoice(metaclass=PoolMeta):
     @fields.depends(*_SII_INVOICE_KEYS)
     def _on_change_lines_taxes(self):
         super()._on_change_lines_taxes()
+        set_sii_keys = False
         for field in _SII_INVOICE_KEYS:
-            if getattr(self, field):
-                return
+            if not getattr(self, field):
+                set_sii_keys = True
+        if not set_sii_keys:
+            return
         self._set_sii_keys()
 
     @classmethod
