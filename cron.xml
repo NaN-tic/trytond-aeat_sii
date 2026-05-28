@@ -2,7 +2,7 @@
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <tryton>
-    <data>
+    <data noupdate="1">
         <record model="ir.cron" id="cron_calculate_sii">
             <field name="interval_number" eval="1"/>
             <field name="interval_type">days</field>
