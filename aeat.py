@@ -643,7 +643,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                 try:
                     res = srv.cancel(
                         headers, [
-                            eval(line.sii_header) for line in self.lines])
+                            literal_eval(line.sii_header)
+                            for line in self.lines])
                 except Exception as e:
                     raise UserError(str(e))
 
@@ -849,7 +850,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         crt, key, test=SII_TEST)
                     res = srv.cancel(
                         headers, [
-                            eval(line.sii_header) for line in self.lines])
+                            literal_eval(line.sii_header)
+                            for line in self.lines])
                 except Exception as e:
                     raise UserError(str(e))
 
