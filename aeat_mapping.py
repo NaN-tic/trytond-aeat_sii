@@ -153,7 +153,6 @@ class BaseInvoiceMapper(Model):
 
     counterpart_id = counterpart_nif
     total_amount = get_invoice_total
-    tax_rate = attrgetter('tax.rate')
     tax_base = get_tax_base
     tax_amount = get_tax_amount
 
@@ -210,7 +209,7 @@ class BaseInvoiceMapper(Model):
     def tax_equivalence_surcharge_rate(self, invoice_tax):
         surcharge_tax = self._tax_equivalence_surcharge(invoice_tax)
         if surcharge_tax:
-            return self.tax_rate(surcharge_tax)
+            return surcharge_tax.tax.rate
 
     def tax_equivalence_surcharge_amount(self, invoice_tax):
         surcharge_tax = self._tax_equivalence_surcharge(invoice_tax)
@@ -310,9 +309,14 @@ class IssuedInvoiceMapper(BaseInvoiceMapper):
     def build_taxes(self, tax):
         if not tax:
             return {}
-
+        if (type_ := tax.tax.type) == 'percentage':
+            rate = tax.tax.rate
+        elif type_ == 'fixed':
+             rate = 0
+        else:
+            rate = None
         res = {
-            'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
+            'TipoImpositivo': tools._rate_to_percent(rate),
             'BaseImponible': self.tax_base(tax),
             'CuotaRepercutida': self.tax_amount(tax)
             }
@@ -621,10 +625,17 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
     def build_taxes(self, invoice, tax):
         if not tax:
             return {}
+        if (type_ := tax.tax.type) == 'percentage':
+            rate = tax.tax.rate
+        elif type_ == 'fixed':
+            rate = 0
+        else:
+            rate = None
         # In case base is 0, return only the tax, not the possible IRPF.
         if self.tax_base(tax) == Decimal(0):
+
             ret = {
-                'TipoImpositivo': tools._rate_to_percent(self.tax_rate(tax)),
+                'TipoImpositivo': tools._rate_to_percent(rate),
                 'BaseImponible': Decimal(0),
                 'CuotaSoportada': Decimal(0),
             }
@@ -633,7 +644,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
                 'BaseImponible': self.tax_base(tax),
             }
             if self.specialkey_or_trascendence(invoice) != '02':
-                ret['TipoImpositivo'] = tools._rate_to_percent(self.tax_rate(tax))
+                ret['TipoImpositivo'] = tools._rate_to_percent(rate)
                 ret['CuotaSoportada'] = self.tax_amount(tax)
                 if self.tax_equivalence_surcharge_rate(tax):
                     ret['TipoRecargoEquivalencia'] = \
@@ -647,7 +658,7 @@ class RecievedInvoiceMapper(BaseInvoiceMapper):
                 ret['BienInversion'] = 'S' if bieninversion else 'N'
             else:
                 ret['PorcentCompensacionREAGYP'] = \
-                    tools._rate_to_percent(self.tax_rate(tax))
+                    tools._rate_to_percent(tax.tax.rate)
                 ret['ImporteCompensacionREAGYP'] = \
                     (self.tax_amount(tax))
         return ret
