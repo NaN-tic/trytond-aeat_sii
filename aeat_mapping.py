@@ -87,17 +87,17 @@ class BaseInvoiceMapper(Model):
             with Transaction().set_context(_deductible_rate=1):
                 taxes_values = line._get_taxes().values()
             for tax_value in taxes_values:
-                if not tax_value.get('tax', None):
+                if not tax_value.tax:
                     continue
-                tax = Tax(tax_value['tax'])
+                tax = Tax(tax_value.tax)
                 if tax.tax_kind in ('surcharge', 'irpf'):
                     continue
                 rate = tools._rate_to_percent(tax.rate)
                 non_deductible_base = currency.round(
-                    tax_value.get('base', Decimal(0))
+                    tax_value.base
                     * (1 - line.taxes_deductible_rate))
                 non_deductible_amount = currency.round(
-                    tax_value.get('amount', Decimal(0))
+                    tax_value.amount
                     * (1 - line.taxes_deductible_rate))
                 if rate in taxes:
                     taxes[rate]['base'] += non_deductible_base
