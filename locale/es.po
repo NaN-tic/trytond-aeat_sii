@@ -648,7 +648,7 @@ msgid ""
 "The party [%(party)s] of the invoice %(invoice)s must has a valid SII "
 "Identifier [VAT (only for intracommunity operators)]."
 msgstr ""
-"El tercero [%(party)s] de la factura %(invoice)s tiene que tner un "
+"El tercero [%(party)s] de la factura %(invoice)s tiene que tener un "
 "identificador SII válido [NIF-VAT (Sólo para operadores intracomunitarios)]."
 
 msgctxt "model:ir.message,text:reports_exist"
