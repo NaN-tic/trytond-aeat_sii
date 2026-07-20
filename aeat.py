@@ -15,7 +15,7 @@ from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.pyson import Eval, Bool, PYSONEncoder
 from trytond.pool import Pool
 from trytond.transaction import Transaction
-from trytond.config import config
+import trytond.config as config
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 from trytond.tools import grouped_slice
