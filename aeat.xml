@@ -6,10 +6,6 @@
       <record model="res.group" id="group_aeat_sii_admin">
           <field name="name">AEAT SII Administration</field>
       </record>
-      <record model="res.user-res.group" id="user_admin_group_aeat_sii_admin">
-          <field name="user" ref="res.user_admin"/>
-          <field name="group" ref="group_aeat_sii_admin"/>
-      </record>
 
       <menuitem id="menu_aeat_sii_report_menu"
           sequence="999" parent="account.menu_reporting"
