@@ -228,14 +228,14 @@ class SIIReport(Workflow, ModelSQL, ModelView):
         'Currency'), 'on_change_with_currency')
     fiscalyear = fields.Many2One('account.fiscalyear', 'Fiscal Year',
         required=True, states={
-            'readonly': ((Eval('state') != 'draft')
-                | (Eval('lines', [0]) & Eval('fiscalyear'))),
+            'readonly': Eval('state') != 'draft',
+            'editable': ~(Eval('lines', [0]) & Eval('fiscalyear')),
         })
     period = fields.Many2One('account.period', 'Period', required=True,
         domain=[('fiscalyear', '=', Eval('fiscalyear'))],
         states={
-            'readonly': ((Eval('state') != 'draft')
-                | (Eval('lines', [0]) & Eval('period'))),
+            'readonly': Eval('state') != 'draft',
+            'editable': ~(Eval('lines', [0]) & Eval('period')),
         })
     load_date = fields.Date('Load Date',
         domain=['OR', [
@@ -251,13 +251,13 @@ class SIIReport(Workflow, ModelSQL, ModelView):
     operation_type = fields.Selection(COMMUNICATION_TYPE, 'Operation Type',
         required=True,
         states={
-            'readonly': ((~Eval('state').in_(['draft', 'confirmed']))
-                | (Eval('lines', [0]) & Eval('operation_type'))),
+            'readonly': ~Eval('state').in_(['draft', 'confirmed']),
+            'editable': ~(Eval('lines', [0]) & Eval('operation_type')),
         })
     book = fields.Selection(BOOK_KEY, 'Book', required=True,
         states={
-            'readonly': ((~Eval('state').in_(['draft', 'confirmed']))
-                | (Eval('lines', [0]) & Eval('book'))),
+            'readonly': ~Eval('state').in_(['draft', 'confirmed']),
+            'editable': ~(Eval('lines', [0]) & Eval('book')),
         })
     state = fields.Selection([
             ('draft', 'Draft'),

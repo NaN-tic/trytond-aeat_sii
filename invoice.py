@@ -6,7 +6,7 @@ from sql import Null
 from trytond.model import ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval
-from trytond.transaction import Transaction
+from trytond.transaction import Transaction, without_check_access
 from trytond.i18n import gettext
 from trytond.exceptions import UserError, UserWarning
 from trytond.wizard import Wizard, StateView, StateTransition, Button
@@ -23,7 +23,7 @@ class Invoice(metaclass=PoolMeta):
     __name__ = 'account.invoice'
     is_sii = fields.Boolean('Is SII',
         states={
-            'readonly': Bool(Eval('company', False)),
+            'editable': ~Bool(Eval('company', False)),
         })
     sii_book_key = fields.Selection(BOOK_KEY, 'SII Book Key')
     sii_operation_key = fields.Selection(OPERATION_KEY, 'SII Operation Key')
@@ -236,7 +236,8 @@ class Invoice(metaclass=PoolMeta):
             to_write.extend(([invoice], values))
 
         if to_write:
-            cls.write(*to_write)
+            with without_check_access():
+                cls.write(*to_write)
 
     @classmethod
     def process(cls, invoices):
@@ -288,7 +289,8 @@ class Invoice(metaclass=PoolMeta):
                         gettext('aeat_sii.msg_invoices_sii',
                         invoices='\n'.join(invoices_sii)))
         if to_write:
-            cls.write(*to_write)
+            with without_check_access():
+                cls.write(*to_write)
 
     def simplified_serial_number(self, type='first'):
         pool = Pool()
@@ -436,7 +438,8 @@ class Invoice(metaclass=PoolMeta):
                         gettext('aeat_sii.msg_sii_operation_key_wrong',
                             invoice=invoice))
         if to_write:
-            cls.write(*to_write)
+            with without_check_access():
+                cls.write(*to_write)
 
         # Control that the in ivoices have reference.
         invoices_wo_ref = [i for i in invoices
@@ -480,7 +483,8 @@ class Invoice(metaclass=PoolMeta):
             if not invoice.cancel_move:
                 to_write.append(invoice)
         if to_write:
-            cls.write(to_write, {'sii_pending_sending': False})
+            with without_check_access():
+                cls.write(to_write, {'sii_pending_sending': False})
         return result
 
     @classmethod
