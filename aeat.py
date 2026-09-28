@@ -14,7 +14,7 @@ from trytond.model import ModelSQL, ModelView, fields, Workflow
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.pyson import Eval, Bool, PYSONEncoder
 from trytond.pool import Pool
-from trytond.transaction import Transaction
+from trytond.transaction import Transaction, without_check_access
 import trytond.config as config
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
@@ -619,7 +619,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if not self.response:
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
-                self.save()
+                with without_check_access():
+                    self.save()
                 Transaction().commit()
         self._save_response(self.response)
 
@@ -651,7 +652,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if not self.response:
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
-                self.save()
+                with without_check_access():
+                    self.save()
                 Transaction().commit()
         self._save_response(self.response)
 
@@ -826,7 +828,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if not self.response:
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
-                self.save()
+                with without_check_access():
+                    self.save()
                 Transaction().commit()
         self._save_response(self.response)
 
@@ -858,7 +861,8 @@ class SIIReport(Workflow, ModelSQL, ModelView):
             if not self.response:
                 self.state == 'sending'
                 self.response = json.dumps(helpers.serialize_object(res))
-                self.save()
+                with without_check_access():
+                    self.save()
                 Transaction().commit()
         self._save_response(self.response)
 
@@ -874,13 +878,15 @@ class SIIReport(Workflow, ModelSQL, ModelView):
                         response_line.CodigoErrorRegistro)
                     report_line.communication_msg = (
                         response_line.DescripcionErrorRegistro)
-                    report_line.save()
+                    with without_check_access():
+                        report_line.save()
             if not self.communication_state:
                 self.communication_state = response.EstadoEnvio
             if not self.csv:
                 self.csv = response.CSV
             self.response = ''
-            self.save()
+            with without_check_access():
+                self.save()
 
     def query_recieved_invoices(self, last_invoice=None):
         pool = Pool()
