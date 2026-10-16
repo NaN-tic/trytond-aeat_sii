@@ -198,7 +198,7 @@ class Invoice(metaclass=PoolMeta):
         default.setdefault('sii_state')
         default.setdefault('sii_communication_type')
         default.setdefault('sii_operation_key')
-        default.setdefault('sii_pending_sending')
+        default.setdefault('sii_pending_sending', False)
         default.setdefault('sii_header')
 
         invoices = []

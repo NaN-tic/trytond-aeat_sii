@@ -182,6 +182,12 @@ class Test(unittest.TestCase):
         invoice.click('post')
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.sii_operation_key, 'F1')
+        self.assertTrue(invoice.sii_pending_sending)
+
+        copied_invoice_id, = Invoice.copy([invoice], config.context)
+        copied_invoice = Invoice(copied_invoice_id)
+        self.assertEqual(copied_invoice.state, 'draft')
+        self.assertFalse(copied_invoice.sii_pending_sending)
 
         # Create Credit invoice
         invoice = Invoice(type='out')
