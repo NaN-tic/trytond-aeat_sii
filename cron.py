@@ -12,3 +12,4 @@ class Cron(metaclass=PoolMeta):
         cls.method.selection.extend([
                 ('aeat.sii.report|calculate_sii', "AEAT SII"),
                 ])
+        cls.methods_company_needed.add('aeat.sii.report|calculate_sii')
