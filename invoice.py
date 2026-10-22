@@ -239,6 +239,7 @@ class Invoice(metaclass=PoolMeta):
             cls.write(*to_write)
 
     @classmethod
+    @ModelView.button
     def process(cls, invoices):
         pool = Pool()
         Warning = pool.get('res.user.warning')
@@ -261,6 +262,7 @@ class Invoice(metaclass=PoolMeta):
                         invoices='\n'.join(invoices_sii)))
 
     @classmethod
+    @ModelView.button
     def draft(cls, invoices):
         pool = Pool()
         Warning = pool.get('res.user.warning')
@@ -469,6 +471,7 @@ class Invoice(metaclass=PoolMeta):
                         invoice=invoice.rec_name))
 
     @classmethod
+    @ModelView.button
     def cancel(cls, invoices):
         result = super().cancel(invoices)
 
