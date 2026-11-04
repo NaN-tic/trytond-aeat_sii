@@ -1340,7 +1340,9 @@ class SIIReportLine(ModelSQL, ModelView):
                 'operation_type') != 'C0',
         })
     invoice_party = fields.Function(
-        fields.Many2One('party.party', 'Invoice Party'),
+        fields.Many2One('party.party', 'Invoice Party', context={
+                'company': Eval('company', -1),
+                }),
         'on_change_with_invoice_party')
     invoice_date = fields.Function(fields.Date('Invoice Date'),
         'on_change_with_invoice_date')
@@ -1394,17 +1396,17 @@ class SIIReportLine(ModelSQL, ModelView):
 
         super().__register__(module_name)
 
-    @fields.depends('invoice')
+    @fields.depends('invoice', '_parent_invoice.party')
     def on_change_with_invoice_party(self, name=None):
         if self.invoice:
             return self.invoice.party.id
 
-    @fields.depends('invoice')
+    @fields.depends('invoice', '_parent_invoice.invoice_date')
     def on_change_with_invoice_date(self, name=None):
         if self.invoice:
             return self.invoice.invoice_date
 
-    @fields.depends('invoice')
+    @fields.depends('invoice', '_parent_invoice.total_amount')
     def on_change_with_invoice_total_amount(self, name=None):
         if self.invoice:
             return self.invoice.total_amount
