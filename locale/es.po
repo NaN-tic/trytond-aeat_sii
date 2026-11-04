@@ -1886,3 +1886,15 @@ msgstr "Cancelar"
 msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
 msgid "Reset"
 msgstr "Reiniciar"
+
+msgctxt "field:aeat.sii.report.lines,invoice_party:"
+msgid "Invoice Party"
+msgstr "Tercero de la factura"
+
+msgctxt "field:aeat.sii.report.lines,invoice_date:"
+msgid "Invoice Date"
+msgstr "Fecha de la factura"
+
+msgctxt "field:aeat.sii.report.lines,invoice_total_amount:"
+msgid "Invoice Total Amount"
+msgstr "Importe total de la factura"

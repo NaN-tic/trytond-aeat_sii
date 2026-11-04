@@ -222,6 +222,12 @@ class Test(unittest.TestCase):
         self.assertEqual(report.state, 'draft')
         report.click('load_invoices')
         self.assertEqual(len(report.lines), 2)
+        for sii_line in report.lines:
+            self.assertEqual(sii_line.invoice_party, sii_line.invoice.party)
+            self.assertEqual(sii_line.invoice_date,
+                sii_line.invoice.invoice_date)
+            self.assertEqual(sii_line.invoice_total_amount,
+                sii_line.invoice.total_amount)
 
         # Copy the report with a line linked to a draft invoice to ensure the
         # copied line keeps its existing SII header instead of rebuilding it
