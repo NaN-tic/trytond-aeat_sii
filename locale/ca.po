@@ -1589,7 +1589,7 @@ msgstr "Confirmat"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Draft"
-msgstr "Borrador"
+msgstr "Esborrany"
 
 msgctxt "selection:aeat.sii.report,state:"
 msgid "Sending"
@@ -1819,7 +1819,7 @@ msgstr "Confirma"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Draft"
-msgstr "Borrador"
+msgstr "Esborrany"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Load Invoices"
