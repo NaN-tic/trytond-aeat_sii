@@ -90,7 +90,7 @@ msgstr "Encapçalament"
 
 msgctxt "field:account.invoice,sii_issued_key:"
 msgid "SII Issued Key"
-msgstr "Clau factures emesses"
+msgstr "Clau factures emeses"
 
 msgctxt "field:account.invoice,sii_operation_key:"
 msgid "SII Operation Key"
@@ -362,7 +362,7 @@ msgstr "Presentació"
 
 msgctxt "field:aeat.sii.report.lines,report:"
 msgid "Issued Report"
-msgstr "Informe emesses"
+msgstr "Informe emeses"
 
 msgctxt "field:aeat.sii.report.lines,serial_number:"
 msgid "Serial Number"
@@ -699,7 +699,7 @@ msgstr "Crea AEAT SII Informe Factures Rebudes"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_issued"
 msgid "AEAT SII Report Issued"
-msgstr "Llibre Factures emesses"
+msgstr "Llibre factures emeses"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_menu"
 msgid "AEAT SII"
@@ -707,7 +707,7 @@ msgstr "AEAT SII"
 
 msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_received"
 msgid "AEAT SII Report Received"
-msgstr "Llibre Factures rebudes"
+msgstr "Llibre factures rebudes"
 
 msgctxt "model:res.group,name:group_aeat_sii_admin"
 msgid "AEAT SII Administration"
@@ -735,7 +735,7 @@ msgstr "Modificar factures"
 
 msgctxt "selection:account.invoice,sii_communication_type:"
 msgid "Delete Invoices"
-msgstr "Borrar factures"
+msgstr "Eliminar factures"
 
 msgctxt "selection:account.invoice,sii_communication_type:"
 msgid "Query Invoices"
@@ -1569,7 +1569,7 @@ msgstr "Modificar factures"
 
 msgctxt "selection:aeat.sii.report,operation_type:"
 msgid "Delete Invoices"
-msgstr "Borrar factures"
+msgstr "Eliminar factures"
 
 msgctxt "selection:aeat.sii.report,operation_type:"
 msgid "Query Invoices"
@@ -1807,7 +1807,7 @@ msgstr "Informació principal"
 
 msgctxt "view:aeat.sii.report:"
 msgid "AEAT SII Issued Report"
-msgstr "Llibre Factures emesses"
+msgstr "Llibre de factures emeses"
 
 msgctxt "view:aeat.sii.report:"
 msgid "Cancel"
