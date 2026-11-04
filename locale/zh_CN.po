@@ -1,0 +1,1778 @@
+#
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:account.configuration,aeat_certificate_sii:"
+msgid "AEAT Certificate SII"
+msgstr "AEAT SII 证书"
+
+msgctxt "field:account.configuration,aeat_pending_sii:"
+msgid "AEAT Pending SII"
+msgstr "AEAT 待处理 SII"
+
+msgctxt "field:account.configuration,aeat_pending_sii_send:"
+msgid "AEAT Pending SII Send"
+msgstr "发送 AEAT 待处理 SII"
+
+msgctxt "field:account.configuration,aeat_received_sii:"
+msgid "AEAT Received SII"
+msgstr "AEAT 进项 SII"
+
+msgctxt "field:account.configuration,aeat_received_sii_send:"
+msgid "AEAT Received SII Send"
+msgstr "发送 AEAT 进项 SII"
+
+msgctxt "field:account.configuration,not_allow_in_invoices_aeat_sii_keys:"
+msgid "Not allow post in invoices without AEAT SII Keys"
+msgstr "禁止未设置 AEAT SII 代码的进项发票过账"
+
+msgctxt "field:account.configuration,not_allow_out_invoices_aeat_sii_keys:"
+msgid "Not allow post out invoices without AEAT SII Keys"
+msgstr "禁止未设置 AEAT SII 代码的销项发票过账"
+
+msgctxt "field:account.configuration,sii_default_offset_days:"
+msgid "SII Default Offset Days"
+msgstr "SII 默认偏移天数"
+
+msgctxt "field:account.configuration.default_sii,aeat_certificate_sii:"
+msgid "AEAT Certificate SII"
+msgstr "AEAT SII 证书"
+
+msgctxt "field:account.configuration.default_sii,aeat_pending_sii:"
+msgid "AEAT Pending SII"
+msgstr "AEAT 待处理 SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_pending_sii_send:"
+msgid "AEAT Pending SII Send"
+msgstr "发送 AEAT 待处理 SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_received_sii:"
+msgid "AEAT Received SII"
+msgstr "AEAT 进项 SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_received_sii_send:"
+msgid "AEAT Received SII Send"
+msgstr "发送 AEAT 进项 SII"
+
+msgctxt "field:account.configuration.default_sii,company:"
+msgid "Company"
+msgstr "公司"
+
+msgctxt ""
+"field:account.configuration.default_sii,not_allow_in_invoices_aeat_sii_keys:"
+msgid "Not allow post in invoices without AEAT SII Keys"
+msgstr "禁止未设置 AEAT SII 代码的进项发票过账"
+
+msgctxt ""
+"field:account.configuration.default_sii,not_allow_out_invoices_aeat_sii_keys:"
+msgid "Not allow post out invoices without AEAT SII Keys"
+msgstr "禁止未设置 AEAT SII 代码的销项发票过账"
+
+msgctxt "field:account.configuration.default_sii,sii_default_offset_days:"
+msgid "SII Default Offset Days"
+msgstr "SII 默认偏移天数"
+
+msgctxt "field:account.invoice,is_sii:"
+msgid "Is SII"
+msgstr "是否适用 SII"
+
+msgctxt "field:account.invoice,sii_book_key:"
+msgid "SII Book Key"
+msgstr "SII 账簿代码"
+
+msgctxt "field:account.invoice,sii_communication_type:"
+msgid "SII Communication Type"
+msgstr "SII 通信类型"
+
+msgctxt "field:account.invoice,sii_header:"
+msgid "Header"
+msgstr "页眉"
+
+msgctxt "field:account.invoice,sii_issued_key:"
+msgid "SII Issued Key"
+msgstr "SII 销项代码"
+
+msgctxt "field:account.invoice,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII 交易代码"
+
+msgctxt "field:account.invoice,sii_pending_sending:"
+msgid "SII Pending Sending Pending"
+msgstr "SII 待处理记录待发送"
+
+msgctxt "field:account.invoice,sii_received_key:"
+msgid "SII Recived Key"
+msgstr "SII 进项代码"
+
+msgctxt "field:account.invoice,sii_records:"
+msgid "SII Report Lines"
+msgstr "SII 申报明细"
+
+msgctxt "field:account.invoice,sii_state:"
+msgid "SII State"
+msgstr "SII 状态"
+
+msgctxt "field:account.tax,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "反向征税"
+
+msgctxt "field:account.tax,service:"
+msgid "Service Rate"
+msgstr "服务税率"
+
+msgctxt "field:account.tax,sii_book_key:"
+msgid "Book Key"
+msgstr "账簿代码"
+
+msgctxt "field:account.tax,sii_exemption_cause:"
+msgid "Exemption Cause"
+msgstr "免税原因"
+
+msgctxt "field:account.tax,sii_issued_key:"
+msgid "Issued Key"
+msgstr "销项代码"
+
+msgctxt "field:account.tax,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII 交易代码"
+
+msgctxt "field:account.tax,sii_received_key:"
+msgid "Received Key"
+msgstr "进项代码"
+
+msgctxt "field:account.tax,sii_subjected_key:"
+msgid "Subjected Key"
+msgstr "应税代码"
+
+msgctxt "field:account.tax.template,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "反向征税"
+
+msgctxt "field:account.tax.template,service:"
+msgid "Service Rate"
+msgstr "服务税率"
+
+msgctxt "field:account.tax.template,sii_book_key:"
+msgid "Book Key"
+msgstr "账簿代码"
+
+msgctxt "field:account.tax.template,sii_exemption_cause:"
+msgid "Exemption Cause"
+msgstr "免税原因"
+
+msgctxt "field:account.tax.template,sii_issued_key:"
+msgid "Issued Key"
+msgstr "销项代码"
+
+msgctxt "field:account.tax.template,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII 交易代码"
+
+msgctxt "field:account.tax.template,sii_received_key:"
+msgid "Received Key"
+msgstr "进项代码"
+
+msgctxt "field:account.tax.template,sii_subjected_key:"
+msgid "Subjected Key"
+msgstr "应税代码"
+
+msgctxt "field:aeat.sii.report,aeat_register:"
+msgid "Register sended to AEAT Webservice"
+msgstr "已发送至 AEAT Web 服务的记录"
+
+msgctxt "field:aeat.sii.report,book:"
+msgid "Book"
+msgstr "登记簿"
+
+msgctxt "field:aeat.sii.report,communication_state:"
+msgid "Communication State"
+msgstr "通信状态"
+
+msgctxt "field:aeat.sii.report,company:"
+msgid "Company"
+msgstr "公司"
+
+msgctxt "field:aeat.sii.report,company_vat:"
+msgid "VAT"
+msgstr "增值税"
+
+msgctxt "field:aeat.sii.report,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:aeat.sii.report,currency:"
+msgid "Currency"
+msgstr "货币"
+
+msgctxt "field:aeat.sii.report,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "会计年度"
+
+msgctxt "field:aeat.sii.report,lines:"
+msgid "Lines"
+msgstr "明细"
+
+msgctxt "field:aeat.sii.report,load_date:"
+msgid "Load Date"
+msgstr "加载日期"
+
+msgctxt "field:aeat.sii.report,load_date_end:"
+msgid "Load Date End"
+msgstr "加载结束日期"
+
+msgctxt "field:aeat.sii.report,load_date_start:"
+msgid "Load Date Start"
+msgstr "加载开始日期"
+
+msgctxt "field:aeat.sii.report,operation_type:"
+msgid "Operation Type"
+msgstr "交易类型"
+
+msgctxt "field:aeat.sii.report,period:"
+msgid "Period"
+msgstr "分期"
+
+msgctxt "field:aeat.sii.report,response:"
+msgid "Response"
+msgstr "响应"
+
+msgctxt "field:aeat.sii.report,send_date:"
+msgid "Send date"
+msgstr "发送日期"
+
+msgctxt "field:aeat.sii.report,state:"
+msgid "State"
+msgstr "状态"
+
+msgctxt "field:aeat.sii.report,version:"
+msgid "Version"
+msgstr "版本"
+
+msgctxt "field:aeat.sii.report.line.tax,amount:"
+msgid "Amount"
+msgstr "数额"
+
+msgctxt "field:aeat.sii.report.line.tax,base:"
+msgid "Base"
+msgstr "基数"
+
+msgctxt "field:aeat.sii.report.line.tax,line:"
+msgid "Report Line"
+msgstr "报表行项目"
+
+msgctxt "field:aeat.sii.report.line.tax,rate:"
+msgid "Rate"
+msgstr "率"
+
+msgctxt "field:aeat.sii.report.line.tax,reagyp_amount:"
+msgid "REAGYP Amount"
+msgstr "REAGYP 金额"
+
+msgctxt "field:aeat.sii.report.line.tax,reagyp_rate:"
+msgid "REAGYP Rate"
+msgstr "REAGYP 税率"
+
+msgctxt "field:aeat.sii.report.line.tax,surcharge_amount:"
+msgid "Surcharge Amount"
+msgstr "附加税金额"
+
+msgctxt "field:aeat.sii.report.line.tax,surcharge_rate:"
+msgid "Surcharge Rate"
+msgstr "附加税税率"
+
+msgctxt "field:aeat.sii.report.lines,aeat_register:"
+msgid "Register from AEAT Webservice"
+msgstr "来自 AEAT Web 服务的记录"
+
+msgctxt "field:aeat.sii.report.lines,balance_state:"
+msgid "Balance State"
+msgstr "核对状态"
+
+msgctxt "field:aeat.sii.report.lines,communication_code:"
+msgid "Communication Code"
+msgstr "通信代码"
+
+msgctxt "field:aeat.sii.report.lines,communication_msg:"
+msgid "Communication Message"
+msgstr "通信消息"
+
+msgctxt "field:aeat.sii.report.lines,company:"
+msgid "Company"
+msgstr "公司"
+
+msgctxt "field:aeat.sii.report.lines,counterpart_id:"
+msgid "Counterpart ID"
+msgstr "交易对方标识"
+
+msgctxt "field:aeat.sii.report.lines,counterpart_name:"
+msgid "Counterpart Name"
+msgstr "交易对方名称"
+
+msgctxt "field:aeat.sii.report.lines,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:aeat.sii.report.lines,exemption_cause:"
+msgid "Exemption Cause"
+msgstr "免税原因"
+
+msgctxt "field:aeat.sii.report.lines,final_serial_number:"
+msgid "Final Serial Number"
+msgstr "结束流水号"
+
+msgctxt "field:aeat.sii.report.lines,identifier_type:"
+msgid "Identifier Type"
+msgstr "标识类型"
+
+msgctxt "field:aeat.sii.report.lines,invoice:"
+msgid "Invoice"
+msgstr "原始凭证"
+
+msgctxt "field:aeat.sii.report.lines,invoice_kind:"
+msgid "Invoice Kind"
+msgstr "发票种类"
+
+msgctxt "field:aeat.sii.report.lines,invoice_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII 交易代码"
+
+msgctxt "field:aeat.sii.report.lines,invoice_types:"
+msgid "Invoice Types"
+msgstr "原始凭证类型"
+
+msgctxt "field:aeat.sii.report.lines,issue_date:"
+msgid "Issued Date"
+msgstr "开具日期"
+
+msgctxt "field:aeat.sii.report.lines,issuer_vat_number:"
+msgid "Issuer VAT Number"
+msgstr "开票方增值税号"
+
+msgctxt "field:aeat.sii.report.lines,last_modify_date:"
+msgid "Last Modification Date"
+msgstr "最后修改日期"
+
+msgctxt "field:aeat.sii.report.lines,presentation_date:"
+msgid "Presentation Date"
+msgstr "提交日期"
+
+msgctxt "field:aeat.sii.report.lines,presenter:"
+msgid "Presenter"
+msgstr "提交人"
+
+msgctxt "field:aeat.sii.report.lines,report:"
+msgid "Issued Report"
+msgstr "销项申报"
+
+msgctxt "field:aeat.sii.report.lines,serial_number:"
+msgid "Serial Number"
+msgstr "流水号"
+
+msgctxt "field:aeat.sii.report.lines,sii_header:"
+msgid "Header"
+msgstr "页眉"
+
+msgctxt "field:aeat.sii.report.lines,special_key:"
+msgid "Special Key"
+msgstr "特殊代码"
+
+msgctxt "field:aeat.sii.report.lines,state:"
+msgid "State"
+msgstr "状态"
+
+msgctxt "field:aeat.sii.report.lines,taxes:"
+msgid "Tax Lines"
+msgstr "税明细"
+
+msgctxt "field:aeat.sii.report.lines,total_amount:"
+msgid "Total Amount"
+msgstr "总额"
+
+msgctxt "field:aeat.sii.report.lines,vat_code:"
+msgid "VAT Code"
+msgstr "增值税代码"
+
+msgctxt "field:party.party,sii_identifier_type:"
+msgid "SII Identifier Type"
+msgstr "SII 标识类型"
+
+msgctxt "field:party.party,sii_vat_code:"
+msgid "SII VAT Code"
+msgstr "SII 增值税代码"
+
+msgctxt "help:account.configuration,aeat_pending_sii:"
+msgid "Automatically generate AEAT Pending SII reports by cron"
+msgstr "通过计划任务自动生成 AEAT 待处理 SII 申报表"
+
+msgctxt "help:account.configuration,aeat_pending_sii_send:"
+msgid "Automatically send AEAT Pending SII reports by cron"
+msgstr "通过计划任务自动发送 AEAT 待处理 SII 申报表"
+
+msgctxt "help:account.configuration,aeat_received_sii:"
+msgid "Automatically generate AEAT Received SII reports by cron"
+msgstr "通过计划任务自动生成 AEAT 进项 SII 申报表"
+
+msgctxt "help:account.configuration,aeat_received_sii_send:"
+msgid "Automatically send AEAT Received SII reports by cron"
+msgstr "通过计划任务自动发送 AEAT 进项 SII 申报表"
+
+msgctxt "help:account.configuration,sii_default_offset_days:"
+msgid "Default offset days in the invoices search for the SII Books"
+msgstr "SII 账簿搜索发票时的默认偏移天数"
+
+msgctxt "help:account.configuration.default_sii,aeat_pending_sii:"
+msgid "Automatically generate AEAT Pending SII reports by cron"
+msgstr "通过计划任务自动生成 AEAT 待处理 SII 申报表"
+
+msgctxt "help:account.configuration.default_sii,aeat_pending_sii_send:"
+msgid "Automatically send AEAT Pending SII reports by cron"
+msgstr "通过计划任务自动发送 AEAT 待处理 SII 申报表"
+
+msgctxt "help:account.configuration.default_sii,aeat_received_sii:"
+msgid "Automatically generate AEAT Received SII reports by cron"
+msgstr "通过计划任务自动生成 AEAT 进项 SII 申报表"
+
+msgctxt "help:account.configuration.default_sii,aeat_received_sii_send:"
+msgid "Automatically send AEAT Received SII reports by cron"
+msgstr "通过计划任务自动发送 AEAT 进项 SII 申报表"
+
+msgctxt "help:account.configuration.default_sii,sii_default_offset_days:"
+msgid "Default offset days in the invoices search for the SII Books"
+msgstr "SII 账簿搜索发票时的默认偏移天数"
+
+msgctxt "help:account.tax,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "表示该税项是否适用反向征税。"
+
+msgctxt "help:account.tax,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "表示该税项是否用于服务。"
+
+msgctxt "help:account.tax.template,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "表示该税项是否适用反向征税。"
+
+msgctxt "help:account.tax.template,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "表示该税项是否用于服务。"
+
+msgctxt "help:aeat.sii.report,load_date:"
+msgid "Filter invoices to the date whitin the period."
+msgstr "按期间内的日期筛选发票。"
+
+msgctxt "model:account.configuration.default_sii,name:"
+msgid "Account Configuration Default SII Values"
+msgstr "会计配置默认 SII 值"
+
+msgctxt "model:aeat.sii.issued.invoice.mapper,name:"
+msgid "Tryton Issued Invoice to AEAT mapper"
+msgstr "Tryton 销项发票至 AEAT 映射器"
+
+msgctxt "model:aeat.sii.issued.pending.view,name:"
+msgid "Create AEAT SII Issued Pending View"
+msgstr "创建 AEAT SII 待处理销项视图"
+
+msgctxt "model:aeat.sii.received.pending.view,name:"
+msgid "Create AEAT SII Received Pending View"
+msgstr "创建 AEAT SII 待处理进项视图"
+
+msgctxt "model:aeat.sii.recieved.invoice.mapper,name:"
+msgid "Tryton Recieved Invoice to AEAT mapper"
+msgstr "Tryton 进项发票至 AEAT 映射器"
+
+msgctxt "model:aeat.sii.report,name:"
+msgid "SII Report"
+msgstr "SII 申报表"
+
+msgctxt "model:aeat.sii.report.line.tax,name:"
+msgid "SII Report Line Tax"
+msgstr "SII 申报明细税项"
+
+msgctxt "model:aeat.sii.report.lines,name:"
+msgid "AEAT SII Issued"
+msgstr "AEAT SII 销项"
+
+msgctxt "model:aeat.sii.reset.keys.end,name:"
+msgid "Reset to default SII Keys End"
+msgstr "重置默认 SII 代码：结束"
+
+msgctxt "model:aeat.sii.reset.keys.start,name:"
+msgid "Reset to default SII Keys Start"
+msgstr "重置默认 SII 代码：开始"
+
+msgctxt "model:ir.action,name:act_aeat_sii_issued_report"
+msgid "SII Report Issued"
+msgstr "SII 销项申报表"
+
+msgctxt "model:ir.action,name:act_aeat_sii_received_report"
+msgid "SII Report Received"
+msgstr "SII 进项申报表"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report"
+msgid "SII Report"
+msgstr "SII 申报表"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_line"
+msgid "AEAT SII Report Lines"
+msgstr "AEAT SII 申报明细"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_line_related"
+msgid "AEAT SII Report Lines"
+msgstr "AEAT SII 申报明细"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
+msgid "SII Report Lines"
+msgstr "SII 申报明细"
+
+msgctxt "model:ir.action,name:act_aeat_sii_reset_keys"
+msgid "Reset AEAT SII Keys"
+msgstr "重置 AEAT SII 代码"
+
+msgctxt "model:ir.action,name:wizard_aeat_sii_issued_pending"
+msgid "AEAT SII Pending Issued Invoices"
+msgstr "AEAT SII 待处理销项发票"
+
+msgctxt "model:ir.action,name:wizard_aeat_sii_received_pending"
+msgid "AEAT SII Pending Received Invoices"
+msgstr "AEAT SII 待处理进项发票"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_delete_cancel"
+msgid "Report \"%(report)s\" must be cancelled before deletion."
+msgstr "删除申报表“%(report)s”前必须先取消它。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invoice_in_missing_ref"
+msgid "The invoices \"%(invoices)s\" haven't got reference."
+msgstr "发票“%(invoices)s”没有参考编号。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invoices_sii"
+msgid ""
+"The next invoices are related with SII books:\n"
+"%(invoices)s.\n"
+"If you edit them take care if you need to update again to SII"
+msgstr ""
+"以下发票与 SII 账簿关联：\n"
+"%(invoices)s。\n"
+"编辑后，请确认是否需要再次更新 SII。"
+
+msgctxt "model:ir.message,text:msg_invoices_sii_pending"
+msgid "The next invoices are related with SII books on draft state."
+msgstr "以下发票与处于草稿状态的 SII 账簿关联。"
+
+msgctxt "model:ir.message,text:msg_missing_certificate"
+msgid ""
+"There isn't a certificate deffined in the account configuration for the SII."
+msgstr "会计配置中未定义 SII 证书。"
+
+msgctxt "model:ir.message,text:msg_missing_fernet_key"
+msgid "Missing Fernet key configuration"
+msgstr "缺少 Fernet 密钥配置"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_missing_nif"
+msgid "The party of the invoice %(invoice)s must has a valid Tax Identifier."
+msgstr "发票 %(invoice)s 的往来单位必须具有有效的税务标识。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_missing_sii_keys"
+msgid "The invoice \"%(invoice)s\" haven't got the necessary SII keys filled."
+msgstr "发票“%(invoice)s”未填写必需的 SII 代码。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_report_duplicated_invoice"
+msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
+msgstr "发票“%(invoice)s”在 SII 申报表“%(report)s”中重复。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
+msgid "Invoice \"%(invoice)s\" must be posted, paid or refunded."
+msgstr "发票“%(invoice)s”必须已过账、已支付或已退款。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_service_message"
+msgid "%(message)s"
+msgstr "%(message)s"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_set_simplified_invoice"
+msgid ""
+"The parties of the invoices \"%(invoices)s\" has not set the SII Identfier "
+"as 'Simplified Invoice', but the invoice SII operation key is set as "
+"'Simplified Invoice (ticket)' or 'Invoice summary entry'. The invoices will "
+"be send to AEAT without destination identification."
+msgstr ""
+"发票“%(invoices)s”的往来单位未将 SII 标识设为“简化发票”，但发票的 SII "
+"交易代码设为“简化发票（小票）”或“发票汇总记录”。发票将不带接收方标识发送至 AEAT。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_set_simplified_party"
+msgid ""
+"The parties of the invoices \"%(invoices)s\" has the SII Identfier as "
+"'Simplified Invoice'. The SII operation key will be switched to 'Simplified "
+"Invoice (ticket)' or 'Invoice summary entry' as appropriate, and the "
+"invoices will be send to AEAT without destination identification."
+msgstr ""
+"发票“%(invoices)s”的往来单位已将 SII 标识设为“简化发票”。SII "
+"交易代码将相应改为“简化发票（小票）”或“发票汇总记录”，发票将不带接收方标识发送至 AEAT。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_sii_operation_key_wrong"
+msgid ""
+"The invoice %(invoice)s has wrong subjected and opertion sii combination."
+msgstr "发票 %(invoice)s 的 SII 应税类型与交易类型组合不正确。"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_wrong_identifier_type"
+msgid ""
+"The party [%(party)s] of the invoice %(invoice)s must has a valid SII "
+"Identifier [VAT (only for intracommunity operators)]."
+msgstr "发票 %(invoice)s 的往来单位 [%(party)s] 必须具有有效的 SII 标识 [增值税号（仅限欧盟内部经营者）]。"
+
+msgctxt "model:ir.message,text:reports_exist"
+msgid ""
+"There are some reports in draft and/or confirmed. Any report won't be "
+"created until this reports will be processed."
+msgstr "存在草稿和/或已确认的申报表。在处理这些申报表之前，不会创建新申报表。"
+
+msgctxt "model:ir.model.button,string:cancel_button"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "model:ir.model.button,string:confirm_button"
+msgid "Confirm"
+msgstr "确认"
+
+msgctxt "model:ir.model.button,string:draft_button"
+msgid "Draft"
+msgstr "草案"
+
+msgctxt "model:ir.model.button,string:load_invoices_button"
+msgid "Load Invoices"
+msgstr "加载发票"
+
+msgctxt "model:ir.model.button,string:process_response_button"
+msgid "Process Response"
+msgstr "处理响应"
+
+msgctxt "model:ir.model.button,string:send_button"
+msgid "Send"
+msgstr "发送"
+
+msgctxt "model:ir.rule.group,name:rule_group_sii_report"
+msgid "User in company"
+msgstr "公司内用户"
+
+msgctxt "model:ir.rule.group,name:rule_group_sii_report_line"
+msgid "User in company"
+msgstr "公司内用户"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_lines_report"
+msgid "AEAT SII Report Lines"
+msgstr "AEAT SII 申报明细"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_issued"
+msgid "Create AEAT SII Report Issued Invoices"
+msgstr "创建 AEAT SII 销项发票申报表"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_received"
+msgid "Create AEAT SII Report Received Invoices"
+msgstr "创建 AEAT SII 进项发票申报表"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_issued"
+msgid "AEAT SII Report Issued"
+msgstr "AEAT SII 销项申报表"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_menu"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_received"
+msgid "AEAT SII Report Received"
+msgstr "AEAT SII 进项申报表"
+
+msgctxt "model:res.group,name:group_aeat_sii_admin"
+msgid "AEAT SII Administration"
+msgstr "AEAT SII 管理"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Investment Goods"
+msgstr "投资货物"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "销项发票"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "特殊欧盟内部交易"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Received Invoices"
+msgstr "进项发票"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Amendment of invoices/records (registration errors)"
+msgstr "更正发票/记录（登记错误）"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Delete Invoices"
+msgstr "删除发票"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Query Invoices"
+msgstr "查询发票"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Registration of invoices/records"
+msgstr "登记发票/记录"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports"
+msgstr "适用加那利群岛一般间接税/生产、服务和进口税的活动"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr "适用二手商品、艺术品、古董和收藏品特殊制度的活动（增值税法第 135 至 139 条）"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "无需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "同时涉及需预扣税与无需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr "由具有代收职能的公司、协会、专业组织或其他实体，代表其合伙人、关联方或成员代收专业服务费、工业产权、版权或其他类似权利的款项"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Export"
+msgstr "导出"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 年上半年及 SII 实施前的其他发票"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "一般税收制度活动"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr "增值税尚待确认的发票（接收方为公共行政机关的工程进度证明）"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr "增值税尚待确认的发票 - 连续履行的交易"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as "
+"intermediaries in the name of and on behalf of other persons (Additional "
+"Provision 4, Royal Decree 1619/2012)"
+msgstr "以他人名义并代表他人提供中介服务的旅行社服务开票（第 1619/2012 号皇家法令附加规定第 4 条）"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "特殊现金收付制"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "适用于企业集团的增值税特殊制度（高级）"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "投资黄金特殊制度"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "旅行社特殊制度"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "更正发票（第 80.1、80.2、80.6 条及法律适用错误）"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "更正发票（第 80.3 条）"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "更正发票（其他）"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "简化发票的更正发票"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "贷项通知单（第 80.4 条）"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "关税 - 补充清算"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "进口（DUA）"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "发票（RD1619/2012 第 6.7.3 和 7.3 条）"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "用于替代已开具并已申报简化发票的发票"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "发票汇总记录"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "其他会计凭证"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr "简化发票（小票）及无接收方标识的发票（RD1619/2012 第 6.1.d 条）"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports (IPSI/IGIC)"
+msgstr "适用加那利群岛一般间接税/生产、服务和进口税（IPSI/IGIC）的活动"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr "企业按农业、畜牧业和渔业增值税特殊制度（REAGYP）支付补偿的活动"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr "适用二手商品、艺术品、古董和收藏品特殊制度（REBU）的活动〔增值税法第 135 至 139 条〕"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "营业场所租赁活动"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 年上半年及 SII 实施前的其他发票"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "一般税收制度活动"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "欧盟内部货物购入及服务提供"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr "进口对应发票（申报时未关联 DUA）"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "特殊现金收付制"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "适用于企业集团的增值税特殊制度（高级）"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "投资黄金特殊制度"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "旅行社特殊制度"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted"
+msgstr "已接受"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted "
+msgstr "已接受 "
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted with Errors"
+msgstr "已接受但存在错误"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted with Errors "
+msgstr "已接受但存在错误 "
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Deleted"
+msgstr "已删除"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Duplicated / Unsubscribed"
+msgstr "重复 / 已注销"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Rejected"
+msgstr "已拒绝"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Investment Goods"
+msgstr "投资货物"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "销项发票"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "特殊欧盟内部交易"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Received Invoices"
+msgstr "进项发票"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 20"
+msgstr "依据第 20 条免税"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 21"
+msgstr "依据第 21 条免税"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 22"
+msgstr "依据第 22 条免税"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 23 and Article 24"
+msgstr "依据第 23 条和第 24 条免税"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 25"
+msgstr "依据第 25 条免税"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on other grounds"
+msgstr "因其他原因免税"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Not Subject"
+msgstr "不征税"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports"
+msgstr "适用加那利群岛一般间接税/生产、服务和进口税的活动"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr "适用二手商品、艺术品、古董和收藏品特殊制度的活动（增值税法第 135 至 139 条）"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "无需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "同时涉及需预扣税与无需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr "由具有代收职能的公司、协会、专业组织或其他实体，代表其合伙人、关联方或成员代收专业服务费、工业产权、版权或其他类似权利的款项"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Export"
+msgstr "导出"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 年上半年及 SII 实施前的其他发票"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "一般税收制度活动"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr "增值税尚待确认的发票（接收方为公共行政机关的工程进度证明）"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr "增值税尚待确认的发票 - 连续履行的交易"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as "
+"intermediaries in the name of and on behalf of other persons (Additional "
+"Provision 4, Royal Decree 1619/2012)"
+msgstr "以他人名义并代表他人提供中介服务的旅行社服务开票（第 1619/2012 号皇家法令附加规定第 4 条）"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "特殊现金收付制"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "适用于企业集团的增值税特殊制度（高级）"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "投资黄金特殊制度"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "旅行社特殊制度"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "更正发票（第 80.1、80.2、80.6 条及法律适用错误）"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "更正发票（第 80.3 条）"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "更正发票（其他）"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "简化发票的更正发票"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "贷项通知单（第 80.4 条）"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "关税 - 补充清算"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "进口（DUA）"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "发票（RD1619/2012 第 6.7.3 和 7.3 条）"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "用于替代已开具并已申报简化发票的发票"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "发票汇总记录"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "其他会计凭证"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr "简化发票（小票）及无接收方标识的发票（RD1619/2012 第 6.1.d 条）"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports (IPSI/IGIC)"
+msgstr "适用加那利群岛一般间接税/生产、服务和进口税（IPSI/IGIC）的活动"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr "企业按农业、畜牧业和渔业增值税特殊制度（REAGYP）支付补偿的活动"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr "适用二手商品、艺术品、古董和收藏品特殊制度（REBU）的活动〔增值税法第 135 至 139 条〕"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "营业场所租赁活动"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 年上半年及 SII 实施前的其他发票"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "一般税收制度活动"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "欧盟内部货物购入及服务提供"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr "进口对应发票（申报时未关联 DUA）"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "特殊现金收付制"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "适用于企业集团的增值税特殊制度（高级）"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "投资黄金特殊制度"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "旅行社特殊制度"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid ""
+"Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
+msgstr "应税 - 不免税。同时包含非反向征税与反向征税"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid "Subject - Not exempt. Non VAT reverse charge"
+msgstr "应税 - 不免税。非反向征税"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid "Subject - Not exempt. VAT reverse charge"
+msgstr "应税 - 不免税。反向征税"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Investment Goods"
+msgstr "投资货物"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "销项发票"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "特殊欧盟内部交易"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Received Invoices"
+msgstr "进项发票"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 20"
+msgstr "依据第 20 条免税"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 21"
+msgstr "依据第 21 条免税"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 22"
+msgstr "依据第 22 条免税"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 23 and Article 24"
+msgstr "依据第 23 条和第 24 条免税"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 25"
+msgstr "依据第 25 条免税"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on other grounds"
+msgstr "因其他原因免税"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Not Subject"
+msgstr "不征税"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports"
+msgstr "适用加那利群岛一般间接税/生产、服务和进口税的活动"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr "适用二手商品、艺术品、古董和收藏品特殊制度的活动（增值税法第 135 至 139 条）"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "无需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "同时涉及需预扣税与无需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "需预扣税的营业场所租赁活动"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr "由具有代收职能的公司、协会、专业组织或其他实体，代表其合伙人、关联方或成员代收专业服务费、工业产权、版权或其他类似权利的款项"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Export"
+msgstr "导出"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 年上半年及 SII 实施前的其他发票"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "一般税收制度活动"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr "增值税尚待确认的发票（接收方为公共行政机关的工程进度证明）"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr "增值税尚待确认的发票 - 连续履行的交易"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as "
+"intermediaries in the name of and on behalf of other persons (Additional "
+"Provision 4, Royal Decree 1619/2012)"
+msgstr "以他人名义并代表他人提供中介服务的旅行社服务开票（第 1619/2012 号皇家法令附加规定第 4 条）"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "特殊现金收付制"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "适用于企业集团的增值税特殊制度（高级）"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "投资黄金特殊制度"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "旅行社特殊制度"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "更正发票（第 80.1、80.2、80.6 条及法律适用错误）"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "更正发票（第 80.3 条）"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "更正发票（其他）"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "简化发票的更正发票"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "贷项通知单（第 80.4 条）"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "关税 - 补充清算"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "进口（DUA）"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "发票（RD1619/2012 第 6.7.3 和 7.3 条）"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "用于替代已开具并已申报简化发票的发票"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "发票汇总记录"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "其他会计凭证"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr "简化发票（小票）及无接收方标识的发票（RD1619/2012 第 6.1.d 条）"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports (IPSI/IGIC)"
+msgstr "适用加那利群岛一般间接税/生产、服务和进口税（IPSI/IGIC）的活动"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr "企业按农业、畜牧业和渔业增值税特殊制度（REAGYP）支付补偿的活动"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr "适用二手商品、艺术品、古董和收藏品特殊制度（REBU）的活动〔增值税法第 135 至 139 条〕"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "营业场所租赁活动"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 年上半年及 SII 实施前的其他发票"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "一般税收制度活动"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "欧盟内部货物购入及服务提供"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr "进口对应发票（申报时未关联 DUA）"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "特殊现金收付制"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "适用于企业集团的增值税特殊制度（高级）"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "投资黄金特殊制度"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "旅行社特殊制度"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid ""
+"Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
+msgstr "应税 - 不免税。同时包含非反向征税与反向征税"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid "Subject - Not exempt. Non VAT reverse charge"
+msgstr "应税 - 不免税。非反向征税"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid "Subject - Not exempt. VAT reverse charge"
+msgstr "应税 - 不免税。反向征税"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Investment Goods"
+msgstr "投资货物"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Issued Invoices"
+msgstr "销项发票"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Particular Intracommunity Operations"
+msgstr "特殊欧盟内部交易"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Received Invoices"
+msgstr "进项发票"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Accepted"
+msgstr "已接受"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Partially Accepted"
+msgstr "部分接受"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Rejected"
+msgstr "已拒绝"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Amendment of invoices/records (registration errors)"
+msgstr "更正发票/记录（登记错误）"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Delete Invoices"
+msgstr "删除发票"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Query Invoices"
+msgstr "查询发票"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Registration of invoices/records"
+msgstr "登记发票/记录"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Cancelled"
+msgstr "已取消"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Confirmed"
+msgstr "已确认"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Draft"
+msgstr "草案"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Sending"
+msgstr "发送中"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Sent"
+msgstr "已发送"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "0.7"
+msgstr "0.7"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.0"
+msgstr "1.0"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.1"
+msgstr "1.1"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Not registered (only for Spanish VAT not registered)"
+msgstr "未登记（仅适用于未登记的西班牙增值税号）"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid ""
+"Official identification document issued by the country or region of "
+"residence"
+msgstr "居住国家或地区签发的官方身份证件"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Other supporting document"
+msgstr "其他证明文件"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Passport"
+msgstr "护照"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Residence certificate"
+msgstr "居住证明"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Simplified Invoice"
+msgstr "简化发票"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "增值税号（国内经营者）"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (only for intracommunity operators)"
+msgstr "增值税号（仅限欧盟内部经营者）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "更正发票（第 80.1、80.2、80.6 条及法律适用错误）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "更正发票（第 80.3 条）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "更正发票（其他）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "简化发票的更正发票"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "贷项通知单（第 80.4 条）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "关税 - 补充清算"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Import (DUA)"
+msgstr "进口（DUA）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "发票（RD1619/2012 第 6.7.3 和 7.3 条）"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "用于替代已开具并已申报简化发票的发票"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice summary entry"
+msgstr "发票汇总记录"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Other accounting documents"
+msgstr "其他会计凭证"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr "简化发票（小票）及无接收方标识的发票（RD1619/2012 第 6.1.d 条）"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted"
+msgstr "已接受"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted "
+msgstr "已接受 "
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted with Errors"
+msgstr "已接受但存在错误"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted with Errors "
+msgstr "已接受但存在错误 "
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Deleted"
+msgstr "已删除"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Duplicated / Unsubscribed"
+msgstr "重复 / 已注销"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Rejected"
+msgstr "已拒绝"
+
+msgctxt "selection:ir.cron,method:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Not registered (only for Spanish VAT not registered)"
+msgstr "未登记（仅适用于未登记的西班牙增值税号）"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid ""
+"Official identification document issued by the country or region of "
+"residence"
+msgstr "居住国家或地区签发的官方身份证件"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Other supporting document"
+msgstr "其他证明文件"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Passport"
+msgstr "护照"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Residence certificate"
+msgstr "居住证明"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Simplified Invoice"
+msgstr "简化发票"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "增值税号（国内经营者）"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (only for intracommunity operators)"
+msgstr "增值税号（仅限欧盟内部经营者）"
+
+msgctxt "view:account.configuration:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.invoice:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.tax.template:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.tax:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:aeat.sii.issued.pending.view:"
+msgid "Note that this operation may take a few minutes."
+msgstr "注意：本操作可能需要几分钟时间."
+
+msgctxt "view:aeat.sii.issued.pending.view:"
+msgid "The AEAT SII Pending Issued Ivoices books will be create."
+msgstr "将创建 AEAT SII 待处理销项发票账簿。"
+
+msgctxt "view:aeat.sii.received.pending.view:"
+msgid "Note that this operation may take a few minutes."
+msgstr "注意：本操作可能需要几分钟时间."
+
+msgctxt "view:aeat.sii.received.pending.view:"
+msgid "The AEAT SII Pending Received Ivoices books will be create."
+msgstr "将创建 AEAT SII 待处理进项发票账簿。"
+
+msgctxt "view:aeat.sii.report.line.tax:"
+msgid "SII Report Line Tax"
+msgstr "SII 申报明细税项"
+
+msgctxt "view:aeat.sii.report.lines:"
+msgid "Main Information"
+msgstr "主要信息"
+
+msgctxt "view:aeat.sii.report:"
+msgid "AEAT SII Issued Report"
+msgstr "AEAT SII 销项申报表"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Confirm"
+msgstr "确认"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Draft"
+msgstr "草案"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Load Invoices"
+msgstr "加载发票"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Send"
+msgstr "发送"
+
+msgctxt "view:aeat.sii.reset.keys.end:"
+msgid "The AEAT SII Keys have been reset."
+msgstr "AEAT SII 代码已重置。"
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "Note that this operation may take a few minutes."
+msgstr "注意：本操作可能需要几分钟时间."
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "Only will be reset the draft invoices."
+msgstr "仅重置草稿发票。"
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "The AEAT SII Keys for selected invoices will be reset to default."
+msgstr "所选发票的 AEAT SII 代码将重置为默认值。"
+
+msgctxt "view:company.company:"
+msgid "Certificate"
+msgstr "证书"
+
+msgctxt "wizard_button:aeat.sii.issued.pending,view,create_:"
+msgid "Create"
+msgstr "创建"
+
+msgctxt "wizard_button:aeat.sii.issued.pending,view,end:"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard_button:aeat.sii.received.pending,view,create_:"
+msgid "Create"
+msgstr "创建"
+
+msgctxt "wizard_button:aeat.sii.received.pending,view,end:"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,done,end:"
+msgid "Ok"
+msgstr "确定"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,start,end:"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
+msgid "Reset"
+msgstr "重置"
+
+msgctxt "field:company.company,registration_data_book:"
+msgid "Book"
+msgstr "登记簿"
+
+msgctxt "wizard_button:aeat.sii.load_pkcs12,start,end:"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard_button:aeat.sii.load_pkcs12,start,load:"
+msgid "Load"
+msgstr "加载"
