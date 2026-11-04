@@ -1345,6 +1345,13 @@ class SIIReportLine(ModelSQL, ModelView):
             'required': Eval('_parent_report', {}).get(
                 'operation_type') != 'C0',
         })
+    invoice_party = fields.Function(
+        fields.Many2One('party.party', 'Invoice Party'),
+        'on_change_with_invoice_party')
+    invoice_date = fields.Function(fields.Date('Invoice Date'),
+        'on_change_with_invoice_date')
+    invoice_total_amount = fields.Function(fields.Numeric('Invoice Total Amount'),
+        'on_change_with_invoice_total_amount')
     invoice_types = fields.Function(
         fields.MultiSelection('get_invoice_types', "Invoice Types"),
         'on_change_with_invoice_types')
@@ -1392,6 +1399,21 @@ class SIIReportLine(ModelSQL, ModelView):
             table.column_rename('exemption_key', 'exemption_cause')
 
         super().__register__(module_name)
+
+    @fields.depends('invoice')
+    def on_change_with_invoice_party(self, name=None):
+        if self.invoice:
+            return self.invoice.party.id
+
+    @fields.depends('invoice')
+    def on_change_with_invoice_date(self, name=None):
+        if self.invoice:
+            return self.invoice.invoice_date
+
+    @fields.depends('invoice')
+    def on_change_with_invoice_total_amount(self, name=None):
+        if self.invoice:
+            return self.invoice.total_amount
 
     def get_invoice_operation_key(self, name):
         return self.invoice.sii_operation_key if self.invoice else None
