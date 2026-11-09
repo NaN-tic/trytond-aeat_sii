@@ -1,0 +1,1899 @@
+#
+msgid ""
+msgstr ""
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "field:account.configuration,aeat_certificate_sii:"
+msgid "AEAT Certificate SII"
+msgstr "AEAT SII-tanúsítvány"
+
+msgctxt "field:account.configuration,aeat_pending_sii:"
+msgid "AEAT Pending SII"
+msgstr "Függő AEAT SII"
+
+msgctxt "field:account.configuration,aeat_pending_sii_send:"
+msgid "AEAT Pending SII Send"
+msgstr "Függő AEAT SII küldése"
+
+msgctxt "field:account.configuration,aeat_received_sii:"
+msgid "AEAT Received SII"
+msgstr "Bejövő AEAT SII"
+
+msgctxt "field:account.configuration,aeat_received_sii_send:"
+msgid "AEAT Received SII Send"
+msgstr "Bejövő AEAT SII küldése"
+
+msgctxt "field:account.configuration,not_allow_in_invoices_aeat_sii_keys:"
+msgid "Not allow post in invoices without AEAT SII Keys"
+msgstr "Bejövő számlák könyvelésének tiltása AEAT SII-kódok nélkül"
+
+msgctxt "field:account.configuration,not_allow_out_invoices_aeat_sii_keys:"
+msgid "Not allow post out invoices without AEAT SII Keys"
+msgstr "Kimenő számlák könyvelésének tiltása AEAT SII-kódok nélkül"
+
+msgctxt "field:account.configuration,sii_default_offset_days:"
+msgid "SII Default Offset Days"
+msgstr "SII alapértelmezett eltolása napokban"
+
+msgctxt "field:account.configuration.default_sii,aeat_certificate_sii:"
+msgid "AEAT Certificate SII"
+msgstr "AEAT SII-tanúsítvány"
+
+msgctxt "field:account.configuration.default_sii,aeat_pending_sii:"
+msgid "AEAT Pending SII"
+msgstr "Függő AEAT SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_pending_sii_send:"
+msgid "AEAT Pending SII Send"
+msgstr "Függő AEAT SII küldése"
+
+msgctxt "field:account.configuration.default_sii,aeat_received_sii:"
+msgid "AEAT Received SII"
+msgstr "Bejövő AEAT SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_received_sii_send:"
+msgid "AEAT Received SII Send"
+msgstr "Bejövő AEAT SII küldése"
+
+msgctxt "field:account.configuration.default_sii,company:"
+msgid "Company"
+msgstr "Cég"
+
+msgctxt ""
+"field:account.configuration.default_sii,not_allow_in_invoices_aeat_sii_keys:"
+msgid "Not allow post in invoices without AEAT SII Keys"
+msgstr "Bejövő számlák könyvelésének tiltása AEAT SII-kódok nélkül"
+
+msgctxt ""
+"field:account.configuration.default_sii,not_allow_out_invoices_aeat_sii_keys:"
+msgid "Not allow post out invoices without AEAT SII Keys"
+msgstr "Kimenő számlák könyvelésének tiltása AEAT SII-kódok nélkül"
+
+msgctxt "field:account.configuration.default_sii,sii_default_offset_days:"
+msgid "SII Default Offset Days"
+msgstr "SII alapértelmezett eltolása napokban"
+
+msgctxt "field:account.invoice,is_sii:"
+msgid "Is SII"
+msgstr "SII-köteles"
+
+msgctxt "field:account.invoice,sii_book_key:"
+msgid "SII Book Key"
+msgstr "SII könyvkód"
+
+msgctxt "field:account.invoice,sii_communication_type:"
+msgid "SII Communication Type"
+msgstr "SII kommunikáció típusa"
+
+msgctxt "field:account.invoice,sii_header:"
+msgid "Header"
+msgstr "Fejléc"
+
+msgctxt "field:account.invoice,sii_issued_key:"
+msgid "SII Issued Key"
+msgstr "SII kimenő kód"
+
+msgctxt "field:account.invoice,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII ügyletkód"
+
+msgctxt "field:account.invoice,sii_pending_sending:"
+msgid "SII Pending Sending Pending"
+msgstr "Függő SII küldésre vár"
+
+msgctxt "field:account.invoice,sii_received_key:"
+msgid "SII Recived Key"
+msgstr "SII bejövő kód"
+
+msgctxt "field:account.invoice,sii_records:"
+msgid "SII Report Lines"
+msgstr "SII bevallás sorai"
+
+msgctxt "field:account.invoice,sii_state:"
+msgid "SII State"
+msgstr "SII állapota"
+
+msgctxt "field:account.tax,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "Fordított adózás"
+
+msgctxt "field:account.tax,service:"
+msgid "Service Rate"
+msgstr "Szolgáltatási adókulcs"
+
+msgctxt "field:account.tax,sii_book_key:"
+msgid "Book Key"
+msgstr "Könyvkód"
+
+msgctxt "field:account.tax,sii_exemption_cause:"
+msgid "Exemption Cause"
+msgstr "Mentesség oka"
+
+msgctxt "field:account.tax,sii_issued_key:"
+msgid "Issued Key"
+msgstr "Kimenő kód"
+
+msgctxt "field:account.tax,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII ügyletkód"
+
+msgctxt "field:account.tax,sii_received_key:"
+msgid "Received Key"
+msgstr "Bejövő kód"
+
+msgctxt "field:account.tax,sii_subjected_key:"
+msgid "Subjected Key"
+msgstr "Adókötelezettségi kód"
+
+msgctxt "field:account.tax.template,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "Fordított adózás"
+
+msgctxt "field:account.tax.template,service:"
+msgid "Service Rate"
+msgstr "Szolgáltatási adókulcs"
+
+msgctxt "field:account.tax.template,sii_book_key:"
+msgid "Book Key"
+msgstr "Könyvkód"
+
+msgctxt "field:account.tax.template,sii_exemption_cause:"
+msgid "Exemption Cause"
+msgstr "Mentesség oka"
+
+msgctxt "field:account.tax.template,sii_issued_key:"
+msgid "Issued Key"
+msgstr "Kimenő kód"
+
+msgctxt "field:account.tax.template,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII ügyletkód"
+
+msgctxt "field:account.tax.template,sii_received_key:"
+msgid "Received Key"
+msgstr "Bejövő kód"
+
+msgctxt "field:account.tax.template,sii_subjected_key:"
+msgid "Subjected Key"
+msgstr "Adókötelezettségi kód"
+
+msgctxt "field:aeat.sii.report,aeat_register:"
+msgid "Register sended to AEAT Webservice"
+msgstr "AEAT webszolgáltatásnak elküldött rekord"
+
+msgctxt "field:aeat.sii.report,book:"
+msgid "Book"
+msgstr "Könyv"
+
+msgctxt "field:aeat.sii.report,communication_state:"
+msgid "Communication State"
+msgstr "Kommunikáció állapota"
+
+msgctxt "field:aeat.sii.report,company:"
+msgid "Company"
+msgstr "Cég"
+
+msgctxt "field:aeat.sii.report,company_vat:"
+msgid "VAT"
+msgstr "Áfa"
+
+msgctxt "field:aeat.sii.report,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:aeat.sii.report,currency:"
+msgid "Currency"
+msgstr "Pénznem"
+
+msgctxt "field:aeat.sii.report,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "Üzleti év"
+
+msgctxt "field:aeat.sii.report,lines:"
+msgid "Lines"
+msgstr "Sorok"
+
+msgctxt "field:aeat.sii.report,load_date:"
+msgid "Load Date"
+msgstr "Betöltés dátuma"
+
+msgctxt "field:aeat.sii.report,load_date_end:"
+msgid "Load Date End"
+msgstr "Betöltés záródátuma"
+
+msgctxt "field:aeat.sii.report,load_date_start:"
+msgid "Load Date Start"
+msgstr "Betöltés kezdődátuma"
+
+msgctxt "field:aeat.sii.report,operation_type:"
+msgid "Operation Type"
+msgstr "Ügylet típusa"
+
+msgctxt "field:aeat.sii.report,period:"
+msgid "Period"
+msgstr "Periódus"
+
+msgctxt "field:aeat.sii.report,response:"
+msgid "Response"
+msgstr "Válasz"
+
+msgctxt "field:aeat.sii.report,send_date:"
+msgid "Send date"
+msgstr "Küldés dátuma"
+
+msgctxt "field:aeat.sii.report,state:"
+msgid "State"
+msgstr "Állapot"
+
+msgctxt "field:aeat.sii.report,version:"
+msgid "Version"
+msgstr "Verzió"
+
+msgctxt "field:aeat.sii.report.line.tax,amount:"
+msgid "Amount"
+msgstr "Összeg"
+
+msgctxt "field:aeat.sii.report.line.tax,base:"
+msgid "Base"
+msgstr "Alap"
+
+msgctxt "field:aeat.sii.report.line.tax,line:"
+msgid "Report Line"
+msgstr "Jelentéssor"
+
+msgctxt "field:aeat.sii.report.line.tax,rate:"
+msgid "Rate"
+msgstr "Érték"
+
+msgctxt "field:aeat.sii.report.line.tax,reagyp_amount:"
+msgid "REAGYP Amount"
+msgstr "REAGYP összege"
+
+msgctxt "field:aeat.sii.report.line.tax,reagyp_rate:"
+msgid "REAGYP Rate"
+msgstr "REAGYP kulcsa"
+
+msgctxt "field:aeat.sii.report.line.tax,surcharge_amount:"
+msgid "Surcharge Amount"
+msgstr "Pótlék összege"
+
+msgctxt "field:aeat.sii.report.line.tax,surcharge_rate:"
+msgid "Surcharge Rate"
+msgstr "Pótlék kulcsa"
+
+msgctxt "field:aeat.sii.report.lines,aeat_register:"
+msgid "Register from AEAT Webservice"
+msgstr "AEAT webszolgáltatásból érkező rekord"
+
+msgctxt "field:aeat.sii.report.lines,balance_state:"
+msgid "Balance State"
+msgstr "Egyeztetés állapota"
+
+msgctxt "field:aeat.sii.report.lines,communication_code:"
+msgid "Communication Code"
+msgstr "Kommunikáció kódja"
+
+msgctxt "field:aeat.sii.report.lines,communication_msg:"
+msgid "Communication Message"
+msgstr "Kommunikáció üzenete"
+
+msgctxt "field:aeat.sii.report.lines,company:"
+msgid "Company"
+msgstr "Cég"
+
+msgctxt "field:aeat.sii.report.lines,counterpart_id:"
+msgid "Counterpart ID"
+msgstr "Másik fél azonosítója"
+
+msgctxt "field:aeat.sii.report.lines,counterpart_name:"
+msgid "Counterpart Name"
+msgstr "Másik fél neve"
+
+msgctxt "field:aeat.sii.report.lines,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:aeat.sii.report.lines,exemption_cause:"
+msgid "Exemption Cause"
+msgstr "Mentesség oka"
+
+msgctxt "field:aeat.sii.report.lines,final_serial_number:"
+msgid "Final Serial Number"
+msgstr "Utolsó sorszám"
+
+msgctxt "field:aeat.sii.report.lines,identifier_type:"
+msgid "Identifier Type"
+msgstr "Azonosító típusa"
+
+msgctxt "field:aeat.sii.report.lines,invoice:"
+msgid "Invoice"
+msgstr "Számla"
+
+msgctxt "field:aeat.sii.report.lines,invoice_kind:"
+msgid "Invoice Kind"
+msgstr "Számla fajtája"
+
+msgctxt "field:aeat.sii.report.lines,invoice_operation_key:"
+msgid "SII Operation Key"
+msgstr "SII ügyletkód"
+
+msgctxt "field:aeat.sii.report.lines,invoice_types:"
+msgid "Invoice Types"
+msgstr "Számlatípusok"
+
+msgctxt "field:aeat.sii.report.lines,issue_date:"
+msgid "Issued Date"
+msgstr "Kiállítás dátuma"
+
+msgctxt "field:aeat.sii.report.lines,issuer_vat_number:"
+msgid "Issuer VAT Number"
+msgstr "Kiállító adószáma"
+
+msgctxt "field:aeat.sii.report.lines,last_modify_date:"
+msgid "Last Modification Date"
+msgstr "Utolsó módosítás dátuma"
+
+msgctxt "field:aeat.sii.report.lines,presentation_date:"
+msgid "Presentation Date"
+msgstr "Benyújtás dátuma"
+
+msgctxt "field:aeat.sii.report.lines,presenter:"
+msgid "Presenter"
+msgstr "Benyújtó"
+
+msgctxt "field:aeat.sii.report.lines,report:"
+msgid "Issued Report"
+msgstr "Kimenő bevallás"
+
+msgctxt "field:aeat.sii.report.lines,serial_number:"
+msgid "Serial Number"
+msgstr "Sorszám"
+
+msgctxt "field:aeat.sii.report.lines,sii_header:"
+msgid "Header"
+msgstr "Fejléc"
+
+msgctxt "field:aeat.sii.report.lines,special_key:"
+msgid "Special Key"
+msgstr "Különleges kód"
+
+msgctxt "field:aeat.sii.report.lines,state:"
+msgid "State"
+msgstr "Állapot"
+
+msgctxt "field:aeat.sii.report.lines,taxes:"
+msgid "Tax Lines"
+msgstr "Adóbontás"
+
+msgctxt "field:aeat.sii.report.lines,total_amount:"
+msgid "Total Amount"
+msgstr "Sorok összege"
+
+msgctxt "field:aeat.sii.report.lines,vat_code:"
+msgid "VAT Code"
+msgstr "Áfakód"
+
+msgctxt "field:party.party,sii_identifier_type:"
+msgid "SII Identifier Type"
+msgstr "SII azonosító típusa"
+
+msgctxt "field:party.party,sii_vat_code:"
+msgid "SII VAT Code"
+msgstr "SII áfakód"
+
+msgctxt "help:account.configuration,aeat_pending_sii:"
+msgid "Automatically generate AEAT Pending SII reports by cron"
+msgstr ""
+"Függő AEAT SII bevallások automatikus létrehozása ütemezett feladattal"
+
+msgctxt "help:account.configuration,aeat_pending_sii_send:"
+msgid "Automatically send AEAT Pending SII reports by cron"
+msgstr "Függő AEAT SII bevallások automatikus küldése ütemezett feladattal"
+
+msgctxt "help:account.configuration,aeat_received_sii:"
+msgid "Automatically generate AEAT Received SII reports by cron"
+msgstr ""
+"Bejövő AEAT SII bevallások automatikus létrehozása ütemezett feladattal"
+
+msgctxt "help:account.configuration,aeat_received_sii_send:"
+msgid "Automatically send AEAT Received SII reports by cron"
+msgstr "Bejövő AEAT SII bevallások automatikus küldése ütemezett feladattal"
+
+msgctxt "help:account.configuration,sii_default_offset_days:"
+msgid "Default offset days in the invoices search for the SII Books"
+msgstr "Az SII könyvek számlakeresésének alapértelmezett eltolása napokban"
+
+msgctxt "help:account.configuration.default_sii,aeat_pending_sii:"
+msgid "Automatically generate AEAT Pending SII reports by cron"
+msgstr ""
+"Függő AEAT SII bevallások automatikus létrehozása ütemezett feladattal"
+
+msgctxt "help:account.configuration.default_sii,aeat_pending_sii_send:"
+msgid "Automatically send AEAT Pending SII reports by cron"
+msgstr "Függő AEAT SII bevallások automatikus küldése ütemezett feladattal"
+
+msgctxt "help:account.configuration.default_sii,aeat_received_sii:"
+msgid "Automatically generate AEAT Received SII reports by cron"
+msgstr ""
+"Bejövő AEAT SII bevallások automatikus létrehozása ütemezett feladattal"
+
+msgctxt "help:account.configuration.default_sii,aeat_received_sii_send:"
+msgid "Automatically send AEAT Received SII reports by cron"
+msgstr "Bejövő AEAT SII bevallások automatikus küldése ütemezett feladattal"
+
+msgctxt "help:account.configuration.default_sii,sii_default_offset_days:"
+msgid "Default offset days in the invoices search for the SII Books"
+msgstr "Az SII könyvek számlakeresésének alapértelmezett eltolása napokban"
+
+msgctxt "help:account.tax,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "Jelzi, hogy az adó fordított adózás alá tartozik-e."
+
+msgctxt "help:account.tax,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "Jelzi, hogy az adó szolgáltatásokra vonatkozik-e."
+
+msgctxt "help:account.tax.template,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "Jelzi, hogy az adó fordított adózás alá tartozik-e."
+
+msgctxt "help:account.tax.template,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "Jelzi, hogy az adó szolgáltatásokra vonatkozik-e."
+
+msgctxt "help:aeat.sii.report,load_date:"
+msgid "Filter invoices to the date whitin the period."
+msgstr "Számlák szűrése az időszakon belüli dátumra."
+
+msgctxt "model:account.configuration.default_sii,name:"
+msgid "Account Configuration Default SII Values"
+msgstr "Könyvelési beállítások alapértelmezett SII-értékei"
+
+msgctxt "model:aeat.sii.issued.invoice.mapper,name:"
+msgid "Tryton Issued Invoice to AEAT mapper"
+msgstr "Tryton kimenő számla AEAT-megfeleltetője"
+
+msgctxt "model:aeat.sii.issued.pending.view,name:"
+msgid "Create AEAT SII Issued Pending View"
+msgstr "Függő AEAT SII kimenő nézet létrehozása"
+
+msgctxt "model:aeat.sii.received.pending.view,name:"
+msgid "Create AEAT SII Received Pending View"
+msgstr "Függő AEAT SII bejövő nézet létrehozása"
+
+msgctxt "model:aeat.sii.recieved.invoice.mapper,name:"
+msgid "Tryton Recieved Invoice to AEAT mapper"
+msgstr "Tryton bejövő számla AEAT-megfeleltetője"
+
+msgctxt "model:aeat.sii.report,name:"
+msgid "SII Report"
+msgstr "SII bevallás"
+
+msgctxt "model:aeat.sii.report.line.tax,name:"
+msgid "SII Report Line Tax"
+msgstr "SII bevallássor adója"
+
+msgctxt "model:aeat.sii.report.lines,name:"
+msgid "AEAT SII Issued"
+msgstr "AEAT SII kimenő"
+
+msgctxt "model:aeat.sii.reset.keys.end,name:"
+msgid "Reset to default SII Keys End"
+msgstr "Alapértelmezett SII-kódok visszaállítása – befejezés"
+
+msgctxt "model:aeat.sii.reset.keys.start,name:"
+msgid "Reset to default SII Keys Start"
+msgstr "Alapértelmezett SII-kódok visszaállítása – kezdés"
+
+msgctxt "model:ir.action,name:act_aeat_sii_issued_report"
+msgid "SII Report Issued"
+msgstr "Kimenő SII bevallás"
+
+msgctxt "model:ir.action,name:act_aeat_sii_received_report"
+msgid "SII Report Received"
+msgstr "Bejövő SII bevallás"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report"
+msgid "SII Report"
+msgstr "SII bevallás"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_line"
+msgid "AEAT SII Report Lines"
+msgstr "AEAT SII bevallássorok"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_line_related"
+msgid "AEAT SII Report Lines"
+msgstr "AEAT SII bevallássorok"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
+msgid "SII Report Lines"
+msgstr "SII bevallás sorai"
+
+msgctxt "model:ir.action,name:act_aeat_sii_reset_keys"
+msgid "Reset AEAT SII Keys"
+msgstr "AEAT SII-kódok visszaállítása"
+
+msgctxt "model:ir.action,name:wizard_aeat_sii_issued_pending"
+msgid "AEAT SII Pending Issued Invoices"
+msgstr "Függő AEAT SII kimenő számlák"
+
+msgctxt "model:ir.action,name:wizard_aeat_sii_received_pending"
+msgid "AEAT SII Pending Received Invoices"
+msgstr "Függő AEAT SII bejövő számlák"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_delete_cancel"
+msgid "Report \"%(report)s\" must be cancelled before deletion."
+msgstr "A(z) „%(report)s” bevallást törlés előtt vissza kell vonni."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invoice_in_missing_ref"
+msgid "The invoices \"%(invoices)s\" haven't got reference."
+msgstr "A(z) „%(invoices)s” számláknak nincs hivatkozása."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invoices_sii"
+msgid ""
+"The next invoices are related with SII books:\n"
+"%(invoices)s.\n"
+"If you edit them take care if you need to update again to SII"
+msgstr ""
+"A következő számlák SII könyvekhez kapcsolódnak:\n"
+"%(invoices)s.\n"
+"Módosításukkor ellenőrizze, szükséges-e ismét frissíteni az SII-adatokat."
+
+msgctxt "model:ir.message,text:msg_invoices_sii_pending"
+msgid "The next invoices are related with SII books on draft state."
+msgstr "A következő számlák tervezett állapotú SII könyvekhez kapcsolódnak."
+
+msgctxt "model:ir.message,text:msg_missing_certificate"
+msgid ""
+"There isn't a certificate deffined in the account configuration for the SII."
+msgstr "A könyvelési beállításokban nincs megadva SII-tanúsítvány."
+
+msgctxt "model:ir.message,text:msg_missing_fernet_key"
+msgid "Missing Fernet key configuration"
+msgstr "Hiányzik a Fernet-kulcs beállítása"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_missing_nif"
+msgid "The party of the invoice %(invoice)s must has a valid Tax Identifier."
+msgstr ""
+"A(z) %(invoice)s számla partnerének érvényes adóazonosítóval kell "
+"rendelkeznie."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_missing_sii_keys"
+msgid "The invoice \"%(invoice)s\" haven't got the necessary SII keys filled."
+msgstr "A(z) „%(invoice)s” számlán nincsenek kitöltve a szükséges SII-kódok."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_report_duplicated_invoice"
+msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
+msgstr ""
+"A(z) „%(invoice)s” számla többször szerepel a(z) „%(report)s” SII "
+"bevallásban."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
+msgid "Invoice \"%(invoice)s\" must be posted, paid or refunded."
+msgstr ""
+"A(z) „%(invoice)s” számlának könyvelt, kifizetett vagy visszatérített "
+"állapotúnak kell lennie."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_service_message"
+msgid "%(message)s"
+msgstr "%(message)s"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_set_simplified_invoice"
+msgid ""
+"The parties of the invoices \"%(invoices)s\" has not set the SII Identfier "
+"as 'Simplified Invoice', but the invoice SII operation key is set as "
+"'Simplified Invoice (ticket)' or 'Invoice summary entry'. The invoices will "
+"be send to AEAT without destination identification."
+msgstr ""
+"A(z) „%(invoices)s” számlák partnereinek SII-azonosítója nem „Egyszerűsített"
+" számla”, de a számla SII-ügyletkódja „Egyszerűsített számla (nyugta)” vagy "
+"„Számla-összesítő bejegyzés”. A számlák címzettazonosító nélkül kerülnek az "
+"AEAT-hoz."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_set_simplified_party"
+msgid ""
+"The parties of the invoices \"%(invoices)s\" has the SII Identfier as "
+"'Simplified Invoice'. The SII operation key will be switched to 'Simplified "
+"Invoice (ticket)' or 'Invoice summary entry' as appropriate, and the "
+"invoices will be send to AEAT without destination identification."
+msgstr ""
+"A(z) „%(invoices)s” számlák partnereinek SII-azonosítója „Egyszerűsített "
+"számla”. Az SII-ügyletkód ennek megfelelően „Egyszerűsített számla (nyugta)”"
+" vagy „Számla-összesítő bejegyzés” lesz, és a számlák címzettazonosító "
+"nélkül kerülnek az AEAT-hoz."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_sii_operation_key_wrong"
+msgid ""
+"The invoice %(invoice)s has wrong subjected and opertion sii combination."
+msgstr ""
+"A(z) %(invoice)s számlán az SII adókötelezettségi és ügyletkód kombinációja "
+"hibás."
+
+#, python-format
+msgctxt "model:ir.message,text:msg_wrong_identifier_type"
+msgid ""
+"The party [%(party)s] of the invoice %(invoice)s must has a valid SII "
+"Identifier [VAT (only for intracommunity operators)]."
+msgstr ""
+"A(z) %(invoice)s számla [%(party)s] partnerének érvényes SII-azonosítóval "
+"kell rendelkeznie [Adószám (csak közösségi ügyleteket végzőknek)]."
+
+msgctxt "model:ir.message,text:reports_exist"
+msgid ""
+"There are some reports in draft and/or confirmed. Any report won't be "
+"created until this reports will be processed."
+msgstr ""
+"Vannak tervezett és/vagy megerősített bevallások. Ezek feldolgozásáig nem "
+"készül új bevallás."
+
+msgctxt "model:ir.model.button,string:cancel_button"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "model:ir.model.button,string:confirm_button"
+msgid "Confirm"
+msgstr "Jóváhagyás"
+
+msgctxt "model:ir.model.button,string:draft_button"
+msgid "Draft"
+msgstr "vázlat"
+
+msgctxt "model:ir.model.button,string:load_invoices_button"
+msgid "Load Invoices"
+msgstr "Számlák betöltése"
+
+msgctxt "model:ir.model.button,string:process_response_button"
+msgid "Process Response"
+msgstr "Válasz feldolgozása"
+
+msgctxt "model:ir.model.button,string:send_button"
+msgid "Send"
+msgstr "Küldés"
+
+msgctxt "model:ir.rule.group,name:rule_group_sii_report"
+msgid "User in company"
+msgstr "Felhasználó a vállalatban"
+
+msgctxt "model:ir.rule.group,name:rule_group_sii_report_line"
+msgid "User in company"
+msgstr "Felhasználó a vállalatban"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_lines_report"
+msgid "AEAT SII Report Lines"
+msgstr "AEAT SII bevallássorok"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_issued"
+msgid "Create AEAT SII Report Issued Invoices"
+msgstr "AEAT SII kimenő számlabevallás létrehozása"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_received"
+msgid "Create AEAT SII Report Received Invoices"
+msgstr "AEAT SII bejövő számlabevallás létrehozása"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_issued"
+msgid "AEAT SII Report Issued"
+msgstr "AEAT SII kimenő bevallás"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_menu"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_received"
+msgid "AEAT SII Report Received"
+msgstr "AEAT SII bejövő bevallás"
+
+msgctxt "model:res.group,name:group_aeat_sii_admin"
+msgid "AEAT SII Administration"
+msgstr "AEAT SII kezelése"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Investment Goods"
+msgstr "Beruházási javak"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "Kimenő számlák"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "Különleges közösségen belüli ügyletek"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Received Invoices"
+msgstr "Bejövő számlák"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Amendment of invoices/records (registration errors)"
+msgstr "Számlák/rekordok módosítása (nyilvántartási hibák)"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Delete Invoices"
+msgstr "Számlák törlése"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Query Invoices"
+msgstr "Számlák lekérdezése"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Registration of invoices/records"
+msgstr "Számlák/rekordok nyilvántartásba vétele"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports"
+msgstr ""
+"Kanári-szigeteki általános közvetett adó, illetve termelési, szolgáltatási "
+"és importadó alá tartozó tevékenységek"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr ""
+"Használt cikkekre, műalkotásokra, régiségekre és gyűjteménydarabokra "
+"vonatkozó különös rendszer tevékenységei (áfatörvény 135–139. cikk)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "Forrásadó-levonás alá nem tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "Forrásadó-levonás alá tartozó és nem tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "Forrásadó-levonás alá tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr ""
+"Szakmai díjak, iparjogvédelmi, szerzői és hasonló jogok ellenértékének "
+"beszedése harmadik fél nevében, partnerek, társult tagok vagy tagok javára "
+"olyan vállalatok, egyesületek, szakmai szervezetek és egyéb jogalanyok "
+"által, amelyek feladatai közé tartozik a beszedés"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Export"
+msgstr "Exportálás"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 első féléve és az SII előtti egyéb számlák"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "Általános adózási rendszer szerinti tevékenység"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr ""
+"Még nem esedékes áfát tartalmazó számla (közigazgatási címzettek részére "
+"kiállított munkateljesítési igazolások)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr ""
+"Még nem esedékes áfát tartalmazó számla – folyamatos teljesítésű ügyletek"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as "
+"intermediaries in the name of and on behalf of other persons (Additional "
+"Provision 4, Royal Decree 1619/2012)"
+msgstr ""
+"Más személy nevében és javára közvetítőként eljáró utazási iroda "
+"szolgáltatásainak számlázása (1619/2012 királyi rendelet, 4. kiegészítő "
+"rendelkezés)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "Különös pénzforgalmi elszámolás"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "Vállalatcsoportokra alkalmazandó különös áfarendszer (kiterjesztett)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "Befektetési arany különös rendszere"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "Utazási irodák különös rendszere"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr ""
+"Helyesbítő számla (80.1, 80.2 és 80.6 cikk, valamint jogalkalmazási hiba)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "Helyesbítő számla (80.3 cikk)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "Helyesbítő számla (egyéb)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "Egyszerűsített számla helyesbítő számlája"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "Jóváíró számla (80.4 cikk)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "Vám – kiegészítő elszámolás"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "Import (DUA)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "Számla (RD1619/2012 6.7.3 és 7.3 cikk)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr ""
+"Kiállított és bejelentett egyszerűsített számlák helyettesítésére kiállított"
+" számla"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "Számla-összesítő bejegyzés"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "Egyéb számviteli bizonylatok"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"Egyszerűsített számla (nyugta) és címzettazonosító nélküli számlák "
+"(RD1619/2012 6.1.d cikk)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports (IPSI/IGIC)"
+msgstr ""
+"Kanári-szigeteki általános közvetett adó, illetve termelési, szolgáltatási "
+"és importadó (IPSI/IGIC) alá tartozó tevékenységek"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr ""
+"Olyan tevékenységek, amelyek során vállalkozások a mezőgazdasági és "
+"halászati különös áfarendszer (REAGYP) szerinti kompenzációt fizetnek"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr ""
+"Használt cikkek, műalkotások, régiségek és gyűjteménydarabok különös "
+"rendszerének (REBU) tevékenységei [áfatörvény 135–139. cikk]"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "Üzlethelyiség-bérbeadási tevékenység"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 első féléve és az SII előtti egyéb számlák"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "Általános adózási rendszer szerinti tevékenység"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "Közösségen belüli termékbeszerzés és szolgáltatásnyújtás"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr ""
+"Importhoz tartozó számla (DUA-hoz való hozzárendelés nélkül bejelentve)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "Különös pénzforgalmi elszámolás"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "Vállalatcsoportokra alkalmazandó különös áfarendszer (kiterjesztett)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "Befektetési arany különös rendszere"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "Utazási irodák különös rendszere"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted"
+msgstr "Elfogadva"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted "
+msgstr "Elfogadva "
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted with Errors"
+msgstr "Hibákkal elfogadva"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted with Errors "
+msgstr "Hibákkal elfogadva "
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Deleted"
+msgstr "Törölve"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Duplicated / Unsubscribed"
+msgstr "Duplikált / törölt nyilvántartás"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Rejected"
+msgstr "Elutasítva"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Investment Goods"
+msgstr "Beruházási javak"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "Kimenő számlák"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "Különleges közösségen belüli ügyletek"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Received Invoices"
+msgstr "Bejövő számlák"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 20"
+msgstr "Adómentes a 20. cikk alapján"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 21"
+msgstr "Adómentes a 21. cikk alapján"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 22"
+msgstr "Adómentes a 22. cikk alapján"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 23 and Article 24"
+msgstr "Adómentes a 23. és 24. cikk alapján"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 25"
+msgstr "Adómentes a 25. cikk alapján"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on other grounds"
+msgstr "Egyéb jogcímen adómentes"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Not Subject"
+msgstr "Nem adóköteles"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports"
+msgstr ""
+"Kanári-szigeteki általános közvetett adó, illetve termelési, szolgáltatási "
+"és importadó alá tartozó tevékenységek"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr ""
+"Használt cikkekre, műalkotásokra, régiségekre és gyűjteménydarabokra "
+"vonatkozó különös rendszer tevékenységei (áfatörvény 135–139. cikk)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "Forrásadó-levonás alá nem tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "Forrásadó-levonás alá tartozó és nem tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "Forrásadó-levonás alá tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr ""
+"Szakmai díjak, iparjogvédelmi, szerzői és hasonló jogok ellenértékének "
+"beszedése harmadik fél nevében, partnerek, társult tagok vagy tagok javára "
+"olyan vállalatok, egyesületek, szakmai szervezetek és egyéb jogalanyok "
+"által, amelyek feladatai közé tartozik a beszedés"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Export"
+msgstr "Exportálás"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 első féléve és az SII előtti egyéb számlák"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "Általános adózási rendszer szerinti tevékenység"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr ""
+"Még nem esedékes áfát tartalmazó számla (közigazgatási címzettek részére "
+"kiállított munkateljesítési igazolások)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr ""
+"Még nem esedékes áfát tartalmazó számla – folyamatos teljesítésű ügyletek"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as "
+"intermediaries in the name of and on behalf of other persons (Additional "
+"Provision 4, Royal Decree 1619/2012)"
+msgstr ""
+"Más személy nevében és javára közvetítőként eljáró utazási iroda "
+"szolgáltatásainak számlázása (1619/2012 királyi rendelet, 4. kiegészítő "
+"rendelkezés)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "Különös pénzforgalmi elszámolás"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "Vállalatcsoportokra alkalmazandó különös áfarendszer (kiterjesztett)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "Befektetési arany különös rendszere"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "Utazási irodák különös rendszere"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr ""
+"Helyesbítő számla (80.1, 80.2 és 80.6 cikk, valamint jogalkalmazási hiba)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "Helyesbítő számla (80.3 cikk)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "Helyesbítő számla (egyéb)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "Egyszerűsített számla helyesbítő számlája"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "Jóváíró számla (80.4 cikk)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "Vám – kiegészítő elszámolás"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "Import (DUA)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "Számla (RD1619/2012 6.7.3 és 7.3 cikk)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr ""
+"Kiállított és bejelentett egyszerűsített számlák helyettesítésére kiállított"
+" számla"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "Számla-összesítő bejegyzés"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "Egyéb számviteli bizonylatok"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"Egyszerűsített számla (nyugta) és címzettazonosító nélküli számlák "
+"(RD1619/2012 6.1.d cikk)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports (IPSI/IGIC)"
+msgstr ""
+"Kanári-szigeteki általános közvetett adó, illetve termelési, szolgáltatási "
+"és importadó (IPSI/IGIC) alá tartozó tevékenységek"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr ""
+"Olyan tevékenységek, amelyek során vállalkozások a mezőgazdasági és "
+"halászati különös áfarendszer (REAGYP) szerinti kompenzációt fizetnek"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr ""
+"Használt cikkek, műalkotások, régiségek és gyűjteménydarabok különös "
+"rendszerének (REBU) tevékenységei [áfatörvény 135–139. cikk]"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "Üzlethelyiség-bérbeadási tevékenység"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 első féléve és az SII előtti egyéb számlák"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "Általános adózási rendszer szerinti tevékenység"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "Közösségen belüli termékbeszerzés és szolgáltatásnyújtás"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr ""
+"Importhoz tartozó számla (DUA-hoz való hozzárendelés nélkül bejelentve)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "Különös pénzforgalmi elszámolás"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "Vállalatcsoportokra alkalmazandó különös áfarendszer (kiterjesztett)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "Befektetési arany különös rendszere"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "Utazási irodák különös rendszere"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid ""
+"Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
+msgstr "Adóköteles – nem mentes. Normál és fordított adózás egyaránt"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid "Subject - Not exempt. Non VAT reverse charge"
+msgstr "Adóköteles – nem mentes. Nem fordított adózás"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid "Subject - Not exempt. VAT reverse charge"
+msgstr "Adóköteles – nem mentes. Fordított adózás"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Investment Goods"
+msgstr "Beruházási javak"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "Kimenő számlák"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "Különleges közösségen belüli ügyletek"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Received Invoices"
+msgstr "Bejövő számlák"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 20"
+msgstr "Adómentes a 20. cikk alapján"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 21"
+msgstr "Adómentes a 21. cikk alapján"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 22"
+msgstr "Adómentes a 22. cikk alapján"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 23 and Article 24"
+msgstr "Adómentes a 23. és 24. cikk alapján"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 25"
+msgstr "Adómentes a 25. cikk alapján"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on other grounds"
+msgstr "Egyéb jogcímen adómentes"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Not Subject"
+msgstr "Nem adóköteles"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports"
+msgstr ""
+"Kanári-szigeteki általános közvetett adó, illetve termelési, szolgáltatási "
+"és importadó alá tartozó tevékenységek"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr ""
+"Használt cikkekre, műalkotásokra, régiségekre és gyűjteménydarabokra "
+"vonatkozó különös rendszer tevékenységei (áfatörvény 135–139. cikk)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "Forrásadó-levonás alá nem tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "Forrásadó-levonás alá tartozó és nem tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "Forrásadó-levonás alá tartozó üzlethelyiség-bérbeadás"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr ""
+"Szakmai díjak, iparjogvédelmi, szerzői és hasonló jogok ellenértékének "
+"beszedése harmadik fél nevében, partnerek, társult tagok vagy tagok javára "
+"olyan vállalatok, egyesületek, szakmai szervezetek és egyéb jogalanyok "
+"által, amelyek feladatai közé tartozik a beszedés"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Export"
+msgstr "Exportálás"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 első féléve és az SII előtti egyéb számlák"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "Általános adózási rendszer szerinti tevékenység"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr ""
+"Még nem esedékes áfát tartalmazó számla (közigazgatási címzettek részére "
+"kiállított munkateljesítési igazolások)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr ""
+"Még nem esedékes áfát tartalmazó számla – folyamatos teljesítésű ügyletek"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as "
+"intermediaries in the name of and on behalf of other persons (Additional "
+"Provision 4, Royal Decree 1619/2012)"
+msgstr ""
+"Más személy nevében és javára közvetítőként eljáró utazási iroda "
+"szolgáltatásainak számlázása (1619/2012 királyi rendelet, 4. kiegészítő "
+"rendelkezés)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "Különös pénzforgalmi elszámolás"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "Vállalatcsoportokra alkalmazandó különös áfarendszer (kiterjesztett)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "Befektetési arany különös rendszere"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "Utazási irodák különös rendszere"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr ""
+"Helyesbítő számla (80.1, 80.2 és 80.6 cikk, valamint jogalkalmazási hiba)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "Helyesbítő számla (80.3 cikk)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "Helyesbítő számla (egyéb)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "Egyszerűsített számla helyesbítő számlája"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "Jóváíró számla (80.4 cikk)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "Vám – kiegészítő elszámolás"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "Import (DUA)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "Számla (RD1619/2012 6.7.3 és 7.3 cikk)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr ""
+"Kiállított és bejelentett egyszerűsített számlák helyettesítésére kiállított"
+" számla"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "Számla-összesítő bejegyzés"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "Egyéb számviteli bizonylatok"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"Egyszerűsített számla (nyugta) és címzettazonosító nélküli számlák "
+"(RD1619/2012 6.1.d cikk)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production,"
+" Services and Imports (IPSI/IGIC)"
+msgstr ""
+"Kanári-szigeteki általános közvetett adó, illetve termelési, szolgáltatási "
+"és importadó (IPSI/IGIC) alá tartozó tevékenységek"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr ""
+"Olyan tevékenységek, amelyek során vállalkozások a mezőgazdasági és "
+"halászati különös áfarendszer (REAGYP) szerinti kompenzációt fizetnek"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr ""
+"Használt cikkek, műalkotások, régiségek és gyűjteménydarabok különös "
+"rendszerének (REBU) tevékenységei [áfatörvény 135–139. cikk]"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "Üzlethelyiség-bérbeadási tevékenység"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "2017 első féléve és az SII előtti egyéb számlák"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "Általános adózási rendszer szerinti tevékenység"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "Közösségen belüli termékbeszerzés és szolgáltatásnyújtás"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr ""
+"Importhoz tartozó számla (DUA-hoz való hozzárendelés nélkül bejelentve)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "Különös pénzforgalmi elszámolás"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "Vállalatcsoportokra alkalmazandó különös áfarendszer (kiterjesztett)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "Befektetési arany különös rendszere"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "Utazási irodák különös rendszere"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid ""
+"Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
+msgstr "Adóköteles – nem mentes. Normál és fordított adózás egyaránt"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid "Subject - Not exempt. Non VAT reverse charge"
+msgstr "Adóköteles – nem mentes. Nem fordított adózás"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid "Subject - Not exempt. VAT reverse charge"
+msgstr "Adóköteles – nem mentes. Fordított adózás"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Investment Goods"
+msgstr "Beruházási javak"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Issued Invoices"
+msgstr "Kimenő számlák"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Particular Intracommunity Operations"
+msgstr "Különleges közösségen belüli ügyletek"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Received Invoices"
+msgstr "Bejövő számlák"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Accepted"
+msgstr "Elfogadva"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Partially Accepted"
+msgstr "Részben elfogadva"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Rejected"
+msgstr "Elutasítva"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Amendment of invoices/records (registration errors)"
+msgstr "Számlák/rekordok módosítása (nyilvántartási hibák)"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Delete Invoices"
+msgstr "Számlák törlése"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Query Invoices"
+msgstr "Számlák lekérdezése"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Registration of invoices/records"
+msgstr "Számlák/rekordok nyilvántartásba vétele"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Cancelled"
+msgstr "érvénytelen"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Confirmed"
+msgstr "jóváhagyott"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Draft"
+msgstr "vázlat"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Sending"
+msgstr "Küldés folyamatban"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Sent"
+msgstr "Elküldve"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "0.7"
+msgstr "0.7"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.0"
+msgstr "1.0"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.1"
+msgstr "1.1"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Not registered (only for Spanish VAT not registered)"
+msgstr "Nem nyilvántartott (csak nem nyilvántartott spanyol adószám esetén)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid ""
+"Official identification document issued by the country or region of "
+"residence"
+msgstr ""
+"A lakóhely szerinti ország vagy régió által kiállított hivatalos "
+"személyazonosító okmány"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Other supporting document"
+msgstr "Egyéb igazoló okmány"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Passport"
+msgstr "Útlevél"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Residence certificate"
+msgstr "Illetőségigazolás"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Simplified Invoice"
+msgstr "Egyszerűsített számla"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "Adószám (belföldi gazdasági szereplőknek)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (only for intracommunity operators)"
+msgstr "Adószám (csak közösségi ügyleteket végzőknek)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr ""
+"Helyesbítő számla (80.1, 80.2 és 80.6 cikk, valamint jogalkalmazási hiba)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "Helyesbítő számla (80.3 cikk)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "Helyesbítő számla (egyéb)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "Egyszerűsített számla helyesbítő számlája"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "Jóváíró számla (80.4 cikk)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "Vám – kiegészítő elszámolás"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Import (DUA)"
+msgstr "Import (DUA)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "Számla (RD1619/2012 6.7.3 és 7.3 cikk)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr ""
+"Kiállított és bejelentett egyszerűsített számlák helyettesítésére kiállított"
+" számla"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice summary entry"
+msgstr "Számla-összesítő bejegyzés"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Other accounting documents"
+msgstr "Egyéb számviteli bizonylatok"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"Egyszerűsített számla (nyugta) és címzettazonosító nélküli számlák "
+"(RD1619/2012 6.1.d cikk)"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted"
+msgstr "Elfogadva"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted "
+msgstr "Elfogadva "
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted with Errors"
+msgstr "Hibákkal elfogadva"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted with Errors "
+msgstr "Hibákkal elfogadva "
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Deleted"
+msgstr "Törölve"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Duplicated / Unsubscribed"
+msgstr "Duplikált / törölt nyilvántartás"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Rejected"
+msgstr "Elutasítva"
+
+msgctxt "selection:ir.cron,method:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Not registered (only for Spanish VAT not registered)"
+msgstr "Nem nyilvántartott (csak nem nyilvántartott spanyol adószám esetén)"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid ""
+"Official identification document issued by the country or region of "
+"residence"
+msgstr ""
+"A lakóhely szerinti ország vagy régió által kiállított hivatalos "
+"személyazonosító okmány"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Other supporting document"
+msgstr "Egyéb igazoló okmány"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Passport"
+msgstr "Útlevél"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Residence certificate"
+msgstr "Illetőségigazolás"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Simplified Invoice"
+msgstr "Egyszerűsített számla"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "Adószám (belföldi gazdasági szereplőknek)"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (only for intracommunity operators)"
+msgstr "Adószám (csak közösségi ügyleteket végzőknek)"
+
+msgctxt "view:account.configuration:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.invoice:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.tax.template:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.tax:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:aeat.sii.issued.pending.view:"
+msgid "Note that this operation may take a few minutes."
+msgstr "Ez a művelet néhány percig is eltarthat."
+
+msgctxt "view:aeat.sii.issued.pending.view:"
+msgid "The AEAT SII Pending Issued Ivoices books will be create."
+msgstr "Létrejönnek a függő AEAT SII kimenő számlák könyvei."
+
+msgctxt "view:aeat.sii.received.pending.view:"
+msgid "Note that this operation may take a few minutes."
+msgstr "Ez a művelet néhány percig is eltarthat."
+
+msgctxt "view:aeat.sii.received.pending.view:"
+msgid "The AEAT SII Pending Received Ivoices books will be create."
+msgstr "Létrejönnek a függő AEAT SII bejövő számlák könyvei."
+
+msgctxt "view:aeat.sii.report.line.tax:"
+msgid "SII Report Line Tax"
+msgstr "SII bevallássor adója"
+
+msgctxt "view:aeat.sii.report.lines:"
+msgid "Main Information"
+msgstr "Fő adatok"
+
+msgctxt "view:aeat.sii.report:"
+msgid "AEAT SII Issued Report"
+msgstr "AEAT SII kimenő bevallás"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Confirm"
+msgstr "Jóváhagyás"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Draft"
+msgstr "vázlat"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Load Invoices"
+msgstr "Számlák betöltése"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Send"
+msgstr "Küldés"
+
+msgctxt "view:aeat.sii.reset.keys.end:"
+msgid "The AEAT SII Keys have been reset."
+msgstr "Az AEAT SII-kódok visszaállítása megtörtént."
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "Note that this operation may take a few minutes."
+msgstr "Ez a művelet néhány percig is eltarthat."
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "Only will be reset the draft invoices."
+msgstr "Csak a tervezett állapotú számlák állnak vissza."
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "The AEAT SII Keys for selected invoices will be reset to default."
+msgstr ""
+"A kiválasztott számlák AEAT SII-kódjai visszaállnak az alapértelmezett "
+"értékekre."
+
+msgctxt "view:company.company:"
+msgid "Certificate"
+msgstr "Tanúsítvány"
+
+msgctxt "wizard_button:aeat.sii.issued.pending,view,create_:"
+msgid "Create"
+msgstr "Létrehozás"
+
+msgctxt "wizard_button:aeat.sii.issued.pending,view,end:"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "wizard_button:aeat.sii.received.pending,view,create_:"
+msgid "Create"
+msgstr "Létrehozás"
+
+msgctxt "wizard_button:aeat.sii.received.pending,view,end:"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,done,end:"
+msgid "Ok"
+msgstr "Rendben"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,start,end:"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
+msgid "Reset"
+msgstr "Visszaállítás"
+
+msgctxt "field:company.company,registration_data_book:"
+msgid "Book"
+msgstr "Könyv"
+
+msgctxt "wizard_button:aeat.sii.load_pkcs12,start,end:"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "wizard_button:aeat.sii.load_pkcs12,start,load:"
+msgid "Load"
+msgstr "Betöltés"
+
+msgctxt "field:aeat.sii.report.lines,invoice_party:"
+msgid "Invoice Party"
+msgstr "Számlázó ügyfél"
+
+msgctxt "field:aeat.sii.report.lines,invoice_date:"
+msgid "Invoice Date"
+msgstr "Számla kelte"
+
+msgctxt "field:aeat.sii.report.lines,invoice_total_amount:"
+msgid "Invoice Total Amount"
+msgstr "Számla végösszege"
