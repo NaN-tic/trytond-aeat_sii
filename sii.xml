@@ -56,7 +56,27 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_issued_key">02</field>
             <field name="sii_exemption_cause">E2</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_X0_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">02</field>
+            <field name="sii_exemption_cause">E2</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_X0_bi">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">02</field>
+            <field name="sii_exemption_cause">E2</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_X0_spanish_excluded_tax">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">02</field>
+            <field name="sii_exemption_cause">E2</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_X0_spanish_excluded_tax_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">02</field>
+            <field name="sii_exemption_cause">E2</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_X0_spanish_excluded_tax_bi">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">02</field>
             <field name="sii_exemption_cause">E2</field>
@@ -73,7 +93,25 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S2</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_isp_bi">
+            <field name="sii_book_key">E</field>
+            <field name="sii_operation_key">F1</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S2</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_ISP_reciclaje_0">
+            <field name="sii_book_key">E</field>
+            <field name="sii_operation_key">F1</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S2</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_ISP_reciclaje_0_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_operation_key">F1</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S2</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_ISP_reciclaje_0_bi">
             <field name="sii_book_key">E</field>
             <field name="sii_operation_key">F1</field>
             <field name="sii_issued_key">01</field>
@@ -85,7 +123,18 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S2</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_ISP_obra_0_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_operation_key">F1</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S2</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_IO">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_exemption_cause">E5</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_IO_bi">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E5</field>
@@ -327,6 +376,11 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_received_key">01</field>
             <field name="sii_exemption_cause">E6</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_sop_ex_ser">
+            <field name="sii_book_key">R</field>
+            <field name="sii_received_key">01</field>
+            <field name="sii_exemption_cause">E6</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_sop_0">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
@@ -338,6 +392,11 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_subjected_key">S1</field>
         </record>
         <record model="account.tax.template" id="account_es.iva_sop_4">
+            <field name="sii_book_key">R</field>
+            <field name="sii_received_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_sop_4_ser">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
@@ -357,7 +416,17 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_sop_10_ser">
+            <field name="sii_book_key">R</field>
+            <field name="sii_received_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_sop_21">
+            <field name="sii_book_key">R</field>
+            <field name="sii_received_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_sop_21_ser">
             <field name="sii_book_key">R</field>
             <field name="sii_received_key">01</field>
             <field name="sii_subjected_key">S1</field>
@@ -383,6 +452,16 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_subjected_key">S1</field>
         </record>
         <record model="account.tax.template" id="account_es.iva_rep_ex">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_exemption_cause">E6</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_rep_ex_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_exemption_cause">E6</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_rep_ex_bi">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E6</field>
@@ -417,6 +496,16 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_rep_4_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_rep_4_bi">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_rep_5">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
@@ -432,7 +521,27 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
         </record>
+        <record model="account.tax.template" id="account_es.iva_rep_10_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_rep_10_bi">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
         <record model="account.tax.template" id="account_es.iva_rep_21">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_rep_21_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_subjected_key">S1</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_rep_21_bi">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_subjected_key">S1</field>
@@ -448,6 +557,16 @@ this repository contains the full copyright notices and license terms. -->
             <field name="sii_exemption_cause">E6</field>
         </record>
         <record model="account.tax.template" id="account_es.iva_ex_art_24_1_sale">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_exemption_cause">E4</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_ex_art_24_1_sale_ser">
+            <field name="sii_book_key">E</field>
+            <field name="sii_issued_key">01</field>
+            <field name="sii_exemption_cause">E4</field>
+        </record>
+        <record model="account.tax.template" id="account_es.iva_ex_art_24_1_sale_bi">
             <field name="sii_book_key">E</field>
             <field name="sii_issued_key">01</field>
             <field name="sii_exemption_cause">E4</field>
