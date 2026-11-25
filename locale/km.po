@@ -1,0 +1,1866 @@
+#
+msgid ""
+msgstr ""
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:account.configuration,aeat_certificate_sii:"
+msgid "AEAT Certificate SII"
+msgstr "វិញ្ញាបនបត្រ AEAT SII"
+
+msgctxt "field:account.configuration,aeat_pending_sii:"
+msgid "AEAT Pending SII"
+msgstr "AEAT SII កំពុងរង់ចាំ"
+
+msgctxt "field:account.configuration,aeat_pending_sii_send:"
+msgid "AEAT Pending SII Send"
+msgstr "ផ្ញើ AEAT SII ដែលកំពុងរង់ចាំ"
+
+msgctxt "field:account.configuration,aeat_received_sii:"
+msgid "AEAT Received SII"
+msgstr "AEAT SII ដែលបានទទួល"
+
+msgctxt "field:account.configuration,aeat_received_sii_send:"
+msgid "AEAT Received SII Send"
+msgstr "ផ្ញើ AEAT SII ដែលបានទទួល"
+
+msgctxt "field:account.configuration,not_allow_in_invoices_aeat_sii_keys:"
+msgid "Not allow post in invoices without AEAT SII Keys"
+msgstr "មិនអនុញ្ញាតឱ្យកត់ត្រាវិក្កយបត្រចូលដែលគ្មានកូដ AEAT SII"
+
+msgctxt "field:account.configuration,not_allow_out_invoices_aeat_sii_keys:"
+msgid "Not allow post out invoices without AEAT SII Keys"
+msgstr "មិនអនុញ្ញាតឱ្យកត់ត្រាវិក្កយបត្រចេញដែលគ្មានកូដ AEAT SII"
+
+msgctxt "field:account.configuration,sii_default_offset_days:"
+msgid "SII Default Offset Days"
+msgstr "ចំនួនថ្ងៃគម្លាតលំនាំដើម SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_certificate_sii:"
+msgid "AEAT Certificate SII"
+msgstr "វិញ្ញាបនបត្រ AEAT SII"
+
+msgctxt "field:account.configuration.default_sii,aeat_pending_sii:"
+msgid "AEAT Pending SII"
+msgstr "AEAT SII កំពុងរង់ចាំ"
+
+msgctxt "field:account.configuration.default_sii,aeat_pending_sii_send:"
+msgid "AEAT Pending SII Send"
+msgstr "ផ្ញើ AEAT SII ដែលកំពុងរង់ចាំ"
+
+msgctxt "field:account.configuration.default_sii,aeat_received_sii:"
+msgid "AEAT Received SII"
+msgstr "AEAT SII ដែលបានទទួល"
+
+msgctxt "field:account.configuration.default_sii,aeat_received_sii_send:"
+msgid "AEAT Received SII Send"
+msgstr "ផ្ញើ AEAT SII ដែលបានទទួល"
+
+msgctxt "field:account.configuration.default_sii,company:"
+msgid "Company"
+msgstr "ក្រុមហ៊ុន"
+
+msgctxt ""
+"field:account.configuration.default_sii,not_allow_in_invoices_aeat_sii_keys:"
+msgid "Not allow post in invoices without AEAT SII Keys"
+msgstr "មិនអនុញ្ញាតឱ្យកត់ត្រាវិក្កយបត្រចូលដែលគ្មានកូដ AEAT SII"
+
+msgctxt ""
+"field:account.configuration.default_sii,not_allow_out_invoices_aeat_sii_keys:"
+msgid "Not allow post out invoices without AEAT SII Keys"
+msgstr "មិនអនុញ្ញាតឱ្យកត់ត្រាវិក្កយបត្រចេញដែលគ្មានកូដ AEAT SII"
+
+msgctxt "field:account.configuration.default_sii,sii_default_offset_days:"
+msgid "SII Default Offset Days"
+msgstr "ចំនួនថ្ងៃគម្លាតលំនាំដើម SII"
+
+msgctxt "field:account.invoice,is_sii:"
+msgid "Is SII"
+msgstr "ជា SII"
+
+msgctxt "field:account.invoice,sii_book_key:"
+msgid "SII Book Key"
+msgstr "កូដបញ្ជីគណនេយ្យ SII"
+
+msgctxt "field:account.invoice,sii_communication_type:"
+msgid "SII Communication Type"
+msgstr "ប្រភេទទំនាក់ទំនង SII"
+
+msgctxt "field:account.invoice,sii_header:"
+msgid "Header"
+msgstr "ក្បាលទំព័រ"
+
+msgctxt "field:account.invoice,sii_issued_key:"
+msgid "SII Issued Key"
+msgstr "កូដ SII សម្រាប់វិក្កយបត្រចេញ"
+
+msgctxt "field:account.invoice,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "កូដប្រតិបត្តិការ SII"
+
+msgctxt "field:account.invoice,sii_pending_sending:"
+msgid "SII Pending Sending Pending"
+msgstr "SII កំពុងរង់ចាំការផ្ញើ"
+
+msgctxt "field:account.invoice,sii_received_key:"
+msgid "SII Recived Key"
+msgstr "កូដ SII សម្រាប់វិក្កយបត្រទទួល"
+
+msgctxt "field:account.invoice,sii_records:"
+msgid "SII Report Lines"
+msgstr "បន្ទាត់របាយការណ៍ SII"
+
+msgctxt "field:account.invoice,sii_state:"
+msgid "SII State"
+msgstr "ស្ថានភាព SII"
+
+msgctxt "field:account.tax,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "យន្តការបង់ពន្ធបញ្ច្រាស"
+
+msgctxt "field:account.tax,service:"
+msgid "Service Rate"
+msgstr "អត្រាសម្រាប់សេវា"
+
+msgctxt "field:account.tax,sii_book_key:"
+msgid "Book Key"
+msgstr "កូដបញ្ជីគណនេយ្យ"
+
+msgctxt "field:account.tax,sii_exemption_cause:"
+msgid "Exemption Cause"
+msgstr "មូលហេតុលើកលែងពន្ធ"
+
+msgctxt "field:account.tax,sii_issued_key:"
+msgid "Issued Key"
+msgstr "កូដសម្រាប់វិក្កយបត្រចេញ"
+
+msgctxt "field:account.tax,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "កូដប្រតិបត្តិការ SII"
+
+msgctxt "field:account.tax,sii_received_key:"
+msgid "Received Key"
+msgstr "កូដសម្រាប់វិក្កយបត្រទទួល"
+
+msgctxt "field:account.tax,sii_subjected_key:"
+msgid "Subjected Key"
+msgstr "កូដកម្មវត្ថុពន្ធ"
+
+msgctxt "field:account.tax.template,isp:"
+msgid "Inversion del Sujeto Pasivo"
+msgstr "យន្តការបង់ពន្ធបញ្ច្រាស"
+
+msgctxt "field:account.tax.template,service:"
+msgid "Service Rate"
+msgstr "អត្រាសម្រាប់សេវា"
+
+msgctxt "field:account.tax.template,sii_book_key:"
+msgid "Book Key"
+msgstr "កូដបញ្ជីគណនេយ្យ"
+
+msgctxt "field:account.tax.template,sii_exemption_cause:"
+msgid "Exemption Cause"
+msgstr "មូលហេតុលើកលែងពន្ធ"
+
+msgctxt "field:account.tax.template,sii_issued_key:"
+msgid "Issued Key"
+msgstr "កូដសម្រាប់វិក្កយបត្រចេញ"
+
+msgctxt "field:account.tax.template,sii_operation_key:"
+msgid "SII Operation Key"
+msgstr "កូដប្រតិបត្តិការ SII"
+
+msgctxt "field:account.tax.template,sii_received_key:"
+msgid "Received Key"
+msgstr "កូដសម្រាប់វិក្កយបត្រទទួល"
+
+msgctxt "field:account.tax.template,sii_subjected_key:"
+msgid "Subjected Key"
+msgstr "កូដកម្មវត្ថុពន្ធ"
+
+msgctxt "field:aeat.sii.report,aeat_register:"
+msgid "Register sended to AEAT Webservice"
+msgstr "កំណត់ត្រាដែលបានផ្ញើទៅសេវាបណ្ដាញ AEAT"
+
+msgctxt "field:aeat.sii.report,book:"
+msgid "Book"
+msgstr "បញ្ជីគណនេយ្យ"
+
+msgctxt "field:aeat.sii.report,communication_state:"
+msgid "Communication State"
+msgstr "ស្ថានភាពទំនាក់ទំនង"
+
+msgctxt "field:aeat.sii.report,company:"
+msgid "Company"
+msgstr "ក្រុមហ៊ុន"
+
+msgctxt "field:aeat.sii.report,company_vat:"
+msgid "VAT"
+msgstr "អាករលើតម្លៃបន្ថែម (VAT)"
+
+msgctxt "field:aeat.sii.report,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:aeat.sii.report,currency:"
+msgid "Currency"
+msgstr "រូបិយប័ណ្ណ"
+
+msgctxt "field:aeat.sii.report,fiscalyear:"
+msgid "Fiscal Year"
+msgstr "ឆ្នាំសារពើពន្ធ"
+
+msgctxt "field:aeat.sii.report,lines:"
+msgid "Lines"
+msgstr "បន្ទាត់"
+
+msgctxt "field:aeat.sii.report,load_date:"
+msgid "Load Date"
+msgstr "កាលបរិច្ឆេទផ្ទុក"
+
+msgctxt "field:aeat.sii.report,load_date_end:"
+msgid "Load Date End"
+msgstr "កាលបរិច្ឆេទបញ្ចប់ការផ្ទុក"
+
+msgctxt "field:aeat.sii.report,load_date_start:"
+msgid "Load Date Start"
+msgstr "កាលបរិច្ឆេទចាប់ផ្ដើមការផ្ទុក"
+
+msgctxt "field:aeat.sii.report,operation_type:"
+msgid "Operation Type"
+msgstr "ប្រភេទប្រតិបត្តិការ"
+
+msgctxt "field:aeat.sii.report,period:"
+msgid "Period"
+msgstr "គ្រា"
+
+msgctxt "field:aeat.sii.report,response:"
+msgid "Response"
+msgstr "ចម្លើយ"
+
+msgctxt "field:aeat.sii.report,send_date:"
+msgid "Send date"
+msgstr "កាលបរិច្ឆេទផ្ញើ"
+
+msgctxt "field:aeat.sii.report,state:"
+msgid "State"
+msgstr "ស្ថានភាព"
+
+msgctxt "field:aeat.sii.report,version:"
+msgid "Version"
+msgstr "កំណែ"
+
+msgctxt "field:aeat.sii.report.line.tax,amount:"
+msgid "Amount"
+msgstr "ចំនួនទឹកប្រាក់"
+
+msgctxt "field:aeat.sii.report.line.tax,base:"
+msgid "Base"
+msgstr "មូលដ្ឋាន"
+
+msgctxt "field:aeat.sii.report.line.tax,line:"
+msgid "Report Line"
+msgstr "បន្ទាត់របាយការណ៍"
+
+msgctxt "field:aeat.sii.report.line.tax,rate:"
+msgid "Rate"
+msgstr "អត្រា"
+
+msgctxt "field:aeat.sii.report.line.tax,reagyp_amount:"
+msgid "REAGYP Amount"
+msgstr "ចំនួនទឹកប្រាក់ REAGYP"
+
+msgctxt "field:aeat.sii.report.line.tax,reagyp_rate:"
+msgid "REAGYP Rate"
+msgstr "អត្រា REAGYP"
+
+msgctxt "field:aeat.sii.report.line.tax,surcharge_amount:"
+msgid "Surcharge Amount"
+msgstr "ចំនួនអាករបន្ថែម"
+
+msgctxt "field:aeat.sii.report.line.tax,surcharge_rate:"
+msgid "Surcharge Rate"
+msgstr "អត្រាអាករបន្ថែម"
+
+msgctxt "field:aeat.sii.report.lines,aeat_register:"
+msgid "Register from AEAT Webservice"
+msgstr "កំណត់ត្រាពីសេវាបណ្ដាញ AEAT"
+
+msgctxt "field:aeat.sii.report.lines,balance_state:"
+msgid "Balance State"
+msgstr "ស្ថានភាពសមតុល្យ"
+
+msgctxt "field:aeat.sii.report.lines,communication_code:"
+msgid "Communication Code"
+msgstr "កូដទំនាក់ទំនង"
+
+msgctxt "field:aeat.sii.report.lines,communication_msg:"
+msgid "Communication Message"
+msgstr "សារទំនាក់ទំនង"
+
+msgctxt "field:aeat.sii.report.lines,company:"
+msgid "Company"
+msgstr "ក្រុមហ៊ុន"
+
+msgctxt "field:aeat.sii.report.lines,counterpart_id:"
+msgid "Counterpart ID"
+msgstr "លេខសម្គាល់ភាគីគូ"
+
+msgctxt "field:aeat.sii.report.lines,counterpart_name:"
+msgid "Counterpart Name"
+msgstr "ឈ្មោះភាគីគូ"
+
+msgctxt "field:aeat.sii.report.lines,csv:"
+msgid "CSV"
+msgstr "CSV"
+
+msgctxt "field:aeat.sii.report.lines,exemption_cause:"
+msgid "Exemption Cause"
+msgstr "មូលហេតុលើកលែងពន្ធ"
+
+msgctxt "field:aeat.sii.report.lines,final_serial_number:"
+msgid "Final Serial Number"
+msgstr "លេខស៊េរីចុងក្រោយ"
+
+msgctxt "field:aeat.sii.report.lines,identifier_type:"
+msgid "Identifier Type"
+msgstr "ប្រភេទអត្តសញ្ញាណ"
+
+msgctxt "field:aeat.sii.report.lines,invoice:"
+msgid "Invoice"
+msgstr "វិក្កយបត្រ"
+
+msgctxt "field:aeat.sii.report.lines,invoice_kind:"
+msgid "Invoice Kind"
+msgstr "ប្រភេទវិក្កយបត្រ"
+
+msgctxt "field:aeat.sii.report.lines,invoice_operation_key:"
+msgid "SII Operation Key"
+msgstr "កូដប្រតិបត្តិការ SII"
+
+msgctxt "field:aeat.sii.report.lines,invoice_types:"
+msgid "Invoice Types"
+msgstr "ប្រភេទវិក្កយបត្រ"
+
+msgctxt "field:aeat.sii.report.lines,issue_date:"
+msgid "Issued Date"
+msgstr "កាលបរិច្ឆេទចេញ"
+
+msgctxt "field:aeat.sii.report.lines,issuer_vat_number:"
+msgid "Issuer VAT Number"
+msgstr "លេខអាករលើតម្លៃបន្ថែមរបស់អ្នកចេញ"
+
+msgctxt "field:aeat.sii.report.lines,last_modify_date:"
+msgid "Last Modification Date"
+msgstr "កាលបរិច្ឆេទកែប្រែចុងក្រោយ"
+
+msgctxt "field:aeat.sii.report.lines,presentation_date:"
+msgid "Presentation Date"
+msgstr "កាលបរិច្ឆេទដាក់ស្នើ"
+
+msgctxt "field:aeat.sii.report.lines,presenter:"
+msgid "Presenter"
+msgstr "អ្នកដាក់ស្នើ"
+
+msgctxt "field:aeat.sii.report.lines,report:"
+msgid "Issued Report"
+msgstr "របាយការណ៍វិក្កយបត្រចេញ"
+
+msgctxt "field:aeat.sii.report.lines,serial_number:"
+msgid "Serial Number"
+msgstr "លេខស៊េរី"
+
+msgctxt "field:aeat.sii.report.lines,sii_header:"
+msgid "Header"
+msgstr "ក្បាលទំព័រ"
+
+msgctxt "field:aeat.sii.report.lines,special_key:"
+msgid "Special Key"
+msgstr "កូដពិសេស"
+
+msgctxt "field:aeat.sii.report.lines,state:"
+msgid "State"
+msgstr "ស្ថានភាព"
+
+msgctxt "field:aeat.sii.report.lines,taxes:"
+msgid "Tax Lines"
+msgstr "បន្ទាត់ពន្ធ"
+
+msgctxt "field:aeat.sii.report.lines,total_amount:"
+msgid "Total Amount"
+msgstr "ចំនួនទឹកប្រាក់សរុប"
+
+msgctxt "field:aeat.sii.report.lines,vat_code:"
+msgid "VAT Code"
+msgstr "កូដអាករលើតម្លៃបន្ថែម"
+
+msgctxt "field:party.party,sii_identifier_type:"
+msgid "SII Identifier Type"
+msgstr "ប្រភេទអត្តសញ្ញាណ SII"
+
+msgctxt "field:party.party,sii_vat_code:"
+msgid "SII VAT Code"
+msgstr "កូដអាករលើតម្លៃបន្ថែម SII"
+
+msgctxt "help:account.configuration,aeat_pending_sii:"
+msgid "Automatically generate AEAT Pending SII reports by cron"
+msgstr "បង្កើតរបាយការណ៍ AEAT SII ដែលកំពុងរង់ចាំដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration,aeat_pending_sii_send:"
+msgid "Automatically send AEAT Pending SII reports by cron"
+msgstr "ផ្ញើរបាយការណ៍ AEAT SII ដែលកំពុងរង់ចាំដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration,aeat_received_sii:"
+msgid "Automatically generate AEAT Received SII reports by cron"
+msgstr ""
+"បង្កើតរបាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រទទួលដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration,aeat_received_sii_send:"
+msgid "Automatically send AEAT Received SII reports by cron"
+msgstr ""
+"ផ្ញើរបាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រទទួលដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration,sii_default_offset_days:"
+msgid "Default offset days in the invoices search for the SII Books"
+msgstr "ចំនួនថ្ងៃគម្លាតលំនាំដើមសម្រាប់ស្វែងរកវិក្កយបត្រសម្រាប់បញ្ជី SII"
+
+msgctxt "help:account.configuration.default_sii,aeat_pending_sii:"
+msgid "Automatically generate AEAT Pending SII reports by cron"
+msgstr "បង្កើតរបាយការណ៍ AEAT SII ដែលកំពុងរង់ចាំដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration.default_sii,aeat_pending_sii_send:"
+msgid "Automatically send AEAT Pending SII reports by cron"
+msgstr "ផ្ញើរបាយការណ៍ AEAT SII ដែលកំពុងរង់ចាំដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration.default_sii,aeat_received_sii:"
+msgid "Automatically generate AEAT Received SII reports by cron"
+msgstr ""
+"បង្កើតរបាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រទទួលដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration.default_sii,aeat_received_sii_send:"
+msgid "Automatically send AEAT Received SII reports by cron"
+msgstr ""
+"ផ្ញើរបាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រទទួលដោយស្វ័យប្រវត្តិតាមកាលវិភាគ"
+
+msgctxt "help:account.configuration.default_sii,sii_default_offset_days:"
+msgid "Default offset days in the invoices search for the SII Books"
+msgstr "ចំនួនថ្ងៃគម្លាតលំនាំដើមសម្រាប់ស្វែងរកវិក្កយបត្រសម្រាប់បញ្ជី SII"
+
+msgctxt "help:account.tax,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "បញ្ជាក់ថាតើពន្ធនេះអនុវត្តតាមយន្តការបង់ពន្ធបញ្ច្រាសឬទេ"
+
+msgctxt "help:account.tax,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "បញ្ជាក់ថាតើពន្ធនេះប្រើសម្រាប់សេវាឬទេ"
+
+msgctxt "help:account.tax.template,isp:"
+msgid "Indicates if the tax is Inversion del sujeto Pasivo"
+msgstr "បញ្ជាក់ថាតើពន្ធនេះអនុវត្តតាមយន្តការបង់ពន្ធបញ្ច្រាសឬទេ"
+
+msgctxt "help:account.tax.template,service:"
+msgid "Indicates if the tax is used for services"
+msgstr "បញ្ជាក់ថាតើពន្ធនេះប្រើសម្រាប់សេវាឬទេ"
+
+msgctxt "help:aeat.sii.report,load_date:"
+msgid "Filter invoices to the date whitin the period."
+msgstr "ចម្រោះវិក្កយបត្រតាមកាលបរិច្ឆេទក្នុងគ្រា។"
+
+msgctxt "model:account.configuration.default_sii,name:"
+msgid "Account Configuration Default SII Values"
+msgstr "តម្លៃ SII លំនាំដើមក្នុងការកំណត់គណនេយ្យ"
+
+msgctxt "model:aeat.sii.issued.invoice.mapper,name:"
+msgid "Tryton Issued Invoice to AEAT mapper"
+msgstr "ការផ្គូផ្គងវិក្កយបត្រចេញពី Tryton ទៅ AEAT"
+
+msgctxt "model:aeat.sii.issued.pending.view,name:"
+msgid "Create AEAT SII Issued Pending View"
+msgstr "បង្កើតទិដ្ឋភាព AEAT SII សម្រាប់វិក្កយបត្រចេញដែលកំពុងរង់ចាំ"
+
+msgctxt "model:aeat.sii.received.pending.view,name:"
+msgid "Create AEAT SII Received Pending View"
+msgstr "បង្កើតទិដ្ឋភាព AEAT SII សម្រាប់វិក្កយបត្រទទួលដែលកំពុងរង់ចាំ"
+
+msgctxt "model:aeat.sii.recieved.invoice.mapper,name:"
+msgid "Tryton Recieved Invoice to AEAT mapper"
+msgstr "ការផ្គូផ្គងវិក្កយបត្រទទួលពី Tryton ទៅ AEAT"
+
+msgctxt "model:aeat.sii.report,name:"
+msgid "SII Report"
+msgstr "របាយការណ៍ SII"
+
+msgctxt "model:aeat.sii.report.line.tax,name:"
+msgid "SII Report Line Tax"
+msgstr "ពន្ធក្នុងបន្ទាត់របាយការណ៍ SII"
+
+msgctxt "model:aeat.sii.report.lines,name:"
+msgid "AEAT SII Issued"
+msgstr "AEAT SII ដែលបានចេញ"
+
+msgctxt "model:aeat.sii.reset.keys.end,name:"
+msgid "Reset to default SII Keys End"
+msgstr "បញ្ចប់ការកំណត់កូដ SII ទៅលំនាំដើម"
+
+msgctxt "model:aeat.sii.reset.keys.start,name:"
+msgid "Reset to default SII Keys Start"
+msgstr "ចាប់ផ្ដើមកំណត់កូដ SII ទៅលំនាំដើម"
+
+msgctxt "model:ir.action,name:act_aeat_sii_issued_report"
+msgid "SII Report Issued"
+msgstr "របាយការណ៍ SII សម្រាប់វិក្កយបត្រចេញ"
+
+msgctxt "model:ir.action,name:act_aeat_sii_received_report"
+msgid "SII Report Received"
+msgstr "របាយការណ៍ SII សម្រាប់វិក្កយបត្រទទួល"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report"
+msgid "SII Report"
+msgstr "របាយការណ៍ SII"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_line"
+msgid "AEAT SII Report Lines"
+msgstr "បន្ទាត់របាយការណ៍ AEAT SII"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_line_related"
+msgid "AEAT SII Report Lines"
+msgstr "បន្ទាត់របាយការណ៍ AEAT SII"
+
+msgctxt "model:ir.action,name:act_aeat_sii_report_lines"
+msgid "SII Report Lines"
+msgstr "បន្ទាត់របាយការណ៍ SII"
+
+msgctxt "model:ir.action,name:act_aeat_sii_reset_keys"
+msgid "Reset AEAT SII Keys"
+msgstr "កំណត់កូដ AEAT SII ឡើងវិញ"
+
+msgctxt "model:ir.action,name:wizard_aeat_sii_issued_pending"
+msgid "AEAT SII Pending Issued Invoices"
+msgstr "វិក្កយបត្រចេញ AEAT SII ដែលកំពុងរង់ចាំ"
+
+msgctxt "model:ir.action,name:wizard_aeat_sii_received_pending"
+msgid "AEAT SII Pending Received Invoices"
+msgstr "វិក្កយបត្រទទួល AEAT SII ដែលកំពុងរង់ចាំ"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_delete_cancel"
+msgid "Report \"%(report)s\" must be cancelled before deletion."
+msgstr "ត្រូវបោះបង់របាយការណ៍ «%(report)s» មុននឹងលុប។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invoice_in_missing_ref"
+msgid "The invoices \"%(invoices)s\" haven't got reference."
+msgstr "វិក្កយបត្រ «%(invoices)s» ខ្វះឯកសារយោង។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_invoices_sii"
+msgid ""
+"The next invoices are related with SII books:\n"
+"%(invoices)s.\n"
+"If you edit them take care if you need to update again to SII"
+msgstr ""
+"វិក្កយបត្រខាងក្រោមពាក់ព័ន្ធនឹងបញ្ជី SII៖\n"
+"%(invoices)s។\n"
+"បើអ្នកកែសម្រួលវិក្កយបត្រទាំងនេះ សូមពិនិត្យថាតើត្រូវធ្វើបច្ចុប្បន្នភាព SII ម្តងទៀតឬទេ។"
+
+msgctxt "model:ir.message,text:msg_invoices_sii_pending"
+msgid "The next invoices are related with SII books on draft state."
+msgstr "វិក្កយបត្រខាងក្រោមពាក់ព័ន្ធនឹងបញ្ជី SII ដែលជាសេចក្តីព្រាង។"
+
+msgctxt "model:ir.message,text:msg_missing_certificate"
+msgid ""
+"There isn't a certificate deffined in the account configuration for the SII."
+msgstr "មិនទាន់បានកំណត់វិញ្ញាបនបត្រ SII ក្នុងការកំណត់គណនេយ្យទេ។"
+
+msgctxt "model:ir.message,text:msg_missing_fernet_key"
+msgid "Missing Fernet key configuration"
+msgstr "ខ្វះការកំណត់កូនសោ Fernet"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_missing_nif"
+msgid "The party of the invoice %(invoice)s must has a valid Tax Identifier."
+msgstr "ភាគីនៃវិក្កយបត្រ %(invoice)s ត្រូវមានអត្តសញ្ញាណពន្ធដែលមានសុពលភាព។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_missing_sii_keys"
+msgid "The invoice \"%(invoice)s\" haven't got the necessary SII keys filled."
+msgstr "វិក្កយបត្រ «%(invoice)s» ខ្វះកូដ SII ដែលតម្រូវឱ្យបំពេញ។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_report_duplicated_invoice"
+msgid "Invoice \"%(invoice)s\" is duplicated on SII Report \"%(report)s\"."
+msgstr "វិក្កយបត្រ «%(invoice)s» ស្ទួនក្នុងរបាយការណ៍ SII «%(report)s»។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_report_wrong_invoice_state"
+msgid "Invoice \"%(invoice)s\" must be posted, paid or refunded."
+msgstr "វិក្កយបត្រ «%(invoice)s» ត្រូវបានកត់ក្នុងបញ្ជី បង់រួច ឬសងប្រាក់វិញ។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_service_message"
+msgid "%(message)s"
+msgstr "%(message)s"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_set_simplified_invoice"
+msgid ""
+"The parties of the invoices \"%(invoices)s\" has not set the SII Identfier as"
+" 'Simplified Invoice', but the invoice SII operation key is set as "
+"'Simplified Invoice (ticket)' or 'Invoice summary entry'. The invoices will "
+"be send to AEAT without destination identification."
+msgstr ""
+"ភាគីនៃវិក្កយបត្រ «%(invoices)s» មិនបានកំណត់អត្តសញ្ញាណ SII ជា "
+"«វិក្កយបត្រសាមញ្ញ» ទេ ប៉ុន្តែកូដប្រតិបត្តិការ SII នៃវិក្កយបត្រត្រូវបានកំណត់ជា"
+" «វិក្កយបត្រសាមញ្ញ (បង្កាន់ដៃ)» ឬ «កំណត់ត្រាសង្ខេបវិក្កយបត្រ»។ "
+"វិក្កយបត្រទាំងនេះនឹងត្រូវផ្ញើទៅ AEAT ដោយមិនសម្គាល់អ្នកទទួល។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_set_simplified_party"
+msgid ""
+"The parties of the invoices \"%(invoices)s\" has the SII Identfier as "
+"'Simplified Invoice'. The SII operation key will be switched to 'Simplified "
+"Invoice (ticket)' or 'Invoice summary entry' as appropriate, and the invoices"
+" will be send to AEAT without destination identification."
+msgstr ""
+"ភាគីនៃវិក្កយបត្រ «%(invoices)s» មានអត្តសញ្ញាណ SII ជា «វិក្កយបត្រសាមញ្ញ»។ "
+"ប្រព័ន្ធនឹងប្ដូរកូដប្រតិបត្តិការ SII ទៅ «វិក្កយបត្រសាមញ្ញ (បង្កាន់ដៃ)» ឬ "
+"«កំណត់ត្រាសង្ខេបវិក្កយបត្រ» តាមករណី ហើយផ្ញើវិក្កយបត្រទៅ AEAT "
+"ដោយមិនសម្គាល់អ្នកទទួល។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_sii_operation_key_wrong"
+msgid ""
+"The invoice %(invoice)s has wrong subjected and opertion sii combination."
+msgstr ""
+"វិក្កយបត្រ %(invoice)s មានកូដកម្មវត្ថុពន្ធ និងកូដប្រតិបត្តិការ SII "
+"ដែលមិនត្រូវគ្នា។"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_wrong_identifier_type"
+msgid ""
+"The party [%(party)s] of the invoice %(invoice)s must has a valid SII "
+"Identifier [VAT (only for intracommunity operators)]."
+msgstr ""
+"ភាគី [%(party)s] នៃវិក្កយបត្រ %(invoice)s ត្រូវមានអត្តសញ្ញាណ SII មានសុពលភាព "
+"[លេខអាករលើតម្លៃបន្ថែម (សម្រាប់តែប្រតិបត្តិករក្នុងសហភាពអឺរ៉ុប)]។"
+
+msgctxt "model:ir.message,text:reports_exist"
+msgid ""
+"There are some reports in draft and/or confirmed. Any report won't be created"
+" until this reports will be processed."
+msgstr ""
+"មានរបាយការណ៍ជាសេចក្តីព្រាង ឬបានបញ្ជាក់រួច។ "
+"ប្រព័ន្ធនឹងមិនបង្កើតរបាយការណ៍ថ្មីទេ រហូតដល់ដំណើរការរបាយការណ៍ទាំងនេះ។"
+
+msgctxt "model:ir.model.button,string:cancel_button"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "model:ir.model.button,string:confirm_button"
+msgid "Confirm"
+msgstr "បញ្ជាក់"
+
+msgctxt "model:ir.model.button,string:draft_button"
+msgid "Draft"
+msgstr "សេចក្តីព្រាង"
+
+msgctxt "model:ir.model.button,string:load_invoices_button"
+msgid "Load Invoices"
+msgstr "ផ្ទុកវិក្កយបត្រ"
+
+msgctxt "model:ir.model.button,string:process_response_button"
+msgid "Process Response"
+msgstr "ដំណើរការចម្លើយ"
+
+msgctxt "model:ir.model.button,string:send_button"
+msgid "Send"
+msgstr "ផ្ញើ"
+
+msgctxt "model:ir.rule.group,name:rule_group_sii_report"
+msgid "User in company"
+msgstr "អ្នកប្រើប្រាស់ក្នុងក្រុមហ៊ុន"
+
+msgctxt "model:ir.rule.group,name:rule_group_sii_report_line"
+msgid "User in company"
+msgstr "អ្នកប្រើប្រាស់ក្នុងក្រុមហ៊ុន"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_lines_report"
+msgid "AEAT SII Report Lines"
+msgstr "បន្ទាត់របាយការណ៍ AEAT SII"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_issued"
+msgid "Create AEAT SII Report Issued Invoices"
+msgstr "បង្កើតរបាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រចេញ"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_pending_received"
+msgid "Create AEAT SII Report Received Invoices"
+msgstr "បង្កើតរបាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រទទួល"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_issued"
+msgid "AEAT SII Report Issued"
+msgstr "របាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រចេញ"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_menu"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "model:ir.ui.menu,name:menu_aeat_sii_report_received"
+msgid "AEAT SII Report Received"
+msgstr "របាយការណ៍ AEAT SII សម្រាប់វិក្កយបត្រទទួល"
+
+msgctxt "model:res.group,name:group_aeat_sii_admin"
+msgid "AEAT SII Administration"
+msgstr "ការគ្រប់គ្រង AEAT SII"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Investment Goods"
+msgstr "ទំនិញវិនិយោគ"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "វិក្កយបត្រដែលបានចេញ"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "ប្រតិបត្តិការជាក់លាក់ក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:account.invoice,sii_book_key:"
+msgid "Received Invoices"
+msgstr "វិក្កយបត្រដែលបានទទួល"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Amendment of invoices/records (registration errors)"
+msgstr "ការកែតម្រូវវិក្កយបត្រ ឬកំណត់ត្រា (កំហុសចុះបញ្ជី)"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Delete Invoices"
+msgstr "លុបវិក្កយបត្រ"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Query Invoices"
+msgstr "ស្វែងរកវិក្កយបត្រ"
+
+msgctxt "selection:account.invoice,sii_communication_type:"
+msgid "Registration of invoices/records"
+msgstr "ការចុះបញ្ជីវិក្កយបត្រ ឬកំណត់ត្រា"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production, "
+"Services and Imports"
+msgstr ""
+"សកម្មភាពជាប់ពន្ធប្រយោលទូទៅនៃប្រជុំកោះកាណារី ឬពន្ធលើផលិតកម្ម សេវា និងការនាំចូល"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr ""
+"សកម្មភាពក្រោមរបបពិសេសសម្រាប់ទំនិញប្រើរួច ស្នាដៃសិល្បៈ វត្ថុបុរាណ "
+"និងវត្ថុសម្រាប់ប្រមូល (មាត្រា 135-139 នៃច្បាប់អាករលើតម្លៃបន្ថែម)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលមិនជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលរួមមានទាំងធាតុជាប់ និងមិនជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr ""
+"ការប្រមូលជំនួសតតិយជននូវកម្រៃវិជ្ជាជីវៈ ឬកម្រៃពីកម្មសិទ្ធិឧស្សាហកម្ម "
+"សិទ្ធិអ្នកនិពន្ធ ឬសិទ្ធិស្រដៀងគ្នារបស់ដៃគូ សហការី ឬសមាជិក ដោយក្រុមហ៊ុន សមាគម "
+"អង្គការវិជ្ជាជីវៈ ឬអង្គភាពផ្សេងទៀតដែលមានមុខងារប្រមូលប្រាក់"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Export"
+msgstr "នាំចេញ"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "ឆមាសទីមួយ ឆ្នាំ 2017 និងវិក្កយបត្រផ្សេងទៀតមុនប្រើ SII"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "សកម្មភាពក្រោមរបបពន្ធទូទៅ"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr ""
+"វិក្កយបត្រដែលអាករលើតម្លៃបន្ថែមមិនទាន់ដល់កំណត់ "
+"(វិញ្ញាបនបត្របញ្ជាក់ការងារសម្រាប់ស្ថាប័នរដ្ឋបាលសាធារណៈ)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr ""
+"វិក្កយបត្រដែលអាករលើតម្លៃបន្ថែមមិនទាន់ដល់កំណត់ - ប្រតិបត្តិការបន្តតាមគ្រា"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as intermediaries"
+" in the name of and on behalf of other persons (Additional Provision 4, Royal"
+" Decree 1619/2012)"
+msgstr ""
+"ការចេញវិក្កយបត្រសម្រាប់សេវាភ្នាក់ងារទេសចរណ៍ដែលដើរតួជាអន្តរការីក្នុងនាម "
+"និងជំនួសបុគ្គលផ្សេងទៀត (បទប្បញ្ញត្តិបន្ថែមទី 4 នៃព្រះរាជក្រឹត្យ 1619/2012)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "របបពិសេសតាមមូលដ្ឋានសាច់ប្រាក់"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "របបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់ក្រុមអង្គភាព (កម្រិតខ្ពស់)"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "របបពិសេសសម្រាប់មាសវិនិយោគ"
+
+msgctxt "selection:account.invoice,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "របបពិសេសសម្រាប់ភ្នាក់ងារទេសចរណ៍"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.1, 80.2 និង 80.6 និងកំហុសផ្អែកលើច្បាប់)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.3)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "វិក្កយបត្រកែតម្រូវ (ផ្សេងទៀត)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "វិក្កយបត្រកែតម្រូវសម្រាប់វិក្កយបត្រសាមញ្ញ"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "ប័ណ្ណឥណទាន (មាត្រា 80.4)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "ពន្ធគយ - ការទូទាត់បន្ថែម"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "ការនាំចូល (DUA)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "វិក្កយបត្រ (មាត្រា 6.7.3 និង 7.3 នៃ RD1619/2012)"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "វិក្កយបត្រចេញជំនួសវិក្កយបត្រសាមញ្ញដែលបានចេញ និងដាក់ឯកសាររួច"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "កំណត់ត្រាសង្ខេបវិក្កយបត្រ"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "ឯកសារគណនេយ្យផ្សេងទៀត"
+
+msgctxt "selection:account.invoice,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"វិក្កយបត្រសាមញ្ញ (បង្កាន់ដៃ) និងវិក្កយបត្រដែលមិនសម្គាល់អ្នកទទួល (មាត្រា 6.1.d"
+" នៃ RD1619/2012)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production, "
+"Services and Imports (IPSI/IGIC)"
+msgstr ""
+"សកម្មភាពជាប់ពន្ធប្រយោលទូទៅនៃប្រជុំកោះកាណារី ឬពន្ធលើផលិតកម្ម សេវា និងការនាំចូល"
+" (IPSI/IGIC)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr ""
+"សកម្មភាពដែលអាជីវកម្មបង់ប្រាក់សំណងតាមរបបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់កសិកម្ម "
+"និងនេសាទ (REAGYP)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr ""
+"សកម្មភាពក្រោមរបបពិសេសសម្រាប់ទំនិញប្រើរួច ស្នាដៃសិល្បៈ វត្ថុបុរាណ "
+"និងវត្ថុសម្រាប់ប្រមូល (REBU) [មាត្រា 135-139 នៃច្បាប់អាករលើតម្លៃបន្ថែម]"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្ម"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "ឆមាសទីមួយ ឆ្នាំ 2017 និងវិក្កយបត្រផ្សេងទៀតមុនប្រើ SII"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "សកម្មភាពក្រោមរបបពន្ធទូទៅ"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "ការទិញទ្រព្យសកម្ម និងការផ្ដល់សេវាក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr "វិក្កយបត្រពាក់ព័ន្ធការនាំចូល (បានប្រកាសដោយគ្មានការភ្ជាប់ទៅ DUA)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "របបពិសេសតាមមូលដ្ឋានសាច់ប្រាក់"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "របបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់ក្រុមអង្គភាព (កម្រិតខ្ពស់)"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "របបពិសេសសម្រាប់មាសវិនិយោគ"
+
+msgctxt "selection:account.invoice,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "របបពិសេសសម្រាប់ភ្នាក់ងារទេសចរណ៍"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted"
+msgstr "បានទទួលយក"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted "
+msgstr "បានទទួលយក"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted with Errors"
+msgstr "បានទទួលយកដោយមានកំហុស"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Accepted with Errors "
+msgstr "បានទទួលយកដោយមានកំហុស"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Deleted"
+msgstr "បានលុប"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Duplicated / Unsubscribed"
+msgstr "ស្ទួន / បានលុបការចុះបញ្ជី"
+
+msgctxt "selection:account.invoice,sii_state:"
+msgid "Rejected"
+msgstr "បានបដិសេធ"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Investment Goods"
+msgstr "ទំនិញវិនិយោគ"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "វិក្កយបត្រដែលបានចេញ"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "ប្រតិបត្តិការជាក់លាក់ក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:account.tax,sii_book_key:"
+msgid "Received Invoices"
+msgstr "វិក្កយបត្រដែលបានទទួល"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 20"
+msgstr "លើកលែងពន្ធតាមមាត្រា 20"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 21"
+msgstr "លើកលែងពន្ធតាមមាត្រា 21"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 22"
+msgstr "លើកលែងពន្ធតាមមាត្រា 22"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 23 and Article 24"
+msgstr "លើកលែងពន្ធតាមមាត្រា 23 និងមាត្រា 24"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on account of Article 25"
+msgstr "លើកលែងពន្ធតាមមាត្រា 25"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Exempt on other grounds"
+msgstr "លើកលែងពន្ធដោយមូលហេតុផ្សេង"
+
+msgctxt "selection:account.tax,sii_exemption_cause:"
+msgid "Not Subject"
+msgstr "មិនជាប់ពន្ធ"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production, "
+"Services and Imports"
+msgstr ""
+"សកម្មភាពជាប់ពន្ធប្រយោលទូទៅនៃប្រជុំកោះកាណារី ឬពន្ធលើផលិតកម្ម សេវា និងការនាំចូល"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr ""
+"សកម្មភាពក្រោមរបបពិសេសសម្រាប់ទំនិញប្រើរួច ស្នាដៃសិល្បៈ វត្ថុបុរាណ "
+"និងវត្ថុសម្រាប់ប្រមូល (មាត្រា 135-139 នៃច្បាប់អាករលើតម្លៃបន្ថែម)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលមិនជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលរួមមានទាំងធាតុជាប់ និងមិនជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr ""
+"ការប្រមូលជំនួសតតិយជននូវកម្រៃវិជ្ជាជីវៈ ឬកម្រៃពីកម្មសិទ្ធិឧស្សាហកម្ម "
+"សិទ្ធិអ្នកនិពន្ធ ឬសិទ្ធិស្រដៀងគ្នារបស់ដៃគូ សហការី ឬសមាជិក ដោយក្រុមហ៊ុន សមាគម "
+"អង្គការវិជ្ជាជីវៈ ឬអង្គភាពផ្សេងទៀតដែលមានមុខងារប្រមូលប្រាក់"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Export"
+msgstr "នាំចេញ"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "ឆមាសទីមួយ ឆ្នាំ 2017 និងវិក្កយបត្រផ្សេងទៀតមុនប្រើ SII"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "សកម្មភាពក្រោមរបបពន្ធទូទៅ"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr ""
+"វិក្កយបត្រដែលអាករលើតម្លៃបន្ថែមមិនទាន់ដល់កំណត់ "
+"(វិញ្ញាបនបត្របញ្ជាក់ការងារសម្រាប់ស្ថាប័នរដ្ឋបាលសាធារណៈ)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr ""
+"វិក្កយបត្រដែលអាករលើតម្លៃបន្ថែមមិនទាន់ដល់កំណត់ - ប្រតិបត្តិការបន្តតាមគ្រា"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as intermediaries"
+" in the name of and on behalf of other persons (Additional Provision 4, Royal"
+" Decree 1619/2012)"
+msgstr ""
+"ការចេញវិក្កយបត្រសម្រាប់សេវាភ្នាក់ងារទេសចរណ៍ដែលដើរតួជាអន្តរការីក្នុងនាម "
+"និងជំនួសបុគ្គលផ្សេងទៀត (បទប្បញ្ញត្តិបន្ថែមទី 4 នៃព្រះរាជក្រឹត្យ 1619/2012)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "របបពិសេសតាមមូលដ្ឋានសាច់ប្រាក់"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "របបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់ក្រុមអង្គភាព (កម្រិតខ្ពស់)"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "របបពិសេសសម្រាប់មាសវិនិយោគ"
+
+msgctxt "selection:account.tax,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "របបពិសេសសម្រាប់ភ្នាក់ងារទេសចរណ៍"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.1, 80.2 និង 80.6 និងកំហុសផ្អែកលើច្បាប់)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.3)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "វិក្កយបត្រកែតម្រូវ (ផ្សេងទៀត)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "វិក្កយបត្រកែតម្រូវសម្រាប់វិក្កយបត្រសាមញ្ញ"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "ប័ណ្ណឥណទាន (មាត្រា 80.4)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "ពន្ធគយ - ការទូទាត់បន្ថែម"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "ការនាំចូល (DUA)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "វិក្កយបត្រ (មាត្រា 6.7.3 និង 7.3 នៃ RD1619/2012)"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "វិក្កយបត្រចេញជំនួសវិក្កយបត្រសាមញ្ញដែលបានចេញ និងដាក់ឯកសាររួច"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "កំណត់ត្រាសង្ខេបវិក្កយបត្រ"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "ឯកសារគណនេយ្យផ្សេងទៀត"
+
+msgctxt "selection:account.tax,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"វិក្កយបត្រសាមញ្ញ (បង្កាន់ដៃ) និងវិក្កយបត្រដែលមិនសម្គាល់អ្នកទទួល (មាត្រា 6.1.d"
+" នៃ RD1619/2012)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production, "
+"Services and Imports (IPSI/IGIC)"
+msgstr ""
+"សកម្មភាពជាប់ពន្ធប្រយោលទូទៅនៃប្រជុំកោះកាណារី ឬពន្ធលើផលិតកម្ម សេវា និងការនាំចូល"
+" (IPSI/IGIC)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr ""
+"សកម្មភាពដែលអាជីវកម្មបង់ប្រាក់សំណងតាមរបបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់កសិកម្ម "
+"និងនេសាទ (REAGYP)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr ""
+"សកម្មភាពក្រោមរបបពិសេសសម្រាប់ទំនិញប្រើរួច ស្នាដៃសិល្បៈ វត្ថុបុរាណ "
+"និងវត្ថុសម្រាប់ប្រមូល (REBU) [មាត្រា 135-139 នៃច្បាប់អាករលើតម្លៃបន្ថែម]"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្ម"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "ឆមាសទីមួយ ឆ្នាំ 2017 និងវិក្កយបត្រផ្សេងទៀតមុនប្រើ SII"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "សកម្មភាពក្រោមរបបពន្ធទូទៅ"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "ការទិញទ្រព្យសកម្ម និងការផ្ដល់សេវាក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr "វិក្កយបត្រពាក់ព័ន្ធការនាំចូល (បានប្រកាសដោយគ្មានការភ្ជាប់ទៅ DUA)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "របបពិសេសតាមមូលដ្ឋានសាច់ប្រាក់"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "របបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់ក្រុមអង្គភាព (កម្រិតខ្ពស់)"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "របបពិសេសសម្រាប់មាសវិនិយោគ"
+
+msgctxt "selection:account.tax,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "របបពិសេសសម្រាប់ភ្នាក់ងារទេសចរណ៍"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid ""
+"Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
+msgstr ""
+"ជាប់ពន្ធ - មិនលើកលែង។ ទាំងមិនប្រើ និងប្រើយន្តការបង់អាករលើតម្លៃបន្ថែមបញ្ច្រាស"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid "Subject - Not exempt. Non VAT reverse charge"
+msgstr "ជាប់ពន្ធ - មិនលើកលែង។ មិនប្រើយន្តការបង់អាករលើតម្លៃបន្ថែមបញ្ច្រាស"
+
+msgctxt "selection:account.tax,sii_subjected_key:"
+msgid "Subject - Not exempt. VAT reverse charge"
+msgstr "ជាប់ពន្ធ - មិនលើកលែង។ ប្រើយន្តការបង់អាករលើតម្លៃបន្ថែមបញ្ច្រាស"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Investment Goods"
+msgstr "ទំនិញវិនិយោគ"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Issued Invoices"
+msgstr "វិក្កយបត្រដែលបានចេញ"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Particular Intracommunity Operations"
+msgstr "ប្រតិបត្តិការជាក់លាក់ក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:account.tax.template,sii_book_key:"
+msgid "Received Invoices"
+msgstr "វិក្កយបត្រដែលបានទទួល"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 20"
+msgstr "លើកលែងពន្ធតាមមាត្រា 20"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 21"
+msgstr "លើកលែងពន្ធតាមមាត្រា 21"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 22"
+msgstr "លើកលែងពន្ធតាមមាត្រា 22"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 23 and Article 24"
+msgstr "លើកលែងពន្ធតាមមាត្រា 23 និងមាត្រា 24"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on account of Article 25"
+msgstr "លើកលែងពន្ធតាមមាត្រា 25"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Exempt on other grounds"
+msgstr "លើកលែងពន្ធដោយមូលហេតុផ្សេង"
+
+msgctxt "selection:account.tax.template,sii_exemption_cause:"
+msgid "Not Subject"
+msgstr "មិនជាប់ពន្ធ"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production, "
+"Services and Imports"
+msgstr ""
+"សកម្មភាពជាប់ពន្ធប្រយោលទូទៅនៃប្រជុំកោះកាណារី ឬពន្ធលើផលិតកម្ម សេវា និងការនាំចូល"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (135-139 of the VAT Law)"
+msgstr ""
+"សកម្មភាពក្រោមរបបពិសេសសម្រាប់ទំនិញប្រើរួច ស្នាដៃសិល្បៈ វត្ថុបុរាណ "
+"និងវត្ថុសម្រាប់ប្រមូល (មាត្រា 135-139 នៃច្បាប់អាករលើតម្លៃបន្ថែម)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Business premises lease activities not subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលមិនជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Business premises lease activities subject and not subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលរួមមានទាំងធាតុជាប់ និងមិនជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Business premises lease activities subject to withholding"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្មដែលជាប់ពន្ធកាត់ទុក"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Collections on behalf of third parties of professional fees or industrial "
+"property, copyright or other such rights by partners, associates or members "
+"undertaken by companies, associations, professional organisations or other "
+"entities that, amongst their functions, undertake collections"
+msgstr ""
+"ការប្រមូលជំនួសតតិយជននូវកម្រៃវិជ្ជាជីវៈ ឬកម្រៃពីកម្មសិទ្ធិឧស្សាហកម្ម "
+"សិទ្ធិអ្នកនិពន្ធ ឬសិទ្ធិស្រដៀងគ្នារបស់ដៃគូ សហការី ឬសមាជិក ដោយក្រុមហ៊ុន សមាគម "
+"អង្គការវិជ្ជាជីវៈ ឬអង្គភាពផ្សេងទៀតដែលមានមុខងារប្រមូលប្រាក់"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Export"
+msgstr "នាំចេញ"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "ឆមាសទីមួយ ឆ្នាំ 2017 និងវិក្កយបត្រផ្សេងទៀតមុនប្រើ SII"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "General tax regime activity"
+msgstr "សកម្មភាពក្រោមរបបពន្ធទូទៅ"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Invoice with VAT pending accrual (work certifications with Public "
+"Administration recipients)"
+msgstr ""
+"វិក្កយបត្រដែលអាករលើតម្លៃបន្ថែមមិនទាន់ដល់កំណត់ "
+"(វិញ្ញាបនបត្របញ្ជាក់ការងារសម្រាប់ស្ថាប័នរដ្ឋបាលសាធារណៈ)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Invoice with VAT pending accrual - operations of successive tract"
+msgstr ""
+"វិក្កយបត្រដែលអាករលើតម្លៃបន្ថែមមិនទាន់ដល់កំណត់ - ប្រតិបត្តិការបន្តតាមគ្រា"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid ""
+"Invoicing of the provision of travel agency services acting as intermediaries"
+" in the name of and on behalf of other persons (Additional Provision 4, Royal"
+" Decree 1619/2012)"
+msgstr ""
+"ការចេញវិក្កយបត្រសម្រាប់សេវាភ្នាក់ងារទេសចរណ៍ដែលដើរតួជាអន្តរការីក្នុងនាម "
+"និងជំនួសបុគ្គលផ្សេងទៀត (បទប្បញ្ញត្តិបន្ថែមទី 4 នៃព្រះរាជក្រឹត្យ 1619/2012)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special cash basis scheme"
+msgstr "របបពិសេសតាមមូលដ្ឋានសាច់ប្រាក់"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "របបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់ក្រុមអង្គភាព (កម្រិតខ្ពស់)"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme for investment gold"
+msgstr "របបពិសេសសម្រាប់មាសវិនិយោគ"
+
+msgctxt "selection:account.tax.template,sii_issued_key:"
+msgid "Special scheme for travel agencies"
+msgstr "របបពិសេសសម្រាប់ភ្នាក់ងារទេសចរណ៍"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.1, 80.2 និង 80.6 និងកំហុសផ្អែកលើច្បាប់)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.3)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "វិក្កយបត្រកែតម្រូវ (ផ្សេងទៀត)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "វិក្កយបត្រកែតម្រូវសម្រាប់វិក្កយបត្រសាមញ្ញ"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "ប័ណ្ណឥណទាន (មាត្រា 80.4)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "ពន្ធគយ - ការទូទាត់បន្ថែម"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Import (DUA)"
+msgstr "ការនាំចូល (DUA)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "វិក្កយបត្រ (មាត្រា 6.7.3 និង 7.3 នៃ RD1619/2012)"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "វិក្កយបត្រចេញជំនួសវិក្កយបត្រសាមញ្ញដែលបានចេញ និងដាក់ឯកសាររួច"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Invoice summary entry"
+msgstr "កំណត់ត្រាសង្ខេបវិក្កយបត្រ"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid "Other accounting documents"
+msgstr "ឯកសារគណនេយ្យផ្សេងទៀត"
+
+msgctxt "selection:account.tax.template,sii_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"វិក្កយបត្រសាមញ្ញ (បង្កាន់ដៃ) និងវិក្កយបត្រដែលមិនសម្គាល់អ្នកទទួល (មាត្រា 6.1.d"
+" នៃ RD1619/2012)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities subject to Canary Islands General Indirect Tax/Tax on Production, "
+"Services and Imports (IPSI/IGIC)"
+msgstr ""
+"សកម្មភាពជាប់ពន្ធប្រយោលទូទៅនៃប្រជុំកោះកាណារី ឬពន្ធលើផលិតកម្ម សេវា និងការនាំចូល"
+" (IPSI/IGIC)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities through which businesses pay compensation for special VAT "
+"arrangements for agriculture and fisheries (REAGYP)"
+msgstr ""
+"សកម្មភាពដែលអាជីវកម្មបង់ប្រាក់សំណងតាមរបបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់កសិកម្ម "
+"និងនេសាទ (REAGYP)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Activities to which the special scheme of used goods, works of art, "
+"antiquities and collectables (REBU) [135-139 of the VAT Law]"
+msgstr ""
+"សកម្មភាពក្រោមរបបពិសេសសម្រាប់ទំនិញប្រើរួច ស្នាដៃសិល្បៈ វត្ថុបុរាណ "
+"និងវត្ថុសម្រាប់ប្រមូល (REBU) [មាត្រា 135-139 នៃច្បាប់អាករលើតម្លៃបន្ថែម]"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Business premises lease activities"
+msgstr "សកម្មភាពជួលទីតាំងអាជីវកម្ម"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "First semester 2017 and other invoices before the SII"
+msgstr "ឆមាសទីមួយ ឆ្នាំ 2017 និងវិក្កយបត្រផ្សេងទៀតមុនប្រើ SII"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "General tax regime activity"
+msgstr "សកម្មភាពក្រោមរបបពន្ធទូទៅ"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Intra-Community acquisition of assets and provisions of services"
+msgstr "ការទិញទ្រព្យសកម្ម និងការផ្ដល់សេវាក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid ""
+"Invoice corresponding to an import (reported without been associated with a "
+"DUA)"
+msgstr "វិក្កយបត្រពាក់ព័ន្ធការនាំចូល (បានប្រកាសដោយគ្មានការភ្ជាប់ទៅ DUA)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special cash basis scheme"
+msgstr "របបពិសេសតាមមូលដ្ឋានសាច់ប្រាក់"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme applicable to groups of entities, VAT (Advanced)"
+msgstr "របបអាករលើតម្លៃបន្ថែមពិសេសសម្រាប់ក្រុមអង្គភាព (កម្រិតខ្ពស់)"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme for investment gold"
+msgstr "របបពិសេសសម្រាប់មាសវិនិយោគ"
+
+msgctxt "selection:account.tax.template,sii_received_key:"
+msgid "Special scheme for travel agencies"
+msgstr "របបពិសេសសម្រាប់ភ្នាក់ងារទេសចរណ៍"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid ""
+"Subject - Not exempt. Both non VAT reverse charge and VAT reverse charge"
+msgstr ""
+"ជាប់ពន្ធ - មិនលើកលែង។ ទាំងមិនប្រើ និងប្រើយន្តការបង់អាករលើតម្លៃបន្ថែមបញ្ច្រាស"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid "Subject - Not exempt. Non VAT reverse charge"
+msgstr "ជាប់ពន្ធ - មិនលើកលែង។ មិនប្រើយន្តការបង់អាករលើតម្លៃបន្ថែមបញ្ច្រាស"
+
+msgctxt "selection:account.tax.template,sii_subjected_key:"
+msgid "Subject - Not exempt. VAT reverse charge"
+msgstr "ជាប់ពន្ធ - មិនលើកលែង។ ប្រើយន្តការបង់អាករលើតម្លៃបន្ថែមបញ្ច្រាស"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Investment Goods"
+msgstr "ទំនិញវិនិយោគ"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Issued Invoices"
+msgstr "វិក្កយបត្រដែលបានចេញ"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Particular Intracommunity Operations"
+msgstr "ប្រតិបត្តិការជាក់លាក់ក្នុងសហភាពអឺរ៉ុប"
+
+msgctxt "selection:aeat.sii.report,book:"
+msgid "Received Invoices"
+msgstr "វិក្កយបត្រដែលបានទទួល"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Accepted"
+msgstr "បានទទួលយក"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Partially Accepted"
+msgstr "បានទទួលយកមួយផ្នែក"
+
+msgctxt "selection:aeat.sii.report,communication_state:"
+msgid "Rejected"
+msgstr "បានបដិសេធ"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Amendment of invoices/records (registration errors)"
+msgstr "ការកែតម្រូវវិក្កយបត្រ ឬកំណត់ត្រា (កំហុសចុះបញ្ជី)"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Delete Invoices"
+msgstr "លុបវិក្កយបត្រ"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Query Invoices"
+msgstr "ស្វែងរកវិក្កយបត្រ"
+
+msgctxt "selection:aeat.sii.report,operation_type:"
+msgid "Registration of invoices/records"
+msgstr "ការចុះបញ្ជីវិក្កយបត្រ ឬកំណត់ត្រា"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Cancelled"
+msgstr "បានបោះបង់"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Confirmed"
+msgstr "បានបញ្ជាក់"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Draft"
+msgstr "សេចក្តីព្រាង"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Sending"
+msgstr "កំពុងផ្ញើ"
+
+msgctxt "selection:aeat.sii.report,state:"
+msgid "Sent"
+msgstr "បានផ្ញើ"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "0.7"
+msgstr "0.7"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.0"
+msgstr "1.0"
+
+msgctxt "selection:aeat.sii.report,version:"
+msgid "1.1"
+msgstr "1.1"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Not registered (only for Spanish VAT not registered)"
+msgstr ""
+"មិនបានចុះបញ្ជី (សម្រាប់តែលេខអាករលើតម្លៃបន្ថែមអេស្ប៉ាញដែលមិនបានចុះបញ្ជី)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid ""
+"Official identification document issued by the country or region of residence"
+msgstr "ឯកសារអត្តសញ្ញាណផ្លូវការចេញដោយប្រទេស ឬតំបន់ស្នាក់នៅ"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Other supporting document"
+msgstr "ឯកសារគាំទ្រផ្សេងទៀត"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Passport"
+msgstr "លិខិតឆ្លងដែន"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Residence certificate"
+msgstr "វិញ្ញាបនបត្របញ្ជាក់ទីលំនៅ"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "Simplified Invoice"
+msgstr "វិក្កយបត្រសាមញ្ញ"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "លេខអាករលើតម្លៃបន្ថែម (សម្រាប់ប្រតិបត្តិករក្នុងស្រុក)"
+
+msgctxt "selection:aeat.sii.report.lines,identifier_type:"
+msgid "VAT (only for intracommunity operators)"
+msgstr "លេខអាករលើតម្លៃបន្ថែម (សម្រាប់តែប្រតិបត្តិករក្នុងសហភាពអឺរ៉ុប)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Art 80.1, 80.2 and 80.6 and error grounded in law)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.1, 80.2 និង 80.6 និងកំហុសផ្អែកលើច្បាប់)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Art. 80.3)"
+msgstr "វិក្កយបត្រកែតម្រូវ (មាត្រា 80.3)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice (Other)"
+msgstr "វិក្កយបត្រកែតម្រូវ (ផ្សេងទៀត)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Corrected Invoice in simplified invoices"
+msgstr "វិក្កយបត្រកែតម្រូវសម្រាប់វិក្កយបត្រសាមញ្ញ"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Credit Note (Art 80.4)"
+msgstr "ប័ណ្ណឥណទាន (មាត្រា 80.4)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Duty - Complementary clearing"
+msgstr "ពន្ធគយ - ការទូទាត់បន្ថែម"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Import (DUA)"
+msgstr "ការនាំចូល (DUA)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice (Art 6.7.3 y 7.3 of RD1619/2012)"
+msgstr "វិក្កយបត្រ (មាត្រា 6.7.3 និង 7.3 នៃ RD1619/2012)"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice issued to replace simplified invoices issued and filed"
+msgstr "វិក្កយបត្រចេញជំនួសវិក្កយបត្រសាមញ្ញដែលបានចេញ និងដាក់ឯកសាររួច"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Invoice summary entry"
+msgstr "កំណត់ត្រាសង្ខេបវិក្កយបត្រ"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid "Other accounting documents"
+msgstr "ឯកសារគណនេយ្យផ្សេងទៀត"
+
+msgctxt "selection:aeat.sii.report.lines,invoice_operation_key:"
+msgid ""
+"Simplified Invoice (ticket) and Invoices without destination identidication "
+"(Art 6.1.d of RD1619/2012)"
+msgstr ""
+"វិក្កយបត្រសាមញ្ញ (បង្កាន់ដៃ) និងវិក្កយបត្រដែលមិនសម្គាល់អ្នកទទួល (មាត្រា 6.1.d"
+" នៃ RD1619/2012)"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted"
+msgstr "បានទទួលយក"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted "
+msgstr "បានទទួលយក"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted with Errors"
+msgstr "បានទទួលយកដោយមានកំហុស"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Accepted with Errors "
+msgstr "បានទទួលយកដោយមានកំហុស"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Deleted"
+msgstr "បានលុប"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Duplicated / Unsubscribed"
+msgstr "ស្ទួន / បានលុបការចុះបញ្ជី"
+
+msgctxt "selection:aeat.sii.report.lines,state:"
+msgid "Rejected"
+msgstr "បានបដិសេធ"
+
+msgctxt "selection:ir.cron,method:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Not registered (only for Spanish VAT not registered)"
+msgstr ""
+"មិនបានចុះបញ្ជី (សម្រាប់តែលេខអាករលើតម្លៃបន្ថែមអេស្ប៉ាញដែលមិនបានចុះបញ្ជី)"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid ""
+"Official identification document issued by the country or region of residence"
+msgstr "ឯកសារអត្តសញ្ញាណផ្លូវការចេញដោយប្រទេស ឬតំបន់ស្នាក់នៅ"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Other supporting document"
+msgstr "ឯកសារគាំទ្រផ្សេងទៀត"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Passport"
+msgstr "លិខិតឆ្លងដែន"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Residence certificate"
+msgstr "វិញ្ញាបនបត្របញ្ជាក់ទីលំនៅ"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "Simplified Invoice"
+msgstr "វិក្កយបត្រសាមញ្ញ"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (for National operators)"
+msgstr "លេខអាករលើតម្លៃបន្ថែម (សម្រាប់ប្រតិបត្តិករក្នុងស្រុក)"
+
+msgctxt "selection:party.party,sii_identifier_type:"
+msgid "VAT (only for intracommunity operators)"
+msgstr "លេខអាករលើតម្លៃបន្ថែម (សម្រាប់តែប្រតិបត្តិករក្នុងសហភាពអឺរ៉ុប)"
+
+msgctxt "view:account.configuration:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.invoice:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.tax.template:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:account.tax:"
+msgid "AEAT SII"
+msgstr "AEAT SII"
+
+msgctxt "view:aeat.sii.issued.pending.view:"
+msgid "Note that this operation may take a few minutes."
+msgstr "ប្រតិបត្តិការនេះអាចចំណាយពេលពីរបីនាទី។"
+
+msgctxt "view:aeat.sii.issued.pending.view:"
+msgid "The AEAT SII Pending Issued Ivoices books will be create."
+msgstr "ប្រព័ន្ធនឹងបង្កើតបញ្ជី AEAT SII សម្រាប់វិក្កយបត្រចេញដែលកំពុងរង់ចាំ។"
+
+msgctxt "view:aeat.sii.received.pending.view:"
+msgid "Note that this operation may take a few minutes."
+msgstr "ប្រតិបត្តិការនេះអាចចំណាយពេលពីរបីនាទី។"
+
+msgctxt "view:aeat.sii.received.pending.view:"
+msgid "The AEAT SII Pending Received Ivoices books will be create."
+msgstr "ប្រព័ន្ធនឹងបង្កើតបញ្ជី AEAT SII សម្រាប់វិក្កយបត្រទទួលដែលកំពុងរង់ចាំ។"
+
+msgctxt "view:aeat.sii.report.line.tax:"
+msgid "SII Report Line Tax"
+msgstr "ពន្ធក្នុងបន្ទាត់របាយការណ៍ SII"
+
+msgctxt "view:aeat.sii.report.lines:"
+msgid "Main Information"
+msgstr "ព័ត៌មានសំខាន់"
+
+msgctxt "view:aeat.sii.report:"
+msgid "AEAT SII Issued Report"
+msgstr "របាយការណ៍ AEAT SII ដែលបានចេញ"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Confirm"
+msgstr "បញ្ជាក់"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Draft"
+msgstr "សេចក្តីព្រាង"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Load Invoices"
+msgstr "ផ្ទុកវិក្កយបត្រ"
+
+msgctxt "view:aeat.sii.report:"
+msgid "Send"
+msgstr "ផ្ញើ"
+
+msgctxt "view:aeat.sii.reset.keys.end:"
+msgid "The AEAT SII Keys have been reset."
+msgstr "កូដ AEAT SII ត្រូវបានកំណត់ឡើងវិញ។"
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "Note that this operation may take a few minutes."
+msgstr "ប្រតិបត្តិការនេះអាចចំណាយពេលពីរបីនាទី។"
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "Only will be reset the draft invoices."
+msgstr "ប្រព័ន្ធនឹងកំណត់ឡើងវិញតែវិក្កយបត្រជាសេចក្តីព្រាងប៉ុណ្ណោះ។"
+
+msgctxt "view:aeat.sii.reset.keys.start:"
+msgid "The AEAT SII Keys for selected invoices will be reset to default."
+msgstr ""
+"កូដ AEAT SII សម្រាប់វិក្កយបត្រដែលបានជ្រើសរើសនឹងត្រូវបានកំណត់ទៅលំនាំដើម។"
+
+msgctxt "view:company.company:"
+msgid "Certificate"
+msgstr "វិញ្ញាបនបត្រ"
+
+msgctxt "wizard_button:aeat.sii.issued.pending,view,create_:"
+msgid "Create"
+msgstr "បង្កើត"
+
+msgctxt "wizard_button:aeat.sii.issued.pending,view,end:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard_button:aeat.sii.received.pending,view,create_:"
+msgid "Create"
+msgstr "បង្កើត"
+
+msgctxt "wizard_button:aeat.sii.received.pending,view,end:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,done,end:"
+msgid "Ok"
+msgstr "យល់ព្រម"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,start,end:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard_button:aeat.sii.reset.keys,start,reset:"
+msgid "Reset"
+msgstr "កំណត់ឡើងវិញ"
+
+msgctxt "field:company.company,registration_data_book:"
+msgid "Book"
+msgstr "បញ្ជីគណនេយ្យ"
+
+msgctxt "wizard_button:aeat.sii.load_pkcs12,start,end:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard_button:aeat.sii.load_pkcs12,start,load:"
+msgid "Load"
+msgstr "ផ្ទុក"
+
+msgctxt "field:aeat.sii.report.lines,invoice_party:"
+msgid "Invoice Party"
+msgstr "ភាគីក្នុងវិក្កយបត្រ"
+
+msgctxt "field:aeat.sii.report.lines,invoice_date:"
+msgid "Invoice Date"
+msgstr "កាលបរិច្ឆេទវិក្កយបត្រ"
+
+msgctxt "field:aeat.sii.report.lines,invoice_total_amount:"
+msgid "Invoice Total Amount"
+msgstr "ចំនួនទឹកប្រាក់វិក្កយបត្រសរុប"
